@@ -26,20 +26,26 @@
         <jdbc:script location="classpath:/sql/createAndPopulateDatabase.sql"/>
     </jdbc:embedded-database>-->
   
-    <jdbc:embedded-database id="embeddedDataSource" type="DERBY"/>
+    <!--    <jdbc:embedded-database id="embeddedDataSource" type="DERBY"/>-->
+    
+    <bean id="embeddedDataSource" class="org.apache.derby.jdbc.EmbeddedDataSource">
+        <property name="databaseName" value="TestPU"/>
+        <property name="createDatabase" value="create" />
+    </bean>
+
     
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
     
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+<!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
         <property name="url" value="jdbc:derby://localhost:1527/pa165" />
         <property name="username" value="pa165" />
         <property name="password" value="pa165" />
-    </bean>
+    </bean>-->
     
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="TestPU"/>
-        <property name="dataSource" ref="dataSource"/>
+        <property name="dataSource" ref="embeddedDataSource"/>
     </bean>
     
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">

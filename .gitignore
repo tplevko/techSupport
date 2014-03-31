@@ -4,3 +4,8 @@
 *.jar
 *.war
 *.ear
+*~
+/secureAppExample/target/
+/secureSpringApp/secureAppExample/target/
+/secureSpringApp/secureAppExample-web/target/
+/secureSpringApp/secureAppExample-impl/target/

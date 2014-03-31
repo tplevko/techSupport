@@ -1,15 +1,13 @@
 package cz.muni.fi.tplevko.secureappexample.entity;
 
 import java.io.Serializable;
-import java.util.Set;
 import javax.mail.internet.InternetAddress;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-//import javax.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 
 /**
  *
@@ -17,32 +15,25 @@ import javax.persistence.Id;
  */
 @Entity
 public class Account implements Serializable {
-
     private static final long serialVersionUID = 1L;
-
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
-    @Column(length = 40, nullable = false, unique=true)
-    private String name;
-
-    @Column(nullable = false, unique=true)
-    private String email;
-
-    // TODO : tu bude presna dlza retazca...
-    @Column(length = 64, nullable = false)
-    private String password;
-
-    @Column(length = 64, nullable = false)
-    private String salt;
-
-    // TODO : ako presne ukladat tie roly? 
     
-//    @ElementCollection
-//    private Set<String> roles;
-
-//    @NotNull
+    @Column(length = 40, nullable = false)
+    private String name;
+    
+    @Column(length = 50, nullable = false)
+    private InternetAddress email;
+    
+    // TODO : tu bude presna dlza retazca...
+    @Column(length = 50, nullable = false)
+    private String password;
+    
+    @Column(length = 8, nullable = false)
+    private String salt;
+    
+    @NotNull
     private boolean active;
 
     public Long getId() {
@@ -53,14 +44,6 @@ public class Account implements Serializable {
         this.id = id;
     }
 
-//    public Set<String> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(Set<String> roles) {
-//        this.roles = roles;
-//    }
-
     public boolean isActive() {
         return active;
     }
@@ -69,11 +52,11 @@ public class Account implements Serializable {
         this.active = active;
     }
 
-    public String getEmail() {
+    public InternetAddress getEmail() {
         return email;
     }
 
-    public void setEmail(String email) {
+    public void setEmail(InternetAddress email) {
         this.email = email;
     }
 
@@ -84,7 +67,7 @@ public class Account implements Serializable {
     public void setSalt(String salt) {
         this.salt = salt;
     }
-
+    
     public String getName() {
         return name;
     }
@@ -101,8 +84,6 @@ public class Account implements Serializable {
         this.password = password;
     }
 
-    // TODO : zisti ako spravit dobry hashcode...
-    
     @Override
     public int hashCode() {
         int hash = 0;
@@ -110,13 +91,9 @@ public class Account implements Serializable {
         return hash;
     }
 
-    // TODO : prepisat equals 
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (object == null) {
-            return false;
-        }
         if (!(object instanceof Account)) {
             return false;
         }
@@ -131,5 +108,5 @@ public class Account implements Serializable {
     public String toString() {
         return "cz.muni.fi.tplevko.secureappexample.entity.Account[ id=" + id + " ]";
     }
-
+    
 }
