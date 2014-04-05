@@ -1,14 +1,16 @@
 package cz.muni.fi.tplevko.secureappexample.entity;
 
 import java.io.Serializable;
-import java.util.Set;
-import javax.mail.internet.InternetAddress;
+import java.util.Date;
+import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.PrePersist;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 //import javax.validation.constraints.NotNull;
 
 /**
@@ -39,13 +41,22 @@ public class Account implements Serializable {
 
 //    @Column(name = "created_at")
 //    private Date createdAt;
-
     // TODO : ulozenie casu registracie
     // TODO : ako presne ukladat tie roly? 
 //    @ElementCollection
 //    private Set<String> roles;
 //    @NotNull
     private boolean active;
+
+    @Column(name = "createdAt", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date createdAt;
+
+    // auto generate timestamp on entity create time
+    @PrePersist
+    void createdAt() {
+        this.createdAt = new Date();
+    }
 
     public Long getId() {
         return id;
@@ -62,6 +73,14 @@ public class Account implements Serializable {
 //    public void setRoles(Set<String> roles) {
 //        this.roles = roles;
 //    }
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
     public boolean isActive() {
         return active;
     }
