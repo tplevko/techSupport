@@ -38,6 +38,11 @@
         <jdbc:script location="classpath:/sql/createAndPopulateDb.sql" />
     </jdbc:embedded-database>-->
 
+    <jdbc:initialize-database data-source="dataSource">
+        <jdbc:script location="classpath:/sql/initDb.sql"/>
+<!--        <jdbc:script location="classpath:com/foo/sql/db-test-data.sql"/>-->
+    </jdbc:initialize-database>
+
     
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
     

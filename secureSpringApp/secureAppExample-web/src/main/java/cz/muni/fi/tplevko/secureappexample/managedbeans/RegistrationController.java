@@ -35,7 +35,7 @@ public class RegistrationController implements Serializable {
 
     @Autowired(required = true)
 //    @Qualifier("accountService")
-    AccountService accountService;
+    private AccountService accountService;
 
     public String name;
     public String email;
