@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.secureappexample.dao;
 
 import cz.muni.fi.tplevko.secureappexample.entity.Order;
+import java.util.List;
 
 /**
  *
@@ -16,5 +17,5 @@ public interface OrderDao {
 
     public Order findOrderById(Long id);
 
-    
+    public List<Order> getAllOrders();
 }

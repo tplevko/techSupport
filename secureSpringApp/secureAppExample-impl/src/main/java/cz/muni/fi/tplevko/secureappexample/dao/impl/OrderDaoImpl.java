@@ -2,8 +2,12 @@ package cz.muni.fi.tplevko.secureappexample.dao.impl;
 
 import cz.muni.fi.tplevko.secureappexample.dao.OrderDao;
 import cz.muni.fi.tplevko.secureappexample.entity.Order;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaQuery;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -82,6 +86,18 @@ public class OrderDaoImpl implements OrderDao {
 
     }
 
+    @Override
+    public List<Order> getAllOrders() {
+
+        List<Order> accounts = new ArrayList<>();
+
+        CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+        cq.select(cq.from(Order.class));
+        Query q = em.createQuery(cq);
+        accounts = q.getResultList();
+        return accounts;
+    }
+
     private void validateOrder(Order order) {
         if (order.getCalendar() == null) {
             throw new IllegalArgumentException("Order callendar is null... it should not be null...");
@@ -91,9 +107,9 @@ public class OrderDaoImpl implements OrderDao {
             throw new IllegalArgumentException("Order has to have the items set");
         }
 
-//        if (order.getCustomer() == null) {
-//            throw new IllegalArgumentException("Customer must be set, it's null");
-//        }
+        if (order.getOwner() == null) {
+            throw new IllegalArgumentException("Customer must be set, it's null");
+        }
     }
 
 }

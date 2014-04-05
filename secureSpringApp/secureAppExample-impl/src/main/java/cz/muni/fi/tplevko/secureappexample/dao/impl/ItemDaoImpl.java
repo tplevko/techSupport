@@ -2,9 +2,14 @@ package cz.muni.fi.tplevko.secureappexample.dao.impl;
 
 import cz.muni.fi.tplevko.secureappexample.dao.ItemDao;
 import cz.muni.fi.tplevko.secureappexample.entity.Item;
+import cz.muni.fi.tplevko.secureappexample.entity.Order;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
+import javax.persistence.criteria.CriteriaQuery;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -93,6 +98,18 @@ public class ItemDaoImpl implements ItemDao {
         query.setParameter("name", name);
         item = query.getSingleResult();
         return item;
+    }
+
+    @Override
+    public List<Item> getAllItems() {
+
+        List<Item> accounts = new ArrayList<>();
+
+        CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
+        cq.select(cq.from(Item.class));
+        Query q = em.createQuery(cq);
+        accounts = q.getResultList();
+        return accounts;
     }
 
     private void validateItem(Item item) {

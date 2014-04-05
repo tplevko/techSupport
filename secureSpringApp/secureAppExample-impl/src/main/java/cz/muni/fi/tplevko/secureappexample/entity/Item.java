@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.secureappexample.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -20,6 +21,10 @@ public class Item implements Serializable {
     private Long id;
 
     private String name;
+    
+    // TODO : Ako reprezentovat cenu itemu? - 
+    // zalezi od potreby, ale BigDecimal by mal byt celkom v pohode...
+    private BigDecimal price;
 
     public String getName() {
         return name;
@@ -27,6 +32,14 @@ public class Item implements Serializable {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public BigDecimal getPrice() {
+        return price;
+    }
+
+    public void setPrice(BigDecimal price) {
+        this.price = price;
     }
 
     public Long getId() {

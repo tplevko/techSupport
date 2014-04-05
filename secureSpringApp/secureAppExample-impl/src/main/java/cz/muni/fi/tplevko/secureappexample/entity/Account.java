@@ -39,6 +39,11 @@ public class Account implements Serializable {
     @Column(length = 64, nullable = false)
     private String salt;
 
+    // TODO : ako ukladat adresu? 
+    
+//    @Column()
+//    private String Address;
+
 //    @Column(name = "created_at")
 //    private Date createdAt;
     // TODO : ulozenie casu registracie

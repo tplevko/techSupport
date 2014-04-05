@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.secureappexample.dao;
 
 import cz.muni.fi.tplevko.secureappexample.entity.Item;
+import java.util.List;
 
 /**
  *
@@ -17,4 +18,7 @@ public interface ItemDao {
     public Item findItemById(Long id);
 
     public Item findItemByName(String name);
+    
+    public List<Item> getAllItems();
+
 }

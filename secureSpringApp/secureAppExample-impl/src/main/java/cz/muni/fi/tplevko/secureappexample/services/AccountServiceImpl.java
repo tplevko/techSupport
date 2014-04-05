@@ -55,8 +55,8 @@ public class AccountServiceImpl implements AccountService {
             throw new IllegalArgumentException("Account to be created is null");
         }
 
-        if (account.getId() != null) {
-            throw new IllegalArgumentException("AccountDTO has set id");
+        if (account.getId() == null) {
+            throw new IllegalArgumentException("Account has not set id");
         }
 
         accountDao.updateAccount(account);
@@ -69,7 +69,7 @@ public class AccountServiceImpl implements AccountService {
             throw new IllegalArgumentException("Account to be created is null");
         }
 
-        if (account.getId() != null) {
+        if (account.getId() == null) {
             throw new IllegalArgumentException("AccountDTO has set id");
         }
 

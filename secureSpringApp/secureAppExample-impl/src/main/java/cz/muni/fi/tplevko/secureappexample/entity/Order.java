@@ -8,6 +8,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
 
 /**
@@ -16,6 +17,8 @@ import javax.persistence.Temporal;
  */
 @Entity
 public class Order implements Serializable {
+    
+    // TODO : popridavat integritne obmedzenia...
     
     private static final long serialVersionUID = 1L;
     
@@ -29,6 +32,17 @@ public class Order implements Serializable {
     @OneToMany
     private List<Item> items;
 
+    @OneToOne
+    private Account owner;
+
+    public Account getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Account owner) {
+        this.owner = owner;
+    }
+    
     public Calendar getCalendar() {
         return calendar;
     }
