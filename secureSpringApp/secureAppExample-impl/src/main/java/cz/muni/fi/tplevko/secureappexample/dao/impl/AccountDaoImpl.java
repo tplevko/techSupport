@@ -41,14 +41,12 @@ public class AccountDaoImpl implements AccountDao {
         }
 
         validateAccount(account);
-
         em.persist(account);
 
     }
 
     @Override
-    public void deleteAccount(Account account
-    ) {
+    public void deleteAccount(Account account) {
 
         if (account == null) {
             throw new IllegalArgumentException("Account to be created is null");
@@ -62,8 +60,7 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public void updateAccount(Account account
-    ) {
+    public void updateAccount(Account account) {
 
         if (account == null) {
             throw new IllegalArgumentException("Account to be updated is null");
@@ -82,8 +79,7 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public Account findAccountById(Long id
-    ) {
+    public Account findAccountById(Long id) {
 
         if (id == null) {
             throw new IllegalArgumentException("Account id to be retrieved is null");
@@ -95,8 +91,7 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public Account findAccountByName(String name
-    ) {
+    public Account findAccountByName(String name) {
 
         Account account = null;
         final String qstring = "SELECT e FROM Account e WHERE e.name = :name";
@@ -108,8 +103,7 @@ public class AccountDaoImpl implements AccountDao {
     }
 
     @Override
-    public Account findAccountByEmail(String email
-    ) {
+    public Account findAccountByEmail(String email) {
 
         Account account = null;
         final String qstring = "SELECT e FROM Account e WHERE e.email = :email";
@@ -130,6 +124,15 @@ public class AccountDaoImpl implements AccountDao {
         Query q = em.createQuery(cq);
         accounts = q.getResultList();
         return accounts;
+    }
+
+    // TODO
+    @Override
+    public void confirmRegistration(Account account) {
+        
+        validateAccount(account);
+        account.setActive(true);
+        em.merge(account);
     }
 
     private void validateAccount(Account account) {

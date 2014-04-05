@@ -23,4 +23,7 @@ public interface AccountDao {
     public Account findAccountByEmail(String email);
 
     public List<Account> getAllAccounts();
+    
+    // tato metoda bude chranena...
+    public void confirmRegistration(Account account);
 }

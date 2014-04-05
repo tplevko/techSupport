@@ -3,7 +3,8 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets" >
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:p="http://primefaces.org/ui">
 
     <ui:composition template="./template.xhtml">
 
@@ -48,10 +49,24 @@
                     </h:inputSecret> 
                     <h:message for="confirmPassword" />
 
+                    <!-- ############## ALLOW THIS LATER ################# -->
+                    
+<!--                    <p:captcha label="Captcha"/>
+
+                    <p:messages showDetail="true"/>  -->
+                    
+                    <!-- ############## ALLOW THIS LATER ################# -->
+
+                    
+<!--                <p:commandButton value="Check" ajax="false"  
+                                 actionListener="#{captchaBean.submit}" />-->
 
                     <h:commandButton id="sub" value="create" type="submit" action="#{registrationController.addCustomer()}" />
                     <h:commandButton value="cancel" immediate="true" type="submit" action="#{registrationController.customerList}" />
                 </h:panelGrid>
+
+
+
             </h:form>
 
         </ui:define>

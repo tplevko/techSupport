@@ -49,13 +49,31 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Account updateAccount(Account account) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void updateAccount(Account account) {
+
+        if (account == null) {
+            throw new IllegalArgumentException("Account to be created is null");
+        }
+
+        if (account.getId() != null) {
+            throw new IllegalArgumentException("AccountDTO has set id");
+        }
+
+        accountDao.updateAccount(account);
     }
 
     @Override
-    public Account deleteAccount(Account account) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void deleteAccount(Account account) {
+
+        if (account == null) {
+            throw new IllegalArgumentException("Account to be created is null");
+        }
+
+        if (account.getId() != null) {
+            throw new IllegalArgumentException("AccountDTO has set id");
+        }
+
+        accountDao.deleteAccount(account);
     }
 
     @Override
@@ -104,4 +122,8 @@ public class AccountServiceImpl implements AccountService {
         return account;
     }
 
+    public void activateAccount(Account account) {
+        
+        accountDao.confirmRegistration(account);
+    }
 }

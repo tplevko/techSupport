@@ -24,10 +24,10 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(length = 40, nullable = false, unique=true)
+    @Column(length = 40, nullable = false, unique = true)
     private String name;
 
-    @Column(nullable = false, unique=true)
+    @Column(nullable = false, unique = true)
     private String email;
 
     // TODO : tu bude presna dlza retazca...
@@ -37,11 +37,13 @@ public class Account implements Serializable {
     @Column(length = 64, nullable = false)
     private String salt;
 
+//    @Column(name = "created_at")
+//    private Date createdAt;
+
+    // TODO : ulozenie casu registracie
     // TODO : ako presne ukladat tie roly? 
-    
 //    @ElementCollection
 //    private Set<String> roles;
-
 //    @NotNull
     private boolean active;
 
@@ -60,7 +62,6 @@ public class Account implements Serializable {
 //    public void setRoles(Set<String> roles) {
 //        this.roles = roles;
 //    }
-
     public boolean isActive() {
         return active;
     }
@@ -102,7 +103,6 @@ public class Account implements Serializable {
     }
 
     // TODO : zisti ako spravit dobry hashcode...
-    
     @Override
     public int hashCode() {
         int hash = 0;

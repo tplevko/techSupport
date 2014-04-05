@@ -56,6 +56,14 @@
             <version>2.1.7</version>
         </dependency>
         
+        <!-- primefaces - so far only because of the recaptcha functionality... -->
+        <dependency>
+            <groupId>org.primefaces</groupId>
+            <artifactId>primefaces</artifactId>
+            <version>4.0</version>
+        </dependency>
+            
+        
         <!--        <dependency>
             <groupId>com.sun.facelets</groupId>
             <artifactId>jsf-facelets</artifactId>

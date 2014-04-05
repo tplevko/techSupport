@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.secureappexample.managedbeans;
 
 import cz.muni.fi.tplevko.secureappexample.entity.Account;
+import cz.muni.fi.tplevko.secureappexample.managedbeans.security.ConfirmationEmailProducer;
 import cz.muni.fi.tplevko.secureappexample.services.AccountService;
 import cz.muni.fi.tplevko.secureappexample.utils.ShaEncoder;
 import java.io.Serializable;
@@ -27,6 +28,10 @@ public class RegistrationController implements Serializable {
 
 //    @Autowired
     private FacesContext facesContext = FacesContext.getCurrentInstance();
+
+    @Autowired
+//    @Qualifier("registrationService")
+    private ConfirmationEmailProducer confirmationEmailProducer;
 
     @Autowired(required = true)
 //    @Qualifier("accountService")
@@ -88,12 +93,23 @@ public class RegistrationController implements Serializable {
             String message = "account successfully created";
 //            facesContext.addMessage(null, new FacesMessage(message));
 
+////////////////////////////
+//
+//         // TODO : allow this...
+//
+//            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
+//
+//            FacesContext.getCurrentInstance().addMessage(null, msg);
+////////////////////////////
+
+            Account newAccount = accountService.findAccountByEmail(email);
+
             // TODO : sprava o uspechu
-            
+            confirmationEmailProducer.sendMail(name, newAccount.getSalt(), email);
+
         } catch (Exception e) {
- 
+
             // TODO : sprava o neuspechu
-            
 //            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getLocalizedMessage(), "Registration unsuccessful");
 //            facesContext.addMessage(null, m);
         }
