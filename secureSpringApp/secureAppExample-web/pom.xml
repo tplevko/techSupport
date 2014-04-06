@@ -12,12 +12,12 @@
     <packaging>war</packaging>
 
     <name>secureAppExample-web</name>
-
+<!--
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.version>3.2.8.RELEASE</spring.version>
-    </properties>
+    </properties>-->
 
     <dependencies>
         
@@ -62,14 +62,6 @@
             <artifactId>primefaces</artifactId>
             <version>4.0</version>
         </dependency>
-            
-        
-        <!--        <dependency>
-            <groupId>com.sun.facelets</groupId>
-            <artifactId>jsf-facelets</artifactId>
-            <version>1.1.14</version>
-        </dependency>-->
-
  
         <dependency>
             <groupId>javax.servlet</groupId>
@@ -102,23 +94,6 @@
         </dependency>-->
 
         <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-core</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-      
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-aspects</artifactId>
-            <version>${spring.version}</version>
-        </dependency>
-        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
             <version>1.7.4</version>
@@ -129,26 +104,6 @@
             <version>1.7.4</version>
         </dependency>
 
-        <!--
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-web</artifactId>
-            <version>3.1.1.RELEASE</version>
-        </dependency>-->
-        
-        <!-- test dependencies -->
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>4.10</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.mockito</groupId>
-            <artifactId>mockito-core</artifactId>
-            <version>1.9.5</version>
-            <scope>test</scope>
-        </dependency>
     </dependencies>
 
     <build>

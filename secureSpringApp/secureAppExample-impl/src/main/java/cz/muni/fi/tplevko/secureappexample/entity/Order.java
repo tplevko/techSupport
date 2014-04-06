@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.secureappexample.entity;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 import java.util.Calendar;
 import java.util.List;
 import javax.persistence.Entity;
@@ -34,7 +35,17 @@ public class Order implements Serializable {
 
     @OneToOne
     private Account owner;
+    
+    private BigDecimal totalPrice;
 
+    public BigDecimal getTotalPrice() {
+        return totalPrice;
+    }
+
+    public void setTotalPrice(BigDecimal totalPrice) {
+        this.totalPrice = totalPrice;
+    }
+    
     public Account getOwner() {
         return owner;
     }

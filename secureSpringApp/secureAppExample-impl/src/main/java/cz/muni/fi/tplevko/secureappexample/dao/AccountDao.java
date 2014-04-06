@@ -24,6 +24,6 @@ public interface AccountDao {
 
     public List<Account> getAllAccounts();
     
-    // tato metoda bude chranena...
+    // tato metoda bude chranena anotaciami
     public void confirmRegistration(Account account);
 }
