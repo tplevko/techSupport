@@ -21,15 +21,32 @@ public class ItemController implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-//    @Autowired
-//    private FacesContext facesContext = FacesContext.getCurrentInstance();
     @Autowired(required = true)
-//    @Qualifier("accountService")
+//    @Qualifier("itemService")
     private ItemService itemService;
+    
+    
+    private Item selectedItem;
 
     public String name;
     public BigDecimal price;
 
+    public ItemService getItemService() {
+        return itemService;
+    }
+
+    public void setItemService(ItemService itemService) {
+        this.itemService = itemService;
+    }
+
+    public Item getSelectedItem() {
+        return selectedItem;
+    }
+
+    public void setSelectedItem(Item selectedItem) {
+        this.selectedItem = selectedItem;
+    }
+    
     public String getName() {
         return name;
     }
@@ -66,5 +83,24 @@ public class ItemController implements Serializable {
             // TODO : sprava o neuspechu
         }
     }
+    
+    public String selectItem(Long Id) {
+//        
+//        return itemService.findItem(ID).getId();
+
+        selectedItem = itemService.findItem(Id);
+        return "/item/viewItem?faces-redirect=true";
+    }
+    
+    public String deleteItem(Long Id) {
+        
+        Item itemToBeDeleted = itemService.findItem(Id);
+        itemService.deleteItem(itemToBeDeleted);
+        return "/item/itemList?faces-redirect=true";
+    }
+        
+//        return itemService.findItem(Id);
+//        
+//    }
 
 }
