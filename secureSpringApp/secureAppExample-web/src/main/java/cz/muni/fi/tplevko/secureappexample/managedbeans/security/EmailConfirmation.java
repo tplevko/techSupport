@@ -24,7 +24,7 @@ public class EmailConfirmation {
         Account accountToVerify;
         accountToVerify = accountService.findAccountByEmail(emailAddress);
 
-        String stringToCompare = ShaEncoder.hash(accountToVerify.getEmail(), accountToVerify.getSalt());
+        String stringToCompare = ShaEncoder.sha256hash(accountToVerify.getEmail(), accountToVerify.getSalt());
 
         if (randString.contentEquals(stringToCompare)) {
 

@@ -8,6 +8,7 @@ import java.security.SecureRandom;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.AbstractMap;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -22,6 +23,7 @@ import javax.crypto.spec.PBEKeySpec;
 public class ShaEncoder {
 
     private static SecureRandom random = new SecureRandom();
+
     private static final int ITERATIONS = 100;
     private static final int KEY_LENGTH = 256;
 
@@ -36,8 +38,8 @@ public class ShaEncoder {
         Map<String, String> passMap = new HashMap<>();
 
         String salt = generateSalt();
-        // TODO : validate if passwd is strong enough
-        String passHash = hash(passwd, salt);
+        // TODO : validate if passwd is strong enough -- possibly not...
+        String passHash = sha256hash(passwd, salt);
 
         passMap.put("salt", salt);
         passMap.put("passHash", passHash);
@@ -45,8 +47,8 @@ public class ShaEncoder {
         return passMap;
     }
 
-    public static String hash(String passwd, String salt) {
-       
+    public static String sha256hash(String passwd, String salt) {
+
         if (passwd != null && salt != null) {
             String saltedPasswd = passwd + salt;
 
@@ -72,21 +74,49 @@ public class ShaEncoder {
     }
     
     
-    
-    
-    
-    
-    
-    
-    
-    public static byte[] hash(char[] password, byte[] salt) {
-//        char[] pwd = cloneArrayAndEraseOriginal(password);
-        KeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
-        try {
-            SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-            return secretKeyFactory.generateSecret(spec).getEncoded();
-        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-            throw new AssertionError("Error while hashing a password: " + e.getMessage(), e);
+
+    // TODO : not working properly... repair it...
+    public static String generateStorngPasswordHash(String password, String salt) {
+
+        if (password != null && salt != null) {
+//            String saltedPasswd = passwd + salt;
+            try {
+
+                char[] chars = password.toCharArray();
+                byte[] saltCahrs = salt.getBytes();
+
+                PBEKeySpec spec = new PBEKeySpec(chars, saltCahrs, ITERATIONS, 64 * 8);
+                SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+                String hash = skf.generateSecret(spec).getEncoded().toString();
+
+                return hash;
+                
+            } catch (NoSuchAlgorithmException e) {
+                e.printStackTrace();
+            } catch (InvalidKeySpecException e) {
+                e.printStackTrace();
+            }
         }
+
+//        PBEKeySpec spec = new PBEKeySpec(chars, saltCahrs, ITERATIONS, 64 * 8);
+//        SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+//        String hash = skf.generateSecret(spec).getEncoded().toString();
+        return null;
     }
+
+    public boolean authenticate(String attemptedPassword, String encryptedPassword, String salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
+
+        String encryptedAttemptedPassword = generateStorngPasswordHash(attemptedPassword, salt);
+        return encryptedPassword.equals(encryptedAttemptedPassword);
+    }
+
+//    public static byte[] hash(char[] password, byte[] salt) {
+//        KeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
+//        try {
+//            SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
+//            return secretKeyFactory.generateSecret(spec).getEncoded();
+//        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
+//            throw new AssertionError("Error while hashing a password: " + e.getMessage(), e);
+//        }
+//    }
 }

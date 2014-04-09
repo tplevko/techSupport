@@ -2,8 +2,10 @@ package cz.muni.fi.tplevko.secureappexample.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Set;
 import javax.persistence.Basic;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -37,7 +39,7 @@ public class Account implements Serializable {
     private String email;
 
     // TODO : tu bude presna dlza retazca...
-    @Column(length = 64, nullable = false)
+    @Column(length = 256, nullable = false)
     private String password;
 
     @Column(length = 64, nullable = false)
@@ -48,13 +50,9 @@ public class Account implements Serializable {
 //    @Column()
 //    private String Address;
 
-//    @Column(name = "created_at")
-//    private Date createdAt;
-    // TODO : ulozenie casu registracie
-    // TODO : ako presne ukladat tie roly? 
-//    @ElementCollection
-//    private Set<String> roles;
-//    @NotNull
+    @ElementCollection
+    private Set<String> roles;
+    
     private boolean active;
 
     @Column(name = "createdAt", nullable = false)

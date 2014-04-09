@@ -19,7 +19,7 @@ public class ConfirmationEmailMessage {
     // TODO : dat to do properties... 
     public String generateMessage(String userName, String emailAddress, String salt) {
         
-        String hash = ShaEncoder.hash(emailAddress, salt);
+        String hash = ShaEncoder.sha256hash(emailAddress, salt);
         
         String message = "Dear " + userName + "\n" +
                 "you have registered on our site...\n" + 

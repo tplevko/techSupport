@@ -77,7 +77,7 @@ public class RegistrationController implements Serializable {
         String passwordHash;
 
         salt = ShaEncoder.generateSalt();
-        passwordHash = ShaEncoder.hash(password, salt);
+        passwordHash = ShaEncoder.sha256hash(password, salt);
 
         try {
 
