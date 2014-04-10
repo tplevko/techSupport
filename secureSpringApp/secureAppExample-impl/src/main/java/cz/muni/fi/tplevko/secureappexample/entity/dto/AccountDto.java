@@ -1,23 +1,28 @@
 package cz.muni.fi.tplevko.secureappexample.entity.dto;
 
+import java.util.Date;
+
 /**
  *
  * @author tplevko
  */
-public class AccountDTO {
+public class AccountDto {
 
-    private long id;
+    private Long id;
     private String name;
     private String email;
-    
     private String salt;
     private String password;
+    private boolean isAdmin;
+    private boolean active;
+    private Date createdAt;
 
-    public long getId() {
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -52,4 +57,30 @@ public class AccountDTO {
     public void setSalt(String salt) {
         this.salt = salt;
     }    
+
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+    
+    
 }

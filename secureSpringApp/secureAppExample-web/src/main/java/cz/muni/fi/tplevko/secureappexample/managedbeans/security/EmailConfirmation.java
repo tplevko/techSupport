@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.secureappexample.managedbeans.security;
 
 import cz.muni.fi.tplevko.secureappexample.entity.Account;
+import cz.muni.fi.tplevko.secureappexample.entity.dto.AccountDto;
 import cz.muni.fi.tplevko.secureappexample.services.AccountService;
 import cz.muni.fi.tplevko.secureappexample.utils.ShaEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,7 +22,7 @@ public class EmailConfirmation {
     public boolean verifyAccount(String emailAddress, String randString) {
 
         // asi try / catch blok, pre pripad, ze ten email neni platny...
-        Account accountToVerify;
+        AccountDto accountToVerify;
         accountToVerify = accountService.findAccountByEmail(emailAddress);
 
         String stringToCompare = ShaEncoder.sha256hash(accountToVerify.getEmail(), accountToVerify.getSalt());
@@ -39,7 +40,7 @@ public class EmailConfirmation {
 
     public String returnString(String email) {
 
-        Account accountToVerify;
+        AccountDto accountToVerify;
         accountToVerify = accountService.findAccountByEmail(email);
 
         return "hey man, tou wrote : " + accountToVerify.getName();

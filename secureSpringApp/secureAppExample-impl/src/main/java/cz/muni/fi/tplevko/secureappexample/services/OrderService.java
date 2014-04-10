@@ -2,6 +2,8 @@ package cz.muni.fi.tplevko.secureappexample.services;
 
 import cz.muni.fi.tplevko.secureappexample.entity.Account;
 import cz.muni.fi.tplevko.secureappexample.entity.Order;
+import cz.muni.fi.tplevko.secureappexample.entity.dto.AccountDto;
+import cz.muni.fi.tplevko.secureappexample.entity.dto.OrderDto;
 import java.util.List;
 
 /**
@@ -11,15 +13,15 @@ import java.util.List;
 public interface OrderService {
 
     
-    public void createOrder(Order order);
+    public void createOrder(OrderDto order);
 
-    public void updateOrder(Order order);
+    public void updateOrder(OrderDto order);
 
-    public void deleteOrder(Order order);
+    public void deleteOrder(OrderDto order);
 
-    public Order findOrder(Long id);
+    public OrderDto findOrder(Long id);
 
-    public Order findOrderByOwner(Account account);
+    public OrderDto findOrderByOwner(AccountDto account);
 
-    public List<Order> getAllOrders();
+    public List<OrderDto> getAllOrders();
 }

@@ -1,6 +1,6 @@
 package cz.muni.fi.tplevko.secureappexample.managedbeans;
 
-import cz.muni.fi.tplevko.secureappexample.entity.Account;
+import cz.muni.fi.tplevko.secureappexample.entity.dto.AccountDto;
 import cz.muni.fi.tplevko.secureappexample.managedbeans.security.ConfirmationEmailProducer;
 import cz.muni.fi.tplevko.secureappexample.services.AccountService;
 import cz.muni.fi.tplevko.secureappexample.utils.ShaEncoder;
@@ -66,7 +66,7 @@ public class RegistrationController implements Serializable {
     }
 
     //get all accounts data from database
-    public List<Account> getCustomerList() {
+    public List<AccountDto> getCustomerList() {
         return accountService.getAllAccounts();
     }
 
@@ -81,7 +81,7 @@ public class RegistrationController implements Serializable {
 
         try {
 
-            Account account = new Account();
+            AccountDto account = new AccountDto();
             account.setName(name);
             account.setPassword(passwordHash);
             account.setSalt(salt);
@@ -102,7 +102,7 @@ public class RegistrationController implements Serializable {
 //            FacesContext.getCurrentInstance().addMessage(null, msg);
 ////////////////////////////
 
-            Account newAccount = accountService.findAccountByEmail(email);
+            AccountDto newAccount = accountService.findAccountByEmail(email);
 
             // TODO : sprava o uspechu
             confirmationEmailProducer.sendMail(name, newAccount.getSalt(), email);

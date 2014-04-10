@@ -1,9 +1,7 @@
 package cz.muni.fi.tplevko.secureappexample.services;
 
-import cz.muni.fi.tplevko.secureappexample.entity.Account;
-import cz.muni.fi.tplevko.secureappexample.entity.dto.AccountDTO;
+import cz.muni.fi.tplevko.secureappexample.entity.dto.AccountDto;
 import java.util.List;
-import javax.mail.internet.InternetAddress;
 
 /**
  *
@@ -11,19 +9,19 @@ import javax.mail.internet.InternetAddress;
  */
 public interface AccountService {
 
-    public void createAccount(Account account);
+    public void createAccount(AccountDto accountDto);
 
-    public void updateAccount(Account account);
+    public void updateAccount(AccountDto accountDto);
 
-    public void deleteAccount(Account account);
+    public void deleteAccount(AccountDto accountDto);
 
-    public Account findAccount(Long id);
+    public AccountDto findAccount(Long id);
 
-    public Account findAccountByName(String name);
+    public AccountDto findAccountByName(String name);
 
-    public Account findAccountByEmail(String email);
+    public AccountDto findAccountByEmail(String email);
 
-    public List<Account> getAllAccounts();
+    public List<AccountDto> getAllAccounts();
     
-    public void activateAccount(Account account);
+    public void activateAccount(AccountDto account);
 }

@@ -40,9 +40,12 @@
 
     <jdbc:initialize-database data-source="dataSource">
         <jdbc:script location="classpath:/sql/initDb.sql"/>
-<!--        <jdbc:script location="classpath:com/foo/sql/db-test-data.sql"/>-->
+        <!--        <jdbc:script location="classpath:com/foo/sql/db-test-data.sql"/>-->
     </jdbc:initialize-database>
 
+    <!-- bean mapper -->
+    <bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper">
+    </bean>
     
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
     

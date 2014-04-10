@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.secureappexample.managedbeans.security.custom;
 
 import cz.muni.fi.tplevko.secureappexample.entity.Account;
+import cz.muni.fi.tplevko.secureappexample.entity.dto.AccountDto;
 import cz.muni.fi.tplevko.secureappexample.services.AccountService;
 import cz.muni.fi.tplevko.secureappexample.utils.ShaEncoder;
 import java.util.Arrays;
@@ -36,7 +37,7 @@ public class MyUserDetailsService implements UserDetailsService {
 //            return d;
 //        }
         
-        Account account = accountService.findAccountByName(username);
+        AccountDto account = accountService.findAccountByName(username);
         if (account == null) {
             throw new UsernameNotFoundException(username + " not found");
         }

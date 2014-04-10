@@ -6,5 +6,10 @@ package cz.muni.fi.tplevko.secureappexample.utils;
  */
 public class EmailValidator {
 
-    
+    public static boolean validateEmail (String emailAddress) {
+        
+        
+        
+        return false;
+    }
 }

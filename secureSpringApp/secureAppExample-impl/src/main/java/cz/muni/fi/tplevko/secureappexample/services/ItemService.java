@@ -1,6 +1,6 @@
 package cz.muni.fi.tplevko.secureappexample.services;
 
-import cz.muni.fi.tplevko.secureappexample.entity.Item;
+import cz.muni.fi.tplevko.secureappexample.entity.dto.ItemDto;
 import java.util.List;
 
 /**
@@ -9,15 +9,15 @@ import java.util.List;
  */
 public interface ItemService {
     
-    public void createItem(Item item);
+    public void createItem(ItemDto item);
 
-    public void updateItem(Item item);
+    public void updateItem(ItemDto item);
 
-    public void deleteItem(Item item);
+    public void deleteItem(ItemDto item);
 
-    public Item findItem(Long id);
+    public ItemDto findItem(Long id);
 
-    public Item findItemByName(String name);
+    public ItemDto findItemByName(String name);
 
-    public List<Item> getAllItems();
+    public List<ItemDto> getAllItems();
 }

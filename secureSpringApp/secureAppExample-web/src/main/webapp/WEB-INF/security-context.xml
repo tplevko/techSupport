@@ -4,43 +4,41 @@
        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:context="http://www.springframework.org/schema/context"
 
-       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.1.xsd
-          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.1.xsd
-          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
-          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.1.xsd
-          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.1.xsd
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.2.xsd
+          http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.2.xsd
+          http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd
+          http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.2.xsd
+          http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
           http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.2.xsd
-          http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.1.xsd
+          http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
 ">
-<!--    <context:property-placeholder location="classpath:security.properties" ignore-unresolvable="true"/>
-    
     <http pattern="/resources/**" security="none" />
     
-    <http auto-config="false" create-session="never" realm="REST service" 
+<!--    <http auto-config="false" create-session="never" realm="REST service" 
           pattern="/rest/**">
         <intercept-url pattern="/**" access="ROLE_ADMIN" />
         <http-basic />
         <logout />
-    </http>
+    </http>-->
     
     <http auto-config="true" use-expressions="true">
-        <intercept-url pattern="/j_spring_security*" access="permitAll" />
+<!--        <intercept-url pattern="/j_spring_security*" access="permitAll" />
         <intercept-url pattern="/security/login/" access="permitAll" />
         <intercept-url pattern="/index.jsp" access="permitAll" />
         <intercept-url pattern="/error.jsp" access="permitAll" />
         <intercept-url pattern="/extraservice/list/" access="permitAll" />
         <intercept-url pattern="/extraservice/" access="permitAll" />
-        <intercept-url pattern="/tyre/list/" access="permitAll" />
-        <intercept-url pattern="/tyre/" access="permitAll" />
-        <intercept-url pattern="/registration/**" access="permitAll" />
-        <intercept-url pattern="/registration/form.jsp" access="permitAll" />
-        <intercept-url pattern="/order/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
+        <intercept-url pattern="/tyre/list/" access="permitAll" />-->
+        <!--<intercept-url pattern="/tyre/" access="permitAll" />-->
+<!--        <intercept-url pattern="/registration/**" access="permitAll" />
+        <intercept-url pattern="/registration/form.jsp" access="permitAll" />-->
+        <!--<intercept-url pattern="/order/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />-->
         <intercept-url pattern="/**" access="hasAnyRole('ROLE_USER', 'ROLE_ADMIN')" />
 
         <form-login login-page="/security/login/" default-target-url="/tyre/list/" authentication-failure-url="/security/login/?error=true"/>
         <logout logout-url="/security/logout/" />
     </http>
-    
+
     <authentication-manager alias="authManager">
         <authentication-provider user-service-ref="myUserService">
             <password-encoder hash="sha">
@@ -49,7 +47,7 @@
         </authentication-provider>
     </authentication-manager>
     
-    <beans:bean id="myUserService" class="cz.muni.fi.pa165.stis.web.security.custom.CustomUserDetailsService" />
+    <beans:bean id="myUserService" class="cz.muni.fi.tplevko.secureappexample.managedbeans.security.custom.MyUserDetailsService" />
     
-    <global-method-security pre-post-annotations="enabled"/>-->
+    <global-method-security pre-post-annotations="enabled"/>
 </beans:beans>

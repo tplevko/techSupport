@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.secureappexample.managedbeans;
 
 import cz.muni.fi.tplevko.secureappexample.entity.Item;
+import cz.muni.fi.tplevko.secureappexample.entity.dto.ItemDto;
 import cz.muni.fi.tplevko.secureappexample.services.ItemService;
 import java.io.Serializable;
 import java.math.BigDecimal;
@@ -26,7 +27,7 @@ public class ItemController implements Serializable {
     private ItemService itemService;
     
     
-    private Item selectedItem;
+    private ItemDto selectedItem;
 
     public String name;
     public BigDecimal price;
@@ -39,11 +40,11 @@ public class ItemController implements Serializable {
         this.itemService = itemService;
     }
 
-    public Item getSelectedItem() {
+    public ItemDto getSelectedItem() {
         return selectedItem;
     }
 
-    public void setSelectedItem(Item selectedItem) {
+    public void setSelectedItem(ItemDto selectedItem) {
         this.selectedItem = selectedItem;
     }
     
@@ -64,7 +65,7 @@ public class ItemController implements Serializable {
     }
 
     //get all accounts data from database
-    public List<Item> getItemList() {
+    public List<ItemDto> getItemList() {
         return itemService.getAllItems();
     }
 
@@ -73,7 +74,7 @@ public class ItemController implements Serializable {
 
         try {
 
-            Item item = new Item();
+            ItemDto item = new ItemDto();
             item.setName(name);
             item.setPrice(price);
             itemService.createItem(item);
@@ -94,7 +95,7 @@ public class ItemController implements Serializable {
     
     public String deleteItem(Long Id) {
         
-        Item itemToBeDeleted = itemService.findItem(Id);
+        ItemDto itemToBeDeleted = itemService.findItem(Id);
         itemService.deleteItem(itemToBeDeleted);
         return "/item/itemList?faces-redirect=true";
     }
