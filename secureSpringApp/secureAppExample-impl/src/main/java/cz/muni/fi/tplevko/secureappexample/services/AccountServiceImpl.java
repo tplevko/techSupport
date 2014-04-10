@@ -19,12 +19,14 @@ public class AccountServiceImpl implements AccountService {
 
     // Use logger
     private static final Logger log = Logger.getLogger(AccountServiceImpl.class.getName());
-    
+
     @Autowired
 //    @Qualifier(value = "accountDao")
     private AccountDao accountDao;
 
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @Override
+    @Transactional
     public void createAccount(Account account) {
 
         if (account == null) {
@@ -49,6 +51,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
     public void updateAccount(Account account) {
 
         if (account == null) {
@@ -63,6 +66,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteAccount(Account account) {
 
         if (account == null) {
@@ -77,6 +82,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Account findAccount(Long id) {
 
         if (id == null) {
@@ -88,6 +94,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Account> getAllAccounts() {
 
 //        List<Account> result = new ArrayList<>();
@@ -99,6 +106,7 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Account findAccountByEmail(String email) {
 
         if (email == null) {
@@ -111,19 +119,22 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Account findAccountByName(String name) {
-        
+
         if (name == null) {
             throw new IllegalArgumentException("name can't be nulll");
         }
-        
+
         Account account = accountDao.findAccountByName(name);
 
         return account;
     }
 
+    @Override
+    @Transactional
     public void activateAccount(Account account) {
-        
+
         accountDao.confirmRegistration(account);
     }
 }

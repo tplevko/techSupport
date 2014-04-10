@@ -98,6 +98,11 @@ public class ItemController implements Serializable {
         itemService.deleteItem(itemToBeDeleted);
         return "/item/itemList?faces-redirect=true";
     }
+    
+    public String editItem(Long Id) {
+        
+        return null;
+    }
         
 //        return itemService.findItem(Id);
 //        

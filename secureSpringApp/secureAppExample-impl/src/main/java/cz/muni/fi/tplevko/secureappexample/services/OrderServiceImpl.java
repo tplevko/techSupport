@@ -24,6 +24,7 @@ public class OrderServiceImpl implements OrderService {
     private OrderDao orderDao;
 
     @Override
+    @Transactional
     public void createOrder(Order order) {
 
         if (order == null) {
@@ -38,6 +39,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void updateOrder(Order order) {
 
         if (order == null) {
@@ -48,8 +50,9 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional
     public void deleteOrder(Order order) {
-        
+
         if (order == null) {
             throw new IllegalArgumentException("order to be created is null");
         }
@@ -62,6 +65,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Order findOrder(Long id) {
 
         if (id == null) {
@@ -73,6 +77,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Order findOrderByOwner(Account account) {
 
         if (account == null) {
@@ -83,6 +88,7 @@ public class OrderServiceImpl implements OrderService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Order> getAllOrders() {
 
         return orderDao.getAllOrders();

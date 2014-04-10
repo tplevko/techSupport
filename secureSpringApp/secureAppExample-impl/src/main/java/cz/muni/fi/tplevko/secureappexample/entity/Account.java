@@ -50,8 +50,11 @@ public class Account implements Serializable {
 //    @Column()
 //    private String Address;
 
-    @ElementCollection
-    private Set<String> roles;
+    // ROLES : ADMIN_ROLE, USER_ROLE, maybe use enum
+    
+//    @ElementCollection
+//    private Set<String> roles;
+    private boolean isAdmin;
     
     private boolean active;
 
@@ -126,6 +129,14 @@ public class Account implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
     }
 
     // TODO : zisti ako spravit dobry hashcode...

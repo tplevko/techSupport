@@ -23,6 +23,7 @@ public class ItemServiceImpl implements ItemService {
     private ItemDao itemDao;
 
     @Override
+    @Transactional
     public void createItem(Item item) {
 
         if (item == null) {
@@ -37,6 +38,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional
     public void updateItem(Item item) {
 
         if (item.getId() == null) {
@@ -47,6 +49,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional
     public void deleteItem(Item item) {
 
         if (item.getId() == null) {
@@ -57,6 +60,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Item findItem(Long id) {
         if (id == null) {
             throw new IllegalArgumentException("ItemDTO has not set ID");
@@ -66,6 +70,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public Item findItemByName(String name) {
 
         if (name == null) {
@@ -76,6 +81,7 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<Item> getAllItems() {
 
         return itemDao.getAllItems();

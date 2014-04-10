@@ -9,8 +9,14 @@
             org.springframework.web.jsf.el.SpringBeanFacesELResolver
         </el-resolver>
     </application>
+<!--    
+    <lifecycle>
+        <phase-listener>login.LoginErrorPhaseListener</phase-listener>
+    </lifecycle>-->
+
+
     
-<!--    <navigation-rule>
+    <!--    <navigation-rule>
         <from-view-id>itemList.xhtml</from-view-id>
         <navigation-case>
             <from-action>#{itemController.displayItem}</from-action>
