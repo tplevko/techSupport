@@ -45,7 +45,7 @@ public class Account implements Serializable {
     @Column(length = 64, nullable = false)
     private String salt;
 
-    // TODO : ako ukladat adresu? 
+    // TODO : ukladat adresu? 
     
 //    @Column()
 //    private String Address;

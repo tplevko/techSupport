@@ -70,10 +70,9 @@ public class ItemController implements Serializable {
     }
 
     //add a new account data into database
-    public void addItem() {
+    public String addItem() {
 
         try {
-
             ItemDto item = new ItemDto();
             item.setName(name);
             item.setPrice(price);
@@ -83,6 +82,7 @@ public class ItemController implements Serializable {
 
             // TODO : sprava o neuspechu
         }
+        return "/item/itemList?faces-redirect=true";
     }
     
     public String selectItem(Long Id) {

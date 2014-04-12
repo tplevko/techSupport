@@ -10,11 +10,11 @@ import org.springframework.security.core.userdetails.UserDetails;
  *
  * @author tplevko
  */
-public class MyUserDetails implements UserDetails {
+public class LoginUserDetails implements UserDetails {
 
     private String username;
     private String password;
-    private List<MyGrantedAuthority> authorities;
+    private List<CustomGrantedAuthority> authorities;
     private Boolean isAdmin;
 //    private Account account;
 
@@ -26,12 +26,12 @@ public class MyUserDetails implements UserDetails {
         this.password = password;
     }
 
-    public void setAuthorities(List<MyGrantedAuthority> authorities) {
+    public void setAuthorities(List<CustomGrantedAuthority> authorities) {
         this.authorities = authorities;
     }
 
     @Override
-    public List<MyGrantedAuthority> getAuthorities() {
+    public List<CustomGrantedAuthority> getAuthorities() {
         return authorities;
     }
 
@@ -80,6 +80,5 @@ public class MyUserDetails implements UserDetails {
 //    public void setAccount(Account account) {
 //        this.account = account;
 //    }
-    
 
 }
