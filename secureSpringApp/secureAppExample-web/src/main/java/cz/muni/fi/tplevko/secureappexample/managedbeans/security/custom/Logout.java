@@ -3,6 +3,7 @@ package cz.muni.fi.tplevko.secureappexample.managedbeans.security.custom;
 import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
+import javax.faces.context.FacesContext;
 import org.apache.shiro.SecurityUtils;
 
 /**
@@ -14,14 +15,20 @@ import org.apache.shiro.SecurityUtils;
 public class Logout {
     
     
-    public static final String HOME_URL = "login.xhtml";
+    public static final String HOME_URL = "/security/login.xhtml";
 
-    public void logout() throws IOException {
+    public String logout() throws IOException {
         
         
         SecurityUtils.getSubject().logout();
-//        Faces.invalidateSession();
-//        Faces.redirect(HOME_URL);
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
+
+        return "/security/login?faces-redirect=true";
     }
+    
+//    public void logout(HttpServletResponse response) throws ServletException, IOException {
+//    request.getSession().invalidate();
+//    response.sendRedirect(request.getContextPath()); 
+//}
 
 }

@@ -33,6 +33,7 @@ public class Login {
 
     public void submit() throws IOException {
         try {
+            
             SecurityUtils.getSubject().login(new UsernamePasswordToken(username, password, remember));
 //            SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(Faces.getRequest());
 //            Faces.redirect(savedRequest != null ? savedRequest.getRequestUrl() : HOME_URL);

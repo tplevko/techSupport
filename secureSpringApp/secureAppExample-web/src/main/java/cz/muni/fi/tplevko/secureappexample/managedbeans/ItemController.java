@@ -8,6 +8,7 @@ import java.math.BigDecimal;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
+import org.apache.shiro.authz.annotation.RequiresRoles;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -70,6 +71,15 @@ public class ItemController implements Serializable {
     }
 
     //add a new account data into database
+    @RequiresRoles("ROLE_ADMIN")
+    
+
+    // TODO : aby to fungovalo, je treba spravit toto :
+    // https://shiro.apache.org/spring.html
+    // https://shiro.apache.org/java-authorization-guide.html
+    // -- to druhe je o tom programatickom vytvarani autorizacie...
+    
+    
     public String addItem() {
 
         try {

@@ -12,6 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 //import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
@@ -23,6 +25,15 @@ import javax.persistence.TemporalType;
  * @author tplevko
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(
+        name = "Account.find",
+        query = "SELECT a FROM Account a WHERE a.name = :name AND a.password = :password"),
+    @NamedQuery(
+        name = "Account.list",
+        query = "SELECT a FROM Account a")
+})
+
 //@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
 public class Account implements Serializable {
 
@@ -45,6 +56,18 @@ public class Account implements Serializable {
     @Column(length = 64, nullable = false)
     private String salt;
 
+   
+    // TODO : toto by mohla byt ta rola... by sa dal este enum s rolami a OK...
+    
+//    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+//    @Enumerated(EnumType.STRING)
+//    @CollectionTable(name = "UserRoles", joinColumns = { @JoinColumn(name = "userId") })
+//    @Column(name = "role")
+//    private List<Role> roles;
+    
+    
+    
+    
     // TODO : ukladat adresu? 
     
 //    @Column()
