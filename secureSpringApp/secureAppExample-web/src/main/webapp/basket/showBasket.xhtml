@@ -14,35 +14,9 @@
                 Content of the basket
             </h1>
 
-            <h:dataTable value="#{itemController.itemList}" var="item"
-                         styleClass="order-table"
-                         headerClass="order-table-header"
-                         rowClasses="order-table-odd-row,order-table-even-row" >
-
-                <!--<h:outputLink value="url">-->
-
-                <h:column>
-                    <f:facet name="header">id</f:facet>
-                        #{item.id}
-                </h:column>
-                <h:column>
-                    <f:facet name="header">name</f:facet>
-                        #{item.name}
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">price</f:facet>
-                        #{item.price}
-                </h:column>
-
-                <!--</h:outputLink>-->
-
-
-            </h:dataTable>
-
             <h:form>
 
-                <h:dataTable value="#{itemController.itemList}" var="item"
+                <h:dataTable value="#{shoppingBasketController.basket}" var="item"
                              styleClass="order-table"
                              headerClass="order-table-header"
                              rowClasses="order-table-odd-row,order-table-even-row" >
@@ -60,17 +34,20 @@
                         <f:facet name="header">price</f:facet>
                             #{item.price}
                     </h:column>
-                    
-                    <h:column>
-                        <h:commandButton value="Select"
-                                         action="#{itemController.selectItem(item.id)}" />
-                    </h:column>
 
                     <h:column>
-                        <h:commandButton value="Delete"
-                                         action="#{itemController.deleteItem(item.id)}" />
+                        <h:commandButton value="remove"
+                                         action="#{shoppingBasketController.removeItemFromBasket(item.id)}" />
                     </h:column>
                 </h:dataTable>
+
+                <!-- aspon 2 fazove potvrdzovanie objednavky -->
+                 
+                <h:commandButton action="#{shoppingBasketController.placeOrder()}"
+                                 id="placeOrder" value="order" />
+                <h:messages styleClass="messages" errorClass="invalid"
+                            infoClass="valid" warnClass="warning" globalOnly="true" />
+
             </h:form>
 
             <!--TODO : nejak uprav...-->

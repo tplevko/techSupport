@@ -1,22 +1,20 @@
 package cz.muni.fi.tplevko.secureappexample.entity.dto;
 
-import cz.muni.fi.tplevko.secureappexample.entity.Account;
-import cz.muni.fi.tplevko.secureappexample.entity.Item;
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
  *
  * @author tplevko
  */
-public class OrderDto {
+public class InvoiceDto {
 
     private Long id;
 //    @Temporal(javax.persistence.TemporalType.DATE)
-    private Calendar calendar;
+    private Date placingTime;
     private List<ItemDto> items;
-    private Account owner;
+    private AccountDto contractor;
     private BigDecimal totalPrice;
 
     public Long getId() {
@@ -27,12 +25,12 @@ public class OrderDto {
         this.id = id;
     }
 
-    public Calendar getCalendar() {
-        return calendar;
+    public Date getPlacingTime() {
+        return placingTime;
     }
 
-    public void setCalendar(Calendar calendar) {
-        this.calendar = calendar;
+    public void setPlacingTime(Date placingTime) {
+        this.placingTime = placingTime;
     }
 
     public List<ItemDto> getItems() {
@@ -43,12 +41,12 @@ public class OrderDto {
         this.items = items;
     }
 
-    public Account getOwner() {
-        return owner;
+    public AccountDto getOwner() {
+        return contractor;
     }
 
-    public void setOwner(Account owner) {
-        this.owner = owner;
+    public void setOwner(AccountDto owner) {
+        this.contractor = owner;
     }
 
     public BigDecimal getTotalPrice() {

@@ -1,10 +1,10 @@
 package cz.muni.fi.tplevko.secureappexample.services;
 
-import cz.muni.fi.tplevko.secureappexample.dao.OrderDao;
+import cz.muni.fi.tplevko.secureappexample.dao.InvoiceDao;
 import cz.muni.fi.tplevko.secureappexample.entity.Account;
-import cz.muni.fi.tplevko.secureappexample.entity.Order;
+import cz.muni.fi.tplevko.secureappexample.entity.Invoice;
 import cz.muni.fi.tplevko.secureappexample.entity.dto.AccountDto;
-import cz.muni.fi.tplevko.secureappexample.entity.dto.OrderDto;
+import cz.muni.fi.tplevko.secureappexample.entity.dto.InvoiceDto;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
@@ -19,20 +19,20 @@ import org.springframework.transaction.annotation.Transactional;
  */
 @Service(value = "orderServiceImpl")
 @Transactional
-public class OrderServiceImpl implements OrderService {
+public class InvoiceServiceImpl implements InvoiceService {
 
     private static final Logger log = Logger.getLogger(AccountServiceImpl.class.getName());
 
     // TODO : na to logovanie sa tam pozri, ako to maju chalani spravene pri tom creature huntingu...
     @Autowired
-    private OrderDao orderDao;
+    private InvoiceDao orderDao;
 
     @Autowired
     private DozerBeanMapper mapper;
 
     @Override
     @Transactional
-    public void createOrder(OrderDto orderDto) {
+    public void createOrder(InvoiceDto orderDto) {
 
         if (orderDto == null) {
             throw new IllegalArgumentException("order to be created is null");
@@ -42,26 +42,26 @@ public class OrderServiceImpl implements OrderService {
             throw new IllegalArgumentException("orderdto has set id");
         }
 
-        Order order = mapper.map(orderDto, Order.class);
+        Invoice order = mapper.map(orderDto, Invoice.class);
 
         orderDao.createOrder(order);
     }
 
     @Override
     @Transactional
-    public void updateOrder(OrderDto orderDto) {
+    public void updateOrder(InvoiceDto orderDto) {
 
         if (orderDto == null) {
             throw new IllegalArgumentException("order to be created is null");
         }
-        Order order = mapper.map(orderDto, Order.class);
+        Invoice order = mapper.map(orderDto, Invoice.class);
 
         orderDao.updateOrder(order);
     }
 
     @Override
     @Transactional
-    public void deleteOrder(OrderDto orderDto) {
+    public void deleteOrder(InvoiceDto orderDto) {
 
         if (orderDto == null) {
             throw new IllegalArgumentException("order to be created is null");
@@ -71,27 +71,27 @@ public class OrderServiceImpl implements OrderService {
             throw new IllegalArgumentException("order has not set the ID");
         }
 
-        Order order = mapper.map(orderDto, Order.class);
+        Invoice order = mapper.map(orderDto, Invoice.class);
 
         orderDao.deleteOrder(order);
     }
 
     @Override
     @Transactional(readOnly = true)
-    public OrderDto findOrder(Long id) {
+    public InvoiceDto findOrder(Long id) {
 
         if (id == null) {
             throw new IllegalArgumentException("ID to retrieve can't be null");
         }
-        Order order = orderDao.findOrderById(id);
+        Invoice order = orderDao.findOrderById(id);
 
-        return mapper.map(order, OrderDto.class);
+        return mapper.map(order, InvoiceDto.class);
 
     }
 
     @Override
     @Transactional(readOnly = true)
-    public OrderDto findOrderByOwner(AccountDto accountDto) {
+    public InvoiceDto findOrderByOwner(AccountDto accountDto) {
 
         if (accountDto == null) {
             throw new IllegalArgumentException("order owner not specified");
@@ -102,13 +102,13 @@ public class OrderServiceImpl implements OrderService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<OrderDto> getAllOrders() {
+    public List<InvoiceDto> getAllOrders() {
 
-        List<Order> orders = orderDao.getAllOrders();
+        List<Invoice> orders = orderDao.getAllOrders();
 
-        List<OrderDto> accountsReturn = new ArrayList<OrderDto>();
-        for (Order o : orders) {
-            accountsReturn.add(mapper.map(o, OrderDto.class));
+        List<InvoiceDto> accountsReturn = new ArrayList<InvoiceDto>();
+        for (Invoice o : orders) {
+            accountsReturn.add(mapper.map(o, InvoiceDto.class));
         }
         return accountsReturn;
     }

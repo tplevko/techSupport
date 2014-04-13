@@ -2,40 +2,53 @@ package cz.muni.fi.tplevko.secureappexample.entity;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
  * @author tplevko
  */
 @Entity
-public class Order implements Serializable {
-    
+public class Invoice implements Serializable {
+
     // TODO : popridavat integritne obmedzenia...
-    
     private static final long serialVersionUID = 1L;
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Temporal(javax.persistence.TemporalType.DATE)
-    private Calendar calendar;
+    @Column(name = "placingTime", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date placingTime;
+
+    // auto generate timestamp on entity create time
+    @PrePersist
+    void placingTime() {
+        this.placingTime = new Date();
+    }
     
-    @OneToMany
+    @ManyToMany
     private List<Item> items;
 
-    @OneToOne
-    private Account owner;
-    
+    @JoinColumn(name = "contractor", referencedColumnName = "ID")
+    @ManyToOne(optional = false)
+    private Account contractor;
+
+    @Column(nullable = false)
     private BigDecimal totalPrice;
 
     public BigDecimal getTotalPrice() {
@@ -45,21 +58,21 @@ public class Order implements Serializable {
     public void setTotalPrice(BigDecimal totalPrice) {
         this.totalPrice = totalPrice;
     }
-    
+
     public Account getOwner() {
-        return owner;
+        return contractor;
     }
 
     public void setOwner(Account owner) {
-        this.owner = owner;
-    }
-    
-    public Calendar getCalendar() {
-        return calendar;
+        this.contractor = owner;
     }
 
-    public void setCalendar(Calendar calendar) {
-        this.calendar = calendar;
+    public Date getPlacingTime() {
+        return placingTime;
+    }
+
+    public void setPlacingTime(Date placingTime) {
+        this.placingTime = placingTime;
     }
 
     public List<Item> getItems() {
@@ -69,7 +82,7 @@ public class Order implements Serializable {
     public void setItems(List<Item> items) {
         this.items = items;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -88,10 +101,10 @@ public class Order implements Serializable {
     @Override
     public boolean equals(Object object) {
         // TODO: Warning - this method won't work in the case the id fields are not set
-        if (!(object instanceof Order)) {
+        if (!(object instanceof Invoice)) {
             return false;
         }
-        Order other = (Order) object;
+        Invoice other = (Invoice) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

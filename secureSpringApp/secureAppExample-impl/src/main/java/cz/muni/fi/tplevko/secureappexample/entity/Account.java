@@ -2,23 +2,16 @@ package cz.muni.fi.tplevko.secureappexample.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.Set;
-import javax.persistence.Basic;
 import javax.persistence.Column;
-import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Inheritance;
-import javax.persistence.InheritanceType;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-//import javax.persistence.MappedSuperclass;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-//import javax.validation.constraints.NotNull;
 
 /**
  *

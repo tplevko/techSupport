@@ -13,6 +13,7 @@ import javax.faces.context.FacesContext;
 import javax.mail.internet.AddressException;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
@@ -22,7 +23,7 @@ import org.springframework.stereotype.Component;
 //@Controller
 @Component
 @ManagedBean
-@SessionScoped
+@Scope("request")
 public class RegistrationController implements Serializable {
 
     private static final long serialVersionUID = 1L;

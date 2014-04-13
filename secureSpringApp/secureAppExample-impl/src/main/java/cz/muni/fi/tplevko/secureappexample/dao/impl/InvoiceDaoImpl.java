@@ -1,7 +1,7 @@
 package cz.muni.fi.tplevko.secureappexample.dao.impl;
 
-import cz.muni.fi.tplevko.secureappexample.dao.OrderDao;
-import cz.muni.fi.tplevko.secureappexample.entity.Order;
+import cz.muni.fi.tplevko.secureappexample.dao.InvoiceDao;
+import cz.muni.fi.tplevko.secureappexample.entity.Invoice;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Repository;
  * @author tplevko
  */
 @Repository(value = "orderDao")
-public class OrderDaoImpl implements OrderDao {
+public class InvoiceDaoImpl implements InvoiceDao {
 
     @PersistenceContext
     private EntityManager em;
@@ -29,7 +29,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public void createOrder(Order order) {
+    public void createOrder(Invoice order) {
 
         if (order == null) {
             throw new IllegalArgumentException("Order to be created is null");
@@ -43,7 +43,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public void deleteOrder(Order order) {
+    public void deleteOrder(Invoice order) {
 
         if (order == null) {
             throw new IllegalArgumentException("Order to be created is null");
@@ -57,7 +57,7 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public void updateOrder(Order order) {
+    public void updateOrder(Invoice order) {
 
         if (order == null) {
             throw new IllegalArgumentException("Order to be updated is null");
@@ -74,34 +74,34 @@ public class OrderDaoImpl implements OrderDao {
     }
 
     @Override
-    public Order findOrderById(Long id) {
+    public Invoice findOrderById(Long id) {
 
         if (id == null) {
             throw new IllegalArgumentException("Order id to be retrieved is null");
         }
 
-        Order result = null;
-        result = em.find(Order.class, id);
+        Invoice result = null;
+        result = em.find(Invoice.class, id);
         return result;
 
     }
 
     @Override
-    public List<Order> getAllOrders() {
+    public List<Invoice> getAllOrders() {
 
-        List<Order> accounts = new ArrayList<>();
+        List<Invoice> accounts = new ArrayList<>();
 
         CriteriaQuery cq = em.getCriteriaBuilder().createQuery();
-        cq.select(cq.from(Order.class));
+        cq.select(cq.from(Invoice.class));
         Query q = em.createQuery(cq);
         accounts = q.getResultList();
         return accounts;
     }
 
-    private void validateOrder(Order order) {
-        if (order.getCalendar() == null) {
-            throw new IllegalArgumentException("Order callendar is null... it should not be null...");
-        }
+    private void validateOrder(Invoice order) {
+//        if (order.getCalendar() == null) {
+//            throw new IllegalArgumentException("Order callendar is null... it should not be null...");
+//        }
 
         if (order.getItems() == null) {
             throw new IllegalArgumentException("Order has to have the items set");

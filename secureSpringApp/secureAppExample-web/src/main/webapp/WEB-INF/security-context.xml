@@ -24,12 +24,15 @@
         </property>-->
         <property name="filterChainDefinitions">
             <value>
-                /basket/** = roles[ROLE_USER]
+                
+                <!--security turned off-->
+                
+<!--                /basket/** = roles[ROLE_USER]
                 /login.xhtml = authc
                 /index.html = anon
                 /users/** = roles[ROLE_ADMIN]
                 /admin/** = roles[ROLE_ADMIN]
-                /item/createItem.xhtml = roles[ROLE_ADMIN]
+                /item/createItem.xhtml = roles[ROLE_ADMIN]-->
             </value>
         </property>
     </bean>

@@ -15,7 +15,6 @@
             <h1>
                 Create Item
             </h1>
-
             <h:form>
                 <h:panelGrid columns="3">
                     <h:outputLabel value="name " />
@@ -35,13 +34,7 @@
                     <h:commandButton id="sub" value="create" type="submit" action="#{itemController.addItem()}" />
                     <h:commandButton value="cancel" immediate="true" type="submit" action="#{itemController.itemList}" />
                 </h:panelGrid>
-
-
-
             </h:form>
-
         </ui:define>
-
     </ui:composition>
-
 </ui:composition>

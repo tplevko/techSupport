@@ -2,7 +2,7 @@ package cz.muni.fi.tplevko.secureappexample.dao.impl;
 
 import cz.muni.fi.tplevko.secureappexample.dao.ItemDao;
 import cz.muni.fi.tplevko.secureappexample.entity.Item;
-import cz.muni.fi.tplevko.secureappexample.entity.Order;
+import cz.muni.fi.tplevko.secureappexample.entity.Invoice;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
