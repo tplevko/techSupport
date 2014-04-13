@@ -7,6 +7,7 @@ package cz.muni.fi.tplevko.secureappexample.managedbeans.security.realm;
 
 import cz.muni.fi.tplevko.secureappexample.entity.dto.AccountDto;
 import cz.muni.fi.tplevko.secureappexample.services.AccountService;
+import cz.muni.fi.tplevko.secureappexample.utils.ShaEncoder;
 import java.util.List;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
@@ -14,10 +15,14 @@ import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
+import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
+import org.apache.shiro.authc.credential.Sha256CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.realm.AuthorizingRealm;
 import org.apache.shiro.subject.PrincipalCollection;
+import org.apache.shiro.util.SimpleByteSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -33,6 +38,15 @@ public class MyCustomRealm extends AuthorizingRealm {
 
     @Autowired
     private AccountService accountService;
+
+    public MyCustomRealm() {
+
+        setName("myCustomRealm");
+        HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(Sha256Hash.ALGORITHM_NAME);
+        matcher.setHashIterations(ShaEncoder.getIterations());
+        setCredentialsMatcher(matcher);
+
+    }
 
     public void setAccountService(AccountService accountService) {
         this.accountService = accountService;
@@ -81,7 +95,6 @@ public class MyCustomRealm extends AuthorizingRealm {
             return null;
         }
 
-        ////////////////////
         AccountDto account = null;
 
         if (token.getUsername() != null && !"".equals(token.getUsername())) {
@@ -89,10 +102,11 @@ public class MyCustomRealm extends AuthorizingRealm {
         }
 
         try {
-            
+
             // TODO : tu nebude zrejme len simple... 
             
-            return new SimpleAuthenticationInfo(account.getName(), password, getName());
+            return new SimpleAuthenticationInfo(account.getName(), account.getPassword(), new SimpleByteSource(account.getSalt()), getName());
+//            return new SimpleAuthenticationInfo(account.getName(), password, getName());
 
         } catch (Exception e) {
 //            log.info("用户名或密码错误");  

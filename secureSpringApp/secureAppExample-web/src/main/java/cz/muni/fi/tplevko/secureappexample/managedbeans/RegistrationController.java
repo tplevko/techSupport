@@ -11,6 +11,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.bean.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.mail.internet.AddressException;
+import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -74,16 +75,16 @@ public class RegistrationController implements Serializable {
     public void addCustomer() throws AddressException {
 
         String salt;
-        String passwordHash;
-
+        Sha256Hash passwordHash;
+        
         salt = ShaEncoder.generateSalt();
-        passwordHash = ShaEncoder.sha256hash(password, salt);
+        passwordHash = ShaEncoder.hash(password, salt);
 
         try {
 
             AccountDto account = new AccountDto();
             account.setName(name);
-            account.setPassword(passwordHash);
+            account.setPassword(passwordHash.toHex());
             account.setSalt(salt);
             account.setActive(false);
             account.setEmail(email);
