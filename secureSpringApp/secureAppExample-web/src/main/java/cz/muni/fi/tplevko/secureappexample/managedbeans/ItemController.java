@@ -27,7 +27,6 @@ public class ItemController implements Serializable {
 //    @Qualifier("itemService")
     private ItemService itemService;
     
-    
     private ItemDto selectedItem;
 
     public String name;

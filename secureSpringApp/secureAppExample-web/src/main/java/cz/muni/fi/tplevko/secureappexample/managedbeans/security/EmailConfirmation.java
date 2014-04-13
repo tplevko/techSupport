@@ -16,7 +16,7 @@ public class EmailConfirmation {
 
     @Autowired
     private AccountService accountService;
-
+   
     private boolean status = false;
 
     public boolean verifyAccount(String emailAddress, String randString) {

@@ -22,8 +22,8 @@ public class Login {
 
 //	@Inject
 //	private Credentials credentials;
-    @Autowired
-    private AccountService accountService;
+//    @Autowired
+//    private AccountService accountService;
 
     public static final String HOME_URL = "app/index.xhtml";
 
@@ -31,17 +31,23 @@ public class Login {
     private String password;
     private boolean remember;
 
-    public void submit() throws IOException {
+    public String submit() throws IOException {
         try {
             
-            SecurityUtils.getSubject().login(new UsernamePasswordToken(username, password, remember));
+            // TODO : zmen to rememberme
+            SecurityUtils.getSubject().login(new UsernamePasswordToken(username, password, true));
 //            SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(Faces.getRequest());
 //            Faces.redirect(savedRequest != null ? savedRequest.getRequestUrl() : HOME_URL);
+       
+        return "/security/login?faces-redirect=true";
+        
         } catch (AuthenticationException e) {
 
             // TODO : nejak to inac vypisat, nie pomocou tych omnyfacov...
 //            Messages.addGlobalError("Unknown user, please try again");
             e.printStackTrace(); // TODO: logger.
+            
+        return "/error?faces-redirect=true";
         }
     }
 
@@ -60,7 +66,7 @@ public class Login {
     public void setPassword(String password) {
         this.password = password;
     }
-
+//
     public boolean isRemember() {
         return remember;
     }
