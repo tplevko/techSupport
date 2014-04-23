@@ -17,7 +17,7 @@ public interface EmployeeDao {
 
     public Employee findEmployeeById(Long id);
 
-    public Employee findRequestByEmail(String email);
+    public Employee findEmployeeByEmail(String email);
 
     public List<Employee> getAllEmployees();
 }

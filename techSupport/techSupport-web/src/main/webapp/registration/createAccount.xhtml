@@ -19,11 +19,18 @@
             <h:form>
                 <h:panelGrid columns="3">
                     <h:outputLabel value="name " />
-                    <h:inputText value="#{registrationController.name}" id="name">
+                    <h:inputText value="#{registrationController.firstName}" id="firstName">
                         <f:validateLength minimum="0"/>
                         <f:validateRequired for="sub"/>
                     </h:inputText>
-                    <h:message for="name" />
+                    <h:message for="firstName" />
+
+                    <h:outputLabel value="name " />
+                    <h:inputText value="#{registrationController.lastName}" id="lastName">
+                        <f:validateLength minimum="0"/>
+                        <f:validateRequired for="sub"/>
+                    </h:inputText>
+                    <h:message for="lastName" />
 
                     <h:outputLabel value="email " />
                     <h:inputText value="#{registrationController.email}" id="email">
@@ -50,16 +57,16 @@
                     <h:message for="confirmPassword" />
 
                     <!-- ############## ALLOW THIS LATER ################# -->
-                    
-<!--                    <p:captcha label="Captcha"/>
 
-                    <p:messages showDetail="true"/>  -->
+                    <!--                    <p:captcha label="Captcha"/>
                     
+                                        <p:messages showDetail="true"/>  -->
+
                     <!-- ############## ALLOW THIS LATER ################# -->
 
-                    
-<!--                <p:commandButton value="Check" ajax="false"  
-                                 actionListener="#{captchaBean.submit}" />-->
+
+                    <!--                <p:commandButton value="Check" ajax="false"  
+                                                     actionListener="#{captchaBean.submit}" />-->
 
                     <h:commandButton id="sub" value="create" type="submit" action="#{registrationController.addCustomer()}" />
                     <h:commandButton value="cancel" immediate="true" type="submit" action="#{registrationController.customerList}" />

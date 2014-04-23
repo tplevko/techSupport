@@ -11,7 +11,7 @@
           http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.2.xsd
           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
 ">
-<!--    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
+    <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/security/login"/>
         <property name="successUrl" value="/index"/>
@@ -19,30 +19,34 @@
         <property name="filterChainDefinitions">
             <value>
                 
-                security turned off
+<!--                security turned off
                 
                 /basket/** = roles[ROLE_USER]
                 /login.xhtml = authc
                 /index.html = anon
                 /users/** = roles[ROLE_ADMIN]
                 /admin/** = roles[ROLE_ADMIN]
-                /item/createItem.xhtml = roles[ROLE_ADMIN]
+                /item/createItem.xhtml = roles[ROLE_ADMIN]-->
             </value>
         </property>
     </bean>
     
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="myCustomRealm"/>  
-    </bean>-->
-<!--      
-    <bean id="accountService" class="cz.muni.fi.tplevko.secureappexample.services.AccountServiceImpl">  
-    </bean>-->
-<!--    
-    <bean id="realm" class="cz.muni.fi.tplevko.secureappexample.managedbeans.security.custom.MyCustomRealm">
-        <property name="accountService" ref="accountService"/>
-        <property name="credentialsMatcher" ref="sha256PasswordMatcher"/>
-    </bean>-->
-<!--    
+    </bean>
+      
+    <bean id="customerService" class="cz.muni.fi.tplevko.techsupport.services.CustomerServiceImpl">  
+    </bean>
+    
+    <bean id="employeeService" class="cz.muni.fi.tplevko.techsupport.services.EmployeeServiceImpl">  
+    </bean>
+          
+    <bean id="realm" class="cz.fi.muni.tplevko.techsupport.managedbeans.security.realm.MyCustomRealm">
+        <property name="userService" ref="customerService"/>
+        <property name="employeeService" ref="employeeService"/>
+        <!--<property name="credentialsMatcher" ref="sha256PasswordMatcher"/>-->
+    </bean>
+    
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
 
     <bean class="org.springframework.aop.framework.autoproxy.DefaultAdvisorAutoProxyCreator" depends-on="lifecycleBeanPostProcessor"/>
@@ -50,5 +54,5 @@
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
         <property name="securityManager" ref="securityManager"/>
     </bean>
-    -->
+    
 </beans>

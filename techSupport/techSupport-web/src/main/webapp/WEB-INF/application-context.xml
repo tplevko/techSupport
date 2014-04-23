@@ -16,9 +16,9 @@
 <!--    
     <context:component-scan base-package="cz.muni.fi.tplevko.secureappexample.services" />
         
-    <context:component-scan base-package="cz.muni.fi.tplevko.secureappexample.managedbeans" />
+-->    <context:component-scan base-package="cz.fi.muni.tplevko.techsupport.managedbeans.security.realm" /><!--
         -->
-    <context:component-scan base-package="cz.muni.fi.tplevko.secureappexample" />
+    <context:component-scan base-package="cz.fi.muni.tplevko.techsupport" />
 
     <!--    <context:component-scan base-package="cz.muni.fi.tplevko">
         <context:include-filter type="aspectj" expression="cz.muni.fi.tplevko.*" />

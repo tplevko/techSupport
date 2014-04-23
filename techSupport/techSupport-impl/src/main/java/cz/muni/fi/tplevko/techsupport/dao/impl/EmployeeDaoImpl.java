@@ -83,7 +83,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
     }
 
     @Override
-    public Employee findRequestByEmail(String email) {
+    public Employee findEmployeeByEmail(String email) {
 
         Employee employee = null;
         final String qstring = "SELECT e FROM Employee e WHERE e.email = :email";

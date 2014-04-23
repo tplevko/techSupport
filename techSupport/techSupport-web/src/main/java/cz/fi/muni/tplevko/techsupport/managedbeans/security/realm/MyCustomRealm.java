@@ -1,16 +1,10 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.fi.muni.tplevko.techsupport.managedbeans.security.realm;
 
-//import cz.muni.fi.tplevko.secureappexample.entity.dto.AccountDto;
-//import cz.muni.fi.tplevko.secureappexample.services.AccountService;
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
+import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
 import cz.muni.fi.tplevko.techsupport.utils.ShaEncoder;
 import cz.muni.fi.tplevko.techsupport.services.CustomerService;
-import java.util.List;
+import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
@@ -41,35 +35,60 @@ public class MyCustomRealm extends AuthorizingRealm {
     @Autowired
     private CustomerService customerService;
 
+    @Autowired
+    private EmployeeService employeeService;
+
     public MyCustomRealm() {
 
         setName("myCustomRealm");
         HashedCredentialsMatcher matcher = new HashedCredentialsMatcher(Sha256Hash.ALGORITHM_NAME);
         matcher.setHashIterations(ShaEncoder.getIterations());
         setCredentialsMatcher(matcher);
-
     }
 
-    public void setAccountService(CustomerService customerService) {
+    public void setUserService(CustomerService customerService) {
         this.customerService = customerService;
+    }
+
+    public void setEmployeeService(EmployeeService employeeService) {
+        this.employeeService = employeeService;
     }
 
     @Override
     protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection pc) {
 
-        String email = (String) pc.getPrimaryPrincipal();
-        CustomerDto account = customerService.findCustomerByEmail(email);
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
+        String email = (String) pc.getPrimaryPrincipal();
 
-        info.addRole("ROLE_USER");
+        CustomerDto account = customerService.findCustomerByEmail(email);
+        EmployeeDto employee = employeeService.findEmployeeByEmail(email);
+
+        // TODO : toto sa mi zda na hovno...
+        // Asi bude treba predsa len viacero tychto realmov...
+        // co ak sa clovek s jednym mailom registruje na obe tie funkcie?
+
+        
+        
+        if (account != null) {
+            info.addRole("ROLE_USER");
+            
+        } else if (employee != null) {
+            if (employee.isIsAdmin()) {
+//                info.addRole("ROLE_USER");
+                info.addRole("ROLE_ADMIN");
+                info.addRole("ROLE_TECHNICIAN");
+            } else {
+//                info.addRole("ROLE_USER");
+                info.addRole("ROLE_TECHNICIAN");
+            }
+        }
+
         return info;
 
     }
 
     @Override
     protected AuthenticationInfo doGetAuthenticationInfo(AuthenticationToken at) throws AuthenticationException {
-
-        System.out.println("Pokusam sa autentizovat tomasa... ");
 
         UsernamePasswordToken token = (UsernamePasswordToken) at;
 

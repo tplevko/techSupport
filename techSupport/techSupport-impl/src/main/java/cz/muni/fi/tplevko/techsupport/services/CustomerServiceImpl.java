@@ -51,11 +51,11 @@ public class CustomerServiceImpl implements CustomerService {
     public void updateCustomer(CustomerDto customerDto) {
 
         if (customerDto == null) {
-            throw new IllegalArgumentException("Account to be created is null");
+            throw new IllegalArgumentException("Customer to be created is null");
         }
 
         if (customerDto.getId() == null) {
-            throw new IllegalArgumentException("Account has not set id");
+            throw new IllegalArgumentException("Customer has not set id");
         }
 
         Customer customer = mapper.map(customerDto, Customer.class);
@@ -87,7 +87,6 @@ public class CustomerServiceImpl implements CustomerService {
             throw new IllegalArgumentException("ID to retrieve can't be null");
         }
         Customer customer = customerDao.findCustomerById(id);
-//        Account result = accountEntityToDTO(account);
 
         return mapper.map(customer, CustomerDto.class);
 
