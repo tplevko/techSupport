@@ -8,8 +8,6 @@ public class EmailValidator {
 
     public static boolean validateEmail (String emailAddress) {
         
-        
-        
         return false;
     }
 }

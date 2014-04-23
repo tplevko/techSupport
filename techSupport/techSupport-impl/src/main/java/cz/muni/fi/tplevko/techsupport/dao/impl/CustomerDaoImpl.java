@@ -19,7 +19,6 @@ import org.springframework.stereotype.Repository;
 public class CustomerDaoImpl implements CustomerDao {
 
     @PersistenceContext
-
     private EntityManager em;
 
     public EntityManager getEm() {
