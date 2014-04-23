@@ -1,7 +1,12 @@
-package cz.muni.fi.tplevko.secureappexample.entity;
+package cz.muni.fi.tplevko.techsupport.entity;
 
+/**
+ *
+ * @author tplevko
+ */
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,35 +14,33 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
-/**
- *
- * @author tplevko
- */
 @Entity
 @NamedQueries({
     @NamedQuery(
-        name = "Account.find",
-        query = "SELECT a FROM Account a WHERE a.name = :name AND a.password = :password"),
+            name = "Employee.find",
+            query = "SELECT a FROM Employee a WHERE a.email = :email AND a.password = :password"),
     @NamedQuery(
-        name = "Account.list",
-        query = "SELECT a FROM Account a")
+            name = "Employee.list",
+            query = "SELECT a FROM Employee a")
 })
-
-//@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-public class Account implements Serializable {
+public class Employee implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long id;
+    Long id;
 
-    @Column(length = 40, nullable = false, unique = true)
-    private String name;
+    @Column(length = 50, nullable = false, unique = true)
+    private String firstName;
+    
+    @Column(length = 50, nullable = false, unique = true)
+    private String lastName;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -49,35 +52,16 @@ public class Account implements Serializable {
     @Column(length = 64, nullable = false)
     private String salt;
 
-    
-   
-    // TODO : toto by mohla byt ta rola... by sa dal este enum s rolami a OK...
-    
-//    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-//    @Enumerated(EnumType.STRING)
-//    @CollectionTable(name = "UserRoles", joinColumns = { @JoinColumn(name = "userId") })
-//    @Column(name = "role")
-//    private List<Role> roles;
-    
-    
-    
-    
-    // TODO : ukladat adresu? 
-    
-//    @Column()
-//    private String Address;
-
-    // ROLES : ADMIN_ROLE, USER_ROLE, maybe use enum
-    
-//    @ElementCollection
-//    private Set<String> roles;
-    private boolean isAdmin;
-    
     private boolean active;
 
     @Column(name = "createdAt", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+
+    private boolean isAdmin;
+
+    @OneToMany
+    private List<Request> requests;
 
     // auto generate timestamp on entity create time
     @PrePersist
@@ -91,6 +75,22 @@ public class Account implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
+
+    public List<Request> getRequests() {
+        return requests;
+    }
+
+    public void setRequests(List<Request> requests) {
+        this.requests = requests;
     }
 
 //    public Set<String> getRoles() {
@@ -132,13 +132,22 @@ public class Account implements Serializable {
         this.salt = salt;
     }
 
-    public String getName() {
-        return name;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
+
+    public String getLastName() {
+        return lastName;
+    }
+
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
+    }
+
 
     public String getPassword() {
         return password;
@@ -146,14 +155,6 @@ public class Account implements Serializable {
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public boolean isIsAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
     }
 
     // TODO : zisti ako spravit dobry hashcode...
@@ -171,10 +172,10 @@ public class Account implements Serializable {
         if (object == null) {
             return false;
         }
-        if (!(object instanceof Account)) {
+        if (!(object instanceof Employee)) {
             return false;
         }
-        Account other = (Account) object;
+        Employee other = (Employee) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }

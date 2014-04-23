@@ -1,0 +1,76 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="title">#{bundle.indexTitle}</ui:define>
+
+        <ui:define name="content">
+
+            <h1>
+                Create Account page
+            </h1>
+
+            <h:form>
+                <h:panelGrid columns="3">
+                    <h:outputLabel value="name " />
+                    <h:inputText value="#{registrationController.name}" id="name">
+                        <f:validateLength minimum="0"/>
+                        <f:validateRequired for="sub"/>
+                    </h:inputText>
+                    <h:message for="name" />
+
+                    <h:outputLabel value="email " />
+                    <h:inputText value="#{registrationController.email}" id="email">
+                        <f:validateLength minimum="0"/>
+                        <f:validateRequired for="sub"/>
+                    </h:inputText> 
+                    <h:message for="email" />
+
+                    <h:outputLabel value="passwd" />
+                    <h:inputSecret value="#{registrationController.password}" id="password">
+                        <f:validateLength minimum="0"/>
+                        <f:validator validatorId="passwordValidator" />
+                        <f:attribute name="confirmPassword" value="#{confirmPassword}" />
+                        <f:validateRequired for="sub"/>
+                    </h:inputSecret> 
+
+                    <h:message for="passwd" />
+
+                    <h:outputLabel value="confirm passwd " />
+                    <h:inputSecret binding="#{confirmPassword}" id="confirmPassword" >
+                        <f:validateLength minimum="0"/>
+                        <f:validateRequired for="sub"/>
+                    </h:inputSecret> 
+                    <h:message for="confirmPassword" />
+
+                    <!-- ############## ALLOW THIS LATER ################# -->
+                    
+<!--                    <p:captcha label="Captcha"/>
+
+                    <p:messages showDetail="true"/>  -->
+                    
+                    <!-- ############## ALLOW THIS LATER ################# -->
+
+                    
+<!--                <p:commandButton value="Check" ajax="false"  
+                                 actionListener="#{captchaBean.submit}" />-->
+
+                    <h:commandButton id="sub" value="create" type="submit" action="#{registrationController.addCustomer()}" />
+                    <h:commandButton value="cancel" immediate="true" type="submit" action="#{registrationController.customerList}" />
+                </h:panelGrid>
+
+
+
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+
+</ui:composition>

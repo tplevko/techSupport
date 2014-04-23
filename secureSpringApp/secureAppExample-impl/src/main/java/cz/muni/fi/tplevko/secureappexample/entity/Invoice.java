@@ -12,7 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -41,6 +40,9 @@ public class Invoice implements Serializable {
         this.placingTime = new Date();
     }
     
+    // TODO : mozno by bola lepsia mapa, ktora by mala item a jeho mnozstvo..
+    // itemy sa menia v case, mozno namiesto toho spravit entitu, ktora by reprezentovala
+    // polozku invoicu...
     @ManyToMany
     private List<Item> items;
 

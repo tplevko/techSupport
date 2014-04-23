@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <h:outputStylesheet name="./css/default.css"/>
+        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <title>Facelets Template</title>
+    </h:head>
+
+    <h:body>
+        <div>
+            <div id="left">
+                <ui:insert name="left">
+                    <table>
+
+                        <div>
+                            <h:link value="create account" outcome="/registration/createAccount" rendered="#{not request.isUserInRole('ROLE_USER')}" />
+                        </div>
+
+                        <div>
+                            <h:link value="create item" outcome="/item/createItem" rendered="#{request.isUserInRole('ROLE_ADMIN')}"  />
+                        </div>
+
+                        <div>
+                            <h:link value="item list" outcome="/item/itemList" />
+                        </div>
+
+                        <div>
+                            <h:link value="order list" outcome="/order/orderList" rendered="#{request.isUserInRole('ROLE_USER')}"  />
+                        </div>
+
+                        <div>        
+                            <h:link value="list users" outcome="/users/listUsers" rendered="#{request.isUserInRole('ROLE_ADMIN')}"  />
+                        </div>
+                        <hr/>
+
+                        <div>        
+                            <h:link value="basket" outcome="/basket/showBasket" rendered="#{request.isUserInRole('ROLE_USER')}"  />
+                        </div>
+                        <div>        
+                            <h:link value="secured" outcome="/admin/secured" />
+                        </div>
+                        <hr/>
+                        <div>        
+                            <h:link value="login" outcome="/security/login" rendered="#{not request.isUserInRole('ROLE_USER')}"  />
+                        </div>
+                         <div>        
+                            <h:link value="logout" outcome="/security/logout" rendered="#{request.isUserInRole('ROLE_USER')}"  />
+                        </div>
+<!--                        <div>        
+                            <a href="j_spring_security_logout">Logout</a>
+                        </div>-->
+
+
+
+
+                    </table>
+                    <!--left content-->
+
+                </ui:insert>
+            </div>
+        </div>
+
+        <div id="content" class="left_content">
+            <ui:insert name="content">Content</ui:insert>
+        </div>
+
+    </h:body>
+
+</html>

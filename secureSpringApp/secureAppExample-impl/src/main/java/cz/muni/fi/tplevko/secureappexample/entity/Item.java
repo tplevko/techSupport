@@ -21,7 +21,13 @@ public class Item implements Serializable {
     private Long id;
 
     private String name;
-    
+//    
+//    private String ImageName;
+//    
+//    private boolean active;
+//    
+//    private Account owner;
+//            
     // TODO : Ako reprezentovat cenu itemu? - 
     // zalezi od potreby, ale BigDecimal by mal byt celkom v pohode...
     private BigDecimal price;

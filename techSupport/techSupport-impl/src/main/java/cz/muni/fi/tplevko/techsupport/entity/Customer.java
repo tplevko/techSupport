@@ -1,4 +1,4 @@
-package cz.muni.fi.tplevko.secureappexample.entity;
+package cz.muni.fi.tplevko.techsupport.entity;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -20,15 +20,13 @@ import javax.persistence.TemporalType;
 @Entity
 @NamedQueries({
     @NamedQuery(
-        name = "Account.find",
-        query = "SELECT a FROM Account a WHERE a.name = :name AND a.password = :password"),
+            name = "Customer.find",
+            query = "SELECT a FROM Customer a WHERE a.email = :email AND a.password = :password"),
     @NamedQuery(
-        name = "Account.list",
-        query = "SELECT a FROM Account a")
+            name = "Customer.list",
+            query = "SELECT a FROM Customer a")
 })
-
-//@Inheritance(strategy=InheritanceType.SINGLE_TABLE)
-public class Account implements Serializable {
+public class Customer implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -36,8 +34,11 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @Column(length = 40, nullable = false, unique = true)
-    private String name;
+    @Column(length = 50, nullable = false, unique = true)
+    private String firstName;
+
+    @Column(length = 50, nullable = false, unique = true)
+    private String lastName;
 
     @Column(nullable = false, unique = true)
     private String email;
@@ -49,30 +50,7 @@ public class Account implements Serializable {
     @Column(length = 64, nullable = false)
     private String salt;
 
-    
-   
-    // TODO : toto by mohla byt ta rola... by sa dal este enum s rolami a OK...
-    
-//    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
-//    @Enumerated(EnumType.STRING)
-//    @CollectionTable(name = "UserRoles", joinColumns = { @JoinColumn(name = "userId") })
-//    @Column(name = "role")
-//    private List<Role> roles;
-    
-    
-    
-    
-    // TODO : ukladat adresu? 
-    
-//    @Column()
-//    private String Address;
-
-    // ROLES : ADMIN_ROLE, USER_ROLE, maybe use enum
-    
-//    @ElementCollection
-//    private Set<String> roles;
-    private boolean isAdmin;
-    
+    @Column(nullable = false)
     private boolean active;
 
     @Column(name = "createdAt", nullable = false)
@@ -93,27 +71,20 @@ public class Account implements Serializable {
         this.id = id;
     }
 
-//    public Set<String> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(Set<String> roles) {
-//        this.roles = roles;
-//    }
-    public Date getCreatedAt() {
-        return createdAt;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
     }
 
-    public boolean isActive() {
-        return active;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getEmail() {
@@ -124,22 +95,6 @@ public class Account implements Serializable {
         this.email = email;
     }
 
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -148,14 +103,33 @@ public class Account implements Serializable {
         this.password = password;
     }
 
-    public boolean isIsAdmin() {
-        return isAdmin;
+    public String getSalt() {
+        return salt;
     }
 
-    public void setIsAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
+    public void setSalt(String salt) {
+        this.salt = salt;
     }
 
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Date getCreatedAt() {
+        return createdAt;
+    }
+
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
+    }
+
+    
+    
+    
     // TODO : zisti ako spravit dobry hashcode...
     @Override
     public int hashCode() {
@@ -171,10 +145,10 @@ public class Account implements Serializable {
         if (object == null) {
             return false;
         }
-        if (!(object instanceof Account)) {
+        if (!(object instanceof Customer)) {
             return false;
         }
-        Account other = (Account) object;
+        Customer other = (Customer) object;
         if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
             return false;
         }
@@ -183,7 +157,7 @@ public class Account implements Serializable {
 
     @Override
     public String toString() {
-        return "cz.muni.fi.tplevko.secureappexample.entity.Account[ id=" + id + " ]";
+        return "cz.muni.fi.tplevko.techsupport.entity.Customer[ id=" + id + " ]";
     }
 
 }
