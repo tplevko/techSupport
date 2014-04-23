@@ -47,27 +47,68 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void updateCustomer(CustomerDto customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    @Transactional
+    public void updateCustomer(CustomerDto customerDto) {
+
+        if (customerDto == null) {
+            throw new IllegalArgumentException("Account to be created is null");
+        }
+
+        if (customerDto.getId() == null) {
+            throw new IllegalArgumentException("Account has not set id");
+        }
+
+        Customer customer = mapper.map(customerDto, Customer.class);
+        customerDao.updateCustomer(customer);
     }
 
     @Override
-    public void deleteCustomer(CustomerDto customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+    @Transactional
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void deleteCustomer(CustomerDto customerDto) {
 
-    @Override
-    public CustomerDto findCustomerById(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        if (customerDto == null) {
+            throw new IllegalArgumentException("Customer to be created is null");
+        }
 
-    @Override
-    public CustomerDto findCustomerByEmail(String email) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        if (customerDto.getId() == null) {
+            throw new IllegalArgumentException("CustomerDto has not set id");
+        }
+
+        Customer customer = mapper.map(customerDto, Customer.class);
+        customerDao.deleteCustomer(customer);
     }
 
     @Override
     @Transactional(readOnly = true)
+    public CustomerDto findCustomerById(Long id) {
+
+        if (id == null) {
+            throw new IllegalArgumentException("ID to retrieve can't be null");
+        }
+        Customer customer = customerDao.findCustomerById(id);
+//        Account result = accountEntityToDTO(account);
+
+        return mapper.map(customer, CustomerDto.class);
+
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    public CustomerDto findCustomerByEmail(String email) {
+
+        if (email == null) {
+            throw new IllegalArgumentException("email can't be nulll");
+        }
+
+        Customer customer = customerDao.findCustomerByEmail(email);
+
+        return mapper.map(customer, CustomerDto.class);
+    }
+
+    @Override
+    @Transactional(readOnly = true)
+    //    @PreAuthorize("hasRole('ROLE_TECHNICIAN')")
     public List<CustomerDto> getAllCustomers() {
 
         List<Customer> customers = customerDao.getAllCustomers();
@@ -80,92 +121,13 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
-    public void activateCustomerAccount(CustomerDto customer) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-//    
-//    
-//        @Override
-//    @Transactional
-//    public void updateAccount(AccountDto accountDto) {
-//
-//        if (accountDto == null) {
-//            throw new IllegalArgumentException("Account to be created is null");
-//        }
-//
-//        if (accountDto.getId() == null) {
-//            throw new IllegalArgumentException("Account has not set id");
-//        }
-//
-//        Account account = mapper.map(accountDto, Account.class);
-//        accountDao.updateAccount(account);
-//    }
-//
-//    @Override
-//    @Transactional
-////    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    public void deleteAccount(AccountDto accountDto) {
-//
-//        if (accountDto == null) {
-//            throw new IllegalArgumentException("Account to be created is null");
-//        }
-//
-//        if (accountDto.getId() == null) {
-//            throw new IllegalArgumentException("AccountDTO has set id");
-//        }
-//
-//        Account account = mapper.map(accountDto, Account.class);
-//        accountDao.deleteAccount(account);
-//    }
-//
-//    @Override
-//    @Transactional(readOnly = true)
-//    public AccountDto findAccount(Long id) {
-//
-//        if (id == null) {
-//            throw new IllegalArgumentException("ID to retrieve can't be null");
-//        }
-//        Account account = accountDao.findAccountById(id);
-////        Account result = accountEntityToDTO(account);
-//
-//        return mapper.map(account, AccountDto.class);
-//
-//    }
-//
-//
-//    @Override
-//    @Transactional(readOnly = true)
-//    public AccountDto findAccountByEmail(String email) {
-//
-//        if (email == null) {
-//            throw new IllegalArgumentException("email can't be nulll");
-//        }
-//
-//        Account account = accountDao.findAccountByEmail(email);
-//        
-//        return mapper.map(account, AccountDto.class);
-//    }
-//
-//    @Override
-//    @Transactional(readOnly = true)
-//    public AccountDto findAccountByName(String name) {
-//
-//        if (name == null) {
-//            throw new IllegalArgumentException("name can't be nulll");
-//        }
-//
-//        Account account = accountDao.findAccountByName(name);
-//
-//        return mapper.map(account, AccountDto.class);
-//    }
-//
-//    @Override
-//    @Transactional
-//    public void activateAccount(AccountDto accountDto) {
-//
-//        Account account = mapper.map(accountDto, Account.class);
-//        
-//        accountDao.confirmRegistration(account);
-//    }
+    @Transactional
+    //    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    public void activateCustomerAccount(CustomerDto customerDto) {
+        Customer customer = mapper.map(customerDto, Customer.class);
 
+        customer.setActive(true);
+
+        customerDao.updateCustomer(customer);
+    }
 }
