@@ -29,10 +29,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
     public void createEmployee(Employee employee) {
 
         if (employee == null) {
-            throw new IllegalArgumentException("Customer to be created is null");
+            throw new IllegalArgumentException("Employee to be created is null");
         }
         if (employee.getId() != null) {
-            throw new IllegalArgumentException("Customer to be created has already assigned id");
+            throw new IllegalArgumentException("Employee to be created has already assigned id");
         }
 
         validateEmployee(employee);
@@ -49,7 +49,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
             throw new IllegalArgumentException("Employee to be updated has null id");
         }
         if (findEmployeeById(employee.getId()) == null) {
-            throw new IllegalArgumentException("Customer to be updated doesn't exist in DB");
+            throw new IllegalArgumentException("Employee to be updated doesn't exist in DB");
         }
 
         validateEmployee(employee);
@@ -60,10 +60,10 @@ public class EmployeeDaoImpl implements EmployeeDao {
     @Override
     public void deleteEmployee(Employee employee) {
         if (employee == null) {
-            throw new IllegalArgumentException("customer to be removed is null");
+            throw new IllegalArgumentException("Employee to be removed is null");
         }
         if (employee.getId() == null) {
-            throw new IllegalArgumentException("customer to be removed has not assigned id");
+            throw new IllegalArgumentException("Employee to be removed has not assigned id");
         }
 
         validateEmployee(employee);
@@ -109,25 +109,25 @@ public class EmployeeDaoImpl implements EmployeeDao {
     // TODO : revise.. 
     private void validateEmployee(Employee employee) {
         if (employee.getLastName() == null) {
-            throw new IllegalArgumentException("Customer first name must be set, it's null");
+            throw new IllegalArgumentException("Employee first name must be set, it's null");
         }
         if (employee.getLastName().isEmpty()) {
-            throw new IllegalArgumentException("Customer first name must be set, it's empty");
+            throw new IllegalArgumentException("Employee first name must be set, it's empty");
         }
         if (employee.getFirstName() == null) {
-            throw new IllegalArgumentException("Customer last name must be set, it's null");
+            throw new IllegalArgumentException("Employee last name must be set, it's null");
         }
         if (employee.getFirstName().isEmpty()) {
-            throw new IllegalArgumentException("Customer last name must be set, it's empty");
+            throw new IllegalArgumentException("Employee last name must be set, it's empty");
         }
         if (employee.getPassword() == null) {
-            throw new IllegalArgumentException("Customer password must be set, it's null");
+            throw new IllegalArgumentException("Employee password must be set, it's null");
         }
         if (employee.getPassword().isEmpty()) {
-            throw new IllegalArgumentException("Customer address must be set, it's null");
+            throw new IllegalArgumentException("Employee address must be set, it's null");
         }
         if (employee.getEmail() == null) {
-            throw new IllegalArgumentException("Customer email must be set, it's null");
+            throw new IllegalArgumentException("Employee email must be set, it's null");
         }
     }
 }
