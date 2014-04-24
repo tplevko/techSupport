@@ -1,4 +1,4 @@
-package cz.fi.muni.tplevko.techsupport.managedbeans.security.confirm;
+package cz.muni.fi.tplevko.techsupport.managedbeans.security.confirm;
 
 import java.io.IOException;
 import java.io.PrintWriter;

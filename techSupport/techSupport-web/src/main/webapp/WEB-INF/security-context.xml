@@ -10,7 +10,7 @@
           http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.2.xsd
           http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.2.xsd
           http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
-">
+"><!--
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/security/login"/>
@@ -19,14 +19,14 @@
         <property name="filterChainDefinitions">
             <value>
                 
-<!--                security turned off
+                security turned off
                 
                 /basket/** = roles[ROLE_USER]
                 /login.xhtml = authc
                 /index.html = anon
                 /users/** = roles[ROLE_ADMIN]
                 /admin/** = roles[ROLE_ADMIN]
-                /item/createItem.xhtml = roles[ROLE_ADMIN]-->
+                /item/createItem.xhtml = roles[ROLE_ADMIN]
             </value>
         </property>
     </bean>
@@ -44,7 +44,7 @@
     <bean id="realm" class="cz.fi.muni.tplevko.techsupport.managedbeans.security.realm.MyCustomRealm">
         <property name="userService" ref="customerService"/>
         <property name="employeeService" ref="employeeService"/>
-        <!--<property name="credentialsMatcher" ref="sha256PasswordMatcher"/>-->
+        <property name="credentialsMatcher" ref="sha256PasswordMatcher"/>
     </bean>
     
     <bean id="lifecycleBeanPostProcessor" class="org.apache.shiro.spring.LifecycleBeanPostProcessor"/>
@@ -55,4 +55,4 @@
         <property name="securityManager" ref="securityManager"/>
     </bean>
     
-</beans>
+--></beans>

@@ -1,7 +1,5 @@
 package cz.muni.fi.tplevko.techsupport.entity.dto;
 
-import cz.muni.fi.tplevko.techsupport.entity.Customer;
-import cz.muni.fi.tplevko.techsupport.entity.Employee;
 import java.util.Date;
 
 /**
@@ -13,8 +11,8 @@ public class RequestDto {
     private Long id;
     private String text;
     private boolean executed = false;
-    private Customer owner;
-    private Employee assignee;
+    private CustomerDto owner;
+    private EmployeeDto assignee;
     private Long priority;
     private Date created;
     private Date finished;
@@ -43,19 +41,19 @@ public class RequestDto {
         this.executed = executed;
     }
 
-    public Customer getOwner() {
+    public CustomerDto getOwner() {
         return owner;
     }
 
-    public void setOwner(Customer owner) {
+    public void setOwner(CustomerDto owner) {
         this.owner = owner;
     }
 
-    public Employee getAssignee() {
+    public EmployeeDto getAssignee() {
         return assignee;
     }
 
-    public void setAssignee(Employee assignee) {
+    public void setAssignee(EmployeeDto assignee) {
         this.assignee = assignee;
     }
 

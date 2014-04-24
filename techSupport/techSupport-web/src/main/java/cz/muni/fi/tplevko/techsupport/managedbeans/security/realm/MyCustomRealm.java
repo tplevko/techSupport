@@ -1,4 +1,4 @@
-package cz.fi.muni.tplevko.techsupport.managedbeans.security.realm;
+package cz.muni.fi.tplevko.techsupport.managedbeans.security.realm;
 
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;

@@ -17,7 +17,7 @@ public interface ProductDao {
 
     public Product findProductById(Long id);
 
-    public Product findRequestByName(String name);
+    public Product findProductByName(String name);
 
     public List<Product> getAllProduct();
 }

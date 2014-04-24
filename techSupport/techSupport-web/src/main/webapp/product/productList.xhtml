@@ -1,12 +1,50 @@
-<?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets">
 
+    <ui:composition template="/template.xhtml">
+
+        <ui:define name="title">Items</ui:define>
+
+        <ui:define name="content">
+
+            <h1>
+                List of products
+            </h1>
+
+            <h:form>
+
+                <h:dataTable value="#{productsController.productsList}" var="product"
+                             styleClass="order-table"
+                             headerClass="order-table-header"
+                             rowClasses="order-table-odd-row,order-table-even-row" >
+
+                    <h:column>
+                        <f:facet name="header">id</f:facet>
+                            #{product.id}
+                    </h:column>
+                    <h:column>
+                        <f:facet name="header">name</f:facet>
+                            #{product.name}
+                    </h:column>
+<!--                    
+                    <h:column>
+                        <h:commandButton value="Select"
+                                         action="#{productsController.selectItem(item.id)}" />
+                    </h:column>
+
+                    <h:column>
+                        <h:commandButton value="Delete"
+                                         action="#{productsController.deleteItem(item.id)}" />
+                    </h:column>-->
+                </h:dataTable>
+            </h:form>
+
+
+        </ui:define>
+
+    </ui:composition>
+
+</ui:composition>

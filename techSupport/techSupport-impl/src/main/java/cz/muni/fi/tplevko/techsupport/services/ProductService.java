@@ -20,6 +20,4 @@ public interface ProductService {
     public ProductDto findProductByName(String name);
 
     public List<ProductDto> getAllProducts();
-
-    public void activateProductAccount(ProductDto productDto);
 }

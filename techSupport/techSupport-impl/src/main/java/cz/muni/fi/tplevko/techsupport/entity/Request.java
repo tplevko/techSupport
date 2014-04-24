@@ -9,8 +9,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 
 /**
@@ -18,6 +18,7 @@ import javax.persistence.Temporal;
  * @author tplevko
  */
 @Entity
+@Table(name="REQUEST")
 public class Request implements Serializable {
 
     private static final long serialVersionUID = 1L;

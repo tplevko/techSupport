@@ -1,4 +1,4 @@
-package cz.fi.muni.tplevko.techsupport.managedbeans.security;
+package cz.muni.fi.tplevko.techsupport.managedbeans.security;
 
 /**
  *

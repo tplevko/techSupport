@@ -1,4 +1,4 @@
-package cz.fi.muni.tplevko.techsupport.managedbeans.security.confirm;
+package cz.muni.fi.tplevko.techsupport.managedbeans.security.confirm;
 
 import cz.muni.fi.tplevko.techsupport.entity.Customer;
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;

@@ -5,11 +5,15 @@ import cz.muni.fi.tplevko.techsupport.entity.Employee;
 import cz.muni.fi.tplevko.techsupport.entity.Request;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestDto;
 import java.util.List;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author tplevko
  */
+@Service(value = "requestService")
+@Transactional
 public class RequestServiceImpl implements RequestService {
 
     @Override

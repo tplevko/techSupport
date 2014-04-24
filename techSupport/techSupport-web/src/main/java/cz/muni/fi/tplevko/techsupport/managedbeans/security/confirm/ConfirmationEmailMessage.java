@@ -1,4 +1,4 @@
-package cz.fi.muni.tplevko.techsupport.managedbeans.security.confirm;
+package cz.muni.fi.tplevko.techsupport.managedbeans.security.confirm;
 
 import cz.muni.fi.tplevko.techsupport.utils.ShaEncoder;
 import org.springframework.stereotype.Component;

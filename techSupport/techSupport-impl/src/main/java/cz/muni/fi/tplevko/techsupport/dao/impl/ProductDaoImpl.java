@@ -83,7 +83,7 @@ public class ProductDaoImpl implements ProductDao {
     }
 
     @Override
-    public Product findRequestByName(String name) {
+    public Product findProductByName(String name) {
 
         Product product = null;
         final String qstring = "SELECT e FROM Product e WHERE e.name = :name";
