@@ -60,28 +60,29 @@ public class MyCustomRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         String email = (String) pc.getPrimaryPrincipal();
 
-        CustomerDto account = customerService.findCustomerByEmail(email);
-        EmployeeDto employee = employeeService.findEmployeeByEmail(email);
+//        CustomerDto account = customerService.findCustomerByEmail(email);
+//        EmployeeDto employee = employeeService.findEmployeeByEmail(email);
 
         // TODO : toto sa mi zda na hovno...
         // Asi bude treba predsa len viacero tychto realmov...
         // co ak sa clovek s jednym mailom registruje na obe tie funkcie?
-
-        
-        
-        if (account != null) {
-            info.addRole("ROLE_USER");
-            
-        } else if (employee != null) {
-            if (employee.isIsAdmin()) {
-//                info.addRole("ROLE_USER");
-                info.addRole("ROLE_ADMIN");
-                info.addRole("ROLE_TECHNICIAN");
-            } else {
-//                info.addRole("ROLE_USER");
-                info.addRole("ROLE_TECHNICIAN");
-            }
-        }
+//        
+//        if (account != null) {
+//            info.addRole("ROLE_USER");
+//            
+//        } else if (employee != null) {
+//            if (employee.isIsAdmin()) {
+////                info.addRole("ROLE_USER");
+//                info.addRole("ROLE_ADMIN");
+//                info.addRole("ROLE_TECHNICIAN");
+//            } else {
+////                info.addRole("ROLE_USER");
+//                info.addRole("ROLE_TECHNICIAN");
+//            }
+//        }
+        info.addRole("ROLE_TECHNICIAN");
+        info.addRole("ROLE_ADMIN");
+        info.addRole("ROLE_USER");
 
         return info;
 

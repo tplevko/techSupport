@@ -48,19 +48,10 @@
                         <div>        
                             <h:link value="login" outcome="/security/login" rendered="#{not request.isUserInRole('ROLE_USER')}"  />
                         </div>
-                         <div>        
+                        <div>        
                             <h:link value="logout" outcome="/security/logout" rendered="#{request.isUserInRole('ROLE_USER')}"  />
                         </div>
-<!--                        <div>        
-                            <a href="j_spring_security_logout">Logout</a>
-                        </div>-->
-
-
-
-
                     </table>
-                    <!--left content-->
-
                 </ui:insert>
             </div>
         </div>

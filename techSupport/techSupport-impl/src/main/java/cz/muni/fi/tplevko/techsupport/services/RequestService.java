@@ -1,8 +1,8 @@
 package cz.muni.fi.tplevko.techsupport.services;
 
-import cz.muni.fi.tplevko.techsupport.entity.Customer;
-import cz.muni.fi.tplevko.techsupport.entity.Employee;
 import cz.muni.fi.tplevko.techsupport.entity.Request;
+import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
+import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestDto;
 import java.util.List;
 
@@ -18,11 +18,11 @@ public interface RequestService {
 
     public void deleteRequest(RequestDto requestDto);
 
-    public RequestDto findProductById(Long id);
+    public RequestDto findRequestById(Long id);
 
-    public RequestDto findProductByOwner(Customer owner);
+    public RequestDto findRequestByOwner(CustomerDto owner);
 
-    public RequestDto findProductByAssignee(Employee assignee);
+    public RequestDto findRequestByAssignee(EmployeeDto assignee);
 
     public List<RequestDto> getAllRequests();
 
