@@ -2,7 +2,9 @@
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
-                xmlns:ui="http://java.sun.com/jsf/facelets">
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
 
     <ui:composition template="../../template.xhtml">
 
@@ -11,7 +13,7 @@
         <ui:define name="content">
 
             <h1>
-                List of users
+                List of Employees
             </h1>
 
             <h:dataTable value="#{employeeController.employeeList}" var="employee"
@@ -22,7 +24,7 @@
                     <f:facet name="header">first name</f:facet>
                         #{employee.firstName}
                 </h:column>
-                
+
                 <h:column>
                     <f:facet name="header">last name</f:facet>
                         #{employee.lastName}
@@ -52,14 +54,152 @@
                     <f:facet name="header">created</f:facet>
                         #{employee.createdAt}
                 </h:column>
-                
+
                 <h:column>
                     <f:facet name="header">is admin</f:facet>
                         #{employee.isAdmin}
                 </h:column>
 
             </h:dataTable>
+
+
+
+
+
+
+            <h:form id="form">
+
+                <rich:panel>
+                    <f:facet name="header">
+                        <h:outputText style="font-size: large;" value="#{bundle.employeeList}" />
+                    </f:facet>
+
+                    <rich:extendedDataTable value="#{employeeController.employeeList}" var="employee" id="table" rowClasses="odd-row, even-row"
+                                            rows="20" sortMode="single">
+                        <!--                        
+                                                <a4j:ajax execute="@form" event="selectionchange" listener="#{soccerMatchBean.selectionListener}"
+                                                          render=":selectedResource"/>-->
+
+                        <rich:column sortBy="#{employee.id}" >
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.id}" />
+                            </f:facet>
+                            <h:outputText value="#{employee.id}" />
+                        </rich:column>
+
+                        <rich:column sortBy="#{employee.firstName}" >
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.firstName}" />
+                            </f:facet>
+                            <h:outputText value="#{employee.firstName}" />
+                        </rich:column>
+
+                        <rich:column  sortBy="#{employee.lastName}">
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.lastName}" />
+                            </f:facet>
+                            <h:outputText value="#{employee.lastName}" />
+                        </rich:column>
+
+                        <rich:column sortBy="#{employee.email}" >
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.email}" />
+                            </f:facet>
+                            <h:outputText value="#{employee.email}" />
+                        </rich:column>
+
+<!--                        <rich:column sortBy="#{employee.isAdmin}" >
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.isAdmin}" />
+                            </f:facet>
+                            <h:outputText value="#{employee.isAdmin}" />
+                        </rich:column>-->
+
+                        <rich:column sortBy="#{employee.active}" >
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.active}" />
+                            </f:facet>
+                            <h:outputText value="#{employee.active}" />
+                        </rich:column>
+
+                        <rich:column sortBy="#{employee.password}" >
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.password}" />
+                            </f:facet>
+                            <h:outputText value="#{employee.password}" />
+                        </rich:column>
+
+                        <rich:column sortBy="#{employee.salt}" >
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.salt}" />
+                            </f:facet>
+                            <h:outputText value="#{employee.salt}" />
+                        </rich:column>
+
+                        <rich:column sortBy="#{employee.createdAt}" >
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.createdAt}" />
+                            </f:facet>
+                            <h:outputText value="#{employee.createdAt}" />
+                        </rich:column>
+
+                        <rich:column>
+                            <f:facet name="header" >
+                                <h:outputText class="arrangeableHeader" value="#{bundle.playerViewActions}" />
+                            </f:facet>
+
+                            <a4j:commandButton image="/resources/icons/Button-Remove-icon.png" 
+                                               execute="@this" render="@none"
+                                               oncomplete="#{rich:component('confirmPanel')}.show();" 
+                                               value="" styleClass="iconizedButton" >
+                                <a4j:param value="#{employee}" assignTo="#{employeeController.employeeDto}" converter="#{employeeConverter}" />       
+                            </a4j:commandButton>
+                            <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
+                                               value="Edit" styleClass="iconizedButton" action="#{employeeController.editMatchBefore}" >
+                                <a4j:param value="#{employee.id}" name="matchId"/>                   
+                            </a4j:commandButton>
+                        </rich:column>
+
+
+                        <f:facet name="footer">
+                            <rich:dataScroller id="scroller" />
+                        </f:facet>
+
+                    </rich:extendedDataTable>
+
+                    <a4j:jsFunction name="remove" action="#{employeeController.removeEmployee}"
+                                    render="table" execute="@this" oncomplete="#{rich:component('confirmPanel')}.hide();" />
+
+                    <rich:popupPanel id="confirmPanel" autosized="true" >
+                        <h:outputText value="#{bundle.deleteModalForm}" /> 
+                        <br/>
+                        <div style="float: right; margin-bottom: 5px;">
+                            <a4j:commandButton value="#{bundle.deleteButton}" onclick="remove();
+                                    return false;" />
+                            <a4j:commandButton value="#{bundle.cancelButton}"
+                                               onclick="${rich:component('confirmPanel')}.hide();
+                                                       return false;" style="margin-left: 5px;" />
+                        </div>
+                    </rich:popupPanel>
+
+                    <a4j:outputPanel id="selectedResource">
+                        <rich:panel header="Selected Match:" rendered="#{not empty employeeController.employeeDto}" >
+                            <ui:include src="./employee.xhtml" />
+                        </rich:panel>
+                    </a4j:outputPanel>
+
+
+                </rich:panel>
+            </h:form>
+
+
+
+
+
+
+
         </ui:define>
+
 
     </ui:composition>
 

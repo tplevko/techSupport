@@ -1,0 +1,89 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+
+    <ui:composition template="../../template.xhtml">
+
+        <ui:define name="title">#{bundle.indexTitle}</ui:define>
+
+        <ui:define name="content">
+
+            <h1>
+                List of users
+            </h1>
+
+            <h:dataTable value="#{employeeController.employeeList}" var="employee"
+                         styleClass="order-table"
+                         headerClass="order-table-header"
+                         rowClasses="order-table-odd-row,order-table-even-row" >
+                
+
+            <h:form id="form">
+
+                <rich:panel>
+                    <f:facet name="header">
+                        <h:outputText style="font-size: large;" value="#{bundle.employeeList}" />
+                    </f:facet>
+
+                    <rich:extendedDataTable value="#{employeeController.employeeList}" var="employee" id="table" rowClasses="odd-row, even-row"
+                                            rows="20" sortMode="single">
+                        <!--                        
+                                                <a4j:ajax execute="@form" event="selectionchange" listener="#{soccerMatchBean.selectionListener}"
+                                                          render=":selectedResource"/>-->
+
+                        <rich:column sortBy="#{employee.firstName}" >
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.firstName}" />
+                            </f:facet>
+                            <h:outputText value="#{employee.firstName}" />
+                        </rich:column>
+                        <rich:column  sortBy="#{employee.lastName}">
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.lastName}" />
+                            </f:facet>
+                            <h:outputText value="#{employee.lastName}" />
+                        </rich:column>
+
+                        <!--
+                                                <rich:column>
+                                                    <f:facet name="header" >
+                                                        <h:outputText class="arrangeableHeader" value="#{bundle.playerViewActions}" />
+                                                    </f:facet>
+                        
+                                                    <a4j:commandButton image="/resources/icons/Button-Remove-icon.png" 
+                                                                       execute="@this" render="@none"
+                                                                       oncomplete="#{rich:component('confirmPanel')}.show();" 
+                                                                       value="" styleClass="iconizedButton" >
+                                                        <a4j:param value="#{match}" assignTo="#{soccerMatchBean.match}" converter="#{soccerMatchConverter}" />       
+                                                    </a4j:commandButton>
+                                                    <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
+                                                                       value="Edit" styleClass="iconizedButton" action="#{soccerMatchBean.editMatchBefore}" >
+                                                        <a4j:param value="#{match.id}" name="matchId"/>                   
+                                                    </a4j:commandButton>
+                                                </rich:column>-->
+
+                        <f:facet name="footer">
+                            <rich:dataScroller id="scroller" />
+                        </f:facet>
+
+                    </rich:extendedDataTable>
+                    
+                </rich:panel>
+            </h:form>
+
+
+
+
+
+
+
+        </ui:define>
+
+
+    </ui:composition>
+
+</ui:composition>

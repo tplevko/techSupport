@@ -28,10 +28,14 @@ public class EmployeeController {
     @PostConstruct
     public void init() {
 
+        employeeDto = new EmployeeDto();
         employeeList = new ArrayList<EmployeeDto>();
     }
 
-    public EmployeeDto getEmployeeDto() {
+    public EmployeeDto getEmployeeDto(long employeeId) {
+        
+        employeeDto = employeeService.findEmployeeById(employeeId);
+        
         return employeeDto;
     }
 
@@ -47,6 +51,20 @@ public class EmployeeController {
     public void setEmployeeList(List<EmployeeDto> employeeList) {
         this.employeeList = employeeList;
     }
+    
+    // TODO : ADMIN richts
+    public void removeEmployee() {
+        
+    }
+    
+    public void deactivateEmployee() {
+        
+    }
+    
+    public void editEmployeeBefore() {
+        
+    }
+    
 //    
 //    public String createEmployee() {
 //        

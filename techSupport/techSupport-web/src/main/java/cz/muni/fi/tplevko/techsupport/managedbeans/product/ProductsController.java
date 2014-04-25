@@ -1,4 +1,4 @@
-package cz.muni.fi.tplevko.techsupport.managedbeans;
+package cz.muni.fi.tplevko.techsupport.managedbeans.product;
 
 import cz.muni.fi.tplevko.techsupport.entity.dto.ProductDto;
 import cz.muni.fi.tplevko.techsupport.services.ProductService;

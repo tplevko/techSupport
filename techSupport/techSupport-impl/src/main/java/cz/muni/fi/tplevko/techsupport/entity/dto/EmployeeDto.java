@@ -19,7 +19,7 @@ public class EmployeeDto {
     private boolean active;
     private Date createdAt;
     private List<Request> requests;
-    private boolean isAdmin;
+//    private boolean isAdmin;
 
     public Long getId() {
         return id;
@@ -44,14 +44,14 @@ public class EmployeeDto {
     public void setRequests(List<Request> requests) {
         this.requests = requests;
     }
-
-    public boolean isIsAdmin() {
-        return isAdmin;
-    }
-
-    public void setIsAdmin(boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
+//
+//    public boolean isIsAdmin() {
+//        return isAdmin;
+//    }
+//
+//    public void setIsAdmin(boolean isAdmin) {
+//        this.isAdmin = isAdmin;
+//    }
 
     public boolean isActive() {
         return active;

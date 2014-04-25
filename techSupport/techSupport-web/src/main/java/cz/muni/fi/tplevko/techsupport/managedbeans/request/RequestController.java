@@ -1,4 +1,4 @@
-package cz.muni.fi.tplevko.techsupport.managedbeans;
+package cz.muni.fi.tplevko.techsupport.managedbeans.request;
 
 /**
  *
