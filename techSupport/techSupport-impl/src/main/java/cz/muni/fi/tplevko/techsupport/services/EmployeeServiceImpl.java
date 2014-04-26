@@ -39,7 +39,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         if (employeeDto.getId() != null) {
-            throw new IllegalArgumentException("Employee has have id set");
+            throw new IllegalArgumentException("Employee has to have id set");
         }
 
         Employee employee = mapper.map(employeeDto, Employee.class);

@@ -46,12 +46,6 @@
                     </h:inputText> 
                     <h:message for="active" />
 
-                    <h:outputLabel value="isAdmin" />
-                    <h:inputText value="#{createEmployee.employeeDto.isAdmin}" id="admin">
-                        <f:validateLength minimum="0"/>
-                        <f:validateRequired for="sub"/>
-                    </h:inputText>
-                    <h:message for="isAdmin" />
 
                     <h:commandButton id="sub" value="create" type="submit" action="#{createEmployee.createEmployee()}" />
 

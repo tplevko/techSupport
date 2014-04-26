@@ -15,7 +15,6 @@
         <param-value>true</param-value>
     </context-param>
     
-
     
     <!-- Add Support for Spring -->
     <listener>
@@ -47,10 +46,12 @@
             /WEB-INF/security-context.xml
         </param-value>
     </context-param>
+    
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
         <param-value>Development</param-value>
     </context-param>
+    
     <context-param>
         <param-name>javax.faces.DATETIMECONVERTER_DEFAULT_TIMEZONE_IS_SYSTEM_TIMEZONE</param-name>
         <param-value>true</param-value>
@@ -68,10 +69,10 @@
     </filter>
     <filter-mapping>
         <filter-name>shiroFilter</filter-name>
-        <url-pattern>/*</url-pattern>
+        <url-pattern>/security/*</url-pattern>
     </filter-mapping>
-    <!--        
-    <filter-mapping>
+            
+<!--    <filter-mapping>
         <filter-name>shiroFilter</filter-name>
         <url-pattern>/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>

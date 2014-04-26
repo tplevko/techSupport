@@ -24,7 +24,7 @@ public class Employee extends Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
         
-//    private boolean isAdmin;
+    private boolean isAdmin;
 
     @OneToMany
     private List<Request> requests;
@@ -36,14 +36,14 @@ public class Employee extends Account implements Serializable {
     public void setId(Long id) {
         this.id = id;
     }
-//
-//    public boolean isIsAdmin() {
-//        return isAdmin;
-//    }
-//
-//    public void setIsAdmin(boolean isAdmin) {
-//        this.isAdmin = isAdmin;
-//    }
+
+    public boolean isIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
 
     public List<Request> getRequests() {
         return requests;

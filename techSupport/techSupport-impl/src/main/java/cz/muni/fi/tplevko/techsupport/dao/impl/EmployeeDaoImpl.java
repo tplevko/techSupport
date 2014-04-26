@@ -124,10 +124,13 @@ public class EmployeeDaoImpl implements EmployeeDao {
             throw new IllegalArgumentException("Employee password must be set, it's null");
         }
         if (employee.getPassword().isEmpty()) {
-            throw new IllegalArgumentException("Employee address must be set, it's null");
+            throw new IllegalArgumentException("Employee address must be set, it's empty");
         }
         if (employee.getEmail() == null) {
             throw new IllegalArgumentException("Employee email must be set, it's null");
+        }
+        if (employee.getEmail().isEmpty()) {
+            throw new IllegalArgumentException("Employee email must be set, it's empty");
         }
     }
 }

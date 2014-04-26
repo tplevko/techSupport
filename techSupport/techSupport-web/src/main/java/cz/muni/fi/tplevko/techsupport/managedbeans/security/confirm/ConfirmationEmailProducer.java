@@ -1,5 +1,8 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.security.confirm;
 
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -28,20 +31,26 @@ public class ConfirmationEmailProducer {
      * sa mu flag na active...
      *
      */
-    
     @Autowired
     private ConfirmationEmailMessage confirmationEmailMessage;
-    
 
     public static void sendConfirmationEmail() {
     }
 
-    public void sendMail(String userName, String salt, String userEmailAddress) {
+    public void sendMail(String userName, String salt, String userEmailAddress) throws FileNotFoundException, IOException {
 
+
+        Properties props = new Properties();
+//        props.load(new FileInputStream("config.properties"));
+        
         final String email = "xplevko@gmail.com";
         final String password = "xplevko@xplevko";
 
-        Properties props = new Properties();
+//        
+//        for (String key : props.stringPropertyNames()) {
+//            String value = props.getProperty(key);     
+//        }
+
         props.put("mail.smtp.host", "smtp.gmail.com");
         props.put("mail.smtp.socketFactory.port", "465");
         props.put("mail.smtp.socketFactory.class",
@@ -63,7 +72,7 @@ public class ConfirmationEmailProducer {
             message.setRecipients(Message.RecipientType.TO,
                     InternetAddress.parse(userEmailAddress));
             message.setSubject("Dear " + userName);
-            
+
             String messageToSend = confirmationEmailMessage.generateMessage(userName, userEmailAddress, salt);
             message.setText(messageToSend);
 

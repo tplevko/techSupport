@@ -15,7 +15,7 @@ public class AccountDto {
     protected String password;
     protected String salt;
     protected boolean active;
-    private Date createdAt;
+    protected Date createdAt;
 
     public Long getId() {
         return id;

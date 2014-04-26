@@ -112,7 +112,11 @@ public class MyCustomRealm extends AuthorizingRealm {
         CustomerDto account = null;
 
         if (token.getUsername() != null && !"".equals(token.getUsername())) {
+           
             account = customerService.findCustomerByEmail(token.getUsername());
+//          
+//            account = employeeService.findEmployeeByEmail(token.getUsername());
+
         }
 
         try {

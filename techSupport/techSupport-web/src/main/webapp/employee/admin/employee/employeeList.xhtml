@@ -16,57 +16,6 @@
                 List of Employees
             </h1>
 
-            <h:dataTable value="#{employeeController.employeeList}" var="employee"
-                         styleClass="order-table"
-                         headerClass="order-table-header"
-                         rowClasses="order-table-odd-row,order-table-even-row" >
-                <h:column>
-                    <f:facet name="header">first name</f:facet>
-                        #{employee.firstName}
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">last name</f:facet>
-                        #{employee.lastName}
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">email</f:facet>
-                        #{employee.email}
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">password</f:facet>
-                        #{employee.password}
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">salt</f:facet>
-                        #{employee.salt}
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">active</f:facet>
-                        #{employee.active}
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">created</f:facet>
-                        #{employee.createdAt}
-                </h:column>
-
-                <h:column>
-                    <f:facet name="header">is admin</f:facet>
-                        #{employee.isAdmin}
-                </h:column>
-
-            </h:dataTable>
-
-
-
-
-
-
             <h:form id="form">
 
                 <rich:panel>
@@ -108,12 +57,6 @@
                             <h:outputText value="#{employee.email}" />
                         </rich:column>
 
-<!--                        <rich:column sortBy="#{employee.isAdmin}" >
-                            <f:facet name="header">
-                                <h:outputText class="arrangeableHeader" value="#{bundle.isAdmin}" />
-                            </f:facet>
-                            <h:outputText value="#{employee.isAdmin}" />
-                        </rich:column>-->
 
                         <rich:column sortBy="#{employee.active}" >
                             <f:facet name="header">
