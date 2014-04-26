@@ -95,7 +95,7 @@
                                                execute="@this" render="@none"
                                                oncomplete="#{rich:component('confirmPanel')}.show();" 
                                                value="" styleClass="iconizedButton" >
-                                <a4j:param value="#{employee}" assignTo="#{employeeController.employeeDto}" converter="#{employeeConverter}" />       
+                                <a4j:param value="#{employee}" assignTo="#{employeeController.getEmployeeDto(employee)}" converter="#{employeeConverter}" />       
                             </a4j:commandButton>
                             <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
                                                value="Edit" styleClass="iconizedButton" action="#{employeeController.editMatchBefore}" >
@@ -124,13 +124,7 @@
                                                        return false;" style="margin-left: 5px;" />
                         </div>
                     </rich:popupPanel>
-
-                    <a4j:outputPanel id="selectedResource">
-                        <rich:panel header="Selected Match:" rendered="#{not empty employeeController.employeeDto}" >
-                            <ui:include src="./employee.xhtml" />
-                        </rich:panel>
-                    </a4j:outputPanel>
-
+                    
 
                 </rich:panel>
             </h:form>

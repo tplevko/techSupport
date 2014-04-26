@@ -1,18 +1,15 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.security.realm;
 
-import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
-import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
+import cz.muni.fi.tplevko.techsupport.entity.dto.AccountDto;
 import cz.muni.fi.tplevko.techsupport.utils.ShaEncoder;
 import cz.muni.fi.tplevko.techsupport.services.CustomerService;
 import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
-import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
 import org.apache.shiro.authc.SimpleAuthenticationInfo;
 import org.apache.shiro.authc.UsernamePasswordToken;
 import org.apache.shiro.authc.credential.HashedCredentialsMatcher;
-import org.apache.shiro.authc.credential.Sha256CredentialsMatcher;
 import org.apache.shiro.authz.AuthorizationInfo;
 import org.apache.shiro.authz.SimpleAuthorizationInfo;
 import org.apache.shiro.crypto.hash.Sha256Hash;
@@ -62,7 +59,6 @@ public class MyCustomRealm extends AuthorizingRealm {
 
 //        CustomerDto account = customerService.findCustomerByEmail(email);
 //        EmployeeDto employee = employeeService.findEmployeeByEmail(email);
-
         // TODO : toto sa mi zda na hovno...
         // Asi bude treba predsa len viacero tychto realmov...
         // co ak sa clovek s jednym mailom registruje na obe tie funkcie?
@@ -109,33 +105,33 @@ public class MyCustomRealm extends AuthorizingRealm {
             return null;
         }
 
-        CustomerDto account = null;
+        AccountDto account = null;
 
         if (token.getUsername() != null && !"".equals(token.getUsername())) {
-           
-            account = customerService.findCustomerByEmail(token.getUsername());
-//          
-//            account = employeeService.findEmployeeByEmail(token.getUsername());
 
+            account = customerService.findCustomerByEmail(token.getUsername());
+//
+//            if (account.) {
+//                account = employeeService.findEmployeeByEmail(token.getUsername());
+//            }
+
+//            CustomerDto customer = customerService.findCustomerByEmail(token.getUsername());
+//            EmployeeDto employee = employeeService.findEmployeeByEmail(token.getUsername());
+//
+//            if (customer != null) {
+//                account = customer;
+//            } else {
+//                account = employee;
+//            }
+//        }
         }
 
         try {
-
             // TODO : tu nebude zrejme len simple... 
             return new SimpleAuthenticationInfo(account.getEmail(), account.getPassword(), new SimpleByteSource(account.getSalt()), getName());
-//            return new SimpleAuthenticationInfo(account.getName(), password, getName());
-
         } catch (Exception e) {
-//            log.info("用户名或密码错误");  
-            setAttribute(MESSAGE, "用户名或密码错误");
             return null;
         }
 
     }
-
-    private void setAttribute(String key, String value) {
-
-        SecurityUtils.getSubject().getSession().setAttribute(key, value);
-    }
-
 }

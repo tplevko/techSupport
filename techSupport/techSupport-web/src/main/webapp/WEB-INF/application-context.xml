@@ -12,6 +12,7 @@
     <!--<context:property-placeholder location="classpath*:admin.properties"/>-->
     
     <context:property-placeholder location="classpath:admin.properties" ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:config.properties" ignore-unresolvable="true"/>
     
     
     <!--<context:property-placeholder location="classpath:config.properties" ignore-unresolvable="true"/>-->

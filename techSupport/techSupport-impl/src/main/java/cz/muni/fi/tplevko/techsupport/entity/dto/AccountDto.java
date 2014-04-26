@@ -6,7 +6,7 @@ import java.util.Date;
  *
  * @author tplevko
  */
-public class AccountDto {
+public class AccountDto implements UserDto {
 
     protected Long id;
     protected String firstName;

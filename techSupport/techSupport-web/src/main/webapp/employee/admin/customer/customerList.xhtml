@@ -13,14 +13,8 @@
         <ui:define name="content">
 
             <h1>
-                List of users
+                List of Employees
             </h1>
-
-            <h:dataTable value="#{employeeController.employeeList}" var="employee"
-                         styleClass="order-table"
-                         headerClass="order-table-header"
-                         rowClasses="order-table-odd-row,order-table-even-row" >
-                
 
             <h:form id="form">
 
@@ -29,23 +23,23 @@
                         <h:outputText style="font-size: large;" value="#{bundle.employeeList}" />
                     </f:facet>
 
-                    <rich:extendedDataTable value="#{employeeController.employeeList}" var="employee" id="table" rowClasses="odd-row, even-row"
+                    <rich:extendedDataTable value="#{customerController.customerList}" var="customer" id="table" rowClasses="odd-row, even-row"
                                             rows="20" sortMode="single">
                         <!--                        
                                                 <a4j:ajax execute="@form" event="selectionchange" listener="#{soccerMatchBean.selectionListener}"
                                                           render=":selectedResource"/>-->
 
-                        <rich:column sortBy="#{employee.firstName}" >
+                        <rich:column sortBy="#{customer.firstName}" >
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.firstName}" />
                             </f:facet>
-                            <h:outputText value="#{employee.firstName}" />
+                            <h:outputText value="#{customer.firstName}" />
                         </rich:column>
-                        <rich:column  sortBy="#{employee.lastName}">
+                        <rich:column  sortBy="#{customer.lastName}">
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.lastName}" />
                             </f:facet>
-                            <h:outputText value="#{employee.lastName}" />
+                            <h:outputText value="#{customer.lastName}" />
                         </rich:column>
 
                         <!--
@@ -71,15 +65,9 @@
                         </f:facet>
 
                     </rich:extendedDataTable>
-                    
+
                 </rich:panel>
             </h:form>
-
-
-
-
-
-
 
         </ui:define>
 

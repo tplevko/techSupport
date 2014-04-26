@@ -32,6 +32,21 @@
                         <div>        
                             <h:link value="logout" outcome="/security/logout" rendered="#{request.isUserInRole('ROLE_USER')}"  />
                         </div>
+                        
+                        
+                        
+
+                        <!-- ######################## remove ######################## --> 
+                        <hr/>
+                        <div>        
+                            <h:link value="employee section" outcome="/employee/index" rendered="#{request.isUserInRole('ROLE_TECHNICIAN')}"  />
+                        </div>  
+
+                        
+                        <!-- ######################## remove ######################## --> 
+
+                        
+                        
                     </table>
                 </ui:insert>
             </div>

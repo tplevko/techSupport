@@ -55,8 +55,11 @@ public class RequestController {
     public void setSelectedproduct(ProductDto selectedproduct) {
         this.selectedproduct = selectedproduct;
     }
-    
+
     public List<RequestDto> getRequestList() {
+
+        requestList = requestService.getAllRequests();
+        
         return requestList;
     }
 
@@ -72,8 +75,7 @@ public class RequestController {
         this.productList = productList;
     }
 
-    public String newRequest() {        
-        
+    public String newRequest() {
 
         requestService.createRequest(request);
 

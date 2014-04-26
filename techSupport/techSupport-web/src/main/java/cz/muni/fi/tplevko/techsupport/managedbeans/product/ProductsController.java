@@ -49,14 +49,14 @@ public class ProductsController {
 
         productService.createProduct(newProduct);
         
-        return "/product/productList?faces-redirect=true";
+        return "/employee/admin/product/productList?faces-redirect=true";
     }
 
     public String deleteProduct() {
         
         productService.deleteProduct(product);
         
-        return "/product/productList?faces-redirect=true";
+        return "/employee/admin/product/productList?faces-redirect=true";
     }
     // TODO : editovanie asi nebude potrebne...
     public String editProduct() {

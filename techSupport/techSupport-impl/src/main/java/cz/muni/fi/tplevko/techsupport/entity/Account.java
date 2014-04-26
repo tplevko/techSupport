@@ -20,6 +20,7 @@ import javax.persistence.TemporalType;
  */
 @Entity
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "ACCOUNT")
 public class Account implements Serializable {
 
