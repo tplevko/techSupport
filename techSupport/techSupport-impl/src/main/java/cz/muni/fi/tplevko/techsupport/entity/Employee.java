@@ -29,14 +29,6 @@ public class Employee extends Account implements Serializable {
     @OneToMany
     private List<Request> requests;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public boolean isIsAdmin() {
         return isAdmin;
     }
@@ -53,13 +45,6 @@ public class Employee extends Account implements Serializable {
         this.requests = requests;
     }
 
-//    public Set<String> getRoles() {
-//        return roles;
-//    }
-//
-//    public void setRoles(Set<String> roles) {
-//        this.roles = roles;
-//    }
     
     // TODO : zisti ako spravit dobry hashcode...
 

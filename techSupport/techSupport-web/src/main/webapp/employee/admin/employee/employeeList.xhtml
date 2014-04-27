@@ -16,18 +16,40 @@
                 List of Employees
             </h1>
 
+            <h:outputStylesheet>
+                .even-row {
+                background-color: #FCFFFE;
+                }
+
+                .odd-row {
+                background-color: #ECF3FE;
+                }
+
+                .active-row {
+                background-color: #FFEBDA !important;
+                cursor: pointer;
+                }
+            </h:outputStylesheet>
+
+
             <h:form id="form">
 
                 <rich:panel>
                     <f:facet name="header">
-                        <h:outputText style="font-size: large;" value="#{bundle.employeeList}" />
+                        <h:outputText style="font-size: large;" value="#{bundle.employeeList}"  />
                     </f:facet>
 
-                    <rich:extendedDataTable value="#{employeeController.employeeList}" var="employee" id="table" rowClasses="odd-row, even-row"
-                                            rows="20" sortMode="single">
-                        <!--                        
-                                                <a4j:ajax execute="@form" event="selectionchange" listener="#{soccerMatchBean.selectionListener}"
-                                                          render=":selectedResource"/>-->
+                    <rich:extendedDataTable value="#{employeeController.employeeList}" 
+                                            var="employee" id="table"
+                                            rowClasses="odd-row, even-row"
+                                            rows="20" 
+                                            sortMode="single"
+                                            selectionMode="single" 
+                                            onrowmouseover="jQuery(this).addClass('active-row');" 
+                                            onrowmouseout="jQuery(this).removeClass('active-row');" 
+                                            onrowclick="processRowClick(#{employee.id});"
+                                            keepSaved="true">
+
 
                         <rich:column sortBy="#{employee.id}" >
                             <f:facet name="header">
@@ -65,58 +87,46 @@
                             <h:outputText value="#{employee.active}" />
                         </rich:column>
 
-                        <rich:column sortBy="#{employee.password}" >
-                            <f:facet name="header">
-                                <h:outputText class="arrangeableHeader" value="#{bundle.password}" />
-                            </f:facet>
-                            <h:outputText value="#{employee.password}" />
-                        </rich:column>
-
-                        <rich:column sortBy="#{employee.salt}" >
-                            <f:facet name="header">
-                                <h:outputText class="arrangeableHeader" value="#{bundle.salt}" />
-                            </f:facet>
-                            <h:outputText value="#{employee.salt}" />
-                        </rich:column>
-
                         <rich:column sortBy="#{employee.createdAt}" >
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.createdAt}" />
                             </f:facet>
-                            <h:outputText value="#{employee.createdAt}" />
+                            <h:outputText value="#{employee.createdAt}">
+                                <f:convertDateTime pattern="#{employeeController.localePattern}" type="both" />
+                            </h:outputText>            
                         </rich:column>
-
-                        <rich:column>
+                        
+                        <rich:column style="text-align: center;" width="75px" > 
+                            <!--rendered="#{request.isUserInRole('ADMIN')}" >-->
                             <f:facet name="header" >
-                                <h:outputText class="arrangeableHeader" value="#{bundle.playerViewActions}" />
+                                <h:outputText class="arrangeableHeader" value="#{bundle.employeeActions}" />
                             </f:facet>
-
                             <a4j:commandButton image="/resources/icons/Button-Remove-icon.png" 
                                                execute="@this" render="@none"
+                                               onclick="event.stopPropagation();"
                                                oncomplete="#{rich:component('confirmPanel')}.show();" 
                                                value="" styleClass="iconizedButton" >
-                                <a4j:param value="#{employee}" assignTo="#{employeeController.getEmployeeDto(employee)}" converter="#{employeeConverter}" />       
+                                <a4j:param value="#{employee}" assignTo="#{employeeController.employeeDto}" converter="#{employeeConverter}" />       
                             </a4j:commandButton>
                             <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
-                                               value="Edit" styleClass="iconizedButton" action="#{employeeController.editMatchBefore}" >
+                                               value="Edit" styleClass="iconizedButton" action="#{employeeController.editEmployeeBefore}" >
                                 <a4j:param value="#{employee.id}" name="matchId"/>                   
                             </a4j:commandButton>
+
                         </rich:column>
 
-
+                        
+                        
                         <f:facet name="footer">
                             <rich:dataScroller id="scroller" />
                         </f:facet>
 
                     </rich:extendedDataTable>
-
-                    <a4j:jsFunction name="remove" action="#{employeeController.removeEmployee}"
-                                    render="table" execute="@this" oncomplete="#{rich:component('confirmPanel')}.hide();" />
-
+                    
                     <rich:popupPanel id="confirmPanel" autosized="true" >
-                        <h:outputText value="#{bundle.deleteModalForm}" /> 
+                        <h:outputText value="#{bundle.deleteEmployee}" /> 
                         <br/>
-                        <div style="float: right; margin-bottom: 5px;">
+                        <div class="modalPanelActionButtons">
                             <a4j:commandButton value="#{bundle.deleteButton}" onclick="remove();
                                     return false;" />
                             <a4j:commandButton value="#{bundle.cancelButton}"
@@ -124,19 +134,45 @@
                                                        return false;" style="margin-left: 5px;" />
                         </div>
                     </rich:popupPanel>
-                    
+
 
                 </rich:panel>
+
+
+                <a4j:jsFunction name="processRowClick"  execute="@form" action="#{employeeController.rowKeyListener(rowKey)}" oncomplete="#{rich:component('employeeDetail')}.show()">
+                    <a4j:param name="rowKey" assignTo="#{rowKey}" />
+
+                </a4j:jsFunction>
+
+
+
             </h:form>
 
 
+            <rich:popupPanel header="#{bundle.employeeDetail}"
+                             id="employeeDetail"
+                             domElementAttachment="parent" width="400" height="170"
+                             onmaskclick="#{rich:component('employeeDetail')}.hide()">
+
+                <h:panelGrid columns="3" id="editGrid">
+                    <h:outputText value="first name" />
+                    <h:outputText value="#{employeeController.selectedItem.firstName}" />
+                    <h:panelGroup />
+                    <h:outputText value="last name" />
+                    <h:outputText value="#{employeeController.selectedItem.lastName}" />
+                    <h:panelGroup />
+
+                </h:panelGrid>
 
 
+                <a4j:commandButton value="Cancel" onclick="#{rich:component('employeeDetail')}.hide();
+                        return false;" />
+                
+            </rich:popupPanel>
 
 
 
         </ui:define>
-
 
     </ui:composition>
 

@@ -27,19 +27,4 @@
     </lifecycle>-->
 
 
-    
-    <!--    <navigation-rule>
-        <from-view-id>itemList.xhtml</from-view-id>
-        <navigation-case>
-            <from-action>#{itemController.displayItem}</from-action>
-            <from-outcome>success</from-outcome>
-            <to-view-id>page1.xhtml</to-view-id>
-        </navigation-case>
-        <navigation-case>
-            <from-action>#{pageController.processPage2}</from-action>
-            <from-outcome>success</from-outcome>
-            <to-view-id>page2.xhtml</to-view-id>
-        </navigation-case>
-    </navigation-rule>	-->
-
 </faces-config>

@@ -8,17 +8,10 @@
             http://www.springframework.org/schema/context
             http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-    <!-- Auto-detect components -->  
-    <!--<context:property-placeholder location="classpath*:admin.properties"/>-->
-    
     <context:property-placeholder location="classpath:admin.properties" ignore-unresolvable="true"/>
     <context:property-placeholder location="classpath:config.properties" ignore-unresolvable="true"/>
-    
-    
-    <!--<context:property-placeholder location="classpath:config.properties" ignore-unresolvable="true"/>-->
-
-    <!--<context:property-placeholder location="classpath*:config.properties"/>-->
-    
+     
+    <!-- Auto-detect components -->      
     <import resource="classpath*:applicationContext.xml" />
 
     <context:annotation-config/>
@@ -28,7 +21,6 @@
     <context:component-scan base-package="cz.muni.fi.tplevko.techsupport.services" />
 
     <!-- the initialization bean, that creates the admin account according to the config file -->
- 
     <bean id="springInitDestroy" class="cz.muni.fi.tplevko.techsupport.managedbeans.init.StartupHandler"
           init-method="init" >
     </bean>

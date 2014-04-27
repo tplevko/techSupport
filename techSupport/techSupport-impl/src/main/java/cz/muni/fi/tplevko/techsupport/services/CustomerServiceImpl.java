@@ -23,7 +23,6 @@ public class CustomerServiceImpl implements CustomerService {
     private static final Logger log = Logger.getLogger(CustomerServiceImpl.class.getName());
 
     @Autowired
-//    @Qualifier(value = "customerDao")
     private CustomerDao customerDao;
 
     @Autowired

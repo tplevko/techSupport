@@ -140,7 +140,7 @@ public class Request implements Serializable {
 
     @Override
     public String toString() {
-        return "cz.muni.fi.tplevko.secureappexample.entity.Item[ id=" + id + " ]";
+        return "cz.muni.fi.tplevko.techsupport.entity.Request[ id=" + id + " ]";
     }
 
 }
