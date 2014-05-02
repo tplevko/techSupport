@@ -12,10 +12,6 @@
 
         <ui:define name="content">
 
-            <h1>
-                List of Employees
-            </h1>
-
             <h:outputStylesheet>
                 .even-row {
                 background-color: #FCFFFE;
@@ -34,12 +30,12 @@
 
             <h:form id="form">
 
-                <rich:panel>
+                <rich:panel style="width: 800px">
                     <f:facet name="header">
                         <h:outputText style="font-size: large;" value="#{bundle.employeeList}"  />
                     </f:facet>
 
-                    <rich:extendedDataTable value="#{employeeController.employeeList}" 
+                    <rich:extendedDataTable value="#{employeeWiewer.employeeList}" 
                                             var="employee" id="table"
                                             rowClasses="odd-row, even-row"
                                             rows="20" 
@@ -48,7 +44,8 @@
                                             onrowmouseover="jQuery(this).addClass('active-row');" 
                                             onrowmouseout="jQuery(this).removeClass('active-row');" 
                                             onrowclick="processRowClick(#{employee.id});"
-                                            keepSaved="true">
+                                            keepSaved="true"
+                                            >
 
 
                         <rich:column sortBy="#{employee.id}" >
@@ -92,46 +89,50 @@
                                 <h:outputText class="arrangeableHeader" value="#{bundle.createdAt}" />
                             </f:facet>
                             <h:outputText value="#{employee.createdAt}">
-                                <f:convertDateTime pattern="#{employeeController.localePattern}" type="both" />
+                                <f:convertDateTime pattern="#{employeeWiewer.localePattern}" type="both" />
                             </h:outputText>            
                         </rich:column>
-                        
+
                         <rich:column style="text-align: center;" width="75px" > 
-                            <!--rendered="#{request.isUserInRole('ADMIN')}" >-->
+                            <!-- ###################################### -->
                             <f:facet name="header" >
                                 <h:outputText class="arrangeableHeader" value="#{bundle.employeeActions}" />
                             </f:facet>
+
                             <a4j:commandButton image="/resources/icons/Button-Remove-icon.png" 
                                                execute="@this" render="@none"
                                                onclick="event.stopPropagation();"
                                                oncomplete="#{rich:component('confirmPanel')}.show();" 
                                                value="" styleClass="iconizedButton" >
-                                <a4j:param value="#{employee}" assignTo="#{employeeController.employeeDto}" converter="#{employeeConverter}" />       
+                                <a4j:param value="#{employee}" assignTo="#{employeeWiewer.employeeDto}" />       
                             </a4j:commandButton>
+
                             <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
-                                               value="Edit" styleClass="iconizedButton" action="#{employeeController.editEmployeeBefore}" >
-                                <a4j:param value="#{employee.id}" name="matchId"/>                   
+                                               value="Edit" styleClass="iconizedButton" action="#{employeeOperations.editEmployeeBefore()}" >
+                                <a4j:param value="#{employee.id}" name="employeeId"/>                   
                             </a4j:commandButton>
 
                         </rich:column>
 
-                        
-                        
+
                         <f:facet name="footer">
                             <rich:dataScroller id="scroller" />
                         </f:facet>
 
                     </rich:extendedDataTable>
-                    
+
+                    <a4j:jsFunction name="remove" action="#{employeeWiewer.removeEmployee()}"
+                                    render="table" execute="@this" oncomplete="#{rich:component('confirmPanel')}.hide();" />
+
                     <rich:popupPanel id="confirmPanel" autosized="true" >
-                        <h:outputText value="#{bundle.deleteEmployee}" /> 
+                        <h:outputText value="#{bundle.deleteModalForm}" /> 
                         <br/>
                         <div class="modalPanelActionButtons">
-                            <a4j:commandButton value="#{bundle.deleteButton}" onclick="remove();
+                            <a4j:commandButton value="#{bundle.deleteButton}" onclick="removeEmployee();
                                     return false;" />
                             <a4j:commandButton value="#{bundle.cancelButton}"
                                                onclick="${rich:component('confirmPanel')}.hide();
-                                                       return false;" style="margin-left: 5px;" />
+                                                                       return false;" style="margin-left: 5px;" />
                         </div>
                     </rich:popupPanel>
 
@@ -139,7 +140,7 @@
                 </rich:panel>
 
 
-                <a4j:jsFunction name="processRowClick"  execute="@form" action="#{employeeController.rowKeyListener(rowKey)}" oncomplete="#{rich:component('employeeDetail')}.show()">
+                <a4j:jsFunction name="processRowClick"  execute="@form" action="#{employeeWiewer.rowKeyListener(rowKey)}" oncomplete="#{rich:component('employeeDetail')}.show()">
                     <a4j:param name="rowKey" assignTo="#{rowKey}" />
 
                 </a4j:jsFunction>
@@ -147,7 +148,41 @@
 
 
             </h:form>
-
+            <!--
+                        
+                        <rich:popupPanel header="#{bundle.editEmployee}"
+                                         id="employeeEditor"
+                                         domElementAttachment="parent" width="400" height="170"
+                                         onmaskclick="#{rich:component('employeeEditor')}.hide()">
+            
+                            <h:panelGrid columns="3" id="editGrid">
+                                <h:outputText value="first name" />
+                                <h:outputText value="#{employeeWiewer.selectedItem.firstName}" />
+                                <h:panelGroup />
+                                
+                                <h:outputText value="email" />
+                                <h:outputText value="#{employeeWiewer.selectedItem.email}" />
+                                <h:panelGroup />
+            
+                                <h:outputText value="email" />
+                                <h:outputText value="#{employeeWiewer.selectedItem.active}" />
+                                <h:panelGroup />
+                                
+                                <h:outputText value="is admin" />
+                                <h:outputText value="#{employeeWiewer.selectedItem.isAdmin}" />
+                                <h:panelGroup />
+                                
+                                <h:outputText value="last name" />
+                                <h:outputText value="#{employeeWiewer.selectedItem.lastName}" />
+                                <h:panelGroup />
+            
+                            </h:panelGrid>
+            
+                            <a4j:commandButton value="Cancel" onclick="#{rich:component('employeeEditor')}.hide();
+                                    return false;" />
+                            
+                        </rich:popupPanel>
+            -->
 
             <rich:popupPanel header="#{bundle.employeeDetail}"
                              id="employeeDetail"
@@ -156,18 +191,18 @@
 
                 <h:panelGrid columns="3" id="editGrid">
                     <h:outputText value="first name" />
-                    <h:outputText value="#{employeeController.selectedItem.firstName}" />
+                    <h:outputText value="#{employeeWiewer.selectedItem.firstName}" />
                     <h:panelGroup />
                     <h:outputText value="last name" />
-                    <h:outputText value="#{employeeController.selectedItem.lastName}" />
+                    <h:outputText value="#{employeeWiewer.selectedItem.lastName}" />
                     <h:panelGroup />
 
                 </h:panelGrid>
 
 
                 <a4j:commandButton value="Cancel" onclick="#{rich:component('employeeDetail')}.hide();
-                        return false;" />
-                
+                                        return false;" />
+
             </rich:popupPanel>
 
 
@@ -177,3 +212,5 @@
     </ui:composition>
 
 </ui:composition>
+
+<!--rendered="#{request.isUserInRole('ADMIN')}" >-->

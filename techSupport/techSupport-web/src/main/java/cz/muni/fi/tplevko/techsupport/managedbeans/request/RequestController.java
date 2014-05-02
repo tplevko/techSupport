@@ -26,6 +26,9 @@ public class RequestController {
     @Autowired
     private RequestService requestService;
 
+    @Autowired
+    private ProductService productService;
+
     private RequestDto request;
     private List<RequestDto> requestList;
     private List<ProductDto> productList;
@@ -59,7 +62,7 @@ public class RequestController {
     public List<RequestDto> getRequestList() {
 
         requestList = requestService.getAllRequests();
-        
+
         return requestList;
     }
 
@@ -68,6 +71,8 @@ public class RequestController {
     }
 
     public List<ProductDto> getProductList() {
+
+        productList = productService.getAllProducts();
         return productList;
     }
 

@@ -1,12 +1,68 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://java.sun.com/jsf/html">
-    <h:head>
-        <title>Facelet Title</title>
-    </h:head>
-    <h:body>
-        Hello from Facelets
-    </h:body>
-</html>
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:p="http://primefaces.org/ui">
 
+    <ui:composition template="../../template.xhtml">
+
+        <ui:define name="title">#{bundle.indexTitle}</ui:define>
+
+        <ui:define name="content">
+
+            <h1>
+                Create Employee page
+            </h1>
+
+            <h:form>
+                <h:panelGrid columns="3">
+                    <h:outputLabel value="name " />
+                    <h:inputText value="#{employeeOperations.employeeDto.firstName}" id="firstName">
+                        <f:validateLength minimum="0"/>
+                        <f:validateRequired for="sub"/>
+                    </h:inputText>
+                    <h:message for="firstName" />
+
+                    <h:outputLabel value="name " />
+                    <h:inputText value="#{employeeOperations.employeeDto.lastName}" id="lastName">
+                        <f:validateLength minimum="0"/>
+                        <f:validateRequired for="sub"/>
+                    </h:inputText>
+                    <h:message for="lastName" />
+
+                    <h:outputLabel value="email " />
+                    <h:inputText value="#{employeeOperations.employeeDto.email}" id="email">
+                        <f:validateLength minimum="0"/>
+                        <f:validateRequired for="sub"/>
+                    </h:inputText> 
+                    <h:message for="email" />
+
+                    <h:outputLabel value="active" />
+                    <h:inputText value="#{employeeOperations.employeeDto.active}" id="active">
+                        <f:validateLength minimum="0"/>
+                        <f:validateRequired for="sub"/>
+                    </h:inputText> 
+                    <h:message for="active" />
+
+
+                    <h:commandButton id="sub" value="edit" type="submit" action="#{employeeOperations.editEmployee()}" />
+
+
+
+                    <h:commandButton value="cancel" immediate="true" type="submit" action="#{employeeWiewer.employeeList}" />
+
+                    <!--                    TODO : change...  -->
+
+                </h:panelGrid>
+
+
+
+            </h:form>
+
+        </ui:define>
+
+    </ui:composition>
+
+</ui:composition>

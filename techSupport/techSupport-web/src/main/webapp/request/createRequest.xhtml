@@ -4,7 +4,8 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets" 
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:rich="http://richfaces.org/rich">
 
     <ui:composition template="/template.xhtml">
 
@@ -17,19 +18,19 @@
             </h1>
 
             <h:form>
-                <h:panelGrid columns="3">
-                    <h:outputLabel value="imput text " />
+                <h:panelGrid columns="1">
+                    <h:outputLabel value="#{bundle.insertText}" />
                     <h:inputTextarea rows="5" value="#{requestController.request.text}" id="imputText">
                         <f:validateLength minimum="0"/>
                         <f:validateRequired for="sub"/>
                     </h:inputTextarea>
                     <h:message for="firstName" />
-<!--
-                    <h:outputLabel value="name " />
-                       <h:selectOneMenu value="#{requestController.productList}" >
-                        <f:selectItems value="#{requestController.selectedproduct}" />
-                      </h:selectOneMenu>
-                    <h:message for="lastName" />-->
+
+                    <h:selectOneMenu value="#{requestController.selectedproduct}" converter="#{productNameConverter}" >
+                        <f:selectItems value="#{requestController.productList}"
+                                       var="productDetail" itemLabel="#{projectDetail.name}"
+                                       itemValue="#{productDetail.name}" noSelectionValue="Select the Saved Project"/>
+                    </h:selectOneMenu>
 
                     <h:commandButton id="sub" value="create" type="submit" action="#{requestController.newRequest()}" />
                     <h:commandButton value="cancel" immediate="true" type="submit" action="#{requestController.requestController}" />

@@ -19,41 +19,41 @@
             <h:form>
                 <h:panelGrid columns="3">
                     <h:outputLabel value="name " />
-                    <h:inputText value="#{createEmployee.employeeDto.firstName}" id="firstName">
+                    <h:inputText value="#{employeeOperations.employeeDto.firstName}" id="firstName">
                         <f:validateLength minimum="0"/>
                         <f:validateRequired for="sub"/>
                     </h:inputText>
                     <h:message for="firstName" />
 
                     <h:outputLabel value="name " />
-                    <h:inputText value="#{createEmployee.employeeDto.lastName}" id="lastName">
+                    <h:inputText value="#{employeeOperations.employeeDto.lastName}" id="lastName">
                         <f:validateLength minimum="0"/>
                         <f:validateRequired for="sub"/>
                     </h:inputText>
                     <h:message for="lastName" />
 
                     <h:outputLabel value="email " />
-                    <h:inputText value="#{createEmployee.employeeDto.email}" id="email">
+                    <h:inputText value="#{employeeOperations.employeeDto.email}" id="email">
                         <f:validateLength minimum="0"/>
                         <f:validateRequired for="sub"/>
                     </h:inputText> 
                     <h:message for="email" />
 
                     <h:outputLabel value="active" />
-                    <h:inputText value="#{createEmployee.employeeDto.active}" id="active">
+                    <h:inputText value="#{employeeOperations.employeeDto.active}" id="active">
                         <f:validateLength minimum="0"/>
                         <f:validateRequired for="sub"/>
                     </h:inputText> 
                     <h:message for="active" />
 
 
-                    <h:commandButton id="sub" value="create" type="submit" action="#{createEmployee.createEmployee()}" />
+                    <h:commandButton id="sub" value="create" type="submit" action="#{employeeOperations.createEmployee()}" />
 
 
 
-                    <h:commandButton value="cancel" immediate="true" type="submit" action="#{createEmployee.createEmployee()}" />
+                    <h:commandButton value="cancel" immediate="true" type="submit" action="#{employeeWiewer.employeeList}" />
 
-<!--                    TODO : change...  -->
+                    <!--                    TODO : change...  -->
 
                 </h:panelGrid>
 

@@ -2,7 +2,10 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml"
       xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:h="http://java.sun.com/jsf/html">
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:f="http://java.sun.com/jsf/core">
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
@@ -12,7 +15,25 @@
     </h:head>
 
     <h:body>
-        <div>
+
+        <div id="bodyContainer">
+            <div id="top">
+                <ui:insert name="top">
+
+                    <h1 style="text-align: center;">
+                        #{bundle.employeeSection}
+                    </h1>
+
+                    <h:form>
+                        <h:commandLink action="#{logout.logout()}" 
+                                       styleClass="loginLink"
+                                       rendered="#{request.isUserInRole('ROLE_TECHNICIAN')}" >
+                            <h:outputFormat value="#{bundle.logout}" />
+                        </h:commandLink>
+                    </h:form>
+
+                </ui:insert>
+            </div>
             <div id="left">
                 <ui:insert name="left">
                     <table>
@@ -45,22 +66,27 @@
                         </div>  
 
                     </table>
+
                 </ui:insert>
             </div>
+
+            <div id="content" class="left_content">
+                <ui:insert name="content">Content</ui:insert>
+            </div>
+            <div id="detail" class="left_content">
+                <ui:insert name="detail"></ui:insert>
+            </div>
+
+
         </div>
 
-        <div id="content" class="left_content">
-            <ui:insert name="content">Content</ui:insert>
-        </div>
-        <div id="detail" class="left_content">
-            <ui:insert name="detail"></ui:insert>
-        </div>
-        
-<!--        
-        <div id="bottom">
-            <ui:insert name="bottom">[PA165 FI MUNI] #{bundle.mainFooter}</ui:insert>
-        </div>
--->
+
+
+        <!--        
+                <div id="bottom">
+                    <ui:insert name="bottom">[PA165 FI MUNI] #{bundle.mainFooter}</ui:insert>
+                </div>
+        -->
 
     </h:body>
 

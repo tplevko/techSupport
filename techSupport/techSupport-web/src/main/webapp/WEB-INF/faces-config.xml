@@ -10,7 +10,7 @@
         </el-resolver>
     </application>
     
-        <application>
+    <application>
         <locale-config>
             <default-locale>en</default-locale>
             <supported-locale>sk</supported-locale>
@@ -21,7 +21,8 @@
         </resource-bundle>
     </application>
     
-<!--    
+    
+    <!--    
     <lifecycle>
         <phase-listener>login.LoginErrorPhaseListener</phase-listener>
     </lifecycle>-->
