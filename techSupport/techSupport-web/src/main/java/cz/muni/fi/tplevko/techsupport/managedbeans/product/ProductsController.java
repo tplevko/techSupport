@@ -2,6 +2,7 @@ package cz.muni.fi.tplevko.techsupport.managedbeans.product;
 
 import cz.muni.fi.tplevko.techsupport.entity.dto.ProductDto;
 import cz.muni.fi.tplevko.techsupport.services.ProductService;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -17,7 +18,9 @@ import org.springframework.stereotype.Component;
 @Component
 @ManagedBean
 @Scope("request")
-public class ProductsController {
+public class ProductsController implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Autowired
     private ProductService productService;

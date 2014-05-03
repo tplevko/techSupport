@@ -1,6 +1,5 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.security;
 
-import cz.muni.fi.tplevko.techsupport.services.CustomerService;
 import java.io.IOException;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
@@ -8,9 +7,6 @@ import javax.faces.bean.RequestScoped;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.UsernamePasswordToken;
-import org.apache.shiro.web.util.SavedRequest;
-import org.apache.shiro.web.util.WebUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
  *
@@ -39,7 +35,7 @@ public class UserLogin {
 //            SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(Faces.getRequest());
 //            Faces.redirect(savedRequest != null ? savedRequest.getRequestUrl() : HOME_URL);
        
-        return "/security/login?faces-redirect=true";
+        return "/request/createRequest?faces-redirect=true";
         
         } catch (AuthenticationException e) {
 

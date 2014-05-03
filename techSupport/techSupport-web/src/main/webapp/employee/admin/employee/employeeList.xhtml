@@ -30,12 +30,12 @@
 
             <h:form id="form">
 
-                <rich:panel style="width: 800px">
+                <rich:panel>
                     <f:facet name="header">
                         <h:outputText style="font-size: large;" value="#{bundle.employeeList}"  />
                     </f:facet>
 
-                    <rich:extendedDataTable value="#{employeeWiewer.employeeList}" 
+                    <rich:extendedDataTable value="#{employeeViewer.employeeList}" 
                                             var="employee" id="table"
                                             rowClasses="odd-row, even-row"
                                             rows="20" 
@@ -89,7 +89,7 @@
                                 <h:outputText class="arrangeableHeader" value="#{bundle.createdAt}" />
                             </f:facet>
                             <h:outputText value="#{employee.createdAt}">
-                                <f:convertDateTime pattern="#{employeeWiewer.localePattern}" type="both" />
+                                <f:convertDateTime pattern="#{employeeViewer.localePattern}" type="both" />
                             </h:outputText>            
                         </rich:column>
 
@@ -104,7 +104,7 @@
                                                onclick="event.stopPropagation();"
                                                oncomplete="#{rich:component('confirmPanel')}.show();" 
                                                value="" styleClass="iconizedButton" >
-                                <a4j:param value="#{employee}" assignTo="#{employeeWiewer.employeeDto}" />       
+                                <a4j:param value="#{employee}" assignTo="#{employeeViewer.employeeDto}" />       
                             </a4j:commandButton>
 
                             <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
@@ -121,7 +121,7 @@
 
                     </rich:extendedDataTable>
 
-                    <a4j:jsFunction name="remove" action="#{employeeWiewer.removeEmployee()}"
+                    <a4j:jsFunction name="remove" action="#{employeeViewer.removeEmployee()}"
                                     render="table" execute="@this" oncomplete="#{rich:component('confirmPanel')}.hide();" />
 
                     <rich:popupPanel id="confirmPanel" autosized="true" >
@@ -140,68 +140,82 @@
                 </rich:panel>
 
 
-                <a4j:jsFunction name="processRowClick"  execute="@form" action="#{employeeWiewer.rowKeyListener(rowKey)}" oncomplete="#{rich:component('employeeDetail')}.show()">
+                <a4j:jsFunction name="processRowClick" 
+                                execute="@form"
+                                action="#{employeeViewer.rowKeyListener(rowKey)}" 
+                                oncomplete="#{rich:component('employeeDetail')}.show()"
+
+                                >
+
                     <a4j:param name="rowKey" assignTo="#{rowKey}" />
 
                 </a4j:jsFunction>
-
-
-
             </h:form>
-            <!--
-                        
-                        <rich:popupPanel header="#{bundle.editEmployee}"
-                                         id="employeeEditor"
-                                         domElementAttachment="parent" width="400" height="170"
-                                         onmaskclick="#{rich:component('employeeEditor')}.hide()">
-            
-                            <h:panelGrid columns="3" id="editGrid">
-                                <h:outputText value="first name" />
-                                <h:outputText value="#{employeeWiewer.selectedItem.firstName}" />
-                                <h:panelGroup />
-                                
-                                <h:outputText value="email" />
-                                <h:outputText value="#{employeeWiewer.selectedItem.email}" />
-                                <h:panelGroup />
-            
-                                <h:outputText value="email" />
-                                <h:outputText value="#{employeeWiewer.selectedItem.active}" />
-                                <h:panelGroup />
-                                
-                                <h:outputText value="is admin" />
-                                <h:outputText value="#{employeeWiewer.selectedItem.isAdmin}" />
-                                <h:panelGroup />
-                                
-                                <h:outputText value="last name" />
-                                <h:outputText value="#{employeeWiewer.selectedItem.lastName}" />
-                                <h:panelGroup />
-            
-                            </h:panelGrid>
-            
-                            <a4j:commandButton value="Cancel" onclick="#{rich:component('employeeEditor')}.hide();
-                                    return false;" />
-                            
-                        </rich:popupPanel>
-            -->
+
+
+            <ui:define name="detail">
+                <a4j:outputPanel id="teamDetail">
+                    <rich:panel header="#{bundle.teamInfo}" rendered="#{not empty employeeViewer.selectedItem}" >
+                        <rich:panel header="#{bundle.teamDetailHeader}" rendered="#{not empty employeeViewer.selectedItem}" >
+                            <ui:include src="./employeeDetail.xhtml" />
+                        </rich:panel>
+                    </rich:panel>
+                </a4j:outputPanel>
+            </ui:define>
+
+
 
             <rich:popupPanel header="#{bundle.employeeDetail}"
                              id="employeeDetail"
                              domElementAttachment="parent" width="400" height="170"
                              onmaskclick="#{rich:component('employeeDetail')}.hide()">
 
-                <h:panelGrid columns="3" id="editGrid">
-                    <h:outputText value="first name" />
-                    <h:outputText value="#{employeeWiewer.selectedItem.firstName}" />
-                    <h:panelGroup />
-                    <h:outputText value="last name" />
-                    <h:outputText value="#{employeeWiewer.selectedItem.lastName}" />
-                    <h:panelGroup />
+                <h:form>
 
-                </h:panelGrid>
+                    <h:panelGrid columns="3" id="editGrid">
+                        <h:outputText value="first name" />
+                        <h:outputText value="#{employeeViewer.selectedItem.firstName}" />
+                        <h:panelGroup />
+                        <h:outputText value="last name" />
+                        <h:outputText value="#{employeeViewer.selectedItem.lastName}" />
+                        <h:panelGroup />
+                        <h:outputText value="registered" />
+                        <h:outputText value="#{employeeViewer.selectedItem.createdAt}" />
+                        <h:panelGroup />
+                        <h:outputText value="email" />
+                        <h:outputText value="#{employeeViewer.selectedItem.email}" />
+                        <h:panelGroup />
+
+                        <h:form>
+                            <rich:dataTable value="#{employeeViewer.selectedItem.requests}" 
+                                            var="req"
+                                            id="table" 
+                                            rows="6" rowClasses="odd-row, even-row"
+                                            styleClass="stable">
+                                <rich:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="req date " />
+                                    </f:facet>
+                                    <h:outputText value="#{req.created}" />
+                                </rich:column>
+                                <rich:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ID" />
+                                    </f:facet>
+                                    <h:outputText value="#{req.id}" />
+                                </rich:column>
+                            </rich:dataTable>
+                        </h:form>
 
 
-                <a4j:commandButton value="Cancel" onclick="#{rich:component('employeeDetail')}.hide();
-                                        return false;" />
+
+
+                    </h:panelGrid>
+
+
+                    <a4j:commandButton value="Cancel" onclick="#{rich:component('employeeDetail')}.hide();
+                                            return false;" />
+                </h:form>
 
             </rich:popupPanel>
 
@@ -214,3 +228,4 @@
 </ui:composition>
 
 <!--rendered="#{request.isUserInRole('ADMIN')}" >-->
+<!--oncomplete="#{rich:component('employeeDetail')}.show()">-->

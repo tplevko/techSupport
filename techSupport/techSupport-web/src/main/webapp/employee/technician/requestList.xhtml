@@ -66,7 +66,7 @@
                                                execute="@this" render="@none"
                                                oncomplete="#{rich:component('confirmPanel')}.show();" 
                                                value="" styleClass="iconizedButton" >
-                                <a4j:param value="#{req}" assignTo="#{employeeWiewer.getEmployeeDto(employee)}" converter="#{requestConverter}" />       
+                                <a4j:param value="#{req}" assignTo="#{employeeViewer.getEmployeeDto(employee)}" converter="#{requestConverter}" />       
                             </a4j:commandButton>
                             <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
                                                value="Edit" styleClass="iconizedButton" action="#{requestController.editRequestBefore}" >

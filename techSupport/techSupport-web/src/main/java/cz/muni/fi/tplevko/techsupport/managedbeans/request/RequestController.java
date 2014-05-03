@@ -5,6 +5,7 @@ import cz.muni.fi.tplevko.techsupport.entity.dto.ProductDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestDto;
 import cz.muni.fi.tplevko.techsupport.services.ProductService;
 import cz.muni.fi.tplevko.techsupport.services.RequestService;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.annotation.PostConstruct;
@@ -21,7 +22,9 @@ import org.springframework.stereotype.Component;
 @Component
 @ManagedBean
 @Scope("session")
-public class RequestController {
+public class RequestController implements Serializable {
+
+    private static final long serialVersionUID = 1L;
 
     @Autowired
     private RequestService requestService;

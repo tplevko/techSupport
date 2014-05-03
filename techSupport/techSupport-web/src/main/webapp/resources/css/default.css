@@ -13,7 +13,7 @@ h1 {
     font-weight: bold;
     margin: 0px;
     padding: 0px;
-    color: #D20005;
+    color: #860003;
 }
 
 a:link, a:visited {
@@ -26,6 +26,25 @@ a:link:hover, a:visited:hover  {
   color: #045491;
   font-weight : bold;
   text-decoration : underline;
+}
+
+.loginLink {
+/*    position: absolute;*/
+    top: 2eM;
+    left: 2eM;
+    font-size: 1.1eM;
+    font-style: oblique;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.loginLink:hover {
+    color: #ffffff;
+    cursor: pointer;
+}
+
+#top .loginLink {
+    color: #ffff99;
 }
 
 /*html,body {margin:0;padding:0}

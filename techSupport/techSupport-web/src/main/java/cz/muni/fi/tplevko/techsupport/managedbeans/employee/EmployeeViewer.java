@@ -22,13 +22,13 @@ import org.springframework.stereotype.Component;
  *
  * @author tplevko
  */
-@Component(value = "employeeWiewer")
+@Component(value = "employeeViewer")
 @ManagedBean
 @Scope("session")
-public class EmployeeWiewer implements Serializable {
+public class EmployeeViewer implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    private static final Logger LOG = Logger.getLogger(EmployeeWiewer.class.getName());
+    private static final Logger LOG = Logger.getLogger(EmployeeViewer.class.getName());
 
     @Autowired
     private EmployeeService employeeService;
@@ -137,16 +137,16 @@ public class EmployeeWiewer implements Serializable {
         // TODO : debug...
         LOG.info("***** the row key value is : " + rowKey + " *****");
         Long id = Long.valueOf((String) rowKey);
-
-        if (selectedItem != null
-                && selectedItem.getId() == id) {
-
-            deselect();
-        } else {
+//
+//        if (selectedItem != null
+//                && selectedItem.getId() == id) {
+//
+//            deselect();
+//        } else {
 
             deselect();
             selectedItem = employeeService.findEmployeeById(id);
-        }
+//        }
         LOG.info("***** the row key value is : " + selectedItem.getEmail() + " *****");
 
     }

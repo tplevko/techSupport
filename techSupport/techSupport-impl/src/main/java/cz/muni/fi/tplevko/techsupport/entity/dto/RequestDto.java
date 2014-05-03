@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.techsupport.entity.dto;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -81,4 +82,28 @@ public class RequestDto {
         this.finished = finished;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 67 * hash + Objects.hashCode(this.id);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final RequestDto other = (RequestDto) obj;
+
+        return Objects.equals(this.id, other.id);
+    }
+
+    @Override
+    public String toString() {
+        return "RequestDto{" + "id=" + id + ", text=" + text + '}';
+    }
 }

@@ -17,11 +17,11 @@ import org.springframework.stereotype.Component;
  *
  * @author tplevko
  */
-//@ManagedBean
-//@RequestScoped
-@FacesConverter(value = "productNameConverter")
-@Component
-@Scope("request")
+@ManagedBean
+@RequestScoped
+//@FacesConverter(value = "productNameConverter")
+//@Component
+//@Scope("request")
 public class ProductNameConverter implements Converter {
 
     private static final Logger LOG = Logger.getLogger(ProductNameConverter.class.getName());
@@ -46,9 +46,13 @@ public class ProductNameConverter implements Converter {
 //        }
 //        if (value instanceof ProductDto) {
 
-        ProductDto product = (ProductDto) value;
+        LOG.info("***** the inserted value is: " + value + " *****");
 
-        LOG.info("***** converted the value : " + product.getName() + " *****");
+        ProductDto product = new ProductDto();
+
+        product = (ProductDto) value;
+
+        LOG.info("***** converted the value : " + product.toString()+ " *****");
 
         return product.getName();
 

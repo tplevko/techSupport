@@ -19,15 +19,18 @@
 
             <h:form>
                 <h:panelGrid columns="1">
+                    
                     <h:outputLabel value="#{bundle.insertText}" />
                     <h:inputTextarea rows="5" value="#{requestController.request.text}" id="imputText">
                         <f:validateLength minimum="0"/>
                         <f:validateRequired for="sub"/>
                     </h:inputTextarea>
                     <h:message for="firstName" />
+                    
 
-                    <h:selectOneMenu converter="productNameConverter" >
-                        
+                    <h:selectOneMenu >
+                          
+                        <!--<f:converter binding="#{productNameConverter}" />-->
                         <f:selectItem itemValue="#{requestController.selectedproduct}" />
                         <f:selectItems value="#{requestController.productList}"/>
                         
@@ -46,3 +49,4 @@
     </ui:composition>
 
 </ui:composition>
+
