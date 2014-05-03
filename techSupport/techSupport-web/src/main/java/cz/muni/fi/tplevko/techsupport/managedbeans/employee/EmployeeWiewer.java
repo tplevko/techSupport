@@ -79,6 +79,12 @@ public class EmployeeWiewer implements Serializable {
         this.employeeList = employeeList;
     }
 
+    public String listEmployees() {
+
+        employeeList = employeeService.getAllEmployees();
+        return "/employee/admin/employee/employeeList?faces-redirect=true";
+    }
+
     // TODO : ADMIN rights
     public String removeEmployee() {
 

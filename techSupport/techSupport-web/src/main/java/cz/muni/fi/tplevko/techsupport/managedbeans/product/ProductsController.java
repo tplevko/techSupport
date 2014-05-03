@@ -2,11 +2,12 @@ package cz.muni.fi.tplevko.techsupport.managedbeans.product;
 
 import cz.muni.fi.tplevko.techsupport.entity.dto.ProductDto;
 import cz.muni.fi.tplevko.techsupport.services.ProductService;
+import java.util.ArrayList;
 import java.util.List;
+import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
@@ -23,16 +24,14 @@ public class ProductsController {
 
     private ProductDto product;
     private List<ProductDto> productList;
-    private String productName;
 
-    public String getProductName() {
-        return productName;
+    @PostConstruct
+    public void init() {
+
+        product = new ProductDto();
+        productList = new ArrayList<ProductDto>();
     }
 
-    public void setProductName(String productName) {
-        this.productName = productName;
-    }
-    
     public ProductDto getProduct() {
         return product;
     }
@@ -43,33 +42,41 @@ public class ProductsController {
 
     public String insertProduct() {
 
-        ProductDto newProduct = new ProductDto();
+        productService.createProduct(product);
 
-        newProduct.setName(productName);
+        return "/employee/admin/product/productList?faces-redirect=true";
+    }
 
-        productService.createProduct(newProduct);
-        
+    public String addProductBefore() {
+
+        product = new ProductDto();
+
+        return "/employee/admin/product/newProduct?faces-redirect=true";
+    }
+
+    public String listProducts() {
+
+        productList = productService.getAllProducts();
         return "/employee/admin/product/productList?faces-redirect=true";
     }
 
     public String deleteProduct() {
-        
+
         productService.deleteProduct(product);
-        
+
         return "/employee/admin/product/productList?faces-redirect=true";
     }
+
     // TODO : editovanie asi nebude potrebne...
     public String editProduct() {
-        
-        product.setName(productName);
-        
+
         productService.updateProduct(product);
-        
+
         return "/product/productList?faces-redirect=true";
     }
 
     public List<ProductDto> getProductsList() {
 
-       return productService.getAllProducts();
+        return productService.getAllProducts();
     }
 }

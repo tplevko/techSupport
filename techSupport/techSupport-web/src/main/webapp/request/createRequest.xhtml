@@ -26,10 +26,11 @@
                     </h:inputTextarea>
                     <h:message for="firstName" />
 
-                    <h:selectOneMenu value="#{requestController.selectedproduct}" converter="#{productNameConverter}" >
-                        <f:selectItems value="#{requestController.productList}"
-                                       var="productDetail" itemLabel="#{projectDetail.name}"
-                                       itemValue="#{productDetail.name}" noSelectionValue="Select the Saved Project"/>
+                    <h:selectOneMenu converter="productNameConverter" >
+                        
+                        <f:selectItem itemValue="#{requestController.selectedproduct}" />
+                        <f:selectItems value="#{requestController.productList}"/>
+                        
                     </h:selectOneMenu>
 
                     <h:commandButton id="sub" value="create" type="submit" action="#{requestController.newRequest()}" />

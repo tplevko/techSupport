@@ -74,6 +74,11 @@ public class EmployeeOperations implements Serializable {
         return "/employee/admin/employee/editEmployee?faces-redirect=true";
     }
 
+    public String addEmployeeBefore() {
+        employeeDto = new EmployeeDto();
+        return "/employee/admin/employee/addEmployee?faces-redirect=true";
+    }
+
     public String editEmployee() {
 
         employeeService.updateEmployee(employeeDto);

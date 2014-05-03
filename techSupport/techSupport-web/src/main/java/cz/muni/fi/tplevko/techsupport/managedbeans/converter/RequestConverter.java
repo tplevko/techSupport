@@ -5,15 +5,17 @@ import cz.muni.fi.tplevko.techsupport.services.RequestService;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
+import javax.faces.convert.FacesConverter;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Scope;
+//import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 /**
  *
  * @author tplevko
  */
-@Component(value = "requestConverter")
-@Scope("request")
+@FacesConverter(value = "requestConverter")
+@Component
+//@Scope("request")
 public class RequestConverter implements Converter {
 
     @Autowired

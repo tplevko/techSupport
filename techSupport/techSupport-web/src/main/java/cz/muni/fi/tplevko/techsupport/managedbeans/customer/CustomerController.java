@@ -47,6 +47,13 @@ public class CustomerController {
 
         return customerList;
     }
+    
+    public String listCustomers() {
+
+        customerList = customerService.getAllCustomers();
+        return "/employee/admin/customer/customerList?faces-redirect=true";
+    }
+
 
     public void setCustomerList(List<CustomerDto> customerList) {
         this.customerList = customerList;

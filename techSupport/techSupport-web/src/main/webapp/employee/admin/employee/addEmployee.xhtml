@@ -39,11 +39,9 @@
                     </h:inputText> 
                     <h:message for="email" />
 
-                    <h:outputLabel value="active" />
-                    <h:inputText value="#{employeeOperations.employeeDto.active}" id="active">
-                        <f:validateLength minimum="0"/>
-                        <f:validateRequired for="sub"/>
-                    </h:inputText> 
+                    <h:outputText value="active"/>
+                    <h:selectBooleanCheckbox id="active" 
+                                             value="#{employeeOperations.employeeDto.active}" />
                     <h:message for="active" />
 
 

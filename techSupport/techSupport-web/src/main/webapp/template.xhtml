@@ -33,6 +33,10 @@
                             <h:link value="logout" outcome="/security/logout" rendered="#{request.isUserInRole('ROLE_USER')}"  />
                         </div>
                         
+                        <hr/>
+                        <div>        
+                            <h:link value="personal" outcome="/registration/editPersonalInfo" rendered="#{request.isUserInRole('ROLE_TECHNICIAN')}"  />
+                        </div>  
                         
                         
 

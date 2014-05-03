@@ -20,7 +20,7 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @ManagedBean
-@Scope("request")
+@Scope("session")
 public class RequestController {
 
     @Autowired
@@ -66,6 +66,12 @@ public class RequestController {
         return requestList;
     }
 
+    public String listRequests() {
+
+        requestList = requestService.getAllRequests();
+        return "/employee/technician/requestList?faces-redirect=true";
+    }
+
     public void setRequestList(List<RequestDto> requestList) {
         this.requestList = requestList;
     }
@@ -85,6 +91,11 @@ public class RequestController {
         requestService.createRequest(request);
 
         return "/thankYou?faces-redirect=true";
+    }
+
+    public String addRequestBefore() {
+        request = new RequestDto();
+        return "/request/createRequest?faces-redirect=true";
     }
 
 //
