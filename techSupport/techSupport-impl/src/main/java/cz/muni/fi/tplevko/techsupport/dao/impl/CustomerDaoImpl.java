@@ -5,6 +5,7 @@ import cz.muni.fi.tplevko.techsupport.entity.Customer;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -94,10 +95,14 @@ public class CustomerDaoImpl implements CustomerDao {
         Customer customer = null;
         final String qstring = "SELECT e FROM Customer e WHERE e.email = :email";
 
-        TypedQuery<Customer> query = em.createQuery(qstring, Customer.class);
-        query.setParameter("email", email);
-        customer = query.getSingleResult();
-        return customer;
+        try {
+            TypedQuery<Customer> query = em.createQuery(qstring, Customer.class);
+            query.setParameter("email", email);
+            customer = query.getSingleResult();
+            return customer;
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 
     @Override
@@ -114,7 +119,7 @@ public class CustomerDaoImpl implements CustomerDao {
 
     // TODO : revise.. 
     private void validateCustomer(Customer customer) {
-        if (customer.getLastName()== null) {
+        if (customer.getLastName() == null) {
             throw new IllegalArgumentException("Customer first name must be set, it's null");
         }
         if (customer.getLastName().isEmpty()) {

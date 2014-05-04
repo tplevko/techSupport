@@ -89,5 +89,10 @@ public class CustomerController {
 //        return "/product/productList?faces-redirect=true";
         return null;
     }
+    
+    public String editCustomerInfo() {
+        
+        return null;
+    }
 
 }

@@ -92,14 +92,19 @@ public class ProductServiceImpl implements ProductService {
     @Override
     @Transactional(readOnly = true)
     public ProductDto findProductByName(String name) {
-        
+
         if (name == null) {
             throw new IllegalArgumentException("name can't be nulll");
         }
 
+        ProductDto productDto = null;
         Product product = productDao.findProductByName(name);
 
-        return mapper.map(product, ProductDto.class);
+        if (product != null) {
+            productDto = mapper.map(product, ProductDto.class);
+        }
+
+        return productDto;
     }
 
     @Override

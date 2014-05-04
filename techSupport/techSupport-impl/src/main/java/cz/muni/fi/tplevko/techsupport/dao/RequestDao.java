@@ -19,9 +19,9 @@ public interface RequestDao {
 
     public Request findRequestById(Long id);
 
-    public Request findRequestByCustomer(Customer owner);
+    public List<Request> findRequestByCustomer(Customer owner);
 
-    public Request findRequestByAssignee(Employee assignee);
+    public List<Request> findRequestByAssignee(Employee assignee);
 
     public List<Request> getAllRequests();
 }

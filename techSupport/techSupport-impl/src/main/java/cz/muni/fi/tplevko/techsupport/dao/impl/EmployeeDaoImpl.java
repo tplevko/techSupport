@@ -5,6 +5,7 @@ import cz.muni.fi.tplevko.techsupport.entity.Employee;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -88,10 +89,16 @@ public class EmployeeDaoImpl implements EmployeeDao {
         Employee employee = null;
         final String qstring = "SELECT e FROM Employee e WHERE e.email = :email";
 
-        TypedQuery<Employee> query = em.createQuery(qstring, Employee.class);
-        query.setParameter("email", email);
-        employee = query.getSingleResult();
-        return employee;
+        try {
+
+            TypedQuery<Employee> query = em.createQuery(qstring, Employee.class);
+            query.setParameter("email", email);
+            employee = query.getSingleResult();
+            return employee;
+        } catch (NoResultException ex) {
+            return null;
+        }
+
     }
 
     @Override

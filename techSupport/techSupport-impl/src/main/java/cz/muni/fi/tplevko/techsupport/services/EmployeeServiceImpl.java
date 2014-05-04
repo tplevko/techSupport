@@ -98,10 +98,15 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (email == null) {
             throw new IllegalArgumentException("email can't be nulll");
         }
-
+        
+        EmployeeDto employeeDto = null;
         Employee employee = employeeDao.findEmployeeByEmail(email);
 
-        return mapper.map(employee, EmployeeDto.class);
+        if(employee != null) {
+            employeeDto = mapper.map(employee, EmployeeDto.class);
+        }
+        
+        return employeeDto;
     }
 
     @Override

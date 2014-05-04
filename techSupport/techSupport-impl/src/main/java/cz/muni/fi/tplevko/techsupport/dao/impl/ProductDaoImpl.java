@@ -5,6 +5,7 @@ import cz.muni.fi.tplevko.techsupport.entity.Product;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.NoResultException;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 import javax.persistence.TypedQuery;
@@ -87,11 +88,15 @@ public class ProductDaoImpl implements ProductDao {
 
         Product product = null;
         final String qstring = "SELECT e FROM Product e WHERE e.name = :name";
+        try {
 
-        TypedQuery<Product> query = em.createQuery(qstring, Product.class);
-        query.setParameter("name", name);
-        product = query.getSingleResult();
-        return product;
+            TypedQuery<Product> query = em.createQuery(qstring, Product.class);
+            query.setParameter("name", name);
+            product = query.getSingleResult();
+            return product;
+        } catch (NoResultException ex) {
+            return null;
+        }
     }
 
     @Override
@@ -103,9 +108,8 @@ public class ProductDaoImpl implements ProductDao {
         cq.select(cq.from(Product.class));
         Query q = em.createQuery(cq);
         products = q.getResultList();
-        return products;    
+        return products;
     }
-
 
     // TODO : revise.. 
     private void validateProduct(Product product) {

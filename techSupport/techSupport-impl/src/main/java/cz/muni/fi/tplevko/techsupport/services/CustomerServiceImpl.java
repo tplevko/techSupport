@@ -98,10 +98,14 @@ public class CustomerServiceImpl implements CustomerService {
         if (email == null) {
             throw new IllegalArgumentException("email can't be nulll");
         }
-
+        
+        CustomerDto customerDto = null;
         Customer customer = customerDao.findCustomerByEmail(email);
 
-        return mapper.map(customer, CustomerDto.class);
+        if (customer != null) {
+            customerDto = mapper.map(customer, CustomerDto.class);
+        }
+        return customerDto;
     }
 
     @Override

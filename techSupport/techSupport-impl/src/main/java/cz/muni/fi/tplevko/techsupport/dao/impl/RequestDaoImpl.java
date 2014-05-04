@@ -85,12 +85,12 @@ public class RequestDaoImpl implements RequestDao {
     }
 
     @Override
-    public Request findRequestByCustomer(Customer owner) {
+    public List<Request> findRequestByCustomer(Customer owner) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
-    public Request findRequestByAssignee(Employee assignee) {
+    public List<Request> findRequestByAssignee(Employee assignee) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 

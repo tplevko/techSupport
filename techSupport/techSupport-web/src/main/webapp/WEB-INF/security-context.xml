@@ -48,7 +48,7 @@
     </bean>
           
     <bean id="realm" class="cz.muni.fi.tplevko.techsupport.managedbeans.security.realm.MyCustomRealm">
-        <property name="userService" ref="customerService"/>
+        <property name="customerService" ref="customerService"/>
         <property name="employeeService" ref="employeeService"/>
         <!--<property name="credentialsMatcher" ref="sha256PasswordMatcher"/>-->
     </bean>

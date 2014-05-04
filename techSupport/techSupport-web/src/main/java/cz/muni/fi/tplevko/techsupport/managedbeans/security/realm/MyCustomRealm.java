@@ -4,6 +4,7 @@ import cz.muni.fi.tplevko.techsupport.entity.dto.AccountDto;
 import cz.muni.fi.tplevko.techsupport.utils.ShaEncoder;
 import cz.muni.fi.tplevko.techsupport.services.CustomerService;
 import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
+import java.util.logging.Logger;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationInfo;
 import org.apache.shiro.authc.AuthenticationToken;
@@ -26,7 +27,7 @@ import org.springframework.stereotype.Component;
 @Component("myCustomRealm")
 public class MyCustomRealm extends AuthorizingRealm {
 
-//    private Logger log = Logger.getLogger(this.getClass());  
+    private static final Logger LOG = Logger.getLogger(MyCustomRealm.class.getName());
     private static final String MESSAGE = "message";
 
     @Autowired
@@ -43,7 +44,7 @@ public class MyCustomRealm extends AuthorizingRealm {
         setCredentialsMatcher(matcher);
     }
 
-    public void setUserService(CustomerService customerService) {
+    public void setCustomerService(CustomerService customerService) {
         this.customerService = customerService;
     }
 
@@ -95,13 +96,10 @@ public class MyCustomRealm extends AuthorizingRealm {
         if (token.getPassword() != null) {
             password = new String(token.getPassword());
         }
-
         if (username == null || "".equals(username)) {
-//            log.info("the attribute can't be null");
             return null;
         }
         if (password == null || "".equals(password)) {
-//            log.info("the password can't be null");  
             return null;
         }
 
@@ -111,7 +109,31 @@ public class MyCustomRealm extends AuthorizingRealm {
 
         if (token.getUsername() != null && !"".equals(token.getUsername())) {
 
-            account = customerService.findCustomerByEmail(token.getUsername());
+            customerAccount = customerService.findCustomerByEmail(token.getUsername());
+
+            employeeAccount = employeeService.findEmployeeByEmail(token.getUsername());
+//               
+
+//            LOG.info("***** the employeeAccount value is: " + employeeAccount.getEmail() + " *****");
+
+//            LOG.info("***** the username value is: " + token.getUsername() + " *****");
+////            LOG.info("***** the employeeAccount value is: " + employeeAccount.getEmail() + " *****");
+//            LOG.info("***** the customerAccount value is: " + customerAccount.getEmail() + " *****");
+
+            if (employeeAccount != null) {
+
+                LOG.info("***** the employeeAccount value is: " + employeeAccount.getEmail() + " *****");
+//
+                account = employeeAccount;
+            }
+
+            if (customerAccount != null) {
+
+                LOG.info("***** the customerAccount value is: " + customerAccount.getEmail() + " *****");
+
+                account = customerAccount;
+            }
+
 //            account = employeeService.findEmployeeByEmail(token.getUsername());
 //
 //            if (customerAccount == null) {
@@ -121,7 +143,6 @@ public class MyCustomRealm extends AuthorizingRealm {
 //            if (employeeAccount == null) {
 //                account = customerAccount;
 //            }
-
         }
 
         try {

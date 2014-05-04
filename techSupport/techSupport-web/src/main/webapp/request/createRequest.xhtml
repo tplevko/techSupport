@@ -13,40 +13,43 @@
 
         <ui:define name="content">
 
-            <h1>
-                Insert your request
-            </h1>
+
             <p>
+
                 Hello, #{request.remoteUser}, how are you today?
 
             </p>
 
-            <h:form>
-                <h:panelGrid columns="1">
-
-                    <h:outputLabel value="#{bundle.insertText}" />
-                    <h:inputTextarea rows="5" value="#{requestController.request.text}" id="imputText">
-                        <f:validateLength minimum="0"/>
-                        <f:validateRequired for="sub"/>
-                    </h:inputTextarea>
-                    <h:message for="firstName" />
+            <rich:panel>
+                <f:facet name="header">
+                    <h:outputText style="font-size: large;" value="#{bundle.insertRequest}"  />
+                </f:facet>
 
 
-                    <h:selectOneMenu value="#{requestController.selectedproduct}">
-                        <f:converter binding="#{productNameConverter}" />
+                <h:form>
+                    <h:panelGrid columns="1">
 
-                        <f:selectItems value="#{requestController.productList}" var="c"
-                                       itemLabel="#{c.name}" />
+                        <h:outputLabel value="#{bundle.insertText}" />
+                        <h:inputTextarea style="width: 270px;" rows="10" value="#{requestController.request.text}" id="imputText">
+                            <f:validateLength minimum="0"/>
+                            <f:validateRequired for="sub"/>
+                        </h:inputTextarea>
+                        <h:message for="firstName" />
 
-                        <f:selectItems value="#{requestController.productList}"/>
 
-                    </h:selectOneMenu>
+                        <h:selectOneMenu id="products" value="#{requestController.selectedproduct}">
+                            <f:converter binding="#{productNameConverter}" />
 
-                    <h:commandButton id="sub" value="create" type="submit" action="#{requestController.newRequest()}" />
-                    <h:commandButton value="cancel" immediate="true" type="submit" action="#{requestController.requestController}" />
-                </h:panelGrid>
+                            <f:selectItems value="#{requestController.productList}" var="product"
+                                           itemLabel="#{product.name}" />
+                        </h:selectOneMenu>
 
-            </h:form>
+                        <h:commandButton id="sub" value="create" type="submit" action="#{requestController.newRequest()}" />
+                        <h:commandButton value="cancel" immediate="true" type="submit" action="#{requestController.requestController}" />
+                    </h:panelGrid>
+
+                </h:form>
+            </rich:panel>
 
         </ui:define>
 
