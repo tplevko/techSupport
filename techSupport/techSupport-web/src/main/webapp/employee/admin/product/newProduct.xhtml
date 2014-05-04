@@ -23,7 +23,14 @@
                         <f:validateLength minimum="0"/>
                         <f:validateRequired for="sub"/>
                     </h:inputText>
-                    <h:message for="name" />
+                    <h:message for="name" />                    
+                    
+                    <h:outputLabel value="default priority " />
+                    <h:inputText value="#{productsController.product.defaultPriority}" id="defaultPriority">
+                        <f:validateLength minimum="0"/>
+                        <f:validateRequired for="sub"/>
+                    </h:inputText>
+                    <h:message for="defaultPriority" />
 
                     <h:commandButton id="sub" value="create" type="submit" action="#{productsController.insertProduct()}" />
                     <h:commandButton value="cancel" immediate="true" type="submit" action="#{productsController.itemList}" />

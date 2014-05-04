@@ -25,7 +25,7 @@ public class UserLogin {
 
     private String username;
     private String password;
-    private boolean remember;
+//    private boolean remember;
 
     public String submit() throws IOException {
         try {
@@ -63,12 +63,12 @@ public class UserLogin {
         this.password = password;
     }
 //
-    public boolean isRemember() {
-        return remember;
-    }
-
-    public void setRemember(boolean remember) {
-        this.remember = remember;
-    }
+//    public boolean isRemember() {
+//        return remember;
+//    }
+//
+//    public void setRemember(boolean remember) {
+//        this.remember = remember;
+//    }
 
 }

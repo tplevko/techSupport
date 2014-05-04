@@ -16,31 +16,35 @@
             <h1>
                 Insert your request
             </h1>
+            <p>
+                Hello, #{request.remoteUser}, how are you today?
+
+            </p>
 
             <h:form>
                 <h:panelGrid columns="1">
-                    
+
                     <h:outputLabel value="#{bundle.insertText}" />
                     <h:inputTextarea rows="5" value="#{requestController.request.text}" id="imputText">
                         <f:validateLength minimum="0"/>
                         <f:validateRequired for="sub"/>
                     </h:inputTextarea>
                     <h:message for="firstName" />
-                    
 
-                    <h:selectOneMenu >
-                          
-                        <!--<f:converter binding="#{productNameConverter}" />-->
-                        <f:selectItem itemValue="#{requestController.selectedproduct}" />
+
+                    <h:selectOneMenu value="#{requestController.selectedproduct}">
+                        <f:converter binding="#{productNameConverter}" />
+
+                        <f:selectItems value="#{requestController.productList}" var="c"
+                                       itemLabel="#{c.name}" />
+
                         <f:selectItems value="#{requestController.productList}"/>
-                        
+
                     </h:selectOneMenu>
 
                     <h:commandButton id="sub" value="create" type="submit" action="#{requestController.newRequest()}" />
                     <h:commandButton value="cancel" immediate="true" type="submit" action="#{requestController.requestController}" />
                 </h:panelGrid>
-
-
 
             </h:form>
 

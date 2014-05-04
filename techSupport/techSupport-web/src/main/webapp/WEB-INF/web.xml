@@ -39,6 +39,7 @@
     </context-param>
     <!-- ########################## -->
     
+    <!-- spring configuration xml-s  -->
     <context-param>
         <param-name>contextConfigLocation</param-name>
         <param-value>
@@ -46,6 +47,7 @@
             /WEB-INF/security-context.xml
         </param-value>
     </context-param>
+    <!-- ########################## -->
     
     <context-param>
         <param-name>javax.faces.PROJECT_STAGE</param-name>
@@ -58,7 +60,6 @@
     </context-param>
     
     <!-- security filter -->
-
     <filter>
         <filter-name>shiroFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
@@ -67,12 +68,17 @@
             <param-value>true</param-value>
         </init-param>
     </filter>
+    
     <filter-mapping>
         <filter-name>shiroFilter</filter-name>
         <url-pattern>/*</url-pattern>
+        <dispatcher>REQUEST</dispatcher>
+        <dispatcher>FORWARD</dispatcher>
+        <dispatcher>INCLUDE</dispatcher>
+        <dispatcher>ERROR</dispatcher>
     </filter-mapping>
             
-<!--    <filter-mapping>
+    <!--    <filter-mapping>
         <filter-name>shiroFilter</filter-name>
         <url-pattern>/*</url-pattern>
         <dispatcher>REQUEST</dispatcher>

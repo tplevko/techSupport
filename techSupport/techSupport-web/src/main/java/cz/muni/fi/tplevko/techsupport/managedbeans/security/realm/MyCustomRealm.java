@@ -105,25 +105,23 @@ public class MyCustomRealm extends AuthorizingRealm {
             return null;
         }
 
+        AccountDto customerAccount = null;
+        AccountDto employeeAccount = null;
         AccountDto account = null;
 
         if (token.getUsername() != null && !"".equals(token.getUsername())) {
 
             account = customerService.findCustomerByEmail(token.getUsername());
+//            account = employeeService.findEmployeeByEmail(token.getUsername());
 //
-//            if (account.) {
-//                account = employeeService.findEmployeeByEmail(token.getUsername());
+//            if (customerAccount == null) {
+//                account = employeeAccount;
+//            }
+//
+//            if (employeeAccount == null) {
+//                account = customerAccount;
 //            }
 
-//            CustomerDto customer = customerService.findCustomerByEmail(token.getUsername());
-//            EmployeeDto employee = employeeService.findEmployeeByEmail(token.getUsername());
-//
-//            if (customer != null) {
-//                account = customer;
-//            } else {
-//                account = employee;
-//            }
-//        }
         }
 
         try {

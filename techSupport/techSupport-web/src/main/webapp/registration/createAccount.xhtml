@@ -45,9 +45,8 @@
                         <f:validator validatorId="passwordValidator" />
                         <f:attribute name="confirmPassword" value="#{confirmPassword}" />
                         <f:validateRequired for="sub"/>
-                    </h:inputSecret> 
-
-                    <h:message for="passwd" />
+                    </h:inputSecret>
+                    <h:message for="password" />
 
                     <h:outputLabel value="confirm passwd " />
                     <h:inputSecret binding="#{confirmPassword}" id="confirmPassword" >

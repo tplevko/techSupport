@@ -14,6 +14,7 @@ public class RequestDto {
     private boolean executed = false;
     private CustomerDto owner;
     private EmployeeDto assignee;
+    private ProductDto product;
     private Long priority;
     private Date created;
     private Date finished;
@@ -80,6 +81,14 @@ public class RequestDto {
 
     public void setFinished(Date finished) {
         this.finished = finished;
+    }
+
+    public ProductDto getProduct() {
+        return product;
+    }
+
+    public void setProduct(ProductDto product) {
+        this.product = product;
     }
 
     @Override

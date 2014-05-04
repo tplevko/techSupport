@@ -10,6 +10,7 @@ public class ProductDto {
 
     private Long id;
     private String name;
+    private Long defaultPriority;
 
     public Long getId() {
         return id;
@@ -26,6 +27,16 @@ public class ProductDto {
     public void setName(String name) {
         this.name = name;
     }
+
+    public Long getDefaultPriority() {
+        return defaultPriority;
+    }
+
+    public void setDefaultPriority(Long defaultPriority) {
+        this.defaultPriority = defaultPriority;
+    }
+    
+    
 
     @Override
     public int hashCode() {

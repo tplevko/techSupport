@@ -17,10 +17,10 @@ import org.springframework.stereotype.Component;
  *
  * @author tplevko
  */
-@ManagedBean
-@RequestScoped
+//@ManagedBean
+//@RequestScoped
 //@FacesConverter(value = "productNameConverter")
-//@Component
+@Component
 //@Scope("request")
 public class ProductNameConverter implements Converter {
 
@@ -32,10 +32,16 @@ public class ProductNameConverter implements Converter {
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
 
+                LOG.info("***** the inserted value is: " + value + " *****");
+
         if (value == null || value.equals("")) {
             return null;
         }
-        return productService.findProductByName(value);
+        ProductDto product = productService.findProductByName(value);
+        
+        LOG.info("***** product: " + product.getName() + " *****");
+
+        return product;
     }
 
     @Override

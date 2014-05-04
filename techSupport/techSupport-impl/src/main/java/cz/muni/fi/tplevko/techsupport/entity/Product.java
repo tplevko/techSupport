@@ -25,6 +25,8 @@ public class Product implements Serializable {
     @Column(length = 100, nullable = false, unique = true)
     private String name;
 
+    private Long defaultPriority;
+
     public Long getId() {
         return id;
     }
@@ -40,6 +42,14 @@ public class Product implements Serializable {
     public void setName(String name) {
         this.name = name;
     }    
+
+    public Long getDefaultPriority() {
+        return defaultPriority;
+    }
+
+    public void setDefaultPriority(Long defaultPriority) {
+        this.defaultPriority = defaultPriority;
+    }
     
     
 // TODO : zisti ako spravit dobry hashcode...

@@ -2,13 +2,17 @@ package cz.muni.fi.tplevko.techsupport.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
@@ -28,16 +32,20 @@ public class Request implements Serializable {
     private Long id;
 
     @Lob
-    @Column(length = 2000, nullable = false, unique = true)
+    @Column(length = 4000, nullable = false, unique = true)
     private String text;
 
     private boolean executed = false;
 
     @ManyToOne
+    @JoinColumn(nullable = false, name = "Request_ID", referencedColumnName = "id")
     private Customer owner;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.ALL})
     private Employee assignee;
+    
+    @ManyToOne
+    private Product product;
 
     private Long priority;
 
@@ -118,6 +126,14 @@ public class Request implements Serializable {
         this.finished = finished;
     }
 
+    public Product getProduct() {
+        return product;
+    }
+
+    public void setProduct(Product product) {
+        this.product = product;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 0;
