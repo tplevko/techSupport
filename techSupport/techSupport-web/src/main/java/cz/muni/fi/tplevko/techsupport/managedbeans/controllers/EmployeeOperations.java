@@ -1,4 +1,4 @@
-package cz.muni.fi.tplevko.techsupport.managedbeans.employee;
+package cz.muni.fi.tplevko.techsupport.managedbeans.controllers;
 
 import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
 import cz.muni.fi.tplevko.techsupport.services.EmployeeService;

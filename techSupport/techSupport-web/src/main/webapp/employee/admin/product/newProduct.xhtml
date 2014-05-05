@@ -4,38 +4,40 @@
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets" 
-                xmlns:p="http://primefaces.org/ui">
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:rich="http://richfaces.org/rich">
 
     <ui:composition template="../../template.xhtml">
 
-        <ui:define name="title">Item create</ui:define>
-
         <ui:define name="content">
 
-            <h1>
-                New Product
-            </h1>
 
-            <h:form>
-                <h:panelGrid columns="3">
-                    <h:outputLabel value="name " />
-                    <h:inputText value="#{productsController.product.name}" id="name">
-                        <f:validateLength minimum="0"/>
-                        <f:validateRequired for="sub"/>
-                    </h:inputText>
-                    <h:message for="name" />                    
-                    
-                    <h:outputLabel value="default priority " />
-                    <h:inputText value="#{productsController.product.defaultPriority}" id="defaultPriority">
-                        <f:validateLength minimum="0"/>
-                        <f:validateRequired for="sub"/>
-                    </h:inputText>
-                    <h:message for="defaultPriority" />
+            <rich:panel>
+                <f:facet name="header">
+                    <h:outputText style="font-size: large;" value="#{bundle.newProduct}" />
+                </f:facet>
 
-                    <h:commandButton id="sub" value="create" type="submit" action="#{productsController.insertProduct()}" />
-                    <h:commandButton value="cancel" immediate="true" type="submit" action="#{productsController.itemList}" />
-                </h:panelGrid>
-            </h:form>
+                <h:form>
+                    <h:panelGrid columns="3">
+                        <h:outputLabel value="name " />
+                        <h:inputText value="#{productsController.product.name}" id="name">
+                            <f:validateLength minimum="0"/>
+                            <f:validateRequired for="sub"/>
+                        </h:inputText>
+                        <h:message for="name" />                    
+
+                        <h:outputLabel value="default priority " />
+                        <h:inputText value="#{productsController.product.defaultPriority}" id="defaultPriority">
+                            <f:validateLength minimum="0"/>
+                            <f:validateRequired for="sub"/>
+                        </h:inputText>
+                        <h:message for="defaultPriority" />
+
+                        <h:commandButton id="sub" value="create" type="submit" action="#{productsController.insertProduct()}" />
+                        <h:commandButton value="cancel" immediate="true" type="submit" action="#{productsController.itemList}" />
+                    </h:panelGrid>
+                </h:form>
+            </rich:panel>
         </ui:define>
     </ui:composition>
 </ui:composition>

@@ -1,7 +1,6 @@
-package cz.muni.fi.tplevko.techsupport.managedbeans.request;
+package cz.muni.fi.tplevko.techsupport.managedbeans.controllers;
 
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
-import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.ProductDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestDto;
 import cz.muni.fi.tplevko.techsupport.services.CustomerService;
@@ -16,19 +15,17 @@ import javax.faces.bean.ManagedBean;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
-import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.stereotype.Component;
 
 /**
  *
  * @author tplevko
  */
-@Component
+@Component(value = "requestController")
 @ManagedBean
 @Scope("session")
 public class RequestController implements Serializable {
 
-    private static final Long DEFAULT_PRIORITY = 1L;
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(RequestController.class.getName());
 
@@ -104,13 +101,7 @@ public class RequestController implements Serializable {
 
         CustomerDto customer = customerService.findCustomerByEmail(currentUser);
 
-        LOG.info("***** the user : " + customer.getFirstName() + " " + customer.getLastName() + " *****");
-
-        request.setPriority(DEFAULT_PRIORITY);
         request.setOwner(customer);
-
-        LOG.info("***** the product : " + selectedproduct.getName() + " " + selectedproduct.getId() + " *****");
-
         request.setProduct(selectedproduct);
         request.setPriority(selectedproduct.getDefaultPriority());
         requestService.createRequest(request);

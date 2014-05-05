@@ -1,19 +1,14 @@
-package cz.muni.fi.tplevko.techsupport.managedbeans.employee;
+package cz.muni.fi.tplevko.techsupport.managedbeans.controllers;
 
 import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
 import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
 import java.io.Serializable;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Locale;
-import java.util.Map;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
-import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -35,7 +30,6 @@ public class EmployeeViewer implements Serializable {
 
     private EmployeeDto employeeDto;
     private List<EmployeeDto> employeeList;
-    private String localePattern;
     private Long currentEmployeeIndex;
 
     private Collection<Object> selected;
@@ -96,20 +90,6 @@ public class EmployeeViewer implements Serializable {
 
     public void deactivateEmployee() {
 
-    }
-
-    public String getLocalePattern() {
-        Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
-        final DateFormat dateInstance
-                = DateFormat.getDateInstance(DateFormat.SHORT, locale);
-        final DateFormat timeInstance = DateFormat.getTimeInstance(DateFormat.DEFAULT, locale);
-        localePattern = ((SimpleDateFormat) dateInstance).toPattern()
-                + " " + ((SimpleDateFormat) timeInstance).toPattern();
-        return localePattern;
-    }
-
-    public void setLocalePattern(String localePattern) {
-        this.localePattern = localePattern;
     }
 
     public Collection<Object> getSelected() {

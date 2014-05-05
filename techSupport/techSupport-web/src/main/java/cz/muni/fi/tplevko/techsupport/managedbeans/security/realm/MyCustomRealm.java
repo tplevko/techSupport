@@ -112,14 +112,7 @@ public class MyCustomRealm extends AuthorizingRealm {
             customerAccount = customerService.findCustomerByEmail(token.getUsername());
 
             employeeAccount = employeeService.findEmployeeByEmail(token.getUsername());
-//               
-
-//            LOG.info("***** the employeeAccount value is: " + employeeAccount.getEmail() + " *****");
-
-//            LOG.info("***** the username value is: " + token.getUsername() + " *****");
-////            LOG.info("***** the employeeAccount value is: " + employeeAccount.getEmail() + " *****");
-//            LOG.info("***** the customerAccount value is: " + customerAccount.getEmail() + " *****");
-
+            
             if (employeeAccount != null) {
 
                 LOG.info("***** the employeeAccount value is: " + employeeAccount.getEmail() + " *****");

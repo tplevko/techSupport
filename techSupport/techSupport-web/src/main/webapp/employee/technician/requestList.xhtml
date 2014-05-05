@@ -12,6 +12,21 @@
 
         <ui:define name="content">
 
+            <h:outputStylesheet>
+                .even-row {
+                background-color: #FCFFFE;
+                }
+
+                .odd-row {
+                background-color: #ECF3FE;
+                }
+
+                .active-row {
+                background-color: #FFEBDA !important;
+                cursor: pointer;
+                }
+            </h:outputStylesheet>
+
             <h:form id="form">
 
                 <rich:panel>
@@ -19,17 +34,28 @@
                         <h:outputText style="font-size: large;" value="#{bundle.requestList}" />
                     </f:facet>
 
-                    <rich:extendedDataTable value="#{requestController.requestList}" var="req" id="table" rowClasses="odd-row, even-row"
-                                            rows="20" sortMode="single">
-                        <!--                        
-                                                <a4j:ajax execute="@form" event="selectionchange" listener="#{soccerMatchBean.selectionListener}"
-                                                          render=":selectedResource"/>-->
+                    <rich:extendedDataTable value="#{requestController.requestList}"
+                                            var="req" id="table"
+                                            rowClasses="odd-row, even-row"
+                                            rows="20" sortMode="single"
+                                            onrowmouseover="jQuery(this).addClass('active-row');" 
+                                            onrowmouseout="jQuery(this).removeClass('active-row');" 
+                                            onrowclick="processRowClick(#{req.id});"
+                                            keepSaved="true"
+                                            >
 
                         <rich:column sortBy="#{req.id}" >
                             <f:facet name="header">
-                                <h:outputText class="arrangeableHeader" value="#{req.id}" />
+                                <h:outputText class="arrangeableHeader" value="#{bundle.id}" />
                             </f:facet>
                             <h:outputText value="#{req.id}" />
+                        </rich:column>
+
+                        <rich:column sortBy="#{req.product.name}" >
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.productName}" />
+                            </f:facet>
+                            <h:outputText value="#{req.product.name}" />
                         </rich:column>
 
                         <rich:column sortBy="#{req.priority}" >
@@ -39,23 +65,28 @@
                             <h:outputText value="#{req.priority}" />
                         </rich:column>
 
-                        <rich:column  sortBy="#{req.created}">
+
+                        <rich:column sortBy="#{req.created}" >
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.created}" />
                             </f:facet>
-                            <h:outputText value="#{req.created}" />
+                            <h:outputText value="#{req.created}">
+                                <f:convertDateTime pattern="#{timeFormat.localePattern}" type="both" />
+                            </h:outputText>            
                         </rich:column>
 
-                        <rich:column sortBy="#{req.finished}" >
+                        <rich:column sortBy="#{req.executed}" >
                             <f:facet name="header">
-                                <h:outputText class="arrangeableHeader" value="#{bundle.finished}" />
+                                <h:outputText class="arrangeableHeader" value="#{bundle.active}" />
                             </f:facet>
-                            <h:outputText value="#{req.finished}" />
+                            <h:outputText value="#{req.executed}" />
                         </rich:column>
 
-                        <rich:column>
+
+                        <rich:column style="text-align: center;" width="75px" > 
+
                             <f:facet name="header" >
-                                <h:outputText class="arrangeableHeader" value="#{bundle.requestAction}" />
+                                <h:outputText class="arrangeableHeader" value="#{bundle.employeeActions}" />
                             </f:facet>
 
                             <a4j:commandButton image="/resources/icons/Button-Remove-icon.png" 
@@ -91,7 +122,7 @@
                                                        return false;" style="margin-left: 5px;" />
                         </div>
                     </rich:popupPanel>
-                    
+
 
                 </rich:panel>
             </h:form>

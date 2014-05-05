@@ -1,4 +1,4 @@
-package cz.muni.fi.tplevko.techsupport.managedbeans.customer;
+package cz.muni.fi.tplevko.techsupport.managedbeans.controllers;
 
 import cz.muni.fi.tplevko.techsupport.entity.Customer;
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;

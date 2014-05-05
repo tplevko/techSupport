@@ -1,4 +1,4 @@
-package cz.muni.fi.tplevko.techsupport.managedbeans.product;
+package cz.muni.fi.tplevko.techsupport.managedbeans.controllers;
 
 import cz.muni.fi.tplevko.techsupport.entity.dto.ProductDto;
 import cz.muni.fi.tplevko.techsupport.services.ProductService;
@@ -15,7 +15,7 @@ import org.springframework.stereotype.Component;
  *
  * @author tplevko
  */
-@Component
+@Component(value = "productsController")
 @ManagedBean
 @Scope("request")
 public class ProductsController implements Serializable {

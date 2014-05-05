@@ -89,7 +89,7 @@
                                 <h:outputText class="arrangeableHeader" value="#{bundle.createdAt}" />
                             </f:facet>
                             <h:outputText value="#{employee.createdAt}">
-                                <f:convertDateTime pattern="#{employeeViewer.localePattern}" type="both" />
+                                <f:convertDateTime pattern="#{timeFormat.localePattern}" type="both" />
                             </h:outputText>            
                         </rich:column>
 

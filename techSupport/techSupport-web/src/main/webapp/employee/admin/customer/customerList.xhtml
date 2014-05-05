@@ -12,22 +12,18 @@
 
         <ui:define name="content">
 
-            <h1>
-                List of Employees
-            </h1>
-
             <h:form id="form">
 
                 <rich:panel>
                     <f:facet name="header">
-                        <h:outputText style="font-size: large;" value="#{bundle.employeeList}" />
+                        <h:outputText style="font-size: large;" value="#{bundle.customerList}"  />
                     </f:facet>
 
-                    <rich:extendedDataTable value="#{customerController.customerList}" var="customer" id="table" rowClasses="odd-row, even-row"
+                    <rich:extendedDataTable value="#{customerController.customerList}" 
+                                            var="customer" 
+                                            id="table"
+                                            rowClasses="odd-row, even-row"
                                             rows="20" sortMode="single">
-                        <!--                        
-                                                <a4j:ajax execute="@form" event="selectionchange" listener="#{soccerMatchBean.selectionListener}"
-                                                          render=":selectedResource"/>-->
 
                         <rich:column sortBy="#{customer.firstName}" >
                             <f:facet name="header">
@@ -41,24 +37,6 @@
                             </f:facet>
                             <h:outputText value="#{customer.lastName}" />
                         </rich:column>
-
-                        <!--
-                                                <rich:column>
-                                                    <f:facet name="header" >
-                                                        <h:outputText class="arrangeableHeader" value="#{bundle.playerViewActions}" />
-                                                    </f:facet>
-                        
-                                                    <a4j:commandButton image="/resources/icons/Button-Remove-icon.png" 
-                                                                       execute="@this" render="@none"
-                                                                       oncomplete="#{rich:component('confirmPanel')}.show();" 
-                                                                       value="" styleClass="iconizedButton" >
-                                                        <a4j:param value="#{match}" assignTo="#{soccerMatchBean.match}" converter="#{soccerMatchConverter}" />       
-                                                    </a4j:commandButton>
-                                                    <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
-                                                                       value="Edit" styleClass="iconizedButton" action="#{soccerMatchBean.editMatchBefore}" >
-                                                        <a4j:param value="#{match.id}" name="matchId"/>                   
-                                                    </a4j:commandButton>
-                                                </rich:column>-->
 
                         <f:facet name="footer">
                             <rich:dataScroller id="scroller" />
