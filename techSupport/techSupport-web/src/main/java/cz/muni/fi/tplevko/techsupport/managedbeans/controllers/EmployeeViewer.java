@@ -18,7 +18,7 @@ import org.springframework.stereotype.Component;
  * @author tplevko
  */
 @Component(value = "employeeViewer")
-@ManagedBean
+//@ManagedBean
 @Scope("session")
 public class EmployeeViewer implements Serializable {
 
@@ -32,7 +32,6 @@ public class EmployeeViewer implements Serializable {
     private List<EmployeeDto> employeeList;
     private Long currentEmployeeIndex;
 
-    private Collection<Object> selected;
     private EmployeeDto selectedItem;
 
     @PostConstruct
@@ -79,27 +78,6 @@ public class EmployeeViewer implements Serializable {
         return "/employee/admin/employee/employeeList?faces-redirect=true";
     }
 
-    // TODO : ADMIN rights
-    public String removeEmployee() {
-
-        employeeService.deleteEmployee(employeeDto);
-        deselect();
-        // TODO : make an method for navigation rules...
-        return "/employee/admin/employee/employeeList?faces-redirect=true";
-    }
-
-    public void deactivateEmployee() {
-
-    }
-
-    public Collection<Object> getSelected() {
-        return selected;
-    }
-
-    public void setSelected(Collection<Object> selected) {
-        this.selected = selected;
-    }
-
     public EmployeeDto getSelectedItem() {
         return selectedItem;
     }
@@ -124,8 +102,9 @@ public class EmployeeViewer implements Serializable {
 //            deselect();
 //        } else {
 
-            deselect();
-            selectedItem = employeeService.findEmployeeById(id);
+//        deselect();
+        
+        selectedItem = employeeService.findEmployeeById(id);
 //        }
         LOG.info("***** the row key value is : " + selectedItem.getEmail() + " *****");
 

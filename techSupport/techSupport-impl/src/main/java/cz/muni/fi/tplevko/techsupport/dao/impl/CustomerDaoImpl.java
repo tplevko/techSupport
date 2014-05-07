@@ -74,7 +74,7 @@ public class CustomerDaoImpl implements CustomerDao {
         }
 
         validateCustomer(customer);
-        em.remove(customer);
+        em.remove(em.contains(customer) ? customer : em.merge(customer));
     }
 
     @Override

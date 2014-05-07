@@ -13,8 +13,8 @@ import org.springframework.stereotype.Component;
  *
  * @author tplevko
  */
-@FacesConverter(value = "requestConverter")
-@Component
+//@FacesConverter(value = "requestConverter")
+@Component(value = "requestConverter")
 //@Scope("request")
 public class RequestConverter implements Converter {
 

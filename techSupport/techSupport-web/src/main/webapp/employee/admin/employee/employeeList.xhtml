@@ -99,16 +99,10 @@
                                 <h:outputText class="arrangeableHeader" value="#{bundle.employeeActions}" />
                             </f:facet>
 
-                            <a4j:commandButton image="/resources/icons/Button-Remove-icon.png" 
-                                               execute="@this" render="@none"
-                                               onclick="event.stopPropagation();"
-                                               oncomplete="#{rich:component('confirmPanel')}.show();" 
-                                               value="" styleClass="iconizedButton" >
-                                <a4j:param value="#{employee}" assignTo="#{employeeViewer.employeeDto}" />       
-                            </a4j:commandButton>
-
                             <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
-                                               value="Edit" styleClass="iconizedButton" action="#{employeeOperations.editEmployeeBefore()}" >
+                                               value="Edit"
+                                               styleClass="iconizedButton" 
+                                               action="#{employeeOperations.editEmployeeBefore()}" >
                                 <a4j:param value="#{employee.id}" name="employeeId"/>                   
                             </a4j:commandButton>
 
@@ -121,48 +115,21 @@
 
                     </rich:extendedDataTable>
 
-                    <a4j:jsFunction name="remove" action="#{employeeViewer.removeEmployee()}"
-                                    render="table" execute="@this" oncomplete="#{rich:component('confirmPanel')}.hide();" />
-
-                    <rich:popupPanel id="confirmPanel" autosized="true" >
-                        <h:outputText value="#{bundle.deleteModalForm}" /> 
-                        <br/>
-                        <div class="modalPanelActionButtons">
-                            <a4j:commandButton value="#{bundle.deleteButton}" onclick="removeEmployee();
-                                    return false;" />
-                            <a4j:commandButton value="#{bundle.cancelButton}"
-                                               onclick="${rich:component('confirmPanel')}.hide();
-                                                                       return false;" style="margin-left: 5px;" />
-                        </div>
-                    </rich:popupPanel>
-
-
                 </rich:panel>
 
 
                 <a4j:jsFunction name="processRowClick" 
                                 execute="@form"
+                                render=":employeeDetail"
                                 action="#{employeeViewer.rowKeyListener(rowKey)}" 
-                                oncomplete="#{rich:component('employeeDetail')}.show()"
 
+                                oncomplete="#{rich:component('employeeDetail')}.show()"
                                 >
 
                     <a4j:param name="rowKey" assignTo="#{rowKey}" />
 
                 </a4j:jsFunction>
             </h:form>
-
-
-            <ui:define name="detail">
-                <a4j:outputPanel id="teamDetail">
-                    <rich:panel header="#{bundle.teamInfo}" rendered="#{not empty employeeViewer.selectedItem}" >
-                        <rich:panel header="#{bundle.teamDetailHeader}" rendered="#{not empty employeeViewer.selectedItem}" >
-                            <ui:include src="./employeeDetail.xhtml" />
-                        </rich:panel>
-                    </rich:panel>
-                </a4j:outputPanel>
-            </ui:define>
-
 
 
             <rich:popupPanel header="#{bundle.employeeDetail}"
@@ -214,7 +181,7 @@
 
 
                     <a4j:commandButton value="Cancel" onclick="#{rich:component('employeeDetail')}.hide();
-                                            return false;" />
+                            return false;" />
                 </h:form>
 
             </rich:popupPanel>

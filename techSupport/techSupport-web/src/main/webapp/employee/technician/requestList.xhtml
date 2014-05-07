@@ -86,19 +86,28 @@
                         <rich:column style="text-align: center;" width="75px" > 
 
                             <f:facet name="header" >
-                                <h:outputText class="arrangeableHeader" value="#{bundle.employeeActions}" />
+                                <h:outputText class="arrangeableHeader" value="#{bundle.requestAction}" />
                             </f:facet>
+
+                            <!-- TODO : remove bude spristupnene iba pre admina -->
+
 
                             <a4j:commandButton image="/resources/icons/Button-Remove-icon.png" 
                                                execute="@this" render="@none"
+                                               onclick="event.stopPropagation();"
                                                oncomplete="#{rich:component('confirmPanel')}.show();" 
                                                value="" styleClass="iconizedButton" >
-                                <a4j:param value="#{req}" assignTo="#{employeeViewer.getEmployeeDto(employee)}" converter="#{requestConverter}" />       
+                                <a4j:param value="#{req}" 
+                                           assignTo="#{requestController.request}"
+                                           converter="#{requestConverter}" />       
                             </a4j:commandButton>
+
                             <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
-                                               value="Edit" styleClass="iconizedButton" action="#{requestController.editRequestBefore}" >
-                                <a4j:param value="#{req.id}" name="matchId"/>                   
+                                               value="Edit" styleClass="iconizedButton" 
+                                               action="#{requestController.editRequestBefore()}" >
+                                <a4j:param value="#{req.id}" name="requestId"/>                   
                             </a4j:commandButton>
+
                         </rich:column>
 
 
@@ -108,8 +117,11 @@
 
                     </rich:extendedDataTable>
 
-                    <a4j:jsFunction name="remove" action="#{requestController.removeRequest}"
-                                    render="table" execute="@this" oncomplete="#{rich:component('confirmPanel')}.hide();" />
+                    <a4j:jsFunction name="remove" 
+                                    action="#{requestController.removeRequest}"
+                                    render="table"
+                                    execute="@this" 
+                                    oncomplete="#{rich:component('confirmPanel')}.hide();" />
 
                     <rich:popupPanel id="confirmPanel" autosized="true" >
                         <h:outputText value="#{bundle.deleteModalForm}" /> 
@@ -119,17 +131,51 @@
                                     return false;" />
                             <a4j:commandButton value="#{bundle.cancelButton}"
                                                onclick="${rich:component('confirmPanel')}.hide();
-                                                       return false;" style="margin-left: 5px;" />
+                                                                       return false;" style="margin-left: 5px;" />
                         </div>
                     </rich:popupPanel>
 
 
                 </rich:panel>
+
+
+                <a4j:jsFunction name="processRowClick" 
+                                execute="@form"
+                                render=":requestDetail"
+                                action="#{requestController.rowKeyListener(rowKey)}" 
+                                oncomplete="#{rich:component('requestDetail')}.show()"
+                                >
+
+                    <a4j:param name="rowKey" assignTo="#{rowKey}" />
+
+                </a4j:jsFunction>
             </h:form>
 
 
 
+            <rich:popupPanel header="#{bundle.requestDetail}"
+                             id="requestDetail"
+                             domElementAttachment="parent" width="400" height="170"
+                             onmaskclick="#{rich:component('requestDetail')}.hide()">
 
+                <h:form>
+
+                    <h:panelGrid columns="3" id="editGrid">
+                        <h:outputText value="id" />
+                        <h:outputText value="#{requestController.selectedItem.id}" />
+                        <h:panelGroup />
+                        <h:outputText value="product name" />
+                        <h:outputText value="#{requestController.selectedItem.product.name}" />
+                        <h:panelGroup />
+                        <h:outputText value="registered" />
+                        <h:outputText value="#{requestController.selectedItem.text}" />
+                        <h:panelGroup />
+                    </h:panelGrid>
+                    <a4j:commandButton value="Cancel" onclick="#{rich:component('requestDetail')}.hide();
+                                            return false;" />
+                </h:form>
+
+            </rich:popupPanel>
 
 
 

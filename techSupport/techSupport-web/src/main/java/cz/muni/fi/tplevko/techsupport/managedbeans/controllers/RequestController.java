@@ -8,10 +8,13 @@ import cz.muni.fi.tplevko.techsupport.services.ProductService;
 import cz.muni.fi.tplevko.techsupport.services.RequestService;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -22,7 +25,6 @@ import org.springframework.stereotype.Component;
  * @author tplevko
  */
 @Component(value = "requestController")
-@ManagedBean
 @Scope("session")
 public class RequestController implements Serializable {
 
@@ -42,6 +44,8 @@ public class RequestController implements Serializable {
     private List<RequestDto> requestList;
     private List<ProductDto> productList;
     private ProductDto selectedproduct;
+    private Collection<Object> selected;
+    private RequestDto selectedItem;
 
     @PostConstruct
     public void init() {
@@ -76,7 +80,6 @@ public class RequestController implements Serializable {
     }
 
     public String listRequests() {
-
         requestList = requestService.getAllRequests();
         return "/employee/technician/requestList?faces-redirect=true";
     }
@@ -114,19 +117,66 @@ public class RequestController implements Serializable {
         return "/request/createRequest?faces-redirect=true";
     }
 
+    public String editRequestBefore() {
+
+        Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Long requestId = Long.valueOf(parameterMap.get("requestId"));
+        request = requestService.findRequestById(requestId);
+
+        return "/employee/technician/editRequest?faces-redirect=true";
+    }
+
+    public String editRequest() {
+
+        requestService.updateRequest(request);
+
+        return "/employee/technician/requestList?faces-redirect=true";
+    }
+
+    public String deleteMatch(Long requestId) {
+        request = requestService.findRequestById(requestId);
+        requestService.deleteRequest(request);
+//        return listMatches();
+        return "/employee/technician/requestList?faces-redirect=true";
+
+    }
+
+    public Collection<Object> getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Collection<Object> selected) {
+        this.selected = selected;
+    }
+
+    public RequestDto getSelectedItem() {
+        return selectedItem;
+    }
+
+    public void setSelectedItem(RequestDto selectedItem) {
+        this.selectedItem = selectedItem;
+    }
+
+    public void deselect() {
+        selectedItem = null;
+    }
+
+    public void rowKeyListener(Object rowKey) {
+
+        // TODO : debug...
+//        LOG.info("***** the row key value is : " + rowKey + " *****");
+        Long id = Long.valueOf((String) rowKey);
 //
-//    // TODO : editovanie asi nebude potrebne...
-//    public String editProduct() {
+//        if (selectedItem != null
+//                && selectedItem.getId() == id) {
 //
-//        request.setName(productName);
-//
-//        requestService.updateProduct(request);
-//
-//        return "/product/productList?faces-redirect=true";
-//    }
-//
-//    public List<ProductDto> getProductsList() {
-//
-//        return requestService.getAllProducts();
-//    }
+//            deselect();
+//        } else {
+
+        deselect();
+        selectedItem = requestService.findRequestById(id);
+//        }
+        LOG.info("***** the row key value is : " + selectedItem.getText() + " *****");
+
+    }
 }

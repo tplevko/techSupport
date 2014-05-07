@@ -17,7 +17,7 @@ import org.springframework.stereotype.Component;
  */
 @Component(value = "customerController")
 @ManagedBean
-@Scope("request")
+@Scope("session")
 public class CustomerController {
 
     @Autowired

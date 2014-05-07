@@ -4,7 +4,9 @@ import cz.muni.fi.tplevko.techsupport.entity.dto.ProductDto;
 import cz.muni.fi.tplevko.techsupport.services.ProductService;
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,14 +19,17 @@ import org.springframework.stereotype.Component;
  */
 @Component(value = "productsController")
 @ManagedBean
-@Scope("request")
+@Scope("session")
 public class ProductsController implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private static final Logger LOG = Logger.getLogger(ProductsController.class.getName());
 
     @Autowired
     private ProductService productService;
 
+    private Collection<Object> selected;
+    private ProductDto selectedItem;
     private ProductDto product;
     private List<ProductDto> productList;
 
@@ -81,5 +86,44 @@ public class ProductsController implements Serializable {
     public List<ProductDto> getProductsList() {
 
         return productService.getAllProducts();
+    }
+
+    public Collection<Object> getSelected() {
+        return selected;
+    }
+
+    public void setSelected(Collection<Object> selected) {
+        this.selected = selected;
+    }
+
+    public ProductDto getSelectedItem() {
+        return selectedItem;
+    }
+
+    public void setSelectedItem(ProductDto selectedItem) {
+        this.selectedItem = selectedItem;
+    }
+
+    public void deselect() {
+        selectedItem = null;
+    }
+
+    public void rowKeyListener(Object rowKey) {
+
+        // TODO : debug...
+        LOG.info("***** the row key value is : " + rowKey + " *****");
+        Long id = Long.valueOf((String) rowKey);
+//
+//        if (selectedItem != null
+//                && selectedItem.getId() == id) {
+//
+//            deselect();
+//        } else {
+
+        deselect();
+        selectedItem = productService.findProductById(id);
+//        }
+        LOG.info("***** the row key value is : " + selectedItem.getName() + " *****");
+
     }
 }

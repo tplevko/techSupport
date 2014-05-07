@@ -31,11 +31,26 @@
                             </f:facet>
                             <h:outputText value="#{customer.firstName}" />
                         </rich:column>
+                        
                         <rich:column  sortBy="#{customer.lastName}">
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.lastName}" />
                             </f:facet>
                             <h:outputText value="#{customer.lastName}" />
+                        </rich:column>
+                        
+                        <rich:column  sortBy="#{customer.email}">
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.email}" />
+                            </f:facet>
+                            <h:outputText value="#{customer.email}" />
+                        </rich:column>
+                        
+                        <rich:column  sortBy="#{customer.createdAt}">
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.createdAt}" />
+                            </f:facet>
+                            <h:outputText value="#{customer.createdAt}" />
                         </rich:column>
 
                         <f:facet name="footer">

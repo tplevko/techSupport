@@ -68,7 +68,8 @@ public class EmployeeDaoImpl implements EmployeeDao {
         }
 
         validateEmployee(employee);
-        em.remove(employee);
+
+        em.remove(em.contains(employee) ? employee : em.merge(employee));
     }
 
     @Override

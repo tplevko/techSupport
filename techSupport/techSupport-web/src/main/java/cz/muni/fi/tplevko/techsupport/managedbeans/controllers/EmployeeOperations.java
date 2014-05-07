@@ -23,7 +23,7 @@ import org.springframework.stereotype.Component;
 public class EmployeeOperations implements Serializable {
 
     private static final long serialVersionUID = 1L;
-
+    
     @PostConstruct
     public void init() {
 
@@ -42,6 +42,7 @@ public class EmployeeOperations implements Serializable {
     public void setEmployeeDto(EmployeeDto employeeDto) {
         this.employeeDto = employeeDto;
     }
+
 
     public String createEmployee() {
 
@@ -82,16 +83,14 @@ public class EmployeeOperations implements Serializable {
     public String editEmployee() {
 
         employeeService.updateEmployee(employeeDto);
-
         return "/employee/admin/employee/employeeList?faces-redirect=true";
-
     }
 
-    public String deleteMatch(Long matchId) {
-        employeeDto = employeeService.findEmployeeById(matchId);
-        employeeService.deleteEmployee(employeeDto);
-//        return listMatches();
+    public String deleteEmployee() {
+        
+        Long id = employeeDto.getId();
+        EmployeeDto employee = employeeService.findEmployeeById(id);
+        employeeService.deleteEmployee(employee);
         return "/employee/admin/employee/employeeList?faces-redirect=true";
-
     }
 }
