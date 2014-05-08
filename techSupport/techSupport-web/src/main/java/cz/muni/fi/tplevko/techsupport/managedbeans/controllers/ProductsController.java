@@ -6,9 +6,11 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import javax.faces.context.FacesContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -28,16 +30,23 @@ public class ProductsController implements Serializable {
     @Autowired
     private ProductService productService;
 
-    private Collection<Object> selected;
-    private ProductDto selectedItem;
     private ProductDto product;
     private List<ProductDto> productList;
+    private Long prodId;
 
     @PostConstruct
     public void init() {
 
         product = new ProductDto();
         productList = new ArrayList<ProductDto>();
+    }
+
+    public Long getProdId() {
+        return prodId;
+    }
+
+    public void setProdId(Long prodId) {
+        this.prodId = prodId;
     }
 
     public ProductDto getProduct() {
@@ -70,60 +79,31 @@ public class ProductsController implements Serializable {
 
     public String deleteProduct() {
 
-        productService.deleteProduct(product);
+        ProductDto prodToBeDeleted = productService.findProductById(prodId);
+
+        productService.deleteProduct(prodToBeDeleted);
 
         return "/employee/admin/product/productList?faces-redirect=true";
     }
 
-    // TODO : editovanie asi nebude potrebne...
     public String editProduct() {
 
         productService.updateProduct(product);
 
-        return "/product/productList?faces-redirect=true";
+        return "/employee/admin/product/productList?faces-redirect=true";
     }
+
+    public String editProductBefore() {
+
+        Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+        Long productId = Long.valueOf(parameterMap.get("productId"));
+        product = productService.findProductById(productId);
+
+        return "/employee/admin/product/editProduct?faces-redirect=true";    }
 
     public List<ProductDto> getProductsList() {
 
         return productService.getAllProducts();
     }
 
-    public Collection<Object> getSelected() {
-        return selected;
-    }
-
-    public void setSelected(Collection<Object> selected) {
-        this.selected = selected;
-    }
-
-    public ProductDto getSelectedItem() {
-        return selectedItem;
-    }
-
-    public void setSelectedItem(ProductDto selectedItem) {
-        this.selectedItem = selectedItem;
-    }
-
-    public void deselect() {
-        selectedItem = null;
-    }
-
-    public void rowKeyListener(Object rowKey) {
-
-        // TODO : debug...
-        LOG.info("***** the row key value is : " + rowKey + " *****");
-        Long id = Long.valueOf((String) rowKey);
-//
-//        if (selectedItem != null
-//                && selectedItem.getId() == id) {
-//
-//            deselect();
-//        } else {
-
-        deselect();
-        selectedItem = productService.findProductById(id);
-//        }
-        LOG.info("***** the row key value is : " + selectedItem.getName() + " *****");
-
-    }
 }

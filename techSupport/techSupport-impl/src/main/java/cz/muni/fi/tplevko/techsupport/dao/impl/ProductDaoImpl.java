@@ -68,7 +68,7 @@ public class ProductDaoImpl implements ProductDao {
         }
 
         validateProduct(product);
-        em.remove(product);
+        em.remove(em.contains(product) ? product : em.merge(product));
     }
 
     @Override

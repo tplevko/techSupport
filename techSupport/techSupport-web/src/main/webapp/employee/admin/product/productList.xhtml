@@ -41,11 +41,9 @@
                                             id="table"
                                             rowClasses="odd-row, even-row"
                                             rows="20" 
-                                            selectionMode="single" 
+                                            selectionMode="none" 
                                             onrowmouseover="jQuery(this).addClass('active-row');" 
                                             onrowmouseout="jQuery(this).removeClass('active-row');" 
-                                            onrowclick="processRowClick(#{product.id});"
-                                            keepSaved="true"
                                             >
 
                         <rich:column sortBy="#{product.id}" >
@@ -62,6 +60,13 @@
                             <h:outputText value="#{product.name}" />
                         </rich:column>
 
+                        <rich:column sortBy="#{product.defaultPriority}" >
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.priority}" />
+                            </f:facet>
+                            <h:outputText value="#{product.defaultPriority}" />
+                        </rich:column>
+
                         <rich:column style="text-align: center;" width="75px" > 
 
                             <f:facet name="header" >
@@ -72,16 +77,16 @@
                                                execute="@this" render="@none"
                                                oncomplete="#{rich:component('confirmPanel')}.show();" 
                                                value="" styleClass="iconizedButton" >
-                                <a4j:param value="#{product}" assignTo="#{productsController.deleteProduct}" converter="#{productConverter}" />       
+                                <a4j:param value="#{product.id}" assignTo="#{productsController.prodId}" />       
                             </a4j:commandButton>
 
                             <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
                                                value="Edit"
                                                styleClass="iconizedButton" 
-                                               action="#{productsController.editProduct()}" >
+                                               action="#{productsController.editProductBefore()}" >
                                 <a4j:param value="#{product.id}" name="productId"/>                   
                             </a4j:commandButton>
-
+                            
                         </rich:column>
 
 
@@ -91,11 +96,13 @@
 
                     </rich:extendedDataTable>
 
-                    <a4j:jsFunction name="remove" action="#{productController.removeEmployee}"
-                                    render="table" execute="@this" oncomplete="#{rich:component('confirmPanel')}.hide();" />
+                    <a4j:jsFunction name="remove"
+                                    action="#{productsController.deleteProduct()}"
+                                    render="table" 
+                                    execute="@this" oncomplete="#{rich:component('confirmPanel')}.hide();" />
 
                     <rich:popupPanel id="confirmPanel" autosized="true" >
-                        <h:outputText value="#{bundle.deleteModalForm}" /> 
+                        <h:outputText value="#{bundle.deleteProduct}" /> 
                         <br/>
                         <div style="float: right; margin-bottom: 5px;">
                             <a4j:commandButton value="#{bundle.deleteButton}" onclick="remove();

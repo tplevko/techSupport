@@ -19,22 +19,22 @@
 
                 <h:form>
                     <h:panelGrid columns="3">
-                        <h:outputLabel value="name " />
+                        <h:outputLabel value="#{bundle.name}" />
                         <h:inputText value="#{productsController.product.name}" id="name">
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputText>
                         <h:message for="name" />                    
 
-                        <h:outputLabel value="default priority " />
+                        <h:outputLabel value="#{bundle.defaultPriority}" />
                         <h:inputText value="#{productsController.product.defaultPriority}" id="defaultPriority">
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputText>
                         <h:message for="defaultPriority" />
 
-                        <h:commandButton id="sub" value="create" type="submit" action="#{productsController.insertProduct()}" />
-                        <h:commandButton value="cancel" immediate="true" type="submit" action="#{productsController.itemList}" />
+                        <h:commandButton id="sub" value="#{bundle.submitButton}" type="submit" action="#{productsController.insertProduct()}" />
+                        <h:commandButton value="#{bundle.cancelButton}" immediate="true" type="submit" action="#{productsController.itemList}" />
                     </h:panelGrid>
                 </h:form>
             </rich:panel>
