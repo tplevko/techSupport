@@ -26,7 +26,7 @@ public class Employee extends Account implements Serializable {
         
     private boolean isAdmin;
 
-    @OneToMany
+    @OneToMany(mappedBy="assignee")
     private List<Request> requests;
 
     public boolean isIsAdmin() {

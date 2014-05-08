@@ -1,14 +1,17 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.controllers;
 
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
+import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.ProductDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestDto;
 import cz.muni.fi.tplevko.techsupport.services.CustomerService;
+import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
 import cz.muni.fi.tplevko.techsupport.services.ProductService;
 import cz.muni.fi.tplevko.techsupport.services.RequestService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
@@ -33,6 +36,9 @@ public class RequestController implements Serializable {
 
     @Autowired
     private CustomerService customerService;
+
+    @Autowired
+    private EmployeeService employeeService;
 
     @Autowired
     private RequestService requestService;
@@ -127,6 +133,20 @@ public class RequestController implements Serializable {
     }
 
     public String editRequest() {
+
+        String currentEmployee = SecurityUtils.getSubject().getPrincipal().toString();
+
+        EmployeeDto employee = employeeService.findEmployeeByEmail(currentEmployee);
+
+        if (request.isExecuted() == true) {
+
+            request.setFinished(new Date());
+            request.setAssignee(employee);
+
+        } else {
+            request.setFinished(null);
+            request.setAssignee(null);
+        }
 
         requestService.updateRequest(request);
 

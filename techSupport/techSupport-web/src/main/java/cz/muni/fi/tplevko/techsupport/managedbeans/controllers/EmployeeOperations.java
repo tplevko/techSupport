@@ -8,6 +8,7 @@ import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -75,6 +76,16 @@ public class EmployeeOperations implements Serializable {
         return "/employee/admin/employee/editEmployee?faces-redirect=true";
     }
 
+    public String editPersonalInfoBefore() {
+
+        
+        String currentEmployee = SecurityUtils.getSubject().getPrincipal().toString();
+
+        employeeDto = employeeService.findEmployeeByEmail(currentEmployee);
+
+        return "/employee/technician/editPersonalInfo?faces-redirect=true";
+    }
+
     public String addEmployeeBefore() {
         employeeDto = new EmployeeDto();
         return "/employee/admin/employee/addEmployee?faces-redirect=true";
@@ -91,6 +102,14 @@ public class EmployeeOperations implements Serializable {
         Long id = employeeDto.getId();
         EmployeeDto employee = employeeService.findEmployeeById(id);
         employeeService.deleteEmployee(employee);
+        return "/employee/admin/employee/employeeList?faces-redirect=true";
+    }
+    
+    
+    public String resetPassword() {
+        
+        // TODO : reset passwd method
+        
         return "/employee/admin/employee/employeeList?faces-redirect=true";
     }
 }

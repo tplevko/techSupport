@@ -59,13 +59,21 @@
 
                         <h:message for="delete" />
 
+                    </h:panelGrid>
+                    
+                    <h:panelGrid columns="3">
 
 
-                        <h:commandButton id="sub" value="edit" type="submit" action="#{employeeOperations.editEmployee()}" />
+                        <h:commandButton id="sub" value="#{bundle.submitButton}" type="submit" action="#{employeeOperations.editEmployee()}" />
 
+                        <h:commandButton id="cancel" value="#{bundle.cancelButton}" immediate="true" type="submit" action="#{employeeViewer.listEmployees()}" />
 
+                        <a4j:commandButton execute="@this" render="@none"
+                                           onclick="event.stopPropagation();"
+                                           oncomplete="#{rich:component('confirmPasswd')}.show();" 
+                                           value="#{bundle.resetPassword}" styleClass="iconizedButton" >
+                        </a4j:commandButton>
 
-                        <h:commandButton value="cancel" immediate="true" type="submit" action="#{employeeViewer.listEmployees()}" />
                     </h:panelGrid>
 
 
@@ -80,12 +88,29 @@
                                                        return false;" style="margin-left: 5px;" />
                         </div>
                     </rich:popupPanel>
+                    
+                    <rich:popupPanel id="confirmPasswd" autosized="true" >
+                        <h:outputText value="#{bundle.resetPassword}" /> 
+                        <br/>
+                        <div class="modalPanelActionButtons">
+                            <a4j:commandButton value="#{bundle.confirm}" onclick="resetPassword();
+                                    return false;" />
+                            <a4j:commandButton value="#{bundle.cancelButton}"
+                                               onclick="${rich:component('confirmPasswd')}.hide();
+                                                       return false;" style="margin-left: 5px;" />
+                        </div>
+                    </rich:popupPanel>
 
 
                     <a4j:jsFunction name="remove" action="#{employeeOperations.deleteEmployee()}" 
                                     render="table"
                                     execute="@this"
                                     oncomplete="#{rich:component('confirmPane')}.hide();" />
+
+                    <a4j:jsFunction name="resetPassword" action="#{employeeOperations.resetPassword()}" 
+                                    render="table"
+                                    execute="@this"
+                                    oncomplete="#{rich:component('confirmPasswd')}.hide();" />
 
 
                 </h:form>

@@ -5,6 +5,7 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -20,7 +21,7 @@ import javax.persistence.Temporal;
  * @author tplevko
  */
 @Entity
-@Table(name="REQUEST")
+@Table(name = "REQUEST")
 public class Request implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,13 +36,14 @@ public class Request implements Serializable {
 
     private boolean executed = false;
 
-    @ManyToOne
-    @JoinColumn(nullable = false, name = "Request_ID", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "OWNER_ID")
     private Customer owner;
 
-    @ManyToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "ASSIGNEE_ID")
     private Employee assignee;
-    
+
     @ManyToOne
     private Product product;
 
@@ -131,7 +133,7 @@ public class Request implements Serializable {
     public void setProduct(Product product) {
         this.product = product;
     }
-    
+
     @Override
     public int hashCode() {
         int hash = 0;

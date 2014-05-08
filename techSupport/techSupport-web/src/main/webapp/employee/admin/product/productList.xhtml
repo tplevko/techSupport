@@ -12,9 +12,22 @@
 
         <ui:define name="content">
 
-            <h1>
-                List of Products
-            </h1>
+
+            <h:outputStylesheet>
+                .even-row {
+                background-color: #FCFFFE;
+                }
+
+                .odd-row {
+                background-color: #ECF3FE;
+                }
+
+                .active-row {
+                background-color: #FFEBDA !important;
+                cursor: pointer;
+                }
+            </h:outputStylesheet>
+
 
             <h:form id="form">
 
@@ -23,11 +36,17 @@
                         <h:outputText style="font-size: large;" value="#{bundle.productsList}" />
                     </f:facet>
 
-                    <rich:extendedDataTable value="#{productsController.productsList}" var="product" id="table" rowClasses="odd-row, even-row"
-                                            rows="20" sortMode="single">
-                        <!--                        
-                                                <a4j:ajax execute="@form" event="selectionchange" listener="#{soccerMatchBean.selectionListener}"
-                                                          render=":selectedResource"/>-->
+                    <rich:extendedDataTable value="#{productsController.productsList}" 
+                                            var="product" 
+                                            id="table"
+                                            rowClasses="odd-row, even-row"
+                                            rows="20" 
+                                            selectionMode="single" 
+                                            onrowmouseover="jQuery(this).addClass('active-row');" 
+                                            onrowmouseout="jQuery(this).removeClass('active-row');" 
+                                            onrowclick="processRowClick(#{product.id});"
+                                            keepSaved="true"
+                                            >
 
                         <rich:column sortBy="#{product.id}" >
                             <f:facet name="header">
@@ -43,21 +62,26 @@
                             <h:outputText value="#{product.name}" />
                         </rich:column>
 
-                        <rich:column>
+                        <rich:column style="text-align: center;" width="75px" > 
+
                             <f:facet name="header" >
-                                <h:outputText class="arrangeableHeader" value="#{bundle.productAction}" />
+                                <h:outputText class="arrangeableHeader" value="#{bundle.employeeActions}" />
                             </f:facet>
 
                             <a4j:commandButton image="/resources/icons/Button-Remove-icon.png" 
                                                execute="@this" render="@none"
                                                oncomplete="#{rich:component('confirmPanel')}.show();" 
                                                value="" styleClass="iconizedButton" >
-                                <a4j:param value="#{product}" assignTo="#{productsController.detProductDto(product)}" converter="#{productConverter}" />       
+                                <a4j:param value="#{product}" assignTo="#{productsController.deleteProduct}" converter="#{productConverter}" />       
                             </a4j:commandButton>
+
                             <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
-                                               value="Edit" styleClass="iconizedButton" action="#{productsController.editMatchBefore}" >
-                                <a4j:param value="#{product.id}" name="matchId"/>                   
+                                               value="Edit"
+                                               styleClass="iconizedButton" 
+                                               action="#{productsController.editProduct()}" >
+                                <a4j:param value="#{product.id}" name="productId"/>                   
                             </a4j:commandButton>
+
                         </rich:column>
 
 
@@ -81,7 +105,7 @@
                                                        return false;" style="margin-left: 5px;" />
                         </div>
                     </rich:popupPanel>
-                    
+
 
                 </rich:panel>
             </h:form>

@@ -28,7 +28,7 @@ public class Customer extends Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(mappedBy="owner")
     private List<Request> requests;
 
     public List<Request> getRequests() {
