@@ -134,7 +134,7 @@
 
             <rich:popupPanel header="#{bundle.employeeDetail}"
                              id="employeeDetail"
-                             
+
                              domElementAttachment="parent" width="400" height="400"
                              onmaskclick="#{rich:component('employeeDetail')}.hide()">
 
@@ -142,7 +142,7 @@
                     <rich:tabPanel id="tp">  
                         <rich:tab header="employee information">
 
-                            <h:panelGrid columns="3" id="editGrid">
+                            <h:panelGrid columns="3" id="employeeInfo">
                                 <h:outputText value="first name" />
                                 <h:outputText value="#{employeeViewer.selectedItem.firstName}" />
                                 <h:panelGroup />
@@ -159,25 +159,28 @@
 
 
                         </rich:tab>  
-                        <rich:tab header="finished requests">  
+                        <rich:tab header="#{bundle.requestList}">  
 
                             <rich:dataTable value="#{employeeViewer.selectedItem.requests}" 
                                             var="req"
                                             id="table" 
                                             rows="6" rowClasses="odd-row, even-row"
                                             styleClass="stable">
+                               
                                 <rich:column>
                                     <f:facet name="header">
-                                        <h:outputText value="req date " />
-                                    </f:facet>
-                                    <h:outputText value="#{req.created}" />
-                                </rich:column>
-                                <rich:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="ID" />
+                                        <h:outputText value="#{bundle.id}" />
                                     </f:facet>
                                     <h:outputText value="#{req.id}" />
                                 </rich:column>
+                                
+                                <rich:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.created}" />
+                                    </f:facet>
+                                    <h:outputText value="#{req.created}" />
+                                </rich:column>
+
                             </rich:dataTable>
                         </rich:tab>
                     </rich:tabPanel>  

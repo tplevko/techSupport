@@ -21,28 +21,28 @@
 
                 <h:form>
                     <h:panelGrid columns="3">
-                        <h:outputLabel value="first name " />
+                        <h:outputLabel value="#{bundle.firstName}" />
                         <h:inputText value="#{registrationController.firstName}" id="firstName">
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputText>
                         <h:message for="firstName" />
 
-                        <h:outputLabel value="last name " />
+                        <h:outputLabel value="#{bundle.lastName}" />
                         <h:inputText value="#{registrationController.lastName}" id="lastName">
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputText>
                         <h:message for="lastName" />
 
-                        <h:outputLabel value="email " />
+                        <h:outputLabel value="#{bundle.email}" />
                         <h:inputText value="#{registrationController.email}" id="email">
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputText> 
                         <h:message for="email" />
 
-                        <h:outputLabel value="passwd" />
+                        <h:outputLabel value="#{bundle.password}" />
                         <h:inputSecret value="#{registrationController.password}" id="password">
                             <f:validateLength minimum="0"/>
                             <f:validator validatorId="passwordValidator" />
@@ -51,24 +51,25 @@
                         </h:inputSecret>
                         <h:message for="password" />
 
-                        <h:outputLabel value="confirm passwd " />
+                        <h:outputLabel value="#{bundle.confirmPasswd}" />
                         <h:inputSecret binding="#{confirmPassword}" id="confirmPassword" >
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputSecret> 
                         <h:message for="confirmPassword" />
 
-                        <!-- ############## ALLOW THIS LATER ################# -->
+                        <!-- ############## Captcha part ################# -->
+                    </h:panelGrid>
 
-                        <!--                    <p:captcha label="Captcha"/>
-                        
-                                            <p:messages showDetail="true"/>  -->
+                    <h:panelGrid>
 
-                        <!-- ############## ALLOW THIS LATER ################# -->
+                        <p:captcha label="Captcha" id="captcha"/>
 
+                        <h:message for="captcha" />
+                    </h:panelGrid>
 
-                        <!--                <p:commandButton value="Check" ajax="false"  
-                                                         actionListener="#{captchaBean.submit}" />-->
+                    <!-- ############################################# -->
+                    <h:panelGrid columns="2">
 
                         <h:commandButton id="sub" value="create" type="submit" action="#{registrationController.addCustomer()}" />
                         <h:commandButton value="cancel" immediate="true" type="submit" action="#{registrationController.customerList}" />

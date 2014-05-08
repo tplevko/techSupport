@@ -48,18 +48,11 @@
                                             keepSaved="true"
                                             >
 
-                        <rich:column sortBy="#{customer.firstName}" >
+                        <rich:column  sortBy="#{customer.id}">
                             <f:facet name="header">
-                                <h:outputText class="arrangeableHeader" value="#{bundle.firstName}" />
+                                <h:outputText class="arrangeableHeader" value="#{bundle.id}" />
                             </f:facet>
-                            <h:outputText value="#{customer.firstName}" />
-                        </rich:column>
-
-                        <rich:column  sortBy="#{customer.lastName}">
-                            <f:facet name="header">
-                                <h:outputText class="arrangeableHeader" value="#{bundle.lastName}" />
-                            </f:facet>
-                            <h:outputText value="#{customer.lastName}" />
+                            <h:outputText value="#{customer.id}" />
                         </rich:column>
 
                         <rich:column  sortBy="#{customer.email}">
@@ -67,6 +60,13 @@
                                 <h:outputText class="arrangeableHeader" value="#{bundle.email}" />
                             </f:facet>
                             <h:outputText value="#{customer.email}" />
+                        </rich:column>
+
+                        <rich:column  sortBy="#{customer.active}">
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.active}" />
+                            </f:facet>
+                            <h:outputText value="#{customer.active}" />
                         </rich:column>
 
                         <rich:column  sortBy="#{customer.createdAt}">
@@ -79,6 +79,23 @@
                         </rich:column>
 
 
+                        <rich:column style="text-align: center;" width="75px" > 
+                            <!-- ###################################### -->
+                            <f:facet name="header" >
+                                <h:outputText class="arrangeableHeader" value="#{bundle.employeeActions}" />
+                            </f:facet>
+
+                            <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
+                                               value="Edit"
+                                               styleClass="iconizedButton" 
+                                               action="#{customerController.editCustomerBefore()}" >
+                                <a4j:param value="#{customer.id}" name="customerId"/>                   
+                            </a4j:commandButton>
+
+                        </rich:column>
+
+
+
                         <f:facet name="footer">
                             <rich:dataScroller id="scroller" />
                         </f:facet>
@@ -86,7 +103,80 @@
                     </rich:extendedDataTable>
 
                 </rich:panel>
+
+                <a4j:jsFunction name="processRowClick" 
+                                execute="@form"
+                                render=":customerDetail"
+                                action="#{customerController.rowKeyListener(rowKey)}" 
+
+                                oncomplete="#{rich:component('customerDetail')}.show()"
+                                >
+
+                    <a4j:param name="rowKey" assignTo="#{rowKey}" />
+
+                </a4j:jsFunction>
+
             </h:form>
+
+
+
+            <rich:popupPanel header="#{bundle.customerDetail}"
+                             id="customerDetail"
+
+                             domElementAttachment="parent" width="400" height="400"
+                             onmaskclick="#{rich:component('customerDetail')}.hide()">
+
+                <h:form>
+                    <rich:tabPanel id="tp">  
+                        <rich:tab header="#{bundle.customerInformation}">
+
+                            <h:panelGrid columns="3" id="customerInfo">
+                                <h:outputText value="first name" />
+                                <h:outputText value="#{customerController.selectedItem.firstName}" />
+                                <h:panelGroup />
+                                <h:outputText value="last name" />
+                                <h:outputText value="#{customerController.selectedItem.lastName}" />
+                                <h:panelGroup />
+                                <h:outputText value="registered" />
+                                <h:outputText value="#{customerController.selectedItem.createdAt}" />
+                                <h:panelGroup />
+                                <h:outputText value="email" />
+                                <h:outputText value="#{customerController.selectedItem.email}" />
+                                <h:panelGroup />
+                            </h:panelGrid>
+
+
+                        </rich:tab>  
+                        <rich:tab header="#{bundle.customerRequests}">  
+
+                            <rich:dataTable value="#{customerController.selectedItem.requests}" 
+                                            var="req"
+                                            id="table" 
+                                            rows="6" rowClasses="odd-row, even-row"
+                                            styleClass="stable">
+                                <rich:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="ID" />
+                                    </f:facet>
+                                    <h:outputText value="#{req.id}" />
+                                </rich:column>
+                                <rich:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="req date " />
+                                    </f:facet>
+                                    <h:outputText value="#{req.created}" />
+                                </rich:column>
+
+                            </rich:dataTable>
+                        </rich:tab>
+                    </rich:tabPanel>  
+
+
+                </h:form>
+
+            </rich:popupPanel>
+
+
 
         </ui:define>
 
