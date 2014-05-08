@@ -21,51 +21,37 @@
 
                 <h:form>
                     <h:panelGrid columns="3">
-                        <h:outputLabel value="old password " />
-                        <h:inputText value="#{employeeOperations.employeeDto.firstName}" id="firstName">
+
+                        <h:outputLabel value="#{bundle.oldPasswd}" />
+                        <h:inputSecret value="#{passwordChangeController.oldPassword}" id="oldPasswd">
+                            <f:validateLength minimum="0"/>
+                        </h:inputSecret>
+                        <h:message for="oldPasswd" />
+
+
+                        <h:outputLabel value="#{bundle.newPasswd}" />
+                        <h:inputSecret value="#{passwordChangeController.newPassword}" id="newPasswd">
+                            <f:validateLength minimum="0"/>
+                            <f:validator validatorId="passwordValidator" />
+                            <f:attribute name="confirmPassword" value="#{confirmPassword}" />
+                            <f:validateRequired for="sub"/>
+                        </h:inputSecret>
+                        <h:message for="newPasswd" />
+
+
+                        <h:outputLabel value="#{bundle.confirmPasswd} " />
+                        <h:inputSecret binding="#{confirmPassword}" id="confirmPassword" >
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
-                        </h:inputText>
-                        <h:message for="firstName" />
+                        </h:inputSecret> 
+                        <h:message for="confirmPassword" />
 
-                        <h:outputLabel value="new password " />
-                        <h:inputText value="#{employeeOperations.employeeDto.lastName}" id="lastName">
-                            <f:validateLength minimum="0"/>
-                            <f:validateRequired for="sub"/>
-                        </h:inputText>
-                        <h:message for="lastName" />
-
-                        <h:outputLabel value="repeat new password " />
-                        <h:inputText value="#{employeeOperations.employeeDto.email}" id="email">
-                            <f:validateLength minimum="0"/>
-                            <f:validateRequired for="sub"/>
-                        </h:inputText> 
-                        <h:message for="email" />
-
-                        <h:commandButton id="sub" value="edit" type="submit" action="#{employeeOperations.editEmployee()}" />
-
-                        <h:commandButton value="cancel" immediate="true" type="submit" action="#{employeeViewer.listEmployees()}" />
                     </h:panelGrid>
 
-
-                    <rich:popupPanel id="confirmPanel" autosized="true" >
-                        <h:outputText value="#{bundle.deleteModalForm}" /> 
-                        <br/>
-                        <div class="modalPanelActionButtons">
-                            <a4j:commandButton value="#{bundle.deleteButton}" onclick="remove();
-                                    return false;" />
-                            <a4j:commandButton value="#{bundle.cancelButton}"
-                                               onclick="${rich:component('confirmPanel')}.hide();
-                                                       return false;" style="margin-left: 5px;" />
-                        </div>
-                    </rich:popupPanel>
-
-
-                    <a4j:jsFunction name="remove" action="#{employeeOperations.deleteEmployee()}" 
-                                    render="table"
-                                    execute="@this"
-                                    oncomplete="#{rich:component('confirmPane')}.hide();" />
-
+                    <h:panelGrid columns="2">
+                        <h:commandButton id="sub" value="create" type="submit" action="#{passwordChangeController.changeEmployeePassword()}" />
+                        <h:commandButton value="cancel" immediate="true" type="submit" action="#{registrationController.customerList}" />
+                    </h:panelGrid>
 
                 </h:form>
             </rich:panel>

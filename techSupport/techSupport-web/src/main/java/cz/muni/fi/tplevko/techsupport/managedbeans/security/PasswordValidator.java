@@ -16,9 +16,6 @@ import org.springframework.stereotype.Component;
  * @author tplevko
  */
 @Component
-//@ManagedBean
-//@RequestScoped
-
 @Scope("request")
 @FacesValidator("passwordValidator")
 public class PasswordValidator implements Validator {

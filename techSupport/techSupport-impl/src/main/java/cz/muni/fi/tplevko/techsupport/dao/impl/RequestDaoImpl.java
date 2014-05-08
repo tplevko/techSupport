@@ -69,7 +69,8 @@ public class RequestDaoImpl implements RequestDao {
         }
 
         validateRequest(request);
-        em.remove(request);
+
+        em.remove(em.contains(request) ? request : em.merge(request));
     }
 
     @Override

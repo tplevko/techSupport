@@ -66,7 +66,6 @@ public class StartupHandler { //implements InitializingBean {
         }
     }
 
-    // TODO 
     private boolean existsAdmin() {
 
         List<EmployeeDto> employeeList = employeeService.getAllEmployees();
@@ -80,8 +79,5 @@ public class StartupHandler { //implements InitializingBean {
         }
 
         return adminExists;
-
-//        return false;
     }
-
 }

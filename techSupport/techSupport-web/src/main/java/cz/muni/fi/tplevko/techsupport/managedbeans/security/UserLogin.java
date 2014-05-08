@@ -20,30 +20,28 @@ public class UserLogin {
 //	private Credentials credentials;
 //    @Autowired
 //    private AccountService accountService;
-
     public static final String HOME_URL = "app/index.xhtml";
 
     private String username;
     private String password;
-//    private boolean remember;
 
     public String submit() throws IOException {
         try {
-            
+
             // TODO : zmen to rememberme
             SecurityUtils.getSubject().login(new UsernamePasswordToken(username, password, true));
 //            SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(Faces.getRequest());
 //            Faces.redirect(savedRequest != null ? savedRequest.getRequestUrl() : HOME_URL);
-       
-        return "/request/createRequest?faces-redirect=true";
-        
+
+            return "/request/createRequest?faces-redirect=true";
+
         } catch (AuthenticationException e) {
 
             // TODO : nejak to inac vypisat, nie pomocou tych omnyfacov...
 //            Messages.addGlobalError("Unknown user, please try again");
             e.printStackTrace(); // TODO: logger.
-            
-        return "/error?faces-redirect=true";
+
+            return "/error?faces-redirect=true";
         }
     }
 

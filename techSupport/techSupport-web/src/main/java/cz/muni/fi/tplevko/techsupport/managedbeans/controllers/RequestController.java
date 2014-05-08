@@ -52,6 +52,7 @@ public class RequestController implements Serializable {
     private ProductDto selectedproduct;
     private Collection<Object> selected;
     private RequestDto selectedItem;
+    private Long selectedItemId;
 
     @PostConstruct
     public void init() {
@@ -62,11 +63,20 @@ public class RequestController implements Serializable {
         productList = new ArrayList<ProductDto>();
     }
 
+    public Long getSelectedItemId() {
+        return selectedItemId;
+    }
+
+    public void setSelectedItemId(Long selectedItemId) {
+        this.selectedItemId = selectedItemId;
+    }
+
     public RequestDto getRequest() {
         return request;
     }
 
     public void setRequest(RequestDto request) {
+
         this.request = request;
     }
 
@@ -91,6 +101,7 @@ public class RequestController implements Serializable {
     }
 
     public void setRequestList(List<RequestDto> requestList) {
+
         this.requestList = requestList;
     }
 
@@ -153,12 +164,11 @@ public class RequestController implements Serializable {
         return "/employee/technician/requestList?faces-redirect=true";
     }
 
-    public String deleteMatch(Long requestId) {
-        request = requestService.findRequestById(requestId);
-        requestService.deleteRequest(request);
-//        return listMatches();
-        return "/employee/technician/requestList?faces-redirect=true";
+    public String deleteRequest() {
 
+        RequestDto requestToDelete = requestService.findRequestById(selectedItemId);
+        requestService.deleteRequest(requestToDelete);
+        return "/employee/technician/requestList?faces-redirect=true";
     }
 
     public Collection<Object> getSelected() {

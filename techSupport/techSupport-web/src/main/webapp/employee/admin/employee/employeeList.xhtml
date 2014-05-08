@@ -134,26 +134,33 @@
 
             <rich:popupPanel header="#{bundle.employeeDetail}"
                              id="employeeDetail"
-                             domElementAttachment="parent" width="400" height="170"
+                             
+                             domElementAttachment="parent" width="400" height="400"
                              onmaskclick="#{rich:component('employeeDetail')}.hide()">
 
                 <h:form>
+                    <rich:tabPanel id="tp">  
+                        <rich:tab header="employee information">
 
-                    <h:panelGrid columns="3" id="editGrid">
-                        <h:outputText value="first name" />
-                        <h:outputText value="#{employeeViewer.selectedItem.firstName}" />
-                        <h:panelGroup />
-                        <h:outputText value="last name" />
-                        <h:outputText value="#{employeeViewer.selectedItem.lastName}" />
-                        <h:panelGroup />
-                        <h:outputText value="registered" />
-                        <h:outputText value="#{employeeViewer.selectedItem.createdAt}" />
-                        <h:panelGroup />
-                        <h:outputText value="email" />
-                        <h:outputText value="#{employeeViewer.selectedItem.email}" />
-                        <h:panelGroup />
+                            <h:panelGrid columns="3" id="editGrid">
+                                <h:outputText value="first name" />
+                                <h:outputText value="#{employeeViewer.selectedItem.firstName}" />
+                                <h:panelGroup />
+                                <h:outputText value="last name" />
+                                <h:outputText value="#{employeeViewer.selectedItem.lastName}" />
+                                <h:panelGroup />
+                                <h:outputText value="registered" />
+                                <h:outputText value="#{employeeViewer.selectedItem.createdAt}" />
+                                <h:panelGroup />
+                                <h:outputText value="email" />
+                                <h:outputText value="#{employeeViewer.selectedItem.email}" />
+                                <h:panelGroup />
+                            </h:panelGrid>
 
-                        <h:form>
+
+                        </rich:tab>  
+                        <rich:tab header="finished requests">  
+
                             <rich:dataTable value="#{employeeViewer.selectedItem.requests}" 
                                             var="req"
                                             id="table" 
@@ -172,16 +179,10 @@
                                     <h:outputText value="#{req.id}" />
                                 </rich:column>
                             </rich:dataTable>
-                        </h:form>
+                        </rich:tab>
+                    </rich:tabPanel>  
 
 
-
-
-                    </h:panelGrid>
-
-
-                    <a4j:commandButton value="Cancel" onclick="#{rich:component('employeeDetail')}.hide();
-                            return false;" />
                 </h:form>
 
             </rich:popupPanel>

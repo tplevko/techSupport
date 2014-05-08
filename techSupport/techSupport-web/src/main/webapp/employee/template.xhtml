@@ -60,6 +60,7 @@
                                     <rich:panelMenuItem label="#{bundle.menuEmployeeList}" 
                                                         name="listEmployees"
                                                         action="#{employeeViewer.listEmployees()}" 
+                                                        actionListener="#{navigationMenuBean.saveSelectedItem}"
                                                         mode="server"/>
                                 </rich:panelMenuGroup>
 

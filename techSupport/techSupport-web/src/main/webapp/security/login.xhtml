@@ -13,32 +13,39 @@
         <ui:define name="content">
 
             <rich:panel>
-                
+
                 <f:facet name="header">
                     <h:outputText style="font-size: large;" value="#{bundle.login}"  />
                 </f:facet>
 
-                <h:form id="login">
-                    <h:panelGrid columns="3">
-                        <h:outputLabel for="username" value="Username:" />
-                        <h:inputText id="username" value="#{login.username}" required="true">
-                            <f:ajax event="blur" render="m_username" />
-                        </h:inputText>
-                        <h:message id="m_username" for="username" />
+                <h:panelGrid>
+                    <h:form id="login">
+                        <h:panelGrid columns="3">
+                            <h:outputLabel for="username" value="#{bundle.userName}" />
+                            <h:inputText id="username" value="#{login.username}" required="true">
+                                <f:ajax event="blur" render="m_username" />
+                            </h:inputText>
+                            <h:message id="m_username" for="username" />
 
-                        <h:outputLabel for="password" value="Password:" />
-                        <h:inputSecret id="password" value="#{login.password}" required="true">
-                            <f:ajax event="blur" render="m_password" />
-                        </h:inputSecret>
-                        <h:message id="m_password" for="password" />
+                            <h:outputLabel for="password" value="#{bundle.password}" />
+                            <h:inputSecret id="password" value="#{login.password}" required="true">
+                                <f:ajax event="blur" render="m_password" />
+                            </h:inputSecret>
+                            <h:message id="m_password" for="password" />
 
-                        <h:panelGroup />
-                        <h:commandButton value="Login" action="#{login.submit}" >
-                            <f:ajax execute="@form" render="@form" />
-                        </h:commandButton>
-                        <h:messages globalOnly="true" layout="table" />
-                    </h:panelGrid>
-                </h:form>
+                            <h:panelGroup />
+                            <h:commandButton value="#{bundle.login}" action="#{login.submit}" >
+                                <f:ajax execute="@form" render="@form" />
+                            </h:commandButton>
+                            <h:messages globalOnly="true" layout="table" />
+                        </h:panelGrid>
+                    </h:form>
+                </h:panelGrid>
+
+                <h:panelGrid>
+
+                    <h:link value="#{bundle.forgotPasswd}" outcome="/requestNewPasswd" />
+                </h:panelGrid>
             </rich:panel>
 
 

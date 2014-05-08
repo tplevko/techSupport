@@ -23,7 +23,9 @@ public class TimeFormat {
         final DateFormat timeInstance = DateFormat.getTimeInstance(DateFormat.DEFAULT, locale);
         localePattern = ((SimpleDateFormat) dateInstance).toPattern()
                 + " " + ((SimpleDateFormat) timeInstance).toPattern();
+        localePattern = localePattern.replace(":ss", "");
         return localePattern;
+
     }
 
     public void setLocalePattern(String localePattern) {

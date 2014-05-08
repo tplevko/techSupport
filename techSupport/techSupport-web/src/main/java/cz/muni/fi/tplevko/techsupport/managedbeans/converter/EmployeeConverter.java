@@ -21,7 +21,7 @@ public class EmployeeConverter implements Converter {
 
     private static final Logger LOG = Logger.getLogger(EmployeeConverter.class.getName());
 
-    @Autowired
+    @Autowired(required = true)
     private EmployeeService employeeService;
 
     @Override
@@ -37,11 +37,6 @@ public class EmployeeConverter implements Converter {
                 
         EmployeeDto empl = employeeService.findEmployeeById(id);
         
-        LOG.info("***** employee : " + empl.getEmail() + " *****");
-
-        LOG.info("***** employee : " + employeeService.findEmployeeById(2l) + " *****");
-        LOG.info("***** employee : " + employeeService.findEmployeeById(3l) + " *****");
-
         return empl;
     }
 

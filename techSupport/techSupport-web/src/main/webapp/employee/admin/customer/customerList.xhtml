@@ -12,6 +12,22 @@
 
         <ui:define name="content">
 
+
+            <h:outputStylesheet>
+                .even-row {
+                background-color: #FCFFFE;
+                }
+
+                .odd-row {
+                background-color: #ECF3FE;
+                }
+
+                .active-row {
+                background-color: #FFEBDA !important;
+                cursor: pointer;
+                }
+            </h:outputStylesheet>
+
             <h:form id="form">
 
                 <rich:panel>
@@ -23,7 +39,14 @@
                                             var="customer" 
                                             id="table"
                                             rowClasses="odd-row, even-row"
-                                            rows="20" sortMode="single">
+                                            rows="20" 
+                                            sortMode="single"
+                                            selectionMode="single" 
+                                            onrowmouseover="jQuery(this).addClass('active-row');" 
+                                            onrowmouseout="jQuery(this).removeClass('active-row');" 
+                                            onrowclick="processRowClick(#{customer.id});"
+                                            keepSaved="true"
+                                            >
 
                         <rich:column sortBy="#{customer.firstName}" >
                             <f:facet name="header">
@@ -31,27 +54,30 @@
                             </f:facet>
                             <h:outputText value="#{customer.firstName}" />
                         </rich:column>
-                        
+
                         <rich:column  sortBy="#{customer.lastName}">
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.lastName}" />
                             </f:facet>
                             <h:outputText value="#{customer.lastName}" />
                         </rich:column>
-                        
+
                         <rich:column  sortBy="#{customer.email}">
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.email}" />
                             </f:facet>
                             <h:outputText value="#{customer.email}" />
                         </rich:column>
-                        
+
                         <rich:column  sortBy="#{customer.createdAt}">
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.createdAt}" />
                             </f:facet>
-                            <h:outputText value="#{customer.createdAt}" />
+                            <h:outputText value="#{customer.createdAt}">
+                                <f:convertDateTime pattern="#{timeFormat.localePattern}" type="both" />
+                            </h:outputText>            
                         </rich:column>
+
 
                         <f:facet name="footer">
                             <rich:dataScroller id="scroller" />
