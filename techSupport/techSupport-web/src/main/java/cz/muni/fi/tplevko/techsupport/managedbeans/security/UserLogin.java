@@ -33,7 +33,7 @@ public class UserLogin {
 //            SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(Faces.getRequest());
 //            Faces.redirect(savedRequest != null ? savedRequest.getRequestUrl() : HOME_URL);
 
-            return "/request/createRequest?faces-redirect=true";
+            return "/index?faces-redirect=true";
 
         } catch (AuthenticationException e) {
 

@@ -13,15 +13,19 @@
     
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
-        <property name="loginUrl" value="/security/login"/>
+        <property name="loginUrl" value="/security/login.xhtml"/>
         <property name="successUrl" value="/index"/>
         <property name="unauthorizedUrl" value="/error"/>
         <property name="filterChainDefinitions">
             <value>
                 <!--                
                 security turned off     -->
-                /basket/** = roles[ROLE_USER]
+                /security/logout.xhtml = roles[ROLE_USER]
+                /thankYou.xhtml = roles[ROLE_USER]
+                /requestNewPasswd.xhtml = roles[ROLE_USER]
+                /registration/editPersonalInfo.xhtml = roles[ROLE_USER]
                 <!--/security/login.xhtml = authc-->
+                
                 /index.html = anon
                 /employee/admin/** = roles[ROLE_ADMIN]
                 /employee/** = roles[ROLE_TECHNICIAN]

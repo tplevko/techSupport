@@ -1,6 +1,8 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.security.realm;
 
 import cz.muni.fi.tplevko.techsupport.entity.dto.AccountDto;
+import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
+import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
 import cz.muni.fi.tplevko.techsupport.utils.ShaEncoder;
 import cz.muni.fi.tplevko.techsupport.services.CustomerService;
 import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
@@ -58,28 +60,31 @@ public class MyCustomRealm extends AuthorizingRealm {
         SimpleAuthorizationInfo info = new SimpleAuthorizationInfo();
         String email = (String) pc.getPrimaryPrincipal();
 
-//        CustomerDto account = customerService.findCustomerByEmail(email);
-//        EmployeeDto employee = employeeService.findEmployeeByEmail(email);
-        // TODO : toto sa mi zda na hovno...
-        // Asi bude treba predsa len viacero tychto realmov...
-        // co ak sa clovek s jednym mailom registruje na obe tie funkcie?
-//        
-//        if (account != null) {
-//            info.addRole("ROLE_USER");
-//            
-//        } else if (employee != null) {
-//            if (employee.isIsAdmin()) {
-////                info.addRole("ROLE_USER");
-//                info.addRole("ROLE_ADMIN");
-//                info.addRole("ROLE_TECHNICIAN");
-//            } else {
-////                info.addRole("ROLE_USER");
-//                info.addRole("ROLE_TECHNICIAN");
-//            }
-//        }
-        info.addRole("ROLE_TECHNICIAN");
-        info.addRole("ROLE_ADMIN");
-        info.addRole("ROLE_USER");
+        CustomerDto customerAccount = customerService.findCustomerByEmail(email);
+        EmployeeDto employeeAccount = employeeService.findEmployeeByEmail(email);
+
+        if (customerAccount != null) {
+
+            LOG.info("***** the employeeAccount value is: " + customerAccount.getEmail() + " *****");
+            info.addRole("ROLE_USER");
+
+        }
+
+        if (employeeAccount != null) {
+
+            LOG.info("***** the customerAccount value is: " + employeeAccount.getEmail() + " *****");
+            
+            if (employeeAccount.isIsAdmin()) {
+                info.addRole("ROLE_ADMIN");
+                info.addRole("ROLE_TECHNICIAN");
+            } else {
+                info.addRole("ROLE_TECHNICIAN");
+            }
+        }
+//
+//        info.addRole("ROLE_TECHNICIAN");
+//        info.addRole("ROLE_ADMIN");
+//        info.addRole("ROLE_USER");
 
         return info;
 
@@ -112,7 +117,7 @@ public class MyCustomRealm extends AuthorizingRealm {
             customerAccount = customerService.findCustomerByEmail(token.getUsername());
 
             employeeAccount = employeeService.findEmployeeByEmail(token.getUsername());
-            
+
             if (employeeAccount != null) {
 
                 LOG.info("***** the employeeAccount value is: " + employeeAccount.getEmail() + " *****");
@@ -126,16 +131,6 @@ public class MyCustomRealm extends AuthorizingRealm {
 
                 account = customerAccount;
             }
-
-//            account = employeeService.findEmployeeByEmail(token.getUsername());
-//
-//            if (customerAccount == null) {
-//                account = employeeAccount;
-//            }
-//
-//            if (employeeAccount == null) {
-//                account = customerAccount;
-//            }
         }
 
         try {
