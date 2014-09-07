@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.techsupport.entity.dto;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -18,7 +19,9 @@ public class RequestDto {
     private Long priority;
     private Date created;
     private Date finished;
-
+    private String requestTitle;
+    private List<RequestCommentDto> comments;
+    
     public Long getId() {
         return id;
     }
@@ -89,6 +92,22 @@ public class RequestDto {
 
     public void setProduct(ProductDto product) {
         this.product = product;
+    }
+
+    public String getRequestTitle() {
+        return requestTitle;
+    }
+
+    public void setRequestTitle(String requestTitle) {
+        this.requestTitle = requestTitle;
+    }
+
+    public List<RequestCommentDto> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<RequestCommentDto> comments) {
+        this.comments = comments;
     }
 
     @Override

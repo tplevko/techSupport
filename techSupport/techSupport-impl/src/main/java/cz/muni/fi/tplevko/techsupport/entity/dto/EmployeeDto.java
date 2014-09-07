@@ -1,6 +1,5 @@
 package cz.muni.fi.tplevko.techsupport.entity.dto;
 
-import cz.muni.fi.tplevko.techsupport.entity.Request;
 import java.util.List;
 import java.util.Objects;
 
@@ -10,14 +9,14 @@ import java.util.Objects;
  */
 public class EmployeeDto extends AccountDto {
 
-    private List<Request> requests;
+    private List<RequestDto> requests;
     private boolean isAdmin;
 
-    public List<Request> getRequests() {
+    public List<RequestDto> getRequests() {
         return requests;
     }
 
-    public void setRequests(List<Request> requests) {
+    public void setRequests(List<RequestDto> requests) {
         this.requests = requests;
     }
 

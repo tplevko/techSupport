@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:rich="http://richfaces.org/rich">
+
+    <ui:composition template="/template.xhtml">
+
+
+        <p>
+
+            #{request.remoteUser}, this are your requests :
+        </p>
+        <p>
+            <h3>
+                there will be the list of all the requests, made so far by the customer...
+            </h3>
+        </p>
+
+        <ui:define name="title">#{bundle.indexTitle}</ui:define>
+
+        <ui:define name="content">
+
+            <h:outputStylesheet>
+                .even-row {
+                background-color: #FCFFFE;
+                }
+
+                .odd-row {
+                background-color: #ECF3FE;
+                }
+
+                .active-row {
+                background-color: #FFEBDA !important;
+                cursor: pointer;
+                }
+            </h:outputStylesheet>
+
+
+            <h:form id="form">
+
+                <rich:panel>
+                    <f:facet name="header">
+                        <h:outputText style="font-size: large;" value="#{bundle.employeeList}"  />
+                    </f:facet>
+
+                    <rich:extendedDataTable value="#{customerRequestsController.customerRequestList}" 
+                                            var="custRequest" id="table"
+                                            rowClasses="odd-row, even-row"
+                                            rows="20" 
+                                            sortMode="single"
+                                            selectionMode="single" 
+                                            onrowmouseover="jQuery(this).addClass('active-row');" 
+                                            onrowmouseout="jQuery(this).removeClass('active-row');" 
+                                            onrowclick="processRowClick(#{custRequest.id});"
+                                            keepSaved="true"
+                                            >
+
+
+                        <rich:column sortBy="#{custRequest.id}" >
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.id}" />
+                            </f:facet>
+                            <h:outputText value="#{custRequest.id}" />
+                        </rich:column>
+
+                        <rich:column sortBy="#{custRequest.requestTitle}" >
+                            <f:facet name="header">
+                                <h:outputText class="arrangeableHeader" value="#{bundle.reqTitle}" />
+                            </f:facet>
+                            <h:outputText value="#{custRequest.requestTitle}" />
+                        </rich:column>
+
+
+                        <f:facet name="footer">
+                            <rich:dataScroller id="scroller" />
+                        </f:facet>
+
+                    </rich:extendedDataTable>
+
+                </rich:panel>
+
+            </h:form>
+
+
+        </ui:define>
+
+    </ui:composition>
+
+</ui:composition>
+
+
+

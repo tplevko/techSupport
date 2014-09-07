@@ -13,7 +13,6 @@
 
         <ui:define name="content">
 
-
             <p>
 
                 Hello, #{request.remoteUser}, how are you today?
@@ -28,13 +27,20 @@
 
                 <h:form>
                     <h:panelGrid columns="1">
-
+                        
+                        <h:outputLabel value="#{bundle.reqiestTitle}" />
+                        <h:inputText value="#{requestController.request.requestTitle}" id="requestTitle">
+                            <f:validateLength minimum="0"/>
+                            <f:validateRequired for="sub"/>
+                        </h:inputText>
+                        <h:message for="requestTitle" />
+                        
                         <h:outputLabel value="#{bundle.insertText}" />
                         <h:inputTextarea style="width: 270px;" rows="10" value="#{requestController.request.text}" id="imputText">
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputTextarea>
-                        <h:message for="firstName" />
+                        <h:message for="text" />
 
 
                         <h:selectOneMenu id="products" value="#{requestController.selectedproduct}">

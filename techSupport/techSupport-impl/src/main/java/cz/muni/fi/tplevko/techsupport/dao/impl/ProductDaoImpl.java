@@ -119,7 +119,5 @@ public class ProductDaoImpl implements ProductDao {
         if (product.getName().isEmpty()) {
             throw new IllegalArgumentException("Product name must be set, it's empty");
         }
-
     }
-
 }

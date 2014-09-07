@@ -2,7 +2,7 @@ package cz.muni.fi.tplevko.techsupport.entity;
 
 import java.io.Serializable;
 import java.util.Date;
-import javax.persistence.CascadeType;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -12,11 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import org.hibernate.annotations.Cascade;
 
 /**
  *
@@ -35,7 +35,10 @@ public class Request implements Serializable {
     @Lob
     @Column(length = 4000, nullable = false, unique = true)
     private String text;
-
+    
+    @Column(nullable = false)
+    private String requestTitle;
+    
     private boolean executed = false;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -45,6 +48,9 @@ public class Request implements Serializable {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ASSIGNEE_ID")
     private Employee assignee;
+    
+    @OneToMany(mappedBy="commenter")
+    private List<RequestComment> comments;
 
     @ManyToOne
     private Product product;
@@ -134,6 +140,22 @@ public class Request implements Serializable {
 
     public void setProduct(Product product) {
         this.product = product;
+    }
+
+    public String getRequestTitle() {
+        return requestTitle;
+    }
+
+    public void setRequestTitle(String requestTitle) {
+        this.requestTitle = requestTitle;
+    }
+
+    public List<RequestComment> getComments() {
+        return comments;
+    }
+
+    public void setComments(List<RequestComment> comments) {
+        this.comments = comments;
     }
 
     @Override

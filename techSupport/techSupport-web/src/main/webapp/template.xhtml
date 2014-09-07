@@ -24,6 +24,10 @@
                         <div>
                             <h:link value="create request" outcome="/request/createRequest" rendered="#{request.isUserInRole('ROLE_USER')}"  />
                         </div>
+                        
+                          <div>        
+                            <h:link value="my requests" outcome="/request/userRequests" rendered="#{request.isUserInRole('ROLE_USER')}"  />
+                        </div>
 
                         <hr/>
                         <div>        

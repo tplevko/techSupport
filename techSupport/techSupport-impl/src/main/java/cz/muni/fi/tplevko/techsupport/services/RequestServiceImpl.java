@@ -1,8 +1,6 @@
 package cz.muni.fi.tplevko.techsupport.services;
 
 import cz.muni.fi.tplevko.techsupport.dao.RequestDao;
-import cz.muni.fi.tplevko.techsupport.entity.Customer;
-import cz.muni.fi.tplevko.techsupport.entity.Employee;
 import cz.muni.fi.tplevko.techsupport.entity.Request;
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
