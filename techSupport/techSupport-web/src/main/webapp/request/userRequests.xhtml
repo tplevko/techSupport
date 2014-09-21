@@ -5,7 +5,9 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets" 
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:rich="http://richfaces.org/rich">
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
+
 
     <ui:composition template="/template.xhtml">
 
@@ -74,6 +76,28 @@
                             <h:outputText value="#{custRequest.requestTitle}" />
                         </rich:column>
 
+                        <rich:column sortBy="#{custRequest.product.name}">
+                            <f:facet name="header">
+                                <h:outputText class="" value="#{bundle.productName}"/>
+                            </f:facet>
+                            <h:outputText value="#{custRequest.product.name}" />
+                        </rich:column>
+
+
+                        <rich:column style="text-align: center;" width="75px" > 
+                            <f:facet name="header" >
+                                <h:outputText class="arrangeableHeader" value="#{bundle.requestActions}" />
+                            </f:facet>
+
+                            <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
+                                               value="Edit"
+                                               styleClass="iconizedButton" 
+                                               action="#{customerRequestsController.editRequestBefore()}" >
+                                <a4j:param value="#{custRequest.id}" name="requestId"/>                   
+                            </a4j:commandButton>
+
+                        </rich:column>
+
 
                         <f:facet name="footer">
                             <rich:dataScroller id="scroller" />
@@ -83,7 +107,50 @@
 
                 </rich:panel>
 
+
+                <a4j:jsFunction name="processRowClick" 
+                                execute="@form"
+                                render=":employeeDetail"
+                                action="#{customerRequestsController.rowKeyListener(rowKey)}" 
+
+                                oncomplete="#{rich:component('requestDetail')}.show()"
+                                >
+
+                    <a4j:param name="rowKey" assignTo="#{rowKey}" />
+
+                </a4j:jsFunction>
             </h:form>
+
+            <rich:popupPanel header="#{bundle.requestDetail}"
+                             id="requestDetail"
+
+                             domElementAttachment="parent" width="400" height="400"
+                             onmaskclick="#{rich:component('requestDetail')}.hide()">
+
+                <h:form>
+                    <rich:panel id="tp">
+
+                        <h:panelGrid columns="3" id="requestInfo">
+                            <h:outputText value="req title // Update -- add to bundle" />
+                            <h:outputText value="#{customerRequestsController.requestDto.requestTitle}" />
+                            <h:panelGroup />
+                            <h:outputText value="text" />
+                            <h:outputText value="#{customerRequestsController.requestDto.text}" />
+                            <h:panelGroup />
+                            <h:outputText value="priority" />
+                            <h:outputText value="#{customerRequestsController.requestDto.priority}" />
+                            <h:panelGroup />
+                            <h:outputText value="product" />
+                            <h:outputText value="#{customerRequestsController.requestDto.product}" />
+                            <h:panelGroup />
+                        </h:panelGrid>
+                    </rich:panel>  
+
+
+                </h:form>
+
+            </rich:popupPanel>
+
 
 
         </ui:define>

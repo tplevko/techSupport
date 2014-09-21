@@ -1,0 +1,92 @@
+/* 
+    Created on : Sep 13, 2014, 1:07:04 PM
+    Author     : tplevko
+*/
+
+.loginLink {
+    position: absolute;
+    top: 2eM;
+    right: 2eM;
+    font-size: 1eM;
+    font-style: oblique;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.loginLink:hover {
+    color: #ffff99;
+    cursor: pointer;
+}
+
+#top .loginLink {
+    color: #ffffff;
+}
+
+.rf-pm-itm-sel {
+    background: #ffff99;
+}
+
+.teamChooserInputField:hover {
+    cursor: pointer;
+}
+
+.teamChooserItem:hover {
+    background: #ccffcc;
+    cursor: pointer;
+}
+
+.teamChooserSelectedItem {
+    background: #ffffcc;
+}
+
+.even-row {
+    background-color: #FCFFFE;
+}
+
+.odd-row {
+    background-color: #ECF3FE;
+}
+
+.selected-row {
+    background-color: #ffffcc;
+}
+
+.active-row {
+    background-color: #99ccff !important;
+    cursor: pointer;
+}
+
+.addTable {
+    color:#666;
+
+    background:#eaebec;
+    border:#ccc 1px solid;
+
+    -moz-border-radius:3px;
+    -webkit-border-radius:3px;
+    border-radius:3px;
+}
+
+.viewTable th,
+.viewTable td {
+    padding: 10px 15px 10px 15px;
+}
+
+.richSelect {
+    position: relative;
+    top: -6px;
+}
+
+.submitBtn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+.matchDetailHeader {
+    text-align: center;
+    padding: 5px 0;
+}
+
+.matchDetailTable td {
+    vertical-align: top;
+}

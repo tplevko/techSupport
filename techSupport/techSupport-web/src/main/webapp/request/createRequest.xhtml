@@ -19,24 +19,23 @@
 
             </p>
 
-            <rich:panel>
-                <f:facet name="header">
-                    <h:outputText style="font-size: large;" value="#{bundle.insertRequest}"  />
+            <rich:panel style="max-width: available">
+                <f:facet name="header" >
+                    <h:outputText style="font-size: large;" value="#{bundle.insertRequest}" />
                 </f:facet>
-
 
                 <h:form>
                     <h:panelGrid columns="1">
                         
                         <h:outputLabel value="#{bundle.reqiestTitle}" />
-                        <h:inputText value="#{requestController.request.requestTitle}" id="requestTitle">
+                        <h:inputText value="#{requestController.request.requestTitle}" id="requestTitle" style="width: 100%">
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputText>
                         <h:message for="requestTitle" />
                         
                         <h:outputLabel value="#{bundle.insertText}" />
-                        <h:inputTextarea style="width: 270px;" rows="10" value="#{requestController.request.text}" id="imputText">
+                        <h:inputTextarea rows="10" value="#{requestController.request.text}" id="imputText">
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputTextarea>

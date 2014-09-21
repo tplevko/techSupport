@@ -16,114 +16,119 @@
 
     <h:body>
 
-        <div id="bodyContainer">
-            <div id="top">
-                <ui:insert name="top">
+        <div class="page">
+            
+            <div id="bodyContainer">
+                <div id="top">
+                    <ui:insert name="top">
 
-                    <h1 style="text-align: center;">
-                        #{bundle.employeeSection}
-                    </h1>
+                        <h:outputStylesheet name="css/components.css" />
 
-                    <h:form>
-                        <h:commandLink action="#{logout.logout()}" 
-                                       styleClass="loginLink"
-                                       rendered="#{request.isUserInRole('ROLE_TECHNICIAN')}" >
-                            <h:outputFormat value="#{bundle.logout}" />
-                        </h:commandLink>
-                    </h:form>
+                        <h1">
+                            #{bundle.employeeSection}
+                        </h1>
 
-                </ui:insert>
-            </div>
-
-
-            <div>
-                <div id="left">
-                    <ui:insert name="left">
                         <h:form>
-                             <rich:panelMenu activeItem="#{navigationMenuBean.selectedMenuItem}"
-                                             itemMode="server"
-                                             groupMode="client" 
-                                             groupExpandedLeftIcon="triangleUp"
-                                             groupCollapsedLeftIcon="triangleDown" 
-                                             topGroupExpandedRightIcon="chevronUp"
-                                             topGroupCollapsedRightIcon="chevronDown"
-                                             itemLeftIcon="disc">
-
-
-                                <rich:panelMenuGroup label="#{bundle.menuEmployeeGroup}">
-                                    <rich:panelMenuItem label="#{bundle.menuEmployeeAdd}" 
-                                                        name="addEmployee" 
-                                                        actionListener="#{navigationMenuBean.saveSelectedItem}"
-                                                        action="#{employeeOperations.addEmployeeBefore()}"
-                                                        mode="server"/>
-
-                                    <rich:panelMenuItem label="#{bundle.menuEmployeeList}" 
-                                                        name="listEmployees"
-                                                        action="#{employeeViewer.listEmployees()}" 
-                                                        actionListener="#{navigationMenuBean.saveSelectedItem}"
-                                                        mode="server"/>
-                                </rich:panelMenuGroup>
-
-
-                                <rich:panelMenuGroup label="#{bundle.menuUserGroup}">
-
-                                    <rich:panelMenuItem label="#{bundle.menuUserList}"
-                                                        name="listUser"
-                                                        actionListener="#{navigationMenuBean.saveSelectedItem}"
-                                                        action="#{customerController.listCustomers}" 
-                                                        mode="server" />
-
-                                </rich:panelMenuGroup>
-
-
-                                <rich:panelMenuGroup label="#{bundle.menuRequestGroup}">
-                                    <rich:panelMenuItem label="#{bundle.menuRequestGroup}" 
-                                                        name="listRequests"
-                                                        actionListener="#{navigationMenuBean.saveSelectedItem}" 
-                                                        action="#{requestController.listRequests}"
-                                                        mode="server"/>
-
-                                </rich:panelMenuGroup>
-
-                                <rich:panelMenuGroup label="#{bundle.menuProductGroup}">
-                                    <rich:panelMenuItem label="#{bundle.menuProductAdd}" 
-                                                        name="addProduct" 
-                                                        actionListener="#{navigationMenuBean.saveSelectedItem}"
-                                                        action="#{productsController.addProductBefore()}" 
-                                                        mode="server"/>
-                                    <rich:panelMenuItem label="#{bundle.menuProductList}" 
-                                                        name="listProducts" 
-                                                        actionListener="#{navigationMenuBean.saveSelectedItem}"
-                                                        action="#{productsController.listProducts}"
-                                                        mode="server"/>
-                                </rich:panelMenuGroup>
-
-                                <rich:panelMenuGroup label="#{bundle.menuPersonalGroup}">
-                                    <rich:panelMenuItem label="#{bundle.menuPersonalEdit}" 
-                                                        name="editPersonal"
-                                                        actionListener="#{navigationMenuBean.saveSelectedItem}"
-                                                        action="#{employeeOperations.editPersonalInfoBefore()}"
-                                                        mode="server"/>
-                                    <!--TODO ^^^^^^^^^^^^^^^^^-->
-                                </rich:panelMenuGroup>
-
-                            </rich:panelMenu>
+                            <h:commandLink action="#{logout.logout()}" 
+                                           styleClass="loginLink"
+                                           rendered="#{request.isUserInRole('ROLE_TECHNICIAN')}" >
+                                <h:outputFormat value="#{bundle.logout}" />
+                            </h:commandLink>
                         </h:form>
+
                     </ui:insert>
                 </div>
-            </div>
 
 
-            <div id="content" class="left_content">
-                <ui:insert name="content">Content</ui:insert>
-            </div>
-            <div id="detail" class="left_content">
-                <ui:insert name="detail"></ui:insert>
-            </div>
+                <div>
+                    <div id="left">
+                        <ui:insert name="left">
+                            <h:form>
+                                 <rich:panelMenu activeItem="#{navigationMenuBean.selectedMenuItem}"
+                                                 itemMode="server"
+                                                 groupMode="client" 
+                                                 groupExpandedLeftIcon="triangleUp"
+                                                 groupCollapsedLeftIcon="triangleDown" 
+                                                 topGroupExpandedRightIcon="chevronUp"
+                                                 topGroupCollapsedRightIcon="chevronDown"
+                                                 itemLeftIcon="disc">
 
+
+                                    <rich:panelMenuGroup label="#{bundle.menuEmployeeGroup}">
+                                        <rich:panelMenuItem label="#{bundle.menuEmployeeAdd}" 
+                                                            name="addEmployee" 
+                                                            actionListener="#{navigationMenuBean.saveSelectedItem}"
+                                                            action="#{employeeOperations.addEmployeeBefore()}"
+                                                            mode="server"/>
+
+                                        <rich:panelMenuItem label="#{bundle.menuEmployeeList}" 
+                                                            name="listEmployees"
+                                                            action="#{employeeViewer.listEmployees()}" 
+                                                            actionListener="#{navigationMenuBean.saveSelectedItem}"
+                                                            mode="server"/>
+                                    </rich:panelMenuGroup>
+
+
+                                    <rich:panelMenuGroup label="#{bundle.menuUserGroup}">
+
+                                        <rich:panelMenuItem label="#{bundle.menuUserList}"
+                                                            name="listUser"
+                                                            actionListener="#{navigationMenuBean.saveSelectedItem}"
+                                                            action="#{customerController.listCustomers}" 
+                                                            mode="server" />
+
+                                    </rich:panelMenuGroup>
+
+
+                                    <rich:panelMenuGroup label="#{bundle.menuRequestGroup}">
+                                        <rich:panelMenuItem label="#{bundle.menuRequestGroup}" 
+                                                            name="listRequests"
+                                                            actionListener="#{navigationMenuBean.saveSelectedItem}" 
+                                                            action="#{requestController.listRequests}"
+                                                            mode="server"/>
+
+                                    </rich:panelMenuGroup>
+
+                                    <rich:panelMenuGroup label="#{bundle.menuProductGroup}">
+                                        <rich:panelMenuItem label="#{bundle.menuProductAdd}" 
+                                                            name="addProduct" 
+                                                            actionListener="#{navigationMenuBean.saveSelectedItem}"
+                                                            action="#{productsController.addProductBefore()}" 
+                                                            mode="server"/>
+                                        <rich:panelMenuItem label="#{bundle.menuProductList}" 
+                                                            name="listProducts" 
+                                                            actionListener="#{navigationMenuBean.saveSelectedItem}"
+                                                            action="#{productsController.listProducts}"
+                                                            mode="server"/>
+                                    </rich:panelMenuGroup>
+
+                                    <rich:panelMenuGroup label="#{bundle.menuPersonalGroup}">
+                                        <rich:panelMenuItem label="#{bundle.menuPersonalEdit}" 
+                                                            name="editPersonal"
+                                                            actionListener="#{navigationMenuBean.saveSelectedItem}"
+                                                            action="#{employeeOperations.editPersonalInfoBefore()}"
+                                                            mode="server"/>
+                                        <!--TODO ^^^^^^^^^^^^^^^^^-->
+                                    </rich:panelMenuGroup>
+
+                                </rich:panelMenu>
+                            </h:form>
+                        </ui:insert>
+                    </div>
+                </div>
+
+
+                <div id="content" class="left_content">
+                    <ui:insert name="content">Content</ui:insert>
+                </div>
+                <div id="detail" class="left_content">
+                    <ui:insert name="detail"></ui:insert>
+                </div>
+
+
+            </div>
 
         </div>
-
 
 
         <!--        
