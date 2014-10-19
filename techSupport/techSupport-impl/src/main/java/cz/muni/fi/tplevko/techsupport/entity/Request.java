@@ -49,9 +49,9 @@ public class Request implements Serializable {
     @JoinColumn(name = "ASSIGNEE_ID")
     private Employee assignee;
     
-    @OneToMany(mappedBy="commenter")
+    @OneToMany(mappedBy="request")
     private List<RequestComment> comments;
-
+    
     @ManyToOne
     private Product product;
 

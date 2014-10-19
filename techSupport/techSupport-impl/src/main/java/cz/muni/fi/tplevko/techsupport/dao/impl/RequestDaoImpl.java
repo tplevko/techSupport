@@ -1,8 +1,6 @@
 package cz.muni.fi.tplevko.techsupport.dao.impl;
 
 import cz.muni.fi.tplevko.techsupport.dao.RequestDao;
-import cz.muni.fi.tplevko.techsupport.entity.Customer;
-import cz.muni.fi.tplevko.techsupport.entity.Employee;
 import cz.muni.fi.tplevko.techsupport.entity.Request;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,22 +75,12 @@ public class RequestDaoImpl implements RequestDao {
     public Request findRequestById(Long id) {
 
         if (id == null) {
-            throw new IllegalArgumentException("Customer id to be retrieved is null");
+            throw new IllegalArgumentException("Request id to be retrieved is null");
         }
 
         Request result = null;
         result = em.find(Request.class, id);
         return result;
-    }
-
-    @Override
-    public List<Request> findRequestByCustomer(Customer owner) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    public List<Request> findRequestByAssignee(Employee assignee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

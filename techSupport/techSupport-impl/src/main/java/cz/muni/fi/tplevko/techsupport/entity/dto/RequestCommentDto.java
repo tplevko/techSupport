@@ -1,13 +1,6 @@
 package cz.muni.fi.tplevko.techsupport.entity.dto;
 
-import javax.persistence.Column;
-import javax.persistence.FetchType;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.JoinColumn;
-import javax.persistence.Lob;
-import javax.persistence.ManyToOne;
+import java.util.Date;
 
 /**
  *
@@ -15,19 +8,15 @@ import javax.persistence.ManyToOne;
  */
 public class RequestCommentDto {
 
-    private static final long serialVersionUID = 1L;
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
-    @Lob
-    @Column(length = 4000, nullable = false, unique = true)
+
     private String text;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "OWNER_ID")
+
     private AccountDto commenter;
+
+    private RequestDto request;
+
+    private Date created;
 
     public Long getId() {
         return id;
@@ -35,6 +24,14 @@ public class RequestCommentDto {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
     public String getText() {
@@ -51,5 +48,13 @@ public class RequestCommentDto {
 
     public void setCommenter(AccountDto commenter) {
         this.commenter = commenter;
+    }
+
+    public RequestDto getRequest() {
+        return request;
+    }
+
+    public void setRequest(RequestDto request) {
+        this.request = request;
     }
 }

@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.techsupport.entity;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,7 +12,10 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
+import javax.persistence.PrePersist;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 /**
  *
@@ -26,14 +30,28 @@ public class RequestComment implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @Lob
     @Column(length = 4000, nullable = false, unique = true)
     private String text;
-    
+
+    @Column(name = "created", nullable = false)
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date created;
+
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "OWNER_ID")
+    @JoinColumn(name = "COMMENTER_ID")
     private Account commenter;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "REQUEST_ID")
+    private Request request;
+
+    // auto generate timestamp on entity create time
+    @PrePersist
+    void createdAt() {
+        this.created = new Date();
+    }
 
     public Long getId() {
         return id;
@@ -41,6 +59,14 @@ public class RequestComment implements Serializable {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public Date getCreated() {
+        return created;
+    }
+
+    public void setCreated(Date created) {
+        this.created = created;
     }
 
     public String getText() {
@@ -57,6 +83,14 @@ public class RequestComment implements Serializable {
 
     public void setCommenter(Account commenter) {
         this.commenter = commenter;
+    }
+
+    public Request getRequest() {
+        return request;
+    }
+
+    public void setRequest(Request request) {
+        this.request = request;
     }
 
     @Override
