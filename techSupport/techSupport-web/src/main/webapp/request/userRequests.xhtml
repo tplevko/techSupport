@@ -11,17 +11,6 @@
 
     <ui:composition template="/template.xhtml">
 
-
-        <p>
-
-            #{request.remoteUser}, this are your requests :
-        </p>
-        <p>
-            <h3>
-                there will be the list of all the requests, made so far by the customer...
-            </h3>
-        </p>
-
         <ui:define name="title">#{bundle.indexTitle}</ui:define>
 
         <ui:define name="content">
@@ -41,63 +30,61 @@
                 }
             </h:outputStylesheet>
 
-
             <h:form id="form">
 
                 <rich:panel>
                     <f:facet name="header">
-                        <h:outputText style="font-size: large;" value="#{bundle.employeeList}"  />
+                        <h:outputText style="font-size: large;" value="#{bundle.customerRequests}"  />
                     </f:facet>
 
                     <rich:extendedDataTable value="#{customerRequestsController.customerRequestList}" 
                                             var="custRequest" id="table"
                                             rowClasses="odd-row, even-row"
-                                            rows="20" 
+                                            rows="20"
                                             sortMode="single"
                                             selectionMode="single" 
                                             onrowmouseover="jQuery(this).addClass('active-row');" 
                                             onrowmouseout="jQuery(this).removeClass('active-row');" 
-                                            onrowclick="processRowClick(#{custRequest.id});"
                                             keepSaved="true"
                                             >
 
-
-                        <rich:column sortBy="#{custRequest.id}" >
+                        <rich:column sortBy="#{custRequest.id}" width="75px">
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.id}" />
                             </f:facet>
                             <h:outputText value="#{custRequest.id}" />
                         </rich:column>
 
-                        <rich:column sortBy="#{custRequest.requestTitle}" >
+                        <rich:column sortBy="#{custRequest.requestTitle}" width="240px">
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.reqTitle}" />
                             </f:facet>
                             <h:outputText value="#{custRequest.requestTitle}" />
                         </rich:column>
 
-                        <rich:column sortBy="#{custRequest.product.name}">
+                        <rich:column sortBy="#{custRequest.product.name}" width="120px">
                             <f:facet name="header">
                                 <h:outputText class="" value="#{bundle.productName}"/>
                             </f:facet>
                             <h:outputText value="#{custRequest.product.name}" />
                         </rich:column>
 
-
-                        <rich:column style="text-align: center;" width="75px" > 
-                            <f:facet name="header" >
-                                <h:outputText class="arrangeableHeader" value="#{bundle.requestActions}" />
+                        <rich:column sortBy="#{custRequest.created}">
+                            <f:facet name="header">
+                                <h:outputText class="" value="#{bundle.dateCreated}" />
                             </f:facet>
-
-                            <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
-                                               value="Edit"
-                                               styleClass="iconizedButton" 
-                                               action="#{customerRequestsController.editRequestBefore()}" >
-                                <a4j:param value="#{custRequest.id}" name="requestId"/>                   
-                            </a4j:commandButton>
-
+                            <h:outputText value="#{custRequest.created}">
+                                <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                            </h:outputText>
                         </rich:column>
 
+                        <rich:column width="60px">
+
+                            <h:link value="#{bundle.detail}"  outcome="/request/requestDetail" >
+                                <f:param name="reqId" value="#{custRequest.id}" />
+                            </h:link>
+
+                        </rich:column>
 
                         <f:facet name="footer">
                             <rich:dataScroller id="scroller" />
@@ -107,57 +94,11 @@
 
                 </rich:panel>
 
-
-                <a4j:jsFunction name="processRowClick" 
-                                execute="@form"
-                                render=":employeeDetail"
-                                action="#{customerRequestsController.rowKeyListener(rowKey)}" 
-
-                                oncomplete="#{rich:component('requestDetail')}.show()"
-                                >
-
-                    <a4j:param name="rowKey" assignTo="#{rowKey}" />
-
-                </a4j:jsFunction>
             </h:form>
-
-            <rich:popupPanel header="#{bundle.requestDetail}"
-                             id="requestDetail"
-
-                             domElementAttachment="parent" width="400" height="400"
-                             onmaskclick="#{rich:component('requestDetail')}.hide()">
-
-                <h:form>
-                    <rich:panel id="tp">
-
-                        <h:panelGrid columns="3" id="requestInfo">
-                            <h:outputText value="req title // Update -- add to bundle" />
-                            <h:outputText value="#{customerRequestsController.requestDto.requestTitle}" />
-                            <h:panelGroup />
-                            <h:outputText value="text" />
-                            <h:outputText value="#{customerRequestsController.requestDto.text}" />
-                            <h:panelGroup />
-                            <h:outputText value="priority" />
-                            <h:outputText value="#{customerRequestsController.requestDto.priority}" />
-                            <h:panelGroup />
-                            <h:outputText value="product" />
-                            <h:outputText value="#{customerRequestsController.requestDto.product}" />
-                            <h:panelGroup />
-                        </h:panelGrid>
-                    </rich:panel>  
-
-
-                </h:form>
-
-            </rich:popupPanel>
-
-
 
         </ui:define>
 
     </ui:composition>
 
 </ui:composition>
-
-
 

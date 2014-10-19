@@ -1,5 +1,6 @@
 <?xml version='1.0' encoding='UTF-8' ?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
 <ui:composition xmlns="http://www.w3.org/1999/xhtml"
                 xmlns:h="http://java.sun.com/jsf/html"
                 xmlns:f="http://java.sun.com/jsf/core"
@@ -7,47 +8,67 @@
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:rich="http://richfaces.org/rich">
 
+    <f:metadata>
+        <f:viewParam name="reqId" value="#{customerRequestsController.requestId}" />
+        <f:viewParam name="reqId" value="#{commentController.requestId}" />
+        <f:event type="preRenderView" listener="#{customerRequestsController.editRequestBefore()}"/>
+        <f:event type="preRenderView" listener="#{commentController.initRequestCommentList()}"/>
+    </f:metadata>
+
     <ui:composition template="/template.xhtml">
 
         <ui:define name="title">#{bundle.indexTitle}</ui:define>
 
         <ui:define name="content">
+            <h:panelGrid columns="2">
+
+                <h:outputLabel value="#{bundle.reqTitle}: " />
+                <h:outputText value="#{customerRequestsController.selectedRequestDto.requestTitle}" id="requestTitle">
+                </h:outputText>
+
+                <h:outputLabel value="#{bundle.createdBy}: " />       
+                <h:outputText value="#{customerRequestsController.selectedRequestDto.owner.firstName} #{customerRequestsController.selectedRequestDto.owner.lastName}" />                            
+
+                <h:outputLabel value="#{bundle.requestOwner}: " />        
+                <h:outputText value="#{customerRequestsController.selectedRequestDto.assignee.firstName} #{customerRequestsController.selectedRequestDto.assignee.lastName}" />                            
+
+                <h:outputLabel value="#{bundle.requestOwnerContact}: " />         
+                <h:outputText value="#{customerRequestsController.selectedRequestDto.assignee.email}" />                            
+
+                <h:outputLabel value="#{bundle.requestPriority}: " />
+                <h:outputLabel value="#{customerRequestsController.selectedRequestDto.priority}" />
+
+            </h:panelGrid>
+
+            <hr/>
+
+            <h3>
+                <h:outputLabel value="#{bundle.reqText}: " />
+            </h3>
+            <rich:panel style="max-width: 650px; border-style:none" >
+                <h:outputText value="#{customerRequestsController.selectedRequestDto.text}" id="lastName" />
+            </rich:panel>
+
+            <hr />
+
+            <h3>
+                <h:outputLabel value="#{bundle.reqComments}: " />
+            </h3>
+
+            <br/>
 
             <h:form>
-                <h:panelGrid columns="3">
-                    <h:outputLabel value="" />
-                    <h:outputText value="#{customerRequestsController.requestDto.requestTitle}" id="requestTitle">
-                    </h:outputText>
-                    <h:message for="firstName" />
 
-                    <h:outputLabel value="name " />
-                    <h:inputText value="#{customerRequestsController.requestDto.text}" id="lastName">
-                        <f:validateLength minimum="0"/>
-                        <f:validateRequired for="sub"/>
-                    </h:inputText>
-                    <h:message for="lastName" />
-
-                    <h:outputLabel value="email " />
-                    <h:inputText value="#{customerRequestsController.requestDto.priority}" id="email">
-                        <f:validateLength minimum="0"/>
-                        <f:validateRequired for="sub"/>
-                    </h:inputText> 
-                    <h:message for="email" />
-
-                </h:panelGrid>
-
-            </h:form>
-
-
-            <h:form>
-                <rich:dataGrid value="#{customerRequestsController.requestDto.comments}" 
+                <rich:dataGrid value="#{commentController.selectedItem}" 
+                               id="commentListView"
                                var="comment" columns="1" 
-                               elements="30">
+                               elements="50">
                                    
-                    <rich:panel bodyClass="pbody">
-
+                    <rich:panel bodyClass="pbody" style="width: 682px; border-style: none">
                         <h:panelGrid columns="2">
-                            <h:outputText value="text : "></h:outputText>
+                            <h:outputText value="#{bundle.createdBy} " />       
+                            <h:outputText value="#{comment.commenter.firstName} #{comment.commenter.lastName}" />                            
+                            <h:outputText value="#{bundle.text} " />
                             <h:outputText value="#{comment.text}" />
                             <h:outputText value="commenter :"></h:outputText>
                             <h:outputText value="#{comment.commenter.email}" />
@@ -55,13 +76,32 @@
                             <h:outputText value="#{comment.id}" />
                         </h:panelGrid>
                     </rich:panel>
-<!--                    
+
                     <f:facet name="footer">
-                        <rich:dataScroller />
-                    </f:facet>-->
+                        <rich:dataScroller for="commentListView" />
+                    </f:facet>
                 </rich:dataGrid>
+
             </h:form>
 
+            <h:form>
+                <rich:panel bodyClass="pbody">
+                    <h:panelGrid columns="1">
+                        <h:outputLabel value="#{bundle.newComment} :" />
+                        <h:inputTextarea rows="10" style="width: 650px; max-width: 650px" value="#{commentController.requestComment.text}" id="imputText">
+                            <f:validateLength minimum="0"/>
+                            <f:validateRequired for="sub"/>
+                        </h:inputTextarea>
+                        <h:message for="text" />
+                    </h:panelGrid>
+                    <h:panelGrid columns="2">
+                        <h:commandButton id="sub" value="create" type="submit" 
+                                         action="#{commentController.newComment()}" />
+                        <h:commandButton value="cancel" type="reset" />
+
+                    </h:panelGrid>
+                </rich:panel>
+            </h:form>
 
         </ui:define>
 

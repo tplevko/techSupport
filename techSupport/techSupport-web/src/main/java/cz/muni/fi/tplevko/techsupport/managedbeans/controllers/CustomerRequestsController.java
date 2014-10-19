@@ -25,6 +25,8 @@ import org.springframework.stereotype.Component;
 @Scope("session")
 public class CustomerRequestsController implements Serializable {
 
+    private Long requestId;
+
     private static final long serialVersionUID = 1L;
     private List<RequestDto> customerRequestList;
     private RequestDto selectedRequestDto;
@@ -50,21 +52,28 @@ public class CustomerRequestsController implements Serializable {
         return customerRequestList;
     }
 
-    public String editRequestBefore() {
+    // TODO : this is insecure... it retrieves even the requestDto-s, that don't
+    // belong to the current customer... 
+    // it has to be repaired..
+    public void editRequestBefore() {
 
-        Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        Long requestId = Long.valueOf(parameterMap.get("requestId"));
         selectedRequestDto = requestService.findRequestById(requestId);
-
-        return "/request/requestDetail?faces-redirect=true";
     }
 
-    public RequestDto getRequestDto() {
+    public Long getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(Long requestId) {
+        this.requestId = requestId;
+    }
+
+    public RequestDto getSelectedRequestDto() {
         return selectedRequestDto;
     }
 
-    public void setRequestDto(RequestDto requestDto) {
-        this.selectedRequestDto = requestDto;
+    public void setSelectedRequestDto(RequestDto selectedRequestDto) {
+        this.selectedRequestDto = selectedRequestDto;
     }
 
     public void deselect() {
