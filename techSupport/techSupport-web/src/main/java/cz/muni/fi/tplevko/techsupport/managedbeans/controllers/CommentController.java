@@ -78,15 +78,7 @@ public class CommentController implements Serializable {
         this.requestComment = requestComment;
     }
 
-//    public String editRequestBefore() {
-//
-//        Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-//        Long requestId = Long.valueOf(parameterMap.get("requestId"));
-//        selectedRequestDto = requestService.findRequestById(requestId);
-//
-//        return "/request/requestDetail?faces-redirect=true";
-//    }
-    public void newComment() {
+    public String newComment() {
 
         String currentUser = SecurityUtils.getSubject().getPrincipal().toString();
 
@@ -100,6 +92,8 @@ public class CommentController implements Serializable {
                 getCurrentInstance().getExternalContext().getRequest();
 
         requestCommentService.createRequestComment(requestComment);
+
+        return "/request/requestDetail?faces-redirect=true;includeViewParams=true";
     }
 
     private List<RequestCommentDto> selectedItem;
@@ -115,29 +109,4 @@ public class CommentController implements Serializable {
     private void deselect() {
         selectedItem = null;
     }
-
-//
-//    public String addRequestBefore() {
-//        request = new RequestDto();
-//        return "/request/createRequest?faces-redirect=true";
-//    }
-//
-//    public String deleteComment() {
-//
-//        RequestDto requestToDelete = requestService.findRequestById(selectedItemId);
-//        requestService.deleteRequest(requestToDelete);
-//        return "/employee/technician/requestList?faces-redirect=true";
-//    }
-//
-//    public Collection<Object> getSelected() {
-//        return selected;
-//    }
-//
-//    public void setSelected(Collection<Object> selected) {
-//        this.selected = selected;
-//    }
-//
-//    public RequestDto getSelectedItem() {
-//        return selectedItem;
-//    }
 }

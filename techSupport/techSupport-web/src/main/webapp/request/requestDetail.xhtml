@@ -64,19 +64,27 @@
                                var="comment" columns="1" 
                                elements="50">
                                    
-                    <rich:panel bodyClass="pbody" style="width: 682px; border-style: none">
-                        <h:panelGrid columns="2">
-                            <h:outputText value="#{bundle.createdBy} " />       
-                            <h:outputText value="#{comment.commenter.firstName} #{comment.commenter.lastName}" />                            
-                            <h:outputText value="#{bundle.text} " />
-                            <h:outputText value="#{comment.text}" />
-                            <h:outputText value="commenter :"></h:outputText>
+                    <rich:panel bodyClass="pbody" style="width: 682px; max-width: 682px; border-style: none">
+
+                        <rich:panel style="max-width: 650px; border-style:none" >
+
+                            <h:outputText value="#{bundle.createdBy} " />   
+
+                            <h:outputText value="#{comment.commenter.firstName} #{comment.commenter.lastName} " />   
+
+                            <h:outputText value="#{bundle.emailAddress} " />
+
                             <h:outputText value="#{comment.commenter.email}" />
-                            <h:outputText value="ID :"></h:outputText>
-                            <h:outputText value="#{comment.id}" />
-                        </h:panelGrid>
+
+                        </rich:panel>
+
+                        <rich:panel style="max-width: 650px; border-style:none" >
+                            <h:outputText value="#{comment.text}" id="text" />
+                        </rich:panel>
+
                     </rich:panel>
 
+                    <!-- TODO : this footer is somehow not working. look into it -->
                     <f:facet name="footer">
                         <rich:dataScroller for="commentListView" />
                     </f:facet>
