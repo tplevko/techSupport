@@ -19,7 +19,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * TODO : comment on the code for christ sake!
+ * 
  * @author tplevko
  */
 @Component(value = "commentController")
