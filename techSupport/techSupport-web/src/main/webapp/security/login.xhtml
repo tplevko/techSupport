@@ -42,9 +42,12 @@
                     </h:form>
                 </h:panelGrid>
 
-                <h:panelGrid>
+                <h:panelGrid columns="3">
 
-                    <h:link value="#{bundle.forgotPasswd}" outcome="/requestNewPasswd" />
+                    <h:link value="#{bundle.forgotPasswd}" outcome="/requestNewPasswd" /> 
+                    #{bundle.orvalue}
+                    <h:link value="#{bundle.createAccount}" outcome="/registration/createAccount" />
+
                 </h:panelGrid>
             </rich:panel>
 

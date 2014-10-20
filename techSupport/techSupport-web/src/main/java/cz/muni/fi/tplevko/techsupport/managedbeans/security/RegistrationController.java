@@ -82,7 +82,7 @@ public class RegistrationController implements Serializable {
     }
 
     //add a new account data into database
-    public void addCustomer() throws AddressException {
+    public String addCustomer() throws AddressException {
 
         String salt;
         Sha256Hash passwordHash;
@@ -120,10 +120,16 @@ public class RegistrationController implements Serializable {
 
         } catch (Exception e) {
 
+            return "/error?faces-redirect=true";
+
             // TODO : sprava o neuspechu
 //            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getLocalizedMessage(), "Registration unsuccessful");
 //            facesContext.addMessage(null, m);
         }
+        // TODO : presmerovat na inu stranku, s instrukciami pre dokoncenie registracie...
+        // este by sa nemal moct lognut do systemu... este len musi dokoncit reg...
+        return "/security/login?faces-redirect=true";
+
     }
 
     //clear form values

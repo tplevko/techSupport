@@ -53,7 +53,6 @@ public class EmployeeOperations implements Serializable {
         // TODO : zmenit...    
         // TODO : treba spravit to generovanie hesiel pre zamestnancov
         employeeDto.setPassword("passwd");
-
         employeeDto.getPassword();
 
         salt = ShaEncoder.generateSalt();
