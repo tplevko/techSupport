@@ -22,7 +22,7 @@ import javax.persistence.TemporalType;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 //@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "ACCOUNT")
-public class Account implements Serializable {
+public abstract class Account implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
@@ -30,10 +30,10 @@ public class Account implements Serializable {
     @GeneratedValue(strategy = GenerationType.TABLE)
     protected Long id;
 
-    @Column(length = 50, nullable = false, unique = true)
+    @Column(length = 50, nullable = false)
     protected String firstName;
 
-    @Column(length = 50, nullable = false, unique = true)
+    @Column(length = 50, nullable = false)
     protected String lastName;
 
     @Column(nullable = false, unique = true)

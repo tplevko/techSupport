@@ -182,5 +182,4 @@ public class Request implements Serializable {
     public String toString() {
         return "cz.muni.fi.tplevko.techsupport.entity.Request[ id=" + id + " ]";
     }
-
 }
