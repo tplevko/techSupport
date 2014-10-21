@@ -60,6 +60,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public void deleteEmployee(Employee employee) {
+        
         if (employee == null) {
             throw new IllegalArgumentException("Employee to be removed is null");
         }
@@ -74,7 +75,7 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public Employee findEmployeeById(Long id) {
-
+        
         if (id == null) {
             throw new IllegalArgumentException("Employee id to be retrieved is null");
         }
@@ -86,6 +87,14 @@ public class EmployeeDaoImpl implements EmployeeDao {
 
     @Override
     public Employee findEmployeeByEmail(String email) {
+
+        if (email == null) {
+            throw new IllegalArgumentException("Employee email is null");
+        }
+
+        if (email.isEmpty()) {
+            throw new IllegalArgumentException("Employee email is empty");
+        }
 
         Employee employee = null;
         final String qstring = "SELECT e FROM Employee e WHERE e.email = :email";
@@ -114,19 +123,18 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return employees;
     }
 
-    // TODO : revise.. 
     private void validateEmployee(Employee employee) {
         if (employee.getLastName() == null) {
-            throw new IllegalArgumentException("Employee first name must be set, it's null");
-        }
-        if (employee.getLastName().isEmpty()) {
-            throw new IllegalArgumentException("Employee first name must be set, it's empty");
-        }
-        if (employee.getFirstName() == null) {
             throw new IllegalArgumentException("Employee last name must be set, it's null");
         }
-        if (employee.getFirstName().isEmpty()) {
+        if (employee.getLastName().isEmpty()) {
             throw new IllegalArgumentException("Employee last name must be set, it's empty");
+        }
+        if (employee.getFirstName() == null) {
+            throw new IllegalArgumentException("Employee first name must be set, it's null");
+        }
+        if (employee.getFirstName().isEmpty()) {
+            throw new IllegalArgumentException("Employee first name must be set, it's empty");
         }
         if (employee.getPassword() == null) {
             throw new IllegalArgumentException("Employee password must be set, it's null");
@@ -139,6 +147,12 @@ public class EmployeeDaoImpl implements EmployeeDao {
         }
         if (employee.getEmail().isEmpty()) {
             throw new IllegalArgumentException("Employee email must be set, it's empty");
+        }
+        if (employee.getSalt() == null) {
+            throw new IllegalArgumentException("Employee salt must be set, it's null");
+        }
+        if (employee.getSalt().isEmpty()) {
+            throw new IllegalArgumentException("Employee salt must be set, it's empty");
         }
     }
 }
