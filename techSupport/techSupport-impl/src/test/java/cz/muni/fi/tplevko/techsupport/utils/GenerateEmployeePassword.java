@@ -1,4 +1,4 @@
-package cz.muni.fi.tplevko.techsupport.managedbeans.security;
+package cz.muni.fi.tplevko.techsupport.utils;
 
 import java.math.BigInteger;
 import java.security.SecureRandom;

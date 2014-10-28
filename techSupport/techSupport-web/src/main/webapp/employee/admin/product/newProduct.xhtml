@@ -18,23 +18,32 @@
                 </f:facet>
 
                 <h:form>
-                    <h:panelGrid columns="3">
+                    <h:panelGrid columns="2">
                         <h:outputLabel value="#{bundle.name}" />
-                        <h:inputText value="#{productsController.product.name}" id="name">
+                        <h:inputText value="#{productsController.product.name}" id="name"
+                                     requiredMessage="#{bundle.defaultPriority} #{bundle.validField}" >
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputText>
-                        <h:message for="name" />                    
 
                         <h:outputLabel value="#{bundle.defaultPriority}" />
-                        <h:inputText value="#{productsController.product.defaultPriority}" id="defaultPriority">
-                            <f:validateLength minimum="0"/>
+                        <h:inputText value="#{productsController.product.defaultPriority}"
+                                     required="true" id="defaultPriority"
+                                     requiredMessage="#{bundle.defaultPriority} #{bundle.validField}"
+                                     validatorMessage="#{bundle.defaultPriority} #{bundle.numberField}" >
                             <f:validateRequired for="sub"/>
+                            <f:validateRegex pattern="[0-9]*" for="defaultPriority"/>
                         </h:inputText>
-                        <h:message for="defaultPriority" />
+                    </h:panelGrid>
 
-                        <h:commandButton id="sub" value="#{bundle.submitButton}" type="submit" action="#{productsController.insertProduct()}" />
-                        <h:commandButton value="#{bundle.cancelButton}" immediate="true" type="submit" action="#{productsController.itemList}" />
+                    <h:panelGrid columns="1">
+                        <h:message for="name" />                    
+                        <h:message for="defaultPriority" />
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2">
+                        <h:commandButton id="sub" value="#{bundle.add}" type="submit" action="#{productsController.insertProduct()}" />
+                        <h:commandButton value="cancel" type="reset" />
                     </h:panelGrid>
                 </h:form>
             </rich:panel>

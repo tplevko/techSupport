@@ -33,7 +33,6 @@
                             </h:inputSecret>
                             <h:message id="m_password" for="password" />
 
-                            <h:panelGroup />
                             <h:commandButton value="#{bundle.login}" action="#{login.submit}" >
                                 <f:ajax execute="@form" render="@form" />
                             </h:commandButton>
@@ -44,7 +43,7 @@
 
                 <h:panelGrid columns="3">
 
-                    <h:link value="#{bundle.forgotPasswd}" outcome="/requestNewPasswd" /> 
+                    <h:link value="#{bundle.forgotPasswd}" outcome="/registration/forgotPassword" /> 
                     #{bundle.orvalue}
                     <h:link value="#{bundle.createAccount}" outcome="/registration/createAccount" />
 

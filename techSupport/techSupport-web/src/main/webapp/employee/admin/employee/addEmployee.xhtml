@@ -20,43 +20,56 @@
                     </f:facet>
 
                     <h:form>
-                        <h:panelGrid columns="3" >
+                        <h:panelGrid columns="2" >
                             <h:outputLabel value="#{bundle.firstName}" />
-                            <h:inputText value="#{employeeOperations.employeeDto.firstName}" id="firstName">
+                            <h:inputText value="#{employeeOperations.employeeDto.firstName}" id="firstName" 
+                                         required="true" 
+                                         requiredMessage="#{bundle.firstName} #{bundle.validField}"
+                                         validatorMessage="#{bundle.firstName} #{bundle.validField}">
+
                                 <f:validateLength minimum="0"/>
                                 <f:validateRequired for="sub"/>
                             </h:inputText>
-                            <h:message for="firstName" />
 
                             <h:outputLabel value="#{bundle.lastName} " />
-                            <h:inputText value="#{employeeOperations.employeeDto.lastName}" id="lastName">
-                                <f:validateLength minimum="0"/>
-                                <f:validateRequired for="sub"/>
-                            </h:inputText>
-                            <h:message for="lastName" />
+                            <h:inputText value="#{employeeOperations.employeeDto.lastName}" id="lastName"
+                                         requiredMessage="#{bundle.lastName} #{bundle.validField}"
+                                         validatorMessage="#{bundle.lastName} #{bundle.validField}">
 
-                            <h:outputLabel value="email " />
-                            <h:inputText value="#{employeeOperations.employeeDto.email}" id="email">
+                                <f:validateLength minimum="0" />
+                                <f:validateRequired for="sub" />
+                            </h:inputText>
+
+                            <h:outputLabel value="#{bundle.email} " />
+                            <h:inputText value="#{employeeOperations.employeeDto.email}" id="email"
+                                         requiredMessage="#{bundle.email} #{bundle.validField}"
+                                         validatorMessage="#{bundle.email} #{bundle.validField}">
                                 <f:validateLength minimum="0"/>
                                 <f:validateRequired for="sub"/>
                             </h:inputText> 
-                            <h:message for="email" />
 
                             <h:outputText value="active"/>
                             <h:selectBooleanCheckbox id="active" 
                                                      value="#{employeeOperations.employeeDto.active}" />
-                            <h:message for="active" />
+                        </h:panelGrid>
 
+                        <!-- TODO : tu validaciu mozno pozri aj od richfaces...
+                         http://showcase.richfaces.org/richfaces/component-sample.jsf?demo=clientValidation&skin=blueSky
+                        -->
 
+                        <h:panelGrid columns="1" >
+                            <h:message for="firstName" />
+                            <h:message for="lastName" />
+                            <h:message for="email" />
+                        </h:panelGrid>
+                        <h:panelGrid columns="2" >
                             <h:commandButton id="sub" value="create" type="submit" action="#{employeeOperations.createEmployee()}" />
 
                             <h:commandButton value="cancel" type="reset" />
-
-                            <!--                    TODO : change...  -->
-
                         </h:panelGrid>
 
                     </h:form>
+
                 </rich:panel>
             </div>
 

@@ -29,6 +29,8 @@ public class CustomerController {
     private List<CustomerDto> customerList;
     private CustomerDto selectedItem;
 
+    private String userEmail;
+
     @PostConstruct
     public void init() {
 
@@ -44,19 +46,26 @@ public class CustomerController {
         this.customer = customer;
     }
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+
     public List<CustomerDto> getCustomerList() {
 
         customerList = customerService.getAllCustomers();
 
         return customerList;
     }
-    
+
     public String listCustomers() {
 
         customerList = customerService.getAllCustomers();
         return "/employee/admin/customer/customerList?faces-redirect=true";
     }
-
 
     public void setCustomerList(List<CustomerDto> customerList) {
         this.customerList = customerList;
@@ -69,18 +78,29 @@ public class CustomerController {
 //
 //        customerService.updateProduct(customer);
 //
-
 //        return "/product/productList?faces-redirect=true";
         return "/employee/admin/customer/customerList?faces-redirect=true";
     }
-    
+
     public String editCustomerInfo() {
-        
+
         return null;
     }
-    
-    public String editCustomerBefore() {
+
+    /**
+     *
+     *
+     * @return
+     */
+    public String resetUserPassword() {
+
         
+        
+        return "/registration/forgotPassword?faces-redirect=true";
+    }
+
+    public String editCustomerBefore() {
+
         Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Long customerId = Long.valueOf(parameterMap.get("customerId"));
         customer = customerService.findCustomerById(customerId);
@@ -95,7 +115,7 @@ public class CustomerController {
     public void setSelectedItem(CustomerDto selectedItem) {
         this.selectedItem = selectedItem;
     }
-    
+
     public void deselect() {
         selectedItem = null;
     }
@@ -112,11 +132,9 @@ public class CustomerController {
 //        } else {
 
 //        deselect();
-        
         selectedItem = customerService.findCustomerById(id);
 //        }
 
     }
-
 
 }

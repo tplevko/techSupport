@@ -1,9 +1,13 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.controllers;
 
+import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
+import cz.muni.fi.tplevko.techsupport.entity.dto.RequestDto;
+import cz.muni.fi.tplevko.techsupport.services.CustomerService;
 import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
 import cz.muni.fi.tplevko.techsupport.utils.ShaEncoder;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -24,7 +28,7 @@ import org.springframework.stereotype.Component;
 public class EmployeeOperations implements Serializable {
 
     private static final long serialVersionUID = 1L;
-    
+
     @PostConstruct
     public void init() {
 
@@ -44,7 +48,6 @@ public class EmployeeOperations implements Serializable {
         this.employeeDto = employeeDto;
     }
 
-
     public String createEmployee() {
 
         String salt;
@@ -52,11 +55,10 @@ public class EmployeeOperations implements Serializable {
 
         // TODO : zmenit...    
         // TODO : treba spravit to generovanie hesiel pre zamestnancov
-        employeeDto.setPassword("passwd");
-        employeeDto.getPassword();
-
+//        employeeDto.setPassword("passwd");
+//        employeeDto.getPassword();
         salt = ShaEncoder.generateSalt();
-        passwordHash = ShaEncoder.hash(employeeDto.getPassword(), salt);
+        passwordHash = ShaEncoder.hash("passwd", salt);
 
         employeeDto.setSalt(salt);
         employeeDto.setPassword(passwordHash.toHex());
@@ -66,6 +68,31 @@ public class EmployeeOperations implements Serializable {
         return "/employee/admin/employee/employeeList?faces-redirect=true";
     }
 
+//            String salt;
+//        Sha256Hash passwordHash;
+//
+//        // TODO : zmenit...    
+//        // TODO : treba spravit to generovanie hesiel pre zamestnancov
+////        employeeDto.setPassword("passwd");
+////        employeeDto.getPassword();
+//        salt = ShaEncoder.generateSalt();
+//        passwordHash = ShaEncoder.hash("passwd", salt);
+//        EmployeeDto employee = new EmployeeDto();
+//
+////        employee.setId(7l);
+//        employee.setFirstName("lllll");
+//        employee.setLastName("lllll");
+//        employee.setEmail("lllll@llll.ll");
+//        employee.setActive(true);
+//        employee.setIsAdmin(true);
+//
+//        employee.setSalt(salt);
+//        employee.setPassword(passwordHash.toHex());
+//
+//        employeeService.createEmployee(employee);
+//
+//        return "/employee/admin/employee/employeeList?faces-redirect=true";
+//
     public String editEmployeeBefore() {
 
         Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
@@ -77,7 +104,6 @@ public class EmployeeOperations implements Serializable {
 
     public String editPersonalInfoBefore() {
 
-        
         String currentEmployee = SecurityUtils.getSubject().getPrincipal().toString();
 
         employeeDto = employeeService.findEmployeeByEmail(currentEmployee);
@@ -97,18 +123,16 @@ public class EmployeeOperations implements Serializable {
     }
 
     public String deleteEmployee() {
-        
+
         Long id = employeeDto.getId();
         EmployeeDto employee = employeeService.findEmployeeById(id);
         employeeService.deleteEmployee(employee);
         return "/employee/admin/employee/employeeList?faces-redirect=true";
     }
-    
-    
+
     public String resetPassword() {
-        
+
         // TODO : reset passwd method
-        
         return "/employee/admin/employee/employeeList?faces-redirect=true";
     }
 }

@@ -22,29 +22,33 @@
                 <h:form>
                     <h:panelGrid columns="3">
                         <h:outputLabel value="#{bundle.firstName}" />
-                        <h:inputText value="#{registrationController.firstName}" id="firstName">
-                            <f:validateLength minimum="0"/>
+                        <h:inputText value="#{registrationController.firstName}" id="firstName" 
+                                     required="true"                               
+                                     requiredMessage="#{bundle.firstName} #{bundle.validField}">
                             <f:validateRequired for="sub"/>
                         </h:inputText>
                         <h:message for="firstName" />
 
                         <h:outputLabel value="#{bundle.lastName}" />
-                        <h:inputText value="#{registrationController.lastName}" id="lastName">
-                            <f:validateLength minimum="0"/>
+                        <h:inputText value="#{registrationController.lastName}" id="lastName"
+                                     required="true"                               
+                                     requiredMessage="#{bundle.lastName} #{bundle.validField}">
                             <f:validateRequired for="sub"/>
                         </h:inputText>
                         <h:message for="lastName" />
 
                         <h:outputLabel value="#{bundle.email}" />
-                        <h:inputText value="#{registrationController.email}" id="email">
-                            <f:validateLength minimum="0"/>
+                        <h:inputText value="#{registrationController.email}" id="email"
+                                     required="true"                               
+                                     requiredMessage="#{bundle.email} #{bundle.validField}">
                             <f:validateRequired for="sub"/>
                         </h:inputText> 
                         <h:message for="email" />
 
                         <h:outputLabel value="#{bundle.password}" />
-                        <h:inputSecret value="#{registrationController.password}" id="password">
-                            <f:validateLength minimum="0"/>
+                        <h:inputSecret value="#{registrationController.password}" id="password"
+                                       required="true"                               
+                                       requiredMessage="#{bundle.password} #{bundle.validField}" >
                             <f:validator validatorId="passwordValidator" />
                             <f:attribute name="confirmPassword" value="#{confirmPassword}" />
                             <f:validateRequired for="sub"/>
@@ -52,8 +56,9 @@
                         <h:message for="password" />
 
                         <h:outputLabel value="#{bundle.confirmPasswd}" />
-                        <h:inputSecret binding="#{confirmPassword}" id="confirmPassword" >
-                            <f:validateLength minimum="0"/>
+                        <h:inputSecret binding="#{confirmPassword}" id="confirmPassword" 
+                                       required="true"   
+                                       requiredMessage="#{bundle.confirmPasswd} #{bundle.validField}" >
                             <f:validateRequired for="sub"/>
                         </h:inputSecret> 
                         <h:message for="confirmPassword" />
@@ -63,16 +68,19 @@
 
                     <h:panelGrid>
 
-                        <p:captcha label="Captcha" id="captcha"/>
+                        <p:captcha label="Captcha" id="captcha" required="true" 
+                                   requiredMessage="Captcha #{bundle.validField}"/>
 
                         <h:message for="captcha" />
                     </h:panelGrid>
 
                     <!-- ############################################# -->
+
                     <h:panelGrid columns="2">
 
-                        <h:commandButton id="sub" value="create" type="submit" action="#{registrationController.addCustomer()}" />
-                        <h:commandButton value="cancel" immediate="true" type="submit" action="#{registrationController.customerList}" />
+                        <h:commandButton id="sub" value="#{bundle.confirm}" type="submit" action="#{registrationController.addCustomer()}" />
+
+                        <h:commandButton value="#{bundle.cancelButton}" type="reset" />
                     </h:panelGrid>
 
                 </h:form>

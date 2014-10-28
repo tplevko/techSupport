@@ -20,30 +20,38 @@
 
 
                 <h:form>
-                    <h:panelGrid columns="3">
+                    <h:panelGrid columns="2">
                         <h:outputLabel value="#{bundle.firstName}" />
                         <h:inputText value="#{customerController.customer.firstName}" id="firstName">
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputText>
-                        <h:message for="firstName" />
 
                         <h:outputLabel value="#{bundle.lastName}" />
                         <h:inputText value="#{customerController.customer.lastName}" id="lastName">
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputText>
-                        <h:message for="lastName" />
 
                         <h:outputLabel value="#{bundle.email}" />
                         <h:inputText value="#{customerController.customer.email}" id="email">
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputText> 
-                        <h:message for="email" />
+                    </h:panelGrid>
 
-                        <h:commandButton id="sub" value="create" type="submit" action="#{customerController.editCustomerInfo()}" />
-                        <h:commandButton value="cancel" immediate="true" type="submit" action="#{customerController.customerList}" />
+                    <h:panelGrid columns="1">
+                        <h:message for="firstName" />
+                        <h:message for="lastName" />
+                        <h:message for="email" />
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="2">
+
+                        <h:commandButton id="sub" value="#{bundle.edit}"
+                                         type="submit" action="#{customerController.editCustomerInfo()}" />
+
+                        <h:commandButton value="#{bundle.cancelButton}" type="reset" />
                     </h:panelGrid>
 
                 </h:form>
