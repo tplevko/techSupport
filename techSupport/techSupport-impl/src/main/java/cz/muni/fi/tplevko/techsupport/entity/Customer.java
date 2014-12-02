@@ -7,6 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
@@ -23,6 +24,7 @@ import javax.persistence.Table;
             query = "SELECT a FROM Customer a")
 })
 @Table(name = "CUSTOMER")
+@PrimaryKeyJoinColumn(name="ID")
 public class Customer extends Account implements Serializable {
 
     private static final long serialVersionUID = 1L;

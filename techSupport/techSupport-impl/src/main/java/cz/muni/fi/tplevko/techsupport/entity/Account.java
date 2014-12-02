@@ -3,6 +3,7 @@ package cz.muni.fi.tplevko.techsupport.entity;
 import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Column;
+import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -10,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
 import javax.persistence.PrePersist;
+import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -19,15 +21,27 @@ import javax.persistence.TemporalType;
  * @author tplevko
  */
 @Entity
-@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-//@Inheritance(strategy = InheritanceType.JOINED)
+//@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+//@DiscriminatorColumn(name="DISCRIMINATOR")
+@Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "ACCOUNT")
 public abstract class Account implements Serializable {
 
+    /**
+     * This inheritance strategy is documented here :
+     * http://viralpatel.net/blogs/hibernate-inheritance-table-per-subclass-annotation-xml-mapping/
+     *
+     * The key generation strategy is not really good... should be changed, but
+     * for now we will workaround it somehow...
+     *
+     */
     private static final long serialVersionUID = 1L;
 
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.AUTO, generator = "my_seq_gen")
+    @SequenceGenerator(name = "my_seq_gen", sequenceName = "ENTITY_SEQ", 
+            initialValue = 100, allocationSize = 1)
+    @Column(name = "ID")
     protected Long id;
 
     @Column(length = 50, nullable = false)
