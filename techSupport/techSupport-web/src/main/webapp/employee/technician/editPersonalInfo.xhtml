@@ -23,14 +23,14 @@
                     <h:panelGrid columns="3">
 
                         <h:outputLabel value="#{bundle.oldPasswd}" />
-                        <h:inputSecret value="#{passwordChangeController.oldPassword}" id="oldPasswd">
+                        <h:inputSecret value="#{changeEmplPasswdController.oldPassword}" id="oldPasswd">
                             <f:validateLength minimum="0"/>
                         </h:inputSecret>
                         <h:message for="oldPasswd" />
 
 
                         <h:outputLabel value="#{bundle.newPasswd}" />
-                        <h:inputSecret value="#{passwordChangeController.newPassword}" id="newPasswd">
+                        <h:inputSecret value="#{changeEmplPasswdController.newPassword}" id="newPasswd">
                             <f:validateLength minimum="0"/>
                             <f:validator validatorId="passwordValidator" />
                             <f:attribute name="confirmPassword" value="#{confirmPassword}" />
@@ -49,8 +49,8 @@
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
-                        <h:commandButton id="sub" value="create" type="submit" action="#{passwordChangeController.changeEmployeePassword()}" />
-                        <h:commandButton value="cancel" immediate="true" type="submit" action="#{registrationController.customerList}" />
+                        <h:commandButton id="sub" value="#{bundle.confirm}" type="submit" action="#{passwordChangeController.changeEmployeePassword()}" />
+                        <h:commandButton value="#{bundle.cancelButton}" type="reset" />
                     </h:panelGrid>
 
                 </h:form>

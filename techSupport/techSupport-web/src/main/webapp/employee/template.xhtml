@@ -54,14 +54,17 @@
                                                  itemLeftIcon="disc">
 
 
-                                    <rich:panelMenuGroup label="#{bundle.menuEmployeeGroup}">
-                                        <rich:panelMenuItem label="#{bundle.menuEmployeeAdd}" 
-                                                            name="addEmployee" 
+                                    <rich:panelMenuGroup label="#{bundle.menuEmployeeGroup}" 
+                                                            rendered="#{request.isUserInRole('ROLE_ADMIN')}">
+                                        <rich:panelMenuItem label="#{bundle.menuEmployeeAdd}"
+                                                            rendered="#{request.isUserInRole('ROLE_ADMIN')}"
+                                                            name="addEmployee"
                                                             actionListener="#{navigationMenuBean.saveSelectedItem}"
                                                             action="#{employeeOperations.addEmployeeBefore()}"
                                                             mode="server"/>
 
                                         <rich:panelMenuItem label="#{bundle.menuEmployeeList}" 
+                                                            rendered="#{request.isUserInRole('ROLE_ADMIN')}"
                                                             name="listEmployees"
                                                             action="#{employeeViewer.listEmployees()}" 
                                                             actionListener="#{navigationMenuBean.saveSelectedItem}"
@@ -69,9 +72,11 @@
                                     </rich:panelMenuGroup>
 
 
-                                    <rich:panelMenuGroup label="#{bundle.menuUserGroup}">
+                                    <rich:panelMenuGroup label="#{bundle.menuUserGroup}" 
+                                                            rendered="#{request.isUserInRole('ROLE_ADMIN')}">
 
                                         <rich:panelMenuItem label="#{bundle.menuUserList}"
+                                                            rendered="#{request.isUserInRole('ROLE_ADMIN')}"
                                                             name="listUser"
                                                             actionListener="#{navigationMenuBean.saveSelectedItem}"
                                                             action="#{customerController.listCustomers}" 
@@ -89,8 +94,10 @@
 
                                     </rich:panelMenuGroup>
 
-                                    <rich:panelMenuGroup label="#{bundle.menuProductGroup}">
+                                    <rich:panelMenuGroup label="#{bundle.menuProductGroup}"
+                                                            rendered="#{request.isUserInRole('ROLE_ADMIN')}">
                                         <rich:panelMenuItem label="#{bundle.menuProductAdd}" 
+                                                            rendered="#{request.isUserInRole('ROLE_ADMIN')}"
                                                             name="addProduct" 
                                                             actionListener="#{navigationMenuBean.saveSelectedItem}"
                                                             action="#{productsController.addProductBefore()}" 
