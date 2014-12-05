@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.utils;
 
 /**
+ * The class is used, for password strength validation.
  *
  * @author tplevko
  */

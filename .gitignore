@@ -10,4 +10,7 @@
 /secureSpringApp/secureAppExample-web/target/
 /secureSpringApp/secureAppExample-impl/target/
 /techSupport/techSupport-impl/target/
+/techSupport/techSupport-web/target//techSupport/techSupport-impl/derby.log
+/techSupport/techSupport-impl/ProductsDB/
 /techSupport/techSupport-web/target/
+/techSupport/techSupport-impl/derby.log

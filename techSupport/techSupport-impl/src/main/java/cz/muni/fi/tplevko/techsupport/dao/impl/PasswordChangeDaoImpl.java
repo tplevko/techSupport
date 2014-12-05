@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  *
  * @author tplevko
  */
-@Repository(value = "passwordChangeDaoImpl")
+@Repository(value = "passwordChangeDao")
 public class PasswordChangeDaoImpl implements PasswordChangeDao {
 
     @PersistenceContext

@@ -12,7 +12,7 @@ public class RequestDto {
 
     private Long id;
     private String text;
-    private boolean executed = false;
+    private boolean executed;
     private CustomerDto owner;
     private EmployeeDto assignee;
     private ProductDto product;

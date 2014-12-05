@@ -1,5 +1,6 @@
 package cz.muni.fi.tplevko.techsupport.services;
 
+import cz.muni.fi.tplevko.techsupport.entity.dto.AccountDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.PasswordChangeDto;
 
 /**
@@ -8,9 +9,11 @@ import cz.muni.fi.tplevko.techsupport.entity.dto.PasswordChangeDto;
  */
 public interface PasswordChangeService {
 
-    public void createPasswordChange(PasswordChangeDto passwordChange);
+    public void createPasswordChange(PasswordChangeDto passwordChangeDto);
 
-    public void deletePasswordChange(PasswordChangeDto passwordChange);
+    public void deletePasswordChange(PasswordChangeDto passwordChangeDto);
 
-    public PasswordChangeDto findPasswordChangeId(Long id);
+    public PasswordChangeDto findPasswordChangeById(Long id);
+    
+    public PasswordChangeDto findPasswordChangeByAccount(AccountDto accountDto);
 }

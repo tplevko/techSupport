@@ -9,9 +9,9 @@ import java.util.Date;
 public class PasswordChangeDto {
 
     private String id;
-    private AccountDto requester;
-    private boolean executed = false;
-    private Date created;
+    private CustomerDto requester;
+    private boolean executed;
+    private Date createdAt;
     private Date finished;
 
     public String getId() {
@@ -22,11 +22,11 @@ public class PasswordChangeDto {
         this.id = id;
     }
 
-    public AccountDto getRequester() {
+    public CustomerDto getRequester() {
         return requester;
     }
 
-    public void setRequester(AccountDto requester) {
+    public void setRequester(CustomerDto requester) {
         this.requester = requester;
     }
 
@@ -38,12 +38,12 @@ public class PasswordChangeDto {
         this.executed = executed;
     }
 
-    public Date getCreated() {
-        return created;
+    public Date getCreatedAt() {
+        return createdAt;
     }
 
-    public void setCreated(Date created) {
-        this.created = created;
+    public void setCreatedAt(Date createdAt) {
+        this.createdAt = createdAt;
     }
 
     public Date getFinished() {
@@ -53,5 +53,4 @@ public class PasswordChangeDto {
     public void setFinished(Date finished) {
         this.finished = finished;
     }
-
 }
