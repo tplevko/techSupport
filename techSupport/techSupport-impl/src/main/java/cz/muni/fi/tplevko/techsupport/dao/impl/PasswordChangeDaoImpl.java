@@ -69,4 +69,21 @@ public class PasswordChangeDaoImpl implements PasswordChangeDao {
         }
     }
 
+    @Override
+    public void updatePasswordChange(PasswordChange passwordChange) {
+
+        if (passwordChange == null) {
+            throw new IllegalArgumentException("passwordChange to be updated is null");
+        }
+        if (passwordChange.getId() == null) {
+            throw new IllegalArgumentException("passwordChange to be updated has null id");
+        }
+        if (findPasswordChangeId(passwordChange.getId()) == null) {
+            throw new IllegalArgumentException("Employee to be updated doesn't exist in DB");
+        }
+
+//        validatePasswordChange(passwordChange);
+        em.merge(passwordChange);
+    }
+
 }

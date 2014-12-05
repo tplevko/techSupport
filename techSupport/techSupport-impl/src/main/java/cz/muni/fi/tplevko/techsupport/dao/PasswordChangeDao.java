@@ -10,6 +10,8 @@ public interface PasswordChangeDao {
 
     public String createPasswordChange(PasswordChange passwordChange);
 
+    public void updatePasswordChange(PasswordChange passwordChange);
+
     public void deletePasswordChange(PasswordChange passwordChange);
 
     public PasswordChange findPasswordChangeId(String id);

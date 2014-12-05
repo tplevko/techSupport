@@ -38,7 +38,7 @@ public class PasswordChangeServiceImpl implements PasswordChangeService {
         PasswordChange passwordChange = mapper.map(passwordChangeDto, PasswordChange.class);
 
         String id = passwordChangeDao.createPasswordChange(passwordChange);
-        
+
         return id;
     }
 
@@ -76,6 +76,9 @@ public class PasswordChangeServiceImpl implements PasswordChangeService {
         if (account == null) {
             throw new IllegalArgumentException("account by which we should search can't be null");
         }
+        
+    // TODO : add probably something like : find the password change by account
+    // add to the interface
 //
 //        PasswordChange passwordChange = passwordChangeDao.findPasswordChangeId(id);
 //
@@ -83,6 +86,18 @@ public class PasswordChangeServiceImpl implements PasswordChangeService {
         return null;
     }
 
-    // TODO : add probably something like : find the password change by account
-    // add to the interface
+    @Override
+    public void updatePasswordChange(PasswordChangeDto passwordChangeDto) {
+
+        if (passwordChangeDto == null) {
+            throw new IllegalArgumentException("passwordChangeDto to be created is null");
+        }
+
+        if (passwordChangeDto.getId() == null) {
+            throw new IllegalArgumentException("passwordChangeDto has not set id");
+        }
+
+        PasswordChange passwordChange = mapper.map(passwordChangeDto, PasswordChange.class);
+        passwordChangeDao.updatePasswordChange(passwordChange);
+    }
 }

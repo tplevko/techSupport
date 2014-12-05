@@ -11,6 +11,8 @@ public interface PasswordChangeService {
 
     public String createPasswordChange(PasswordChangeDto passwordChangeDto);
 
+    public void updatePasswordChange(PasswordChangeDto passwordChangeDto);
+    
     public void deletePasswordChange(PasswordChangeDto passwordChangeDto);
 
     public PasswordChangeDto findPasswordChangeById(String id);
