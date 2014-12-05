@@ -9,20 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 
 /**
- *
+ * This class is called once, after the system is started. The class creates admin
+ * record in the database, if there is no admin record in the database.
+ * 
+ * The class uses properties file - admin.properties
+ * 
  * @author tplevko
  */
-public class StartupHandler { //implements InitializingBean {
-
-//    @Override
-//    public void afterPropertiesSet() throws Exception {
-//        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-//    }
-//    
-//    @PostConstruct
-//    private void initializeAdmin() {
-//        
-//    }
+public class StartupHandler { 
+    
     @Autowired
     private EmployeeService employeeService;
 

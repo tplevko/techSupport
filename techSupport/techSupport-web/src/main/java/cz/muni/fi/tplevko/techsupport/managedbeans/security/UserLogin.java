@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.security;
 
 import java.io.IOException;
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.RequestScoped;
 
@@ -10,16 +11,15 @@ import org.apache.shiro.authc.UsernamePasswordToken;
 
 /**
  *
+ *
  * @author tplevko
  */
 @ManagedBean(name = "login")
 @RequestScoped
 public class UserLogin {
 
-//	@Inject
-//	private Credentials credentials;
-//    @Autowired
-//    private AccountService accountService;
+    private static final Logger LOG = Logger.getLogger(UserLogin.class.getName());
+
     public static final String HOME_URL = "app/index.xhtml";
 
     private String username;
@@ -27,16 +27,21 @@ public class UserLogin {
 
     public String submit() throws IOException {
         try {
-
-            // TODO : zmen to rememberme
             SecurityUtils.getSubject().login(new UsernamePasswordToken(username, password, true));
-//            SavedRequest savedRequest = WebUtils.getAndClearSavedRequest(Faces.getRequest());
-//            Faces.redirect(savedRequest != null ? savedRequest.getRequestUrl() : HOME_URL);
+            LOG.info("login : " + username);
 
-            return "/index?faces-redirect=true";
+            if (SecurityUtils.getSubject().hasRole("ROLE_TECHNICIAN")) {
 
+                return "/employee/index?faces-redirect=true";
+
+            } else {
+
+                return "/index?faces-redirect=true";
+
+            }
         } catch (AuthenticationException e) {
 
+            LOG.info("error login : " + username);
             // TODO : nejak to inac vypisat, nie pomocou tych omnyfacov...
 //            Messages.addGlobalError("Unknown user, please try again");
             e.printStackTrace(); // TODO: logger.

@@ -23,8 +23,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 /**
- *
- * @author tom
+ * The class used for determining the user realms. Specifies the user rights in the
+ * system.
+ * 
+ * @author tplevko
  */
 @Component("myCustomRealm")
 public class MyCustomRealm extends AuthorizingRealm {
@@ -65,14 +67,10 @@ public class MyCustomRealm extends AuthorizingRealm {
 
         if (customerAccount != null) {
 
-            LOG.info("***** the employeeAccount value is: " + customerAccount.getEmail() + " *****");
             info.addRole("ROLE_USER");
-
         }
 
         if (employeeAccount != null) {
-
-            LOG.info("***** the customerAccount value is: " + employeeAccount.getEmail() + " *****");
             
             if (employeeAccount.isIsAdmin()) {
                 info.addRole("ROLE_ADMIN");
@@ -120,14 +118,10 @@ public class MyCustomRealm extends AuthorizingRealm {
 
             if (employeeAccount != null) {
 
-                LOG.info("***** the employeeAccount value is: " + employeeAccount.getEmail() + " *****");
-//
                 account = employeeAccount;
             }
 
             if (customerAccount != null) {
-
-                LOG.info("***** the customerAccount value is: " + customerAccount.getEmail() + " *****");
 
                 account = customerAccount;
             }

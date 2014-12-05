@@ -1,11 +1,11 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.controllers;
 
-import cz.muni.fi.tplevko.techsupport.entity.Customer;
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
 import cz.muni.fi.tplevko.techsupport.services.CustomerService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -21,6 +21,8 @@ import org.springframework.stereotype.Component;
 @ManagedBean
 @Scope("session")
 public class CustomerController {
+
+    private static final Logger LOG = Logger.getLogger(CustomerController.class.getName());
 
     @Autowired
     private CustomerService customerService;
@@ -85,18 +87,6 @@ public class CustomerController {
     public String editCustomerInfo() {
 
         return null;
-    }
-
-    /**
-     *
-     *
-     * @return
-     */
-    public String resetUserPassword() {
-
-        
-        
-        return "/registration/forgotPassword?faces-redirect=true";
     }
 
     public String editCustomerBefore() {

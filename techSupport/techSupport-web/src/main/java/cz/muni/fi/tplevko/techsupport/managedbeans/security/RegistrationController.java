@@ -4,6 +4,7 @@ import cz.muni.fi.tplevko.techsupport.managedbeans.security.confirm.Confirmation
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
 import cz.muni.fi.tplevko.techsupport.services.CustomerService;
 import cz.muni.fi.tplevko.techsupport.utils.ShaEncoder;
+import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
 import javax.faces.bean.ManagedBean;
@@ -80,7 +81,7 @@ public class RegistrationController implements Serializable {
     }
 
     //add a new account data into database
-    public String addCustomer() throws AddressException {
+    public String addCustomer() throws AddressException, IOException {
 
         String salt;
         Sha256Hash passwordHash;
@@ -88,19 +89,18 @@ public class RegistrationController implements Serializable {
         salt = ShaEncoder.generateSalt();
         passwordHash = ShaEncoder.hash(password, salt);
 
-        try {
-
-            CustomerDto customer = new CustomerDto();
-            customer.setFirstName(firstName);
-            customer.setLastName(lastName);
-            customer.setPassword(passwordHash.toHex());
-            customer.setSalt(salt);
-            customer.setActive(false);
-            customer.setEmail(email);
-            customerService.createCustomer(customer);
+//        try {
+        CustomerDto customer = new CustomerDto();
+        customer.setFirstName(firstName);
+        customer.setLastName(lastName);
+        customer.setPassword(passwordHash.toHex());
+        customer.setSalt(salt);
+        customer.setActive(false);
+        customer.setEmail(email);
+        customerService.createCustomer(customer);
 
 //            userDao.createUser(user);
-            String message = "account successfully created";
+        String message = "account successfully created";
 //            facesContext.addMessage(null, new FacesMessage(message));
 
 ////////////////////////////
@@ -111,19 +111,19 @@ public class RegistrationController implements Serializable {
 //
 //            FacesContext.getCurrentInstance().addMessage(null, msg);
 ////////////////////////////
-            CustomerDto newAccount = customerService.findCustomerByEmail(email);
+        CustomerDto newAccount = customerService.findCustomerByEmail(email);
 
-            // TODO : sprava o uspechu
-            confirmationEmailProducer.sendMail(firstName, newAccount.getSalt(), email);
+        // TODO : sprava o uspechu
+        confirmationEmailProducer.sendMail(firstName, newAccount.getSalt(), email);
 
-        } catch (Exception e) {
-
-            return "/error?faces-redirect=true";
-
-            // TODO : sprava o neuspechu
-//            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getLocalizedMessage(), "Registration unsuccessful");
-//            facesContext.addMessage(null, m);
-        }
+//        } catch (Exception e) {
+//
+//            return "/error?faces-redirect=true";
+//
+//            // TODO : sprava o neuspechu
+////            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getLocalizedMessage(), "Registration unsuccessful");
+////            facesContext.addMessage(null, m);
+//        }
         // TODO : presmerovat na inu stranku, s instrukciami pre dokoncenie registracie...
         // este by sa nemal moct lognut do systemu... este len musi dokoncit reg...
         return "/security/login?faces-redirect=true";
