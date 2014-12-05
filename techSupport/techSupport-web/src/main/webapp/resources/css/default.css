@@ -48,16 +48,31 @@ a:link:hover, a:visited:hover  {
 }
 
 #top h1 a{
-	color:#666666;
-	background-color:#FFFFFF;
-	}
+    color:#666666;
+    background-color:#FFFFFF;
+}
 
 div.page{
-    position:relative;
+    overflow: hidden ;
+        position:relative;
     margin:0 auto 0;
     display:block;
     width:960px;
+    height: 100%; 
+    min-height: 100%;
+    top: 0px;    
+    box-shadow: 0px 0px 20px 3px #d3d3d3;
+    /*border-radius:4px;*/
+    background-color:#ffffff;
+
 }
+
+/*#bodyContainer {
+    width:960px;
+    height: 100%; 
+    margin:0;
+    display: block;
+}*/
 
 .intro {
     margin:0 auto 0;

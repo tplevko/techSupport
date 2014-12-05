@@ -12,5 +12,5 @@ public interface PasswordChangeDao {
 
     public void deletePasswordChange(PasswordChange passwordChange);
 
-    public PasswordChange findPasswordChangeId(Long id);
+    public PasswordChange findPasswordChangeId(String id);
 }

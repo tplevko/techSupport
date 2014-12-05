@@ -19,6 +19,7 @@ import org.springframework.stereotype.Component;
  *
  * @author tplevko
  */
+//@Controller
 @Component
 @ManagedBean
 @Scope("request")
@@ -113,7 +114,7 @@ public class RegistrationController implements Serializable {
         CustomerDto newAccount = customerService.findCustomerByEmail(email);
 
         // TODO : sprava o uspechu
-//        confirmationEmailProducer.sendMail(firstName, newAccount.getSalt(), email);
+        confirmationEmailProducer.generateMessage(firstName, email);
 
 //        } catch (Exception e) {
 //

@@ -41,35 +41,35 @@ public class EmailValidationClientServlet extends HttpServlet {
             Enumeration<String> parameterNames = req.getParameterNames();
             if (parameterNames.hasMoreElements()) {
                 String paramName = parameterNames.nextElement();
-                if (paramName.equals("verify")) {
+                if (paramName.equals("id")) {
                     out.write(paramName + "\n");
                 }
             }
-            if (parameterNames.hasMoreElements()) {
-                String paramName = parameterNames.nextElement();
-                if (paramName.equals("email")) {
-                    out.write(paramName + "\n");
-                }
-            }
+//            if (parameterNames.hasMoreElements()) {
+//                String paramName = parameterNames.nextElement();
+//                if (paramName.equals("email")) {
+//                    out.write(paramName + "\n");
+//                }
+//            }
 
-            String verify = req.getParameter("verify");
-            String email = req.getParameter("email");
+            String verify = req.getParameter("id");
+//            String email = req.getParameter("email");
 
             out.write(verify + "\n");
-            out.write(email);
+//            out.write(email);
 
             // TODO : este spravit to presmerovanie
-            boolean status = emailConfirmation.verifyAccount(email, verify);
+//            boolean status = emailConfirmation.verifyAccount(email, verify);
 
-            out.write(status ? "true" : "false");
+//            out.write(status ? "true" : "false");
 
-            if (status) {
-                res.sendRedirect("/techSupport/security/login.xhtml");
-            } else {
-                res.sendRedirect("/techSupport/registration/createAccount.xhtml");
-
-            }
-
+//            if (status) {
+//                res.sendRedirect("/techSupport/security/login.xhtml");
+//            } else {
+//                res.sendRedirect("/techSupport/registration/createAccount.xhtml");
+//
+//            }
+//
             // TODO : toto je na hovno chytanie vs. vynimiek
         } catch (Exception e) {
 

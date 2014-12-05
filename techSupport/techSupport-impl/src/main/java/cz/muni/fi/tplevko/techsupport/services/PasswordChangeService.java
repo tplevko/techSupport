@@ -13,7 +13,7 @@ public interface PasswordChangeService {
 
     public void deletePasswordChange(PasswordChangeDto passwordChangeDto);
 
-    public PasswordChangeDto findPasswordChangeById(Long id);
+    public PasswordChangeDto findPasswordChangeById(String id);
     
     public PasswordChangeDto findPasswordChangeByAccount(AccountDto accountDto);
 }

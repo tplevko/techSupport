@@ -1,0 +1,55 @@
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:ui="http://java.sun.com/jsf/facelets" 
+                xmlns:p="http://primefaces.org/ui"
+                xmlns:rich="http://richfaces.org/rich">
+
+    <f:metadata>
+        <f:viewParam name="id" value="#{passwordChangeController.uuid}" />
+        <!--<f:event type="preRenderView" listener="#{passwordChangeController.resetPasswordBefore()}"/>-->
+    </f:metadata>
+
+    <ui:composition template="../template.xhtml">
+
+        <ui:define name="title">#{bundle.indexTitle}</ui:define>
+
+        <ui:define name="content">
+
+            <h:form>
+                <h:panelGrid columns="3">
+
+                    <h:outputLabel value="#{bundle.password}" />
+                    <h:inputSecret value="#{passwordChangeController.password}" id="password"
+                                   required="true"                               
+                                   requiredMessage="#{bundle.password} #{bundle.validField}" >
+                        <f:validator validatorId="passwordValidator" />
+                        <f:attribute name="confirmPassword" value="#{confirmPassword}" />
+                        <f:validateRequired for="sub"/>
+                    </h:inputSecret>
+                    <h:message for="password" />
+
+                    <h:outputLabel value="#{bundle.confirmPasswd}" />
+                    <h:inputSecret binding="#{confirmPassword}" id="confirmPassword" 
+                                   required="true"   
+                                   requiredMessage="#{bundle.confirmPasswd} #{bundle.validField}" >
+                        <f:validateRequired for="sub"/>
+                    </h:inputSecret> 
+                    <h:message for="confirmPassword" />
+
+                </h:panelGrid>
+
+                <h:panelGrid columns="2">
+
+                    <h:commandButton id="sub" value="#{bundle.confirm}" type="submit" action="#{passwordChangeController.resetPassword()}" />
+
+                    <h:commandButton value="#{bundle.cancelButton}" type="reset" />
+                </h:panelGrid>
+
+            </h:form>
+
+        </ui:define>
+    </ui:composition>
+
+</ui:composition>

@@ -44,7 +44,7 @@ public class ConfirmationEmailPassChangeMessage {
 
         
         // TODO : change somehow...
-        String serviceAddress = serviceUrl +":"+ servicePort +"/techSupport/Email?verify="+ generatedChangeId;
+        String serviceAddress = serviceUrl +":"+ servicePort +"/techSupport/registration/forgotPassReset.xhtml?id="+ generatedChangeId;
         
         String fullEmailMessage = emailMessage + serviceAddress;
         

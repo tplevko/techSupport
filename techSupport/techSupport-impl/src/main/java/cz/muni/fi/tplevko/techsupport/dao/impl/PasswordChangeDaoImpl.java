@@ -51,7 +51,7 @@ public class PasswordChangeDaoImpl implements PasswordChangeDao {
     }
 
     @Override
-    public PasswordChange findPasswordChangeId(Long id) {
+    public PasswordChange findPasswordChangeId(String id) {
 
         if (id == null) {
             throw new IllegalArgumentException("PasswordChange id to be retrieved is null");

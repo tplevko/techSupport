@@ -59,7 +59,7 @@ public class PasswordChangeServiceImpl implements PasswordChangeService {
     }
 
     @Override
-    public PasswordChangeDto findPasswordChangeById(Long id) {
+    public PasswordChangeDto findPasswordChangeById(String id) {
 
         if (id == null) {
             throw new IllegalArgumentException("ID to retrieve can't be null");
