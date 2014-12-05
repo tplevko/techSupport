@@ -1,7 +1,7 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.security;
 
-import cz.muni.fi.tplevko.techsupport.managedbeans.security.confirm.ConfirmationEmailProducer;
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
+import cz.muni.fi.tplevko.techsupport.managedbeans.security.confirm.ConfirmationValidateEmailProducer;
 import cz.muni.fi.tplevko.techsupport.services.CustomerService;
 import cz.muni.fi.tplevko.techsupport.utils.ShaEncoder;
 import java.io.IOException;
@@ -19,7 +19,6 @@ import org.springframework.stereotype.Component;
  *
  * @author tplevko
  */
-//@Controller
 @Component
 @ManagedBean
 @Scope("request")
@@ -32,7 +31,7 @@ public class RegistrationController implements Serializable {
 
     @Autowired
 //    @Qualifier("registrationService")
-    private ConfirmationEmailProducer confirmationEmailProducer;
+    private ConfirmationValidateEmailProducer confirmationEmailProducer;
 
     @Autowired(required = true)
 //    @Qualifier("accountService")
@@ -114,7 +113,7 @@ public class RegistrationController implements Serializable {
         CustomerDto newAccount = customerService.findCustomerByEmail(email);
 
         // TODO : sprava o uspechu
-        confirmationEmailProducer.sendMail(firstName, newAccount.getSalt(), email);
+//        confirmationEmailProducer.sendMail(firstName, newAccount.getSalt(), email);
 
 //        } catch (Exception e) {
 //

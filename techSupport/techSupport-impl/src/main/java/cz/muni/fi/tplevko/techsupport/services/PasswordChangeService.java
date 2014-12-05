@@ -9,7 +9,7 @@ import cz.muni.fi.tplevko.techsupport.entity.dto.PasswordChangeDto;
  */
 public interface PasswordChangeService {
 
-    public void createPasswordChange(PasswordChangeDto passwordChangeDto);
+    public String createPasswordChange(PasswordChangeDto passwordChangeDto);
 
     public void deletePasswordChange(PasswordChangeDto passwordChangeDto);
 

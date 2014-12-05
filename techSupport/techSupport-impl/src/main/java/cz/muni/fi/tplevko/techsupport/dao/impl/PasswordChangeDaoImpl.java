@@ -21,7 +21,7 @@ public class PasswordChangeDaoImpl implements PasswordChangeDao {
     }
 
     @Override
-    public void createPasswordChange(PasswordChange passwordChange) {
+    public String createPasswordChange(PasswordChange passwordChange) {
 
         if (passwordChange == null) {
             throw new IllegalArgumentException("PasswordChange to be created is null");
@@ -32,6 +32,7 @@ public class PasswordChangeDaoImpl implements PasswordChangeDao {
 
         validatePasswordChange(passwordChange);
         em.persist(passwordChange);
+        return passwordChange.getId();
     }
 
     @Override

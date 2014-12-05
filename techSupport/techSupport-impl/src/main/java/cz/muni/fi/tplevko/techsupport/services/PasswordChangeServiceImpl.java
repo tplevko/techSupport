@@ -29,7 +29,7 @@ public class PasswordChangeServiceImpl implements PasswordChangeService {
 
     @Override
     @Transactional
-    public void createPasswordChange(PasswordChangeDto passwordChangeDto) {
+    public String createPasswordChange(PasswordChangeDto passwordChangeDto) {
 
         if (passwordChangeDto == null) {
             throw new IllegalArgumentException("Password Change to be created is null");
@@ -37,7 +37,9 @@ public class PasswordChangeServiceImpl implements PasswordChangeService {
 
         PasswordChange passwordChange = mapper.map(passwordChangeDto, PasswordChange.class);
 
-        passwordChangeDao.createPasswordChange(passwordChange);
+        String id = passwordChangeDao.createPasswordChange(passwordChange);
+        
+        return id;
     }
 
     @Override

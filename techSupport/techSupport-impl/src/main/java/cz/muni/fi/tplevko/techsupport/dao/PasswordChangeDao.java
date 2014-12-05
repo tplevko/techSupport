@@ -8,7 +8,7 @@ import cz.muni.fi.tplevko.techsupport.entity.PasswordChange;
  */
 public interface PasswordChangeDao {
 
-    public void createPasswordChange(PasswordChange passwordChange);
+    public String createPasswordChange(PasswordChange passwordChange);
 
     public void deletePasswordChange(PasswordChange passwordChange);
 

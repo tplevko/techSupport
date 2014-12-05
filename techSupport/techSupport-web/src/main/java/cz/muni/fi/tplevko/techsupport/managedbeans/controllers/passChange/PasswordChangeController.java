@@ -2,6 +2,7 @@ package cz.muni.fi.tplevko.techsupport.managedbeans.controllers.passChange;
 
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.PasswordChangeDto;
+import cz.muni.fi.tplevko.techsupport.managedbeans.security.confirm.ConfirmationEmailPassChangeMessage;
 import cz.muni.fi.tplevko.techsupport.services.CustomerService;
 import cz.muni.fi.tplevko.techsupport.services.PasswordChangeService;
 import java.util.logging.Logger;
@@ -26,6 +27,9 @@ public class PasswordChangeController {
     @Autowired
     private PasswordChangeService passChangeService;
 
+    @Autowired
+    private ConfirmationEmailPassChangeMessage confirmationEmailPassChangeMessage;
+    
     private static final Logger LOG = Logger.getLogger(PasswordChangeController.class.getName());
 
     private String userEmail;
@@ -60,7 +64,11 @@ public class PasswordChangeController {
         CustomerDto passChangeRequester = customerService.findCustomerByEmail(userEmail);
         passwordChangeDto.setRequester(passChangeRequester);
 
-        passChangeService.createPasswordChange(passwordChangeDto);
+        String id = passChangeService.createPasswordChange(passwordChangeDto);
+        
+        LOG.info("The user password request ID is : " + id);
+        
+        confirmationEmailPassChangeMessage.generateMessage(id, userEmail);
         
         return "/registration/forgotPassRedirect?faces-redirect=true";
     }

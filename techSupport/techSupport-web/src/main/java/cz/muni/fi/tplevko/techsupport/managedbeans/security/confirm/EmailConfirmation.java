@@ -1,6 +1,5 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.security.confirm;
 
-import cz.muni.fi.tplevko.techsupport.entity.Customer;
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
 import cz.muni.fi.tplevko.techsupport.services.CustomerService;
 import cz.muni.fi.tplevko.techsupport.utils.ShaEncoder;

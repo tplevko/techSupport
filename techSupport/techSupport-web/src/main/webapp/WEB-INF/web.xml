@@ -86,16 +86,26 @@
         <dispatcher>INCLUDE</dispatcher>
         <dispatcher>ERROR</dispatcher>
     </filter-mapping>-->
-    <!-- ############# EXAMPLE ################# -->
+    <!-- ############# Custom servlets ################# -->
     <servlet>
-        <servlet-name>Example Servlet</servlet-name>
+        <servlet-name>emailVerificationServlet</servlet-name>
         <servlet-class>cz.muni.fi.tplevko.techsupport.managedbeans.EmailValidationClientServlet</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>resetPasswordServlet</servlet-name>
+        <servlet-class>cz.muni.fi.tplevko.techsupport.managedbeans.ResetPasswordServlet</servlet-class>
+    </servlet>
+
     <servlet-mapping>
-        <servlet-name>Example Servlet</servlet-name>
-        <url-pattern>/Email</url-pattern>
+        <servlet-name>emailVerificationServlet</servlet-name>
+        <url-pattern>/emailValidate</url-pattern>
     </servlet-mapping>
-    <!-- ############# EXAMPLE ################# -->
+    <servlet-mapping>
+        <servlet-name>resetPasswordServlet</servlet-name>
+        <url-pattern>/resetPassword</url-pattern>
+    </servlet-mapping>
+
+    <!-- ############# Custom servlets ################# -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>

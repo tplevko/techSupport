@@ -5,16 +5,19 @@ import java.io.PrintWriter;
 import java.util.Enumeration;
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
-
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
-public class EmailValidationClientServlet extends HttpServlet {
+/**
+ *
+ * @author tplevko
+ */
+public class ResetPasswordServlet extends HttpServlet {
 
-    private static final long serialVersionUID = -2128122335811219481L;
+    private static final long serialVersionUID = 1;
 
     @Autowired
     private EmailConfirmation emailConfirmation;

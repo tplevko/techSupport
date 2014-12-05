@@ -11,6 +11,7 @@
     <!-- Loads the properties files -->
     <context:property-placeholder location="classpath:admin.properties" ignore-unresolvable="true"/>
     <context:property-placeholder location="classpath:config.properties" ignore-unresolvable="true"/>
+    <context:property-placeholder location="classpath:emailMessages.properties" ignore-unresolvable="true"/>
      
     <!-- Auto-detect components -->      
     <import resource="classpath*:applicationContext.xml" />
