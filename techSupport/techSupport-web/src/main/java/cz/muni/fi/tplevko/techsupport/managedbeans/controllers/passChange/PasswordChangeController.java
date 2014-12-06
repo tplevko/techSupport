@@ -38,11 +38,7 @@ public class PasswordChangeController {
     private String userEmail;
     private String uuid;
     private String password;
-    
-    @PostConstruct
-    public void init() {
-    }
-    
+        
     public String getUserEmail() {
         return userEmail;
     }
@@ -94,9 +90,17 @@ public class PasswordChangeController {
         return "/registration/forgotPassRedirect?faces-redirect=true";
     }
     
+    
+    /**
+     * the method is used for reseting of the customer password.
+     * it creates hash, using the hash function using the new password and the
+     * old salt. The salt does not need to be changed I think... 
+     * 
+     * @return 
+     */
     public String resetPassword() {
         
-        // TODO : Najskor zistit, ci to nie je starsie ako jeden den... 
+        // TODO : Najskor zistit, ci ten passChange nie je starsi ako jeden den... 
         
         PasswordChangeDto passChange = passChangeService.findPasswordChangeById(uuid);
         Long requesterId = passChange.getRequester().getId();

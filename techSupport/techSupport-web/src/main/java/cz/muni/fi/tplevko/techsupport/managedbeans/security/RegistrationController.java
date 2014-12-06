@@ -1,12 +1,15 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.security;
 
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
+import cz.muni.fi.tplevko.techsupport.entity.dto.PasswordChangeDto;
 import cz.muni.fi.tplevko.techsupport.managedbeans.security.confirm.ConfirmationValidateEmailProducer;
 import cz.muni.fi.tplevko.techsupport.services.CustomerService;
+import cz.muni.fi.tplevko.techsupport.services.PasswordChangeService;
 import cz.muni.fi.tplevko.techsupport.utils.ShaEncoder;
 import java.io.IOException;
 import java.io.Serializable;
 import java.util.List;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.mail.internet.AddressException;
@@ -29,6 +32,9 @@ public class RegistrationController implements Serializable {
 
 //    @Autowired
     private FacesContext facesContext = FacesContext.getCurrentInstance();
+
+    @Autowired
+    private PasswordChangeService activationController;
 
     @Autowired
 //    @Qualifier("registrationService")
@@ -89,50 +95,46 @@ public class RegistrationController implements Serializable {
         salt = ShaEncoder.generateSalt();
         passwordHash = ShaEncoder.hash(password, salt);
 
-//        try {
-        CustomerDto customer = new CustomerDto();
-        customer.setFirstName(firstName);
-        customer.setLastName(lastName);
-        customer.setPassword(passwordHash.toHex());
-        customer.setSalt(salt);
-        customer.setActive(false);
-        customer.setEmail(email);
-        customerService.createCustomer(customer);
-
-//            userDao.createUser(user);
-        String message = "account successfully created";
-//            facesContext.addMessage(null, new FacesMessage(message));
+        try {
+            CustomerDto customer = new CustomerDto();
+            customer.setFirstName(firstName);
+            customer.setLastName(lastName);
+            customer.setPassword(passwordHash.toHex());
+            customer.setSalt(salt);
+            customer.setActive(false);
+            customer.setEmail(email);
+            customerService.createCustomer(customer);
+            
+            String message = "account successfully created";
+            facesContext.addMessage(null, new FacesMessage(message));
 
 ////////////////////////////
 //
 //         // TODO : allow this...
 //
-//            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
-//
-//            FacesContext.getCurrentInstance().addMessage(null, msg);
+            FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Correct", "Correct");
+
+            FacesContext.getCurrentInstance().addMessage("sample message", msg);
 ////////////////////////////
-        CustomerDto newAccount = customerService.findCustomerByEmail(email);
+            CustomerDto newAccount = customerService.findCustomerByEmail(email);
+            PasswordChangeDto activationRequest = new PasswordChangeDto();
+            activationRequest.setRequester(newAccount);
+            
+            String activationUuid = activationController.createPasswordChange(activationRequest);
 
-        // TODO : sprava o uspechu
-        confirmationEmailProducer.generateMessage(firstName, email);
+            confirmationEmailProducer.generateMessage(activationUuid, email);
 
-//        } catch (Exception e) {
-//
-//            return "/error?faces-redirect=true";
-//
-//            // TODO : sprava o neuspechu
-////            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getLocalizedMessage(), "Registration unsuccessful");
-////            facesContext.addMessage(null, m);
-//        }
+        } catch (Exception e) {
+
+            return "/error?faces-redirect=true";
+
+            // TODO : sprava o neuspechu
+//            FacesMessage m = new FacesMessage(FacesMessage.SEVERITY_ERROR, e.getLocalizedMessage(), "Registration unsuccessful");
+//            facesContext.addMessage(null, m);
+        }
         // TODO : presmerovat na inu stranku, s instrukciami pre dokoncenie registracie...
         // este by sa nemal moct lognut do systemu... este len musi dokoncit reg...
-        return "/security/login?faces-redirect=true";
+        return "/successRedirect?faces-redirect=true";
 
     }
-
-    //clear form values
-//    private void clearForm() {
-//        setName("");
-//        setAddress("");
-//    }
 }

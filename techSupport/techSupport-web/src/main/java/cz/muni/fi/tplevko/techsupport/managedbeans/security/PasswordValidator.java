@@ -8,6 +8,7 @@ import javax.faces.context.FacesContext;
 import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +24,7 @@ public class PasswordValidator implements Validator {
     // TODO : minlength and special characters validator... 
     // and think of how to logout user after some time period of inactivity...
     // and also the captcha test
-    
+
     @Override
     public void validate(FacesContext context, UIComponent component,
             Object value) throws ValidatorException {
@@ -43,8 +44,7 @@ public class PasswordValidator implements Validator {
 
         if (!password.equals(confirmPassword)) {
             uiInputConfirmPassword.setValid(false);
-            throw new ValidatorException(new FacesMessage(
-                    "Password must match confirm password."));
+            throw new ValidatorException(new FacesMessage("Password must match confirm password"));
         }
 
     }

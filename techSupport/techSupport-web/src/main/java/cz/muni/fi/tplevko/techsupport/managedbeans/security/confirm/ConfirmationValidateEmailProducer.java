@@ -43,7 +43,8 @@ public class ConfirmationValidateEmailProducer {
     private String generateUniqueSiteUrl(String generatedChangeId) {
 
         // TODO : change somehow...
-        String serviceAddress = serviceUrl + ":" + servicePort + "/techSupport/Email?verify=" + generatedChangeId;
+//        localhost:8080/techSupport/registration/finishRegistration.xhtml?id=ff8081814a1bad54014a1badc8900000
+        String serviceAddress = serviceUrl + ":" + servicePort + "/techSupport/registration/finishRegistration.xhtml?id=" + generatedChangeId;
 
         String fullEmailMessage = emailMessage + serviceAddress;
 

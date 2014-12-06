@@ -10,6 +10,7 @@ import javax.faces.validator.FacesValidator;
 import javax.faces.validator.Validator;
 import javax.faces.validator.ValidatorException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
@@ -23,7 +24,7 @@ public class ForgotPasswordValidator implements Validator {
 
     @Autowired
     private CustomerService customerService;
-
+ 
     @Override
     public void validate(FacesContext context, UIComponent component,
             Object value) throws ValidatorException {
@@ -39,10 +40,7 @@ public class ForgotPasswordValidator implements Validator {
         CustomerDto customer = customerService.findCustomerByEmail(emailAddress);
 
         if (customer == null) {
-            throw new ValidatorException(new FacesMessage(
-                    "email entered is not present in our records. If \n"
-                    + "you forgot your registration email, contact the \n"
-                    + "administrator please"));
+            throw new ValidatorException(new FacesMessage("The email entered is not present in our records. If you forgot your registration email, contact the administrator please"));
         }
     }
 }

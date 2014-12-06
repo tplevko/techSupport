@@ -65,12 +65,12 @@ public class MyCustomRealm extends AuthorizingRealm {
         CustomerDto customerAccount = customerService.findCustomerByEmail(email);
         EmployeeDto employeeAccount = employeeService.findEmployeeByEmail(email);
 
-        if (customerAccount != null) {
+        if (customerAccount != null && customerAccount.isActive()) {
 
-            info.addRole("ROLE_USER");
+             info.addRole("ROLE_USER");
         }
 
-        if (employeeAccount != null) {
+        if (employeeAccount != null && employeeAccount.isActive()) {
             
             if (employeeAccount.isIsAdmin()) {
                 info.addRole("ROLE_ADMIN");

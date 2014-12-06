@@ -2,7 +2,6 @@ package cz.muni.fi.tplevko.techsupport.services;
 
 import cz.muni.fi.tplevko.techsupport.dao.PasswordChangeDao;
 import cz.muni.fi.tplevko.techsupport.entity.PasswordChange;
-import cz.muni.fi.tplevko.techsupport.entity.dto.AccountDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.PasswordChangeDto;
 import java.util.logging.Logger;
 import org.dozer.DozerBeanMapper;
@@ -68,22 +67,6 @@ public class PasswordChangeServiceImpl implements PasswordChangeService {
         PasswordChange passwordChange = passwordChangeDao.findPasswordChangeId(id);
 
         return mapper.map(passwordChange, PasswordChangeDto.class);
-    }
-
-    @Override
-    public PasswordChangeDto findPasswordChangeByAccount(AccountDto account) {
-
-        if (account == null) {
-            throw new IllegalArgumentException("account by which we should search can't be null");
-        }
-        
-    // TODO : add probably something like : find the password change by account
-    // add to the interface
-//
-//        PasswordChange passwordChange = passwordChangeDao.findPasswordChangeId(id);
-//
-//        return mapper.map(passwordChange, PasswordChangeDto.class);
-        return null;
     }
 
     @Override

@@ -21,7 +21,7 @@
                 <h:panelGrid>
                     <h:form id="login">
                         <h:panelGrid columns="3">
-                            <h:outputLabel for="username" value="#{bundle.userName}" />
+                            <h:outputLabel for="username" value="#{bundle.email}" />
                             <h:inputText id="username" value="#{login.username}" required="true">
                                 <f:ajax event="blur" render="m_username" />
                             </h:inputText>
@@ -36,7 +36,7 @@
                             <h:commandButton value="#{bundle.login}" action="#{login.submit}" >
                                 <f:ajax execute="@form" render="@form" />
                             </h:commandButton>
-                            <h:messages globalOnly="true" layout="table" />
+                            <h:messages id="msg" globalOnly="true" layout="table" />
                         </h:panelGrid>
                     </h:form>
                 </h:panelGrid>
