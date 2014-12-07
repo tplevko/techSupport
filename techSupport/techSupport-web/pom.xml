@@ -18,6 +18,9 @@
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.richfaces.bom.version>4.3.4.Final</org.richfaces.bom.version>
+        <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
+        <!--<tomcat.components.version>7.0.41</tomcat.components.version>-->
+
     </properties> 
 
     <dependencyManagement>
@@ -33,6 +36,22 @@
     </dependencyManagement>
     
     <dependencies>
+<!--        <dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-catalina</artifactId>
+            <version>${tomcat.components.version}</version>
+	</dependency>
+	<dependency>
+            <groupId>org.apache.tomcat</groupId>
+            <artifactId>tomcat-util</artifactId>
+            <version>${tomcat.components.version}</version>
+	</dependency>
+	<dependency>
+            <groupId>org.apache.tomcat.embed</groupId>
+            <artifactId>tomcat-embed-core</artifactId>
+            <version>${tomcat.components.version}</version>
+	</dependency>-->
+
         <dependency>
             <groupId>org.richfaces.ui</groupId>
             <artifactId>richfaces-components-ui</artifactId>
@@ -93,27 +112,30 @@
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
+                <scope>provided</scope>
+
         </dependency>
- 
+         <!-- EL - -->
+        <dependency>
+            <groupId>org.glassfish.web</groupId>
+            <artifactId>el-impl</artifactId>
+            <version>2.2</version>
+            <scope>provided</scope>
+        </dependency>
+
         <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
-            <version>2.1</version>
+            <version>2.2</version>
+            <scope>provided</scope>
         </dependency>
-
+        
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>1.0.0.GA</version>
         </dependency>
-        <!-- EL -->
-        <!--        <dependency>
-            <groupId>org.glassfish.web</groupId>
-            <artifactId>el-impl</artifactId>
-            <version>2.2</version>
-        </dependency>-->
-
-        <dependency>
+                <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
             <version>1.7.4</version>
@@ -148,10 +170,60 @@
             <version>1.2.3</version>
         </dependency>
         -->
+        <!--        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.3</version>
+        </dependency>-->
+
     </dependencies>
 
     <build>
+        <!--        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <groupId>org.apache.tomcat.maven</groupId>
+                    <artifactId>tomcat7-maven-plugin</artifactId>
+                    <version>2.2</version>
+                </plugin>
+            </plugins>
+        </pluginManagement>-->
+
         <plugins>
+            <plugin>
+                <groupId>org.apache.tomcat.maven</groupId>
+                <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
+                <configuration>
+                    <port>8080</port>
+                    <path>/techSupport</path>
+                    <systemProperties>
+                        <JAVA_OPTS>-Xms512m -Xmx1024m -XX:MaxPermSize=512m</JAVA_OPTS>
+                    </systemProperties>
+                </configuration>
+                <!--                <executions>
+                    <execution>
+                        <id>tomcat-run</id>
+                        <goals>
+                            <goal>exec-war-only</goal>
+                        </goals>
+                        <phase>package</phase>
+                        <configuration>
+                            <path>foo</path>
+                            <serverXml>src/main/tomcatconf/server.xml</serverXml>
+                            <attachArtifactClassifier>default value is exec-war but you can customize</attachArtifactClassifier>
+                            <attachArtifactClassifierType>default value is jar</attachArtifactClassifierType>
+                        </configuration>
+                    </execution>
+                </executions>-->
+
+
+                <!--                <configuration>
+                    <port>8080</port>
+                    <path>/techSupport</path>
+                </configuration>-->
+            </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -172,6 +244,7 @@
                     <failOnMissingWebXml>false</failOnMissingWebXml>
                 </configuration>
             </plugin>
+
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>

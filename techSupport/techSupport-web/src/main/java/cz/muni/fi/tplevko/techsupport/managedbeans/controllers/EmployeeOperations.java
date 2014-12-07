@@ -1,13 +1,9 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.controllers;
 
-import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
-import cz.muni.fi.tplevko.techsupport.entity.dto.RequestDto;
-import cz.muni.fi.tplevko.techsupport.services.CustomerService;
 import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
 import cz.muni.fi.tplevko.techsupport.utils.ShaEncoder;
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
@@ -19,7 +15,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- *
+ * The class is responsible for employee related operations.
+ * Some functions are accessible only to the admin.
+ * 
  * @author tplevko
  */
 @Component(value = "employeeOperations")
@@ -31,7 +29,6 @@ public class EmployeeOperations implements Serializable {
 
     @PostConstruct
     public void init() {
-
         employeeDto = new EmployeeDto();
     }
 

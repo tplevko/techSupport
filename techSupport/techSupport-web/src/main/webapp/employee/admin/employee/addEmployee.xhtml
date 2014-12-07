@@ -42,10 +42,10 @@
 
                             <h:outputLabel value="#{bundle.email} " />
                             <h:inputText value="#{employeeOperations.employeeDto.email}" id="email"
-                                         requiredMessage="#{bundle.email} #{bundle.validField}"
-                                         validatorMessage="#{bundle.email} #{bundle.validField}">
-                                <f:validateLength minimum="0"/>
-                                <f:validateRequired for="sub"/>
+                                         required="true" validatorMessage="#{bundle.invalidEmail}"                
+                                         requiredMessage="#{bundle.email} #{bundle.validField}">
+                                <f:validateRegex pattern="[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                                <f:validateRequired for="sub"/>               
                             </h:inputText> 
 
                             <h:outputText value="active"/>
