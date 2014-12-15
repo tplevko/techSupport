@@ -20,14 +20,12 @@
                 </f:facet>
 
                 <h:form>
-                    <h:panelGrid columns="3">
+                    <h:panelGrid columns="2">
 
                         <h:outputLabel value="#{bundle.oldPasswd}" />
                         <h:inputSecret value="#{changeEmplPasswdController.oldPassword}" id="oldPasswd">
                             <f:validateLength minimum="0"/>
                         </h:inputSecret>
-                        <h:message for="oldPasswd" />
-
 
                         <h:outputLabel value="#{bundle.newPasswd}" />
                         <h:inputSecret value="#{changeEmplPasswdController.newPassword}" id="newPasswd">
@@ -36,23 +34,23 @@
                             <f:attribute name="confirmPassword" value="#{confirmPassword}" />
                             <f:validateRequired for="sub"/>
                         </h:inputSecret>
-                        <h:message for="newPasswd" />
-
 
                         <h:outputLabel value="#{bundle.confirmPasswd} " />
                         <h:inputSecret binding="#{confirmPassword}" id="confirmPassword" >
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputSecret> 
-                        <h:message for="confirmPassword" />
-
+                        
                     </h:panelGrid>
 
                     <h:panelGrid columns="2">
-                        <h:commandButton id="sub" value="#{bundle.confirm}" type="submit" action="#{passwordChangeController.changeEmployeePassword()}" />
+                        <h:commandButton id="sub" value="#{bundle.confirm}" type="submit" action="#{changeEmplPasswdController.changeEmployeePassword()}" />
                         <h:commandButton value="#{bundle.cancelButton}" type="reset" />
                     </h:panelGrid>
 
+                    <h:panelGrid>
+                        <h:messages  infoStyle="color:darkgreen" errorStyle="color:darkred" />
+                    </h:panelGrid>
                 </h:form>
             </rich:panel>
 

@@ -5,6 +5,8 @@ import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
 import cz.muni.fi.tplevko.techsupport.services.CustomerService;
 import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
 import cz.muni.fi.tplevko.techsupport.utils.ShaEncoder;
+import javax.faces.application.FacesMessage;
+import javax.faces.context.FacesContext;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -43,7 +45,7 @@ public class ChangeEmplPasswdController {
         this.newPassword = newPassword;
     }
 
-    public String changeEmployeePassword() {
+    public void changeEmployeePassword() {
 
         String oldPasswordHash;
         String newPasswordHash;
@@ -60,11 +62,10 @@ public class ChangeEmplPasswdController {
 
             employeeService.updateEmployee(employee);
 
-            return "Success";
-
+            FacesContext.getCurrentInstance().addMessage("test", new FacesMessage(FacesMessage.SEVERITY_INFO, "success", null));
         } else {
-                        
-            return "Failure";
+
+            FacesContext.getCurrentInstance().addMessage("test", new FacesMessage(FacesMessage.SEVERITY_ERROR, "enter correct password", null));
         }
     }
 
@@ -76,6 +77,5 @@ public class ChangeEmplPasswdController {
 
         return null;
     }
-    
-    
+
 }
