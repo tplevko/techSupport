@@ -9,7 +9,9 @@ import org.apache.shiro.crypto.hash.Sha256Hash;
 import org.apache.shiro.util.SimpleByteSource;
 
 /**
- *
+ * The SHA256 encoder class, used for generating the password hashes, which will
+ * be stored in the database.
+ * 
  * @author tplevko
  */
 public class ShaEncoder {
@@ -18,7 +20,12 @@ public class ShaEncoder {
 
     private static final int ITERATIONS = 100;
     private static final int KEY_LENGTH = 256;
-
+    
+    /**
+     * method uses SecureRandom, for generating of the salt 
+     * 
+     * @return salt
+     */
     public static String generateSalt() {
 
         String salt = new BigInteger(64, random).toString(64);
@@ -29,6 +36,14 @@ public class ShaEncoder {
         return ITERATIONS;
     }
 
+    /**
+     * method used for hashing of the input password in cleartext. 
+     * 
+     * @param passwd - the password in cleartext
+     * @param salt   - the salt, that is used with particular password, and is stored 
+     *                 in the DB with the passwd.
+     * @return       - hashed password
+     */
     public static String sha256hash(String passwd, String salt) {
 
         if (passwd != null && salt != null) {
@@ -64,50 +79,4 @@ public class ShaEncoder {
         }
         return hash;
     }
-
-    
-//    // TODO : not working properly... repair it... maybe also not, because shiro does not support it...
-//    public static String generateStorngPasswordHash(String password, String salt) {
-//
-//        if (password != null && salt != null) {
-////            String saltedPasswd = passwd + salt;
-//            try {
-//
-//                char[] chars = password.toCharArray();
-//                byte[] saltCahrs = salt.getBytes();
-//
-//                PBEKeySpec spec = new PBEKeySpec(chars, saltCahrs, ITERATIONS, 64 * 8);
-//                SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-//                String hash = skf.generateSecret(spec).getEncoded().toString();
-//
-//                return hash;
-//
-//            } catch (NoSuchAlgorithmException e) {
-//                e.printStackTrace();
-//            } catch (InvalidKeySpecException e) {
-//                e.printStackTrace();
-//            }
-//        }
-//
-////        PBEKeySpec spec = new PBEKeySpec(chars, saltCahrs, ITERATIONS, 64 * 8);
-////        SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-////        String hash = skf.generateSecret(spec).getEncoded().toString();
-//        return null;
-//    }
-//
-//    public boolean authenticate(String attemptedPassword, String encryptedPassword, String salt) throws NoSuchAlgorithmException, InvalidKeySpecException {
-//
-//        String encryptedAttemptedPassword = generateStorngPasswordHash(attemptedPassword, salt);
-//        return encryptedPassword.equals(encryptedAttemptedPassword);
-//    }
-
-//    public static byte[] hash(char[] password, byte[] salt) {
-//        KeySpec spec = new PBEKeySpec(password, salt, ITERATIONS, KEY_LENGTH);
-//        try {
-//            SecretKeyFactory secretKeyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
-//            return secretKeyFactory.generateSecret(spec).getEncoded();
-//        } catch (NoSuchAlgorithmException | InvalidKeySpecException e) {
-//            throw new AssertionError("Error while hashing a password: " + e.getMessage(), e);
-//        }
-//    }
 }
