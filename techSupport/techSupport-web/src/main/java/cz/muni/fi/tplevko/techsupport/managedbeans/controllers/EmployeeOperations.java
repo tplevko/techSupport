@@ -103,9 +103,19 @@ public class EmployeeOperations implements Serializable {
         return "/employee/admin/employee/employeeList?faces-redirect=true";
     }
 
-    public String resetPassword() {
+    public void resetPassword() {
+        
+        String salt = employeeDto.getSalt();
+        String employeePassword = GenerateEmployeePassword.generatePasswd();
 
-        // TODO : reset passwd method
-        return "/employee/admin/employee/employeeList?faces-redirect=true";
+        Sha256Hash passwordHash = ShaEncoder.hash(employeePassword, salt);
+        
+        employeeDto.setPassword(passwordHash.toHex());
+        employeeService.updateEmployee(employeeDto);
+
+        String message = "please, send this password to the employee : " + employeePassword;
+
+        // TODO : 
+        FacesContext.getCurrentInstance().addMessage("emplPass", new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
     }
 }

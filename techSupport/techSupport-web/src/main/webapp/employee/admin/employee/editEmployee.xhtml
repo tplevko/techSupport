@@ -20,33 +20,28 @@
                 </f:facet>
 
                 <h:form>
-                    <h:panelGrid columns="3">
+                    <h:panelGrid columns="2">
                         <h:outputLabel value="name " />
                         <h:inputText value="#{employeeOperations.employeeDto.firstName}" id="firstName">
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputText>
-                        <h:message for="firstName" />
 
                         <h:outputLabel value="name " />
                         <h:inputText value="#{employeeOperations.employeeDto.lastName}" id="lastName">
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputText>
-                        <h:message for="lastName" />
 
                         <h:outputLabel value="email " />
                         <h:inputText value="#{employeeOperations.employeeDto.email}" id="email">
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputText> 
-                        <h:message for="email" />
 
                         <h:outputText value="active"/>
                         <h:selectBooleanCheckbox id="active" 
                                                  value="#{employeeOperations.employeeDto.active}" />
-                        <h:message for="active" />
-
 
                         <h:outputText value="delete"/>
 
@@ -56,23 +51,20 @@
                                            oncomplete="#{rich:component('confirmPanel')}.show();" 
                                            value="" styleClass="iconizedButton" >
                         </a4j:commandButton>
-
-                        <h:message for="delete" />
-
                     </h:panelGrid>
-                    
-                    <h:panelGrid columns="3">
 
+                    <h:panelGrid columns="1" >
+                        <h:messages />
+                    </h:panelGrid>
+
+                    <h:panelGrid columns="3">
 
                         <h:commandButton id="sub" value="#{bundle.submitButton}" type="submit" action="#{employeeOperations.editEmployee()}" />
 
                         <h:commandButton id="cancel" value="#{bundle.cancelButton}" immediate="true" type="submit" action="#{employeeViewer.listEmployees()}" />
 
-                        <a4j:commandButton execute="@this" render="@none"
-                                           onclick="event.stopPropagation();"
-                                           oncomplete="#{rich:component('confirmPasswd')}.show();" 
-                                           value="#{bundle.resetPassword}" styleClass="iconizedButton" >
-                        </a4j:commandButton>
+                        <h:commandButton id="reset" value="#{bundle.resetPassword}" type="submit" 
+                                         action="#{employeeOperations.resetPassword()}" />
 
                     </h:panelGrid>
 
@@ -89,30 +81,11 @@
                                                        return false;" style="margin-left: 5px;" />
                         </div>
                     </rich:popupPanel>
-                    
-                    <rich:popupPanel id="confirmPasswd" autosized="true" >
-                        <h:outputText value="#{bundle.resetPassword}" /> 
-                        <br/>
-                        <div class="modalPanelActionButtons">
-                            <a4j:commandButton value="#{bundle.confirm}" onclick="resetPassword();
-                                    return false;" />
-                            <a4j:commandButton value="#{bundle.cancelButton}"
-                                               onclick="${rich:component('confirmPasswd')}.hide();
-                                                       return false;" style="margin-left: 5px;" />
-                        </div>
-                    </rich:popupPanel>
-
 
                     <a4j:jsFunction name="remove" action="#{employeeOperations.deleteEmployee()}" 
                                     render="table"
                                     execute="@this"
                                     oncomplete="#{rich:component('confirmPane')}.hide();" />
-
-                    <a4j:jsFunction name="resetPassword" action="#{employeeOperations.resetPassword()}" 
-                                    render="table"
-                                    execute="@this"
-                                    oncomplete="#{rich:component('confirmPasswd')}.hide();" />
-
 
                 </h:form>
             </rich:panel>
