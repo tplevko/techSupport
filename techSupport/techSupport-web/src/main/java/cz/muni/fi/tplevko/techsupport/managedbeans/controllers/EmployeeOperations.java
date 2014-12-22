@@ -2,10 +2,12 @@ package cz.muni.fi.tplevko.techsupport.managedbeans.controllers;
 
 import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
 import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
+import cz.muni.fi.tplevko.techsupport.utils.GenerateEmployeePassword;
 import cz.muni.fi.tplevko.techsupport.utils.ShaEncoder;
 import java.io.Serializable;
 import java.util.Map;
 import javax.annotation.PostConstruct;
+import javax.faces.application.FacesMessage;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import org.apache.shiro.SecurityUtils;
@@ -15,9 +17,9 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * The class is responsible for employee related operations.
- * Some functions are accessible only to the admin.
- * 
+ * The class is responsible for employee related operations. Some functions are
+ * accessible only to the admin.
+ *
  * @author tplevko
  */
 @Component(value = "employeeOperations")
@@ -45,51 +47,25 @@ public class EmployeeOperations implements Serializable {
         this.employeeDto = employeeDto;
     }
 
-    public String createEmployee() {
+    public void createEmployee() {
 
-        String salt;
-        Sha256Hash passwordHash;
+        String salt = ShaEncoder.generateSalt();
+        String employeePassword = GenerateEmployeePassword.generatePasswd();
 
-        // TODO : zmenit...    
-        // TODO : treba spravit to generovanie hesiel pre zamestnancov
-//        employeeDto.setPassword("passwd");
-//        employeeDto.getPassword();
-        salt = ShaEncoder.generateSalt();
-        passwordHash = ShaEncoder.hash("passwd", salt);
+        Sha256Hash passwordHash = ShaEncoder.hash(employeePassword, salt);
 
         employeeDto.setSalt(salt);
         employeeDto.setPassword(passwordHash.toHex());
 
         employeeService.createEmployee(employeeDto);
 
-        return "/employee/admin/employee/employeeList?faces-redirect=true";
+        String message = "please, send this password to the new employee : " + employeePassword;
+
+        // TODO : 
+        FacesContext.getCurrentInstance().addMessage("emplPass", new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
+
     }
 
-//            String salt;
-//        Sha256Hash passwordHash;
-//
-//        // TODO : zmenit...    
-//        // TODO : treba spravit to generovanie hesiel pre zamestnancov
-////        employeeDto.setPassword("passwd");
-////        employeeDto.getPassword();
-//        salt = ShaEncoder.generateSalt();
-//        passwordHash = ShaEncoder.hash("passwd", salt);
-//        EmployeeDto employee = new EmployeeDto();
-//
-////        employee.setId(7l);
-//        employee.setFirstName("lllll");
-//        employee.setLastName("lllll");
-//        employee.setEmail("lllll@llll.ll");
-//        employee.setActive(true);
-//        employee.setIsAdmin(true);
-//
-//        employee.setSalt(salt);
-//        employee.setPassword(passwordHash.toHex());
-//
-//        employeeService.createEmployee(employee);
-//
-//        return "/employee/admin/employee/employeeList?faces-redirect=true";
-//
     public String editEmployeeBefore() {
 
         Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();

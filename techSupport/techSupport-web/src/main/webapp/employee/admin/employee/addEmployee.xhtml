@@ -58,10 +58,9 @@
                         -->
 
                         <h:panelGrid columns="1" >
-                            <h:message for="firstName" />
-                            <h:message for="lastName" />
-                            <h:message for="email" />
+                            <h:messages />
                         </h:panelGrid>
+                        
                         <h:panelGrid columns="2" >
                             <h:commandButton id="sub" value="create" type="submit" action="#{employeeOperations.createEmployee()}" />
 
