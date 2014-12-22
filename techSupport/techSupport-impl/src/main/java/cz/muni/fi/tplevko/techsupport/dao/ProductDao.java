@@ -4,6 +4,7 @@ import cz.muni.fi.tplevko.techsupport.entity.Product;
 import java.util.List;
 
 /**
+ * Interface for the basic product DAO
  *
  * @author tplevko
  */

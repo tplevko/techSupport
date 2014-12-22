@@ -1,11 +1,11 @@
 package cz.muni.fi.tplevko.techsupport.dao;
 
 import cz.muni.fi.tplevko.techsupport.entity.Account;
-//import cz.muni.fi.tplevko.techsupport.entity.Request;
 import cz.muni.fi.tplevko.techsupport.entity.RequestComment;
 import java.util.List;
 
 /**
+ * Interface for the basic request comment DAO
  *
  * @author tplevko
  */
@@ -20,8 +20,6 @@ public interface RequestCommentDao {
     public RequestComment findRequestCommentById(Long id);
 
     public List<RequestComment> findRequestCommentByCommenter(Account owner);
-
-//    public List<RequestComment> findRequestCommentByRequest(Request request);
 
     public List<RequestComment> getAllRequestComments();
 }

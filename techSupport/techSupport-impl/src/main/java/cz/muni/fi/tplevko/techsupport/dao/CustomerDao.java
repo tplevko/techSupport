@@ -4,7 +4,8 @@ import cz.muni.fi.tplevko.techsupport.entity.Customer;
 import java.util.List;
 
 /**
- *
+ * Interface for the basic customer DAO
+ * 
  * @author tplevko
  */
 public interface CustomerDao {

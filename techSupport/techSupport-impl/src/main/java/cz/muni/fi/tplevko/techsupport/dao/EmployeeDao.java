@@ -4,7 +4,8 @@ import cz.muni.fi.tplevko.techsupport.entity.Employee;
 import java.util.List;
 
 /**
- *
+ * Interface for the basic employee DAO
+ * 
  * @author tplevko
  */
 public interface EmployeeDao {

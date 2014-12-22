@@ -3,6 +3,7 @@ package cz.muni.fi.tplevko.techsupport.dao;
 import cz.muni.fi.tplevko.techsupport.entity.PasswordChange;
 
 /**
+ * Interface for the basic password change DAO
  *
  * @author tplevko
  */
