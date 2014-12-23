@@ -25,7 +25,7 @@ import javax.persistence.TemporalType;
 //@DiscriminatorColumn(name="DISCRIMINATOR")
 @Inheritance(strategy = InheritanceType.JOINED)
 @Table(name = "ACCOUNT")
-public abstract class Account implements Serializable {
+public class Account implements Serializable {
 
     /**
      * This inheritance strategy is documented here :
