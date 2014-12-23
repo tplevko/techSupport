@@ -1,7 +1,7 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.converter;
 
-import cz.muni.fi.tplevko.techsupport.entity.dto.ProductDto;
-import cz.muni.fi.tplevko.techsupport.services.ProductService;
+import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
+import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
 import java.util.logging.Logger;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -11,22 +11,19 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * this converter is used with the dropdown menu, for choosing the product of
- * particular request, by customer.
+ * converter used with request editing, when the employee is assigned to
+ * particullar problem.
  *
  * @author tplevko
  */
-//@ManagedBean
-//@RequestScoped
-//@FacesConverter(value = "productNameConverter")
-@Component(value = "productNameConverter")
+@Component(value = "employeeNameConverter")
 @Scope("request")
-public class ProductNameConverter implements Converter {
+public class EmployeeNameConverter implements Converter {
 
-    private static final Logger LOG = Logger.getLogger(ProductNameConverter.class.getName());
+    private static final Logger LOG = Logger.getLogger(EmployeeNameConverter.class.getName());
 
     @Autowired
-    private ProductService productService;
+    private EmployeeService employeeService;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -34,9 +31,9 @@ public class ProductNameConverter implements Converter {
         if (value == null || value.equals("")) {
             return null;
         }
-        ProductDto product = productService.findProductByName(value);
 
-        return product;
+        EmployeeDto employee = employeeService.findEmployeeByEmail(value);
+        return employee;
     }
 
     @Override
@@ -45,12 +42,9 @@ public class ProductNameConverter implements Converter {
         if (value == null) {
             return null;
         }
-
-        ProductDto product = new ProductDto();
-
-        product = (ProductDto) value;
-
-        return product.getName();
+        
+        EmployeeDto employee = new EmployeeDto();
+        employee = (EmployeeDto) value;
+        return employee.getEmail();
     }
-
 }

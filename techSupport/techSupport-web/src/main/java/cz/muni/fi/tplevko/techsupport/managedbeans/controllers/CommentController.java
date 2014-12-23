@@ -1,12 +1,9 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.controllers;
 
 import cz.muni.fi.tplevko.techsupport.entity.dto.AccountDto;
-import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestCommentDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestDto;
 import cz.muni.fi.tplevko.techsupport.services.AccountService;
-import cz.muni.fi.tplevko.techsupport.services.CustomerService;
-import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
 import cz.muni.fi.tplevko.techsupport.services.RequestCommentService;
 import cz.muni.fi.tplevko.techsupport.services.RequestService;
 import java.io.Serializable;
@@ -41,7 +38,7 @@ public class CommentController implements Serializable {
 
     @Autowired
     private RequestService requestService;
-    
+
     @Autowired
     private AccountService accountService;
 
@@ -90,7 +87,7 @@ public class CommentController implements Serializable {
         String currentUser = SecurityUtils.getSubject().getPrincipal().toString();
 
         AccountDto commenter = accountService.findAccountByEmail(currentUser);
-        
+
         RequestDto request = requestService.findRequestById(requestId);
 
         LOG.info("**************************");
@@ -104,9 +101,11 @@ public class CommentController implements Serializable {
                 getCurrentInstance().getExternalContext().getRequest();
 
         requestCommentService.createRequestComment(requestComment);
+        requestComment = new RequestCommentDto();
 
         // TODO : pre employee ten redirect nie je spravny...
-        return "/request/requestDetail?faces-redirect=true;includeViewParams=true";
+//        return "/request/requestDetail?faces-redirect=true;includeViewParams=true";
+        return null;
     }
 
     private List<RequestCommentDto> selectedItem;
