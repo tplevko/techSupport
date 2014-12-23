@@ -6,12 +6,15 @@
                 xmlns:ui="http://java.sun.com/jsf/facelets" 
                 xmlns:p="http://primefaces.org/ui"
                 xmlns:rich="http://richfaces.org/rich">
-    
+
     <f:metadata>
         <f:viewParam name="reqId" value="#{requestController.requestId}" />
         <f:viewParam name="reqId" value="#{commentController.requestId}" />
+        <f:viewParam name="reqId" value="#{editRequestController.requestId}" />
+
         <f:event type="preRenderView" listener="#{requestController.editRequestBefore()}"/>
         <f:event type="preRenderView" listener="#{commentController.initRequestCommentList()}"/>
+        <f:event type="preRenderView" listener="#{editRequestController.initRequest()}"/>
     </f:metadata>
 
     <ui:composition template="../../template.xhtml">
@@ -28,16 +31,53 @@
                 <h:outputLabel value="#{bundle.createdBy}: " />       
                 <h:outputText value="#{requestController.request.owner.firstName} #{requestController.request.owner.lastName}" />                            
 
-                <h:outputLabel value="#{bundle.requestOwner}: " />        
-                <h:outputText value="#{requestController.request.assignee.firstName} #{requestController.request.assignee.lastName}" />                            
-
-                <h:outputLabel value="#{bundle.requestOwnerContact}: " />         
-                <h:outputText value="#{requestController.request.assignee.email}" />                            
-
-                <h:outputLabel value="#{bundle.requestPriority}: " />
-                <h:outputLabel value="#{requestController.request.priority}" />
+                <h:outputLabel value="#{bundle.createdByEmail}: " />
+                <h:outputText value="#{requestController.request.owner.email}" />                            
 
             </h:panelGrid>
+
+            <h:form id="form">
+
+                <h:panelGrid columns="2">
+
+                    <h:outputLabel value="#{bundle.requestPriority}: " />
+                    <h:inputText value="#{editRequestController.selectedRequest.priority}" 
+                                 id="requestPriority" style="width: 30px">
+                        <f:validateLength minimum="0"/>
+                        <f:validateRequired for="sub"/>
+                    </h:inputText>
+
+                    <h:outputLabel value="#{bundle.finished}:" />
+                    <h:selectBooleanCheckbox value="#{editRequestController.selectedRequest.executed}" />
+
+                    <h:outputLabel value="#{bundle.requestOwner}:" />
+                    <h:selectOneMenu id="employees" value="#{editRequestController.selectedEmployee}">
+
+                        <f:converter binding="#{employeeNameConverter}" />
+                        <f:selectItems value="#{editRequestController.employeeList}" var="employee"
+                                       itemLabel="#{employee.email}" />
+                    </h:selectOneMenu>
+
+                </h:panelGrid>
+
+                <h:panelGrid columns="1">
+
+                    <h:message for="requestTitle" />
+                    <h:message for="imputText" />
+
+                    <f:facet name="footer" >
+                        <h:commandButton id="sub" value="edit" type="submit"
+                                         action="#{editRequestController.editRequest()}" />
+                        <h:commandButton value="#{bundle.cancelButton}" type="reset" />
+                    </f:facet>
+
+
+
+                </h:panelGrid>
+
+
+            </h:form>
+
 
             <hr/>
 
@@ -102,9 +142,9 @@
                         <h:message for="text" />
                     </h:panelGrid>
                     <h:panelGrid columns="2">
-                        <h:commandButton id="sub" value="create" type="submit" 
+                        <h:commandButton id="sub" value="#{bundle.submit}" type="submit" 
                                          action="#{commentController.newComment()}" />
-                        <h:commandButton value="cancel" type="reset" />
+                        <h:commandButton value="#{bundle.cancelButton}" type="reset" />
 
                     </h:panelGrid>
                 </rich:panel>

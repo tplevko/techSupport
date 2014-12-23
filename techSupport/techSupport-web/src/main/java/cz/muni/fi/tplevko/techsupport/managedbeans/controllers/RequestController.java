@@ -1,7 +1,6 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.controllers;
 
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
-import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.ProductDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestDto;
 import cz.muni.fi.tplevko.techsupport.services.CustomerService;
@@ -11,12 +10,9 @@ import cz.muni.fi.tplevko.techsupport.services.RequestService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.faces.context.FacesContext;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -143,40 +139,31 @@ public class RequestController implements Serializable {
         return "/request/createRequest?faces-redirect=true";
     }
 
-//    public String editRequestBefore() {
-//
-//        Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-//        Long requestId = Long.valueOf(parameterMap.get("requestId"));
-//        request = requestService.findRequestById(requestId);
-//
-//        return "/employee/technician/requests/editRequest?faces-redirect=true";
-//    }
-//    
     public void editRequestBefore() {
 
         request = requestService.findRequestById(requestId);
     }
 
-    public String editRequest() {
-
-        String currentEmployee = SecurityUtils.getSubject().getPrincipal().toString();
-
-        EmployeeDto employee = employeeService.findEmployeeByEmail(currentEmployee);
-
-        if (request.isExecuted() == true) {
-
-            request.setFinished(new Date());
-            request.setAssignee(employee);
-
-        } else {
-            request.setFinished(null);
-            request.setAssignee(null);
-        }
-
-        requestService.updateRequest(request);
-
-        return "/employee/technician/requests/requestList?faces-redirect=true";
-    }
+//    public String editRequest() {
+//
+//        String currentEmployee = SecurityUtils.getSubject().getPrincipal().toString();
+//
+//        EmployeeDto employee = employeeService.findEmployeeByEmail(currentEmployee);
+//
+//        if (request.isExecuted() == true) {
+//
+//            request.setFinished(new Date());
+//            request.setAssignee(employee);
+//
+//        } else {
+//            request.setFinished(null);
+//            request.setAssignee(null);
+//        }
+//
+//        requestService.updateRequest(request);
+//
+//        return "/employee/technician/requests/requestList?faces-redirect=true";
+//    }
 
     public String deleteRequest() {
 
