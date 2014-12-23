@@ -38,16 +38,24 @@
                                             rowClasses="odd-row, even-row"
                                             rows="20" sortMode="single"
                                             onrowmouseover="jQuery(this).addClass('active-row');" 
-                                            onrowmouseout="jQuery(this).removeClass('active-row');" 
-                                            onrowclick="processRowClick(#{req.id});"
+                                            onrowmouseout="jQuery(this).removeClass('active-row');"     
                                             keepSaved="true"
                                             >
 
-                        <rich:column sortBy="#{req.id}" >
+<!--                                            onrowclick="processRowClick(#{req.id});"-->
+                                    
+                        <rich:column sortBy="#{req.id}"  style="text-align: center;" width="50px"  >
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.id}" />
                             </f:facet>
                             <h:outputText value="#{req.id}" />
+                        </rich:column>
+                                         
+                        <rich:column sortBy="#{req.requestTitle}" width="140px" >
+                            <f:facet name="header">
+                                <h:outputText style="" class="arrangeableHeader" value="#{bundle.reqTitle}" />
+                            </f:facet>
+                            <h:outputText value="#{req.requestTitle}" />
                         </rich:column>
 
                         <rich:column sortBy="#{req.product.name}" >
@@ -57,7 +65,7 @@
                             <h:outputText value="#{req.product.name}" />
                         </rich:column>
 
-                        <rich:column sortBy="#{req.priority}" >
+                        <rich:column sortBy="#{req.priority}"  style="text-align: center;" width="50px" >
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.priority}" />
                             </f:facet>
@@ -74,15 +82,15 @@
                             </h:outputText>            
                         </rich:column>
 
-                        <rich:column sortBy="#{req.executed}" >
+                        <rich:column sortBy="#{req.executed}"  style="text-align: center;" width="50px">
                             <f:facet name="header">
-                                <h:outputText class="arrangeableHeader" value="#{bundle.active}" />
+                                <h:outputText class="arrangeableHeader" value="#{bundle.finished}" />
                             </f:facet>
                             <h:outputText value="#{req.executed}" />
                         </rich:column>
 
 
-                        <rich:column style="text-align: center;" width="75px" > 
+                        <rich:column style="text-align: center;" width="60px" > 
 
                             <f:facet name="header" >
                                 <h:outputText class="arrangeableHeader" value="#{bundle.requestAction}" />
@@ -100,23 +108,13 @@
                                            assignTo="#{requestController.selectedItemId}" />     
 
                             </a4j:commandButton>
-
-                            <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
-                                               value="Edit" styleClass="iconizedButton" 
-
-                                               action="#{requestController.editRequestBefore()}" >
-                                <a4j:param value="#{req.id}" name="requestId"/>                   
-                            </a4j:commandButton>
-                        </rich:column>
-
-                        <rich:column width="60px">
-
-                            <h:link value="#{bundle.detail}"  outcome="/employee/technician/requests/editRequest" >
+                            
+                            <h:link outcome="/employee/technician/requests/editRequest" >
+                                <h:graphicImage value="/resources/icons/Change-pencil-icon.png" />
                                 <f:param name="reqId" value="#{req.id}" />
                             </h:link>
 
                         </rich:column>
-
 
                         <f:facet name="footer">
                             <rich:dataScroller id="scroller" />
@@ -154,7 +152,6 @@
                                 >
 
                     <a4j:param name="rowKey" assignTo="#{rowKey}" />
-
                 </a4j:jsFunction>
             </h:form>
 

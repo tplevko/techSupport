@@ -94,9 +94,8 @@ public class RequestServiceImpl implements RequestService {
     @Override
     @Transactional(readOnly = true)
     public RequestDto findRequestByOwner(CustomerDto owner) {
-        
+
         //TODO
-        
 //      
 //        if (owner == null) {
 //            throw new IllegalArgumentException("name can't be nulll");
@@ -129,9 +128,15 @@ public class RequestServiceImpl implements RequestService {
     }
 
     @Override
-    @Transactional
-    public void assignPriority(Request request, long priority) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public List<RequestDto> getActiveRequests() {
+
+        List<Request> requests = requestDao.getActiveRequests();
+
+        List<RequestDto> productsReturn = new ArrayList<>();
+        for (Request p : requests) {
+            productsReturn.add(mapper.map(p, RequestDto.class));
+        }
+        return productsReturn;
     }
 
 }

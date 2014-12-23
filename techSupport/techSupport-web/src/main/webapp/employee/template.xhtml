@@ -55,7 +55,7 @@
 
 
                                     <rich:panelMenuGroup label="#{bundle.menuEmployeeGroup}" 
-                                                            rendered="#{request.isUserInRole('ROLE_ADMIN')}">
+                                                         rendered="#{request.isUserInRole('ROLE_ADMIN')}">
                                         <rich:panelMenuItem label="#{bundle.menuEmployeeAdd}"
                                                             rendered="#{request.isUserInRole('ROLE_ADMIN')}"
                                                             name="addEmployee"
@@ -73,7 +73,7 @@
 
 
                                     <rich:panelMenuGroup label="#{bundle.menuUserGroup}" 
-                                                            rendered="#{request.isUserInRole('ROLE_ADMIN')}">
+                                                         rendered="#{request.isUserInRole('ROLE_ADMIN')}">
 
                                         <rich:panelMenuItem label="#{bundle.menuUserList}"
                                                             rendered="#{request.isUserInRole('ROLE_ADMIN')}"
@@ -86,16 +86,22 @@
 
 
                                     <rich:panelMenuGroup label="#{bundle.menuRequestGroup}">
-                                        <rich:panelMenuItem label="#{bundle.menuRequestGroup}" 
+                                        <rich:panelMenuItem label="#{bundle.menuRequestGroupAll}" 
                                                             name="listRequests"
                                                             actionListener="#{navigationMenuBean.saveSelectedItem}" 
                                                             action="#{requestController.listRequests}"
                                                             mode="server"/>
+                                        <rich:panelMenuItem label="#{bundle.menuRequestGroupActive}" 
+                                                            name="activeRequests"
+                                                            actionListener="#{navigationMenuBean.saveSelectedItem}" 
+                                                            action="#{requestController.listActiveRequests()}"
+                                                            mode="server"/>
+
 
                                     </rich:panelMenuGroup>
 
                                     <rich:panelMenuGroup label="#{bundle.menuProductGroup}"
-                                                            rendered="#{request.isUserInRole('ROLE_ADMIN')}">
+                                                         rendered="#{request.isUserInRole('ROLE_ADMIN')}">
                                         <rich:panelMenuItem label="#{bundle.menuProductAdd}" 
                                                             rendered="#{request.isUserInRole('ROLE_ADMIN')}"
                                                             name="addProduct" 

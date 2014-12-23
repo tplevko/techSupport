@@ -1,6 +1,5 @@
 package cz.muni.fi.tplevko.techsupport.services;
 
-import cz.muni.fi.tplevko.techsupport.entity.Request;
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestDto;
@@ -25,7 +24,12 @@ public interface RequestService {
     public RequestDto findRequestByAssignee(EmployeeDto assignee);
 
     public List<RequestDto> getAllRequests();
-
-    public void assignPriority(Request request, long priority);
+    
+    /**
+     * this method is used, for getting only the active requests,
+     * 
+     * @return 
+     */
+    public List<RequestDto> getActiveRequests();
 
 }

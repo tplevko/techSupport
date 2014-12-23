@@ -95,13 +95,18 @@ public class RequestController implements Serializable {
 
     public List<RequestDto> getRequestList() {
 
-        requestList = requestService.getAllRequests();
-
         return requestList;
+    }
+
+    public String listActiveRequests() {
+
+        requestList = requestService.getActiveRequests();
+        return "/employee/technician/requests/requestList?faces-redirect=true";
     }
 
     public String listRequests() {
         requestList = requestService.getAllRequests();
+//                requestList = requestService.getActiveRequests();
         return "/employee/technician/requests/requestList?faces-redirect=true";
     }
 
@@ -164,11 +169,13 @@ public class RequestController implements Serializable {
 //
 //        return "/employee/technician/requests/requestList?faces-redirect=true";
 //    }
-
     public String deleteRequest() {
 
         RequestDto requestToDelete = requestService.findRequestById(selectedItemId);
         requestService.deleteRequest(requestToDelete);
+        
+        // refresh request list
+        requestList=requestList = requestService.getAllRequests();
         return "/employee/technician/requests/requestList?faces-redirect=true";
     }
 

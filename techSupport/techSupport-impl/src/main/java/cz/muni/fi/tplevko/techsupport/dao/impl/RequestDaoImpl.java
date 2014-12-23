@@ -4,10 +4,14 @@ import cz.muni.fi.tplevko.techsupport.dao.RequestDao;
 import cz.muni.fi.tplevko.techsupport.entity.Request;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -16,6 +20,8 @@ import org.springframework.stereotype.Repository;
  */
 @Repository(value = "requestDao")
 public class RequestDaoImpl implements RequestDao {
+
+    private static final Logger log = Logger.getLogger(RequestDaoImpl.class.getName());
 
     @PersistenceContext
     private EntityManager em;
@@ -92,6 +98,26 @@ public class RequestDaoImpl implements RequestDao {
         cq.select(cq.from(Request.class));
         Query q = em.createQuery(cq);
         requests = q.getResultList();
+        return requests;
+    }
+
+    @Override
+    public List<Request> getActiveRequests() {
+
+        List<Request> requests = new ArrayList<>();
+
+        CriteriaBuilder cb = em.getCriteriaBuilder();
+
+        CriteriaQuery query = cb.createQuery(Request.class);
+        Root<Request> c = query.from(Request.class);
+
+        boolean myCondition = false;
+
+        Predicate predicate = cb.equal(c.get("executed"), myCondition);
+        query.where(predicate);
+        Query q = em.createQuery(query);
+        requests = q.getResultList();
+
         return requests;
     }
 
