@@ -29,14 +29,14 @@
                 <h:outputLabel value="#{bundle.createdBy}: " />       
                 <h:outputText value="#{customerRequestsController.selectedRequestDto.owner.firstName} #{customerRequestsController.selectedRequestDto.owner.lastName}" />                            
 
+                <h:outputLabel value="#{bundle.createdByEmail}: " />       
+                <h:outputText value="#{customerRequestsController.selectedRequestDto.owner.email}" />                            
+
                 <h:outputLabel value="#{bundle.requestOwner}: " />        
                 <h:outputText value="#{customerRequestsController.selectedRequestDto.assignee.firstName} #{customerRequestsController.selectedRequestDto.assignee.lastName}" />                            
 
                 <h:outputLabel value="#{bundle.requestOwnerContact}: " />         
                 <h:outputText value="#{customerRequestsController.selectedRequestDto.assignee.email}" />                            
-
-                <h:outputLabel value="#{bundle.requestPriority}: " />
-                <h:outputLabel value="#{customerRequestsController.selectedRequestDto.priority}" />
 
             </h:panelGrid>
 
