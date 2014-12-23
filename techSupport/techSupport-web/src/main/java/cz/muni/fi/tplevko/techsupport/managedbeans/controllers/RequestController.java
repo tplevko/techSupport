@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
-import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +52,8 @@ public class RequestController implements Serializable {
     private Collection<Object> selected;
     private RequestDto selectedItem;
     private Long selectedItemId;
+    // This requestId is used with employee updating some request, or commenting on it
+    private Long requestId;
 
     @PostConstruct
     public void init() {
@@ -61,6 +62,14 @@ public class RequestController implements Serializable {
         selectedproduct = new ProductDto();
         requestList = new ArrayList<RequestDto>();
         productList = new ArrayList<ProductDto>();
+    }
+
+    public Long getRequestId() {
+        return requestId;
+    }
+
+    public void setRequestId(Long requestId) {
+        this.requestId = requestId;
     }
 
     public Long getSelectedItemId() {
@@ -97,7 +106,7 @@ public class RequestController implements Serializable {
 
     public String listRequests() {
         requestList = requestService.getAllRequests();
-        return "/employee/technician/requestList?faces-redirect=true";
+        return "/employee/technician/requests/requestList?faces-redirect=true";
     }
 
     public void setRequestList(List<RequestDto> requestList) {
@@ -134,13 +143,18 @@ public class RequestController implements Serializable {
         return "/request/createRequest?faces-redirect=true";
     }
 
-    public String editRequestBefore() {
+//    public String editRequestBefore() {
+//
+//        Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
+//        Long requestId = Long.valueOf(parameterMap.get("requestId"));
+//        request = requestService.findRequestById(requestId);
+//
+//        return "/employee/technician/requests/editRequest?faces-redirect=true";
+//    }
+//    
+    public void editRequestBefore() {
 
-        Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-        Long requestId = Long.valueOf(parameterMap.get("requestId"));
         request = requestService.findRequestById(requestId);
-
-        return "/employee/technician/editRequest?faces-redirect=true";
     }
 
     public String editRequest() {
@@ -161,14 +175,14 @@ public class RequestController implements Serializable {
 
         requestService.updateRequest(request);
 
-        return "/employee/technician/requestList?faces-redirect=true";
+        return "/employee/technician/requests/requestList?faces-redirect=true";
     }
 
     public String deleteRequest() {
 
         RequestDto requestToDelete = requestService.findRequestById(selectedItemId);
         requestService.deleteRequest(requestToDelete);
-        return "/employee/technician/requestList?faces-redirect=true";
+        return "/employee/technician/requests/requestList?faces-redirect=true";
     }
 
     public Collection<Object> getSelected() {

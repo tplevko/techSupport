@@ -6,22 +6,11 @@
                 xmlns:rich="http://richfaces.org/rich"
                 xmlns:a4j="http://richfaces.org/a4j">
 
-    <ui:composition template="../template.xhtml">
+    <ui:composition template="../../template.xhtml">
 
         <ui:define name="title">#{bundle.indexTitle}</ui:define>
 
         <ui:define name="content">
-            
-            <br/>
-            
-            <br/>
-            
-            TODO : Make there a switch for active/inactive only
-            
-            <br/>
-            
-            <br/>
-
             <h:outputStylesheet>
                 .even-row {
                 background-color: #FCFFFE;
@@ -114,9 +103,17 @@
 
                             <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
                                                value="Edit" styleClass="iconizedButton" 
+
                                                action="#{requestController.editRequestBefore()}" >
                                 <a4j:param value="#{req.id}" name="requestId"/>                   
                             </a4j:commandButton>
+                        </rich:column>
+
+                        <rich:column width="60px">
+
+                            <h:link value="#{bundle.detail}"  outcome="/employee/technician/requests/editRequest" >
+                                <f:param name="reqId" value="#{req.id}" />
+                            </h:link>
 
                         </rich:column>
 

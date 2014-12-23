@@ -1,14 +1,18 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.controllers;
 
+import cz.muni.fi.tplevko.techsupport.entity.dto.AccountDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestCommentDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestDto;
+import cz.muni.fi.tplevko.techsupport.services.AccountService;
 import cz.muni.fi.tplevko.techsupport.services.CustomerService;
+import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
 import cz.muni.fi.tplevko.techsupport.services.RequestCommentService;
 import cz.muni.fi.tplevko.techsupport.services.RequestService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
@@ -20,13 +24,15 @@ import org.springframework.stereotype.Component;
 
 /**
  * TODO : comment on the code for christ sake!
- * 
+ *
  * @author tplevko
  */
 @Component(value = "commentController")
 @ManagedBean
 @Scope("request")
 public class CommentController implements Serializable {
+
+    private static final Logger LOG = Logger.getLogger(CommentController.class.getName());
 
     private Long requestId;
 
@@ -35,9 +41,9 @@ public class CommentController implements Serializable {
 
     @Autowired
     private RequestService requestService;
-
+    
     @Autowired
-    private CustomerService customerService;
+    private AccountService accountService;
 
     private RequestCommentDto requestComment;
 
@@ -83,8 +89,13 @@ public class CommentController implements Serializable {
 
         String currentUser = SecurityUtils.getSubject().getPrincipal().toString();
 
-        CustomerDto commenter = customerService.findCustomerByEmail(currentUser);
+        AccountDto commenter = accountService.findAccountByEmail(currentUser);
+        
         RequestDto request = requestService.findRequestById(requestId);
+
+        LOG.info("**************************");
+        LOG.info("current user, creating comment : " + commenter.getEmail());
+        LOG.info("**************************");
 
         requestComment.setCommenter(commenter);
         requestComment.setRequest(request);
@@ -94,6 +105,7 @@ public class CommentController implements Serializable {
 
         requestCommentService.createRequestComment(requestComment);
 
+        // TODO : pre employee ten redirect nie je spravny...
         return "/request/requestDetail?faces-redirect=true;includeViewParams=true";
     }
 
