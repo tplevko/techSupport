@@ -13,6 +13,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -135,7 +136,8 @@ public class RequestController implements Serializable {
         request.setProduct(selectedproduct);
         request.setPriority(selectedproduct.getDefaultPriority());
         requestService.createRequest(request);
-
+        request = new RequestDto();
+        
         return "/thankYou?faces-redirect=true";
     }
 
@@ -173,10 +175,12 @@ public class RequestController implements Serializable {
 
         RequestDto requestToDelete = requestService.findRequestById(selectedItemId);
         requestService.deleteRequest(requestToDelete);
-        
+
         // refresh request list
-        requestList=requestList = requestService.getAllRequests();
-        return "/employee/technician/requests/requestList?faces-redirect=true";
+        // TODO : this won't work for all the request lists...
+        requestList.remove(requestToDelete);
+
+        return FacesContext.getCurrentInstance().getViewRoot().getViewId() + "?faces-redirect=true&includeViewParams=true";
     }
 
     public Collection<Object> getSelected() {

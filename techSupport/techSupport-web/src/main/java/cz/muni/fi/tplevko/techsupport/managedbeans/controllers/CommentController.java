@@ -103,9 +103,7 @@ public class CommentController implements Serializable {
         requestCommentService.createRequestComment(requestComment);
         requestComment = new RequestCommentDto();
 
-        // TODO : pre employee ten redirect nie je spravny...
-//        return "/request/requestDetail?faces-redirect=true;includeViewParams=true";
-        return null;
+        return FacesContext.getCurrentInstance().getViewRoot().getViewId() + "?faces-redirect=true&includeViewParams=true";
     }
 
     private List<RequestCommentDto> selectedItem;

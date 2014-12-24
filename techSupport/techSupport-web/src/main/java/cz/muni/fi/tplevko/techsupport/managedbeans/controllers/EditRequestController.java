@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
+import javax.faces.context.FacesContext;
 import org.apache.shiro.SecurityUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
@@ -21,79 +22,83 @@ import org.springframework.stereotype.Component;
 @Component(value = "editRequestController")
 @Scope("session")
 public class EditRequestController implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
     private static final Logger LOG = Logger.getLogger(EditRequestController.class.getName());
-    
+
     @Autowired
     private EmployeeService employeeService;
-    
+
     @Autowired
     private RequestService requestService;
-    
+
     private Long requestId;
     private RequestDto selectedRequest;
     private List<EmployeeDto> employeeList;
     private EmployeeDto selectedEmployee;
-    
+
     public void initRequest() {
-        
+
         employeeList = employeeService.getAllEmployees();
         selectedRequest = requestService.findRequestById(requestId);
     }
-    
+
     public Long getRequestId() {
         return requestId;
     }
-    
+
     public void setRequestId(Long requestId) {
         this.requestId = requestId;
     }
-    
+
     public RequestDto getSelectedRequest() {
         return selectedRequest;
     }
-    
+
     public void setSelectedRequest(RequestDto selectedRequest) {
         this.selectedRequest = selectedRequest;
     }
-    
+
     public EmployeeDto getSelectedEmployee() {
         return selectedEmployee;
     }
-    
+
     public void setSelectedEmployee(EmployeeDto selectedEmployee) {
         this.selectedEmployee = selectedEmployee;
     }
-    
+
     public List<EmployeeDto> getEmployeeList() {
         return employeeList;
     }
-    
+
     public void setEmployeeList(List<EmployeeDto> employeeList) {
         this.employeeList = employeeList;
     }
-    
+
     public String editRequest() {
-        
+
         String currentEmployee = SecurityUtils.getSubject().getPrincipal().toString();
-        
+
         EmployeeDto employee = employeeService.findEmployeeByEmail(currentEmployee);
-        
+
         if (selectedRequest.isExecuted() == true) {
-            
+
             selectedRequest.setFinished(new Date());
             selectedRequest.setAssignee(employee);
-            
+
         } else {
             selectedRequest.setFinished(null);
             selectedRequest.setAssignee(null);
         }
-        
+
         requestService.updateRequest(selectedRequest);
+        // the changed state is written into LOG, so it can be reviewed afterwards.
         LOG.info("request update made by : " + currentEmployee);
-        LOG.info("request state changed to : "); // TODO : write new state
-        return null;
+        LOG.info("request state changed to : " + selectedRequest.getAssignee().getEmail() + " " + 
+                selectedRequest.isExecuted() + " " + selectedRequest.getPriority());
+        
+        return FacesContext.getCurrentInstance().getViewRoot().getViewId() + "?faces-redirect=true&includeViewParams=true";
+
     }
-    
+
 }

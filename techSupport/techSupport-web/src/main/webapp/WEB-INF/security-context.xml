@@ -26,7 +26,6 @@
                 /thankYou.xhtml = roles[ROLE_USER]
                 /requestNewPasswd.xhtml = roles[ROLE_USER]
                 /registration/editPersonalInfo.xhtml = roles[ROLE_USER]
-                /registration/createAccount.xhtml = 
                 <!--/security/login.xhtml = authc-->
                 
                 /index.html = anon

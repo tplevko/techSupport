@@ -15,19 +15,20 @@
             <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
         </properties>
     </persistence-unit>
-      
-    <!--    <persistence-unit name="TestInMemoryPU" transaction-type="RESOURCE_LOCAL">
-            <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
-            <properties>
-                <property name="javax.persistence.jdbc.url" value="jdbc:derby:memory:TestDB;create=true"/>
-                <property name="javax.persistence.jdbc.driver" value="org.apache.derby.jdbc.EmbeddedDriver"/>
-                <property name="hibernate.show_sql" value="false"/>
-                <property name="hibernate.format_sql" value="true"/>
-                <property name="hibernate.use_sql_comments" value="true"/>
-                <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
-            </properties>
-        </persistence-unit>
-    -->
+    
+    <persistence-unit name="postgres" transaction-type="RESOURCE_LOCAL">
+        <!--<provider>org.hibernate.ejb.HibernatePersistence</provider>-->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <jta-data-source>jdbc/dataSource</jta-data-source>
+        <properties>
+            <property name="hibernate.show_sql" value="true"/>
+            <property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect"/>
+            <property name="hibernate.format_sql" value="true"/>
+            <property name="hibernate.hbm2ddl.auto" value="create-drop"/>
+        </properties>
+    </persistence-unit>
+
+
     <persistence-unit name="TestInMemoryPU" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <properties>
@@ -39,5 +40,5 @@
             <property name="hibernate.connection.password" value=""/>
         </properties>
     </persistence-unit>
-    
+
 </persistence>
