@@ -11,6 +11,10 @@
           http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.2.xsd
 ">
     
+    <!--
+        this is the basic shiro filter, that will enforce security on presentation layer
+        and will make resources accessible only for required entities.
+    -->
     <bean id="shiroFilter" class="org.apache.shiro.spring.web.ShiroFilterFactoryBean">
         <property name="securityManager" ref="securityManager"/>
         <property name="loginUrl" value="/security/login.xhtml"/>
@@ -18,12 +22,11 @@
         <property name="unauthorizedUrl" value="/error"/>
         <property name="filterChainDefinitions">
             <value>
-                <!--                
-                security turned off     -->
                 /security/logout.xhtml = roles[ROLE_USER]
                 /thankYou.xhtml = roles[ROLE_USER]
                 /requestNewPasswd.xhtml = roles[ROLE_USER]
                 /registration/editPersonalInfo.xhtml = roles[ROLE_USER]
+                /registration/createAccount.xhtml = 
                 <!--/security/login.xhtml = authc-->
                 
                 /index.html = anon
@@ -34,13 +37,6 @@
         </property>
     </bean>
     
-    <!--    
-        <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager"
-      depends-on="userRepository">
-        <property name="realm" ref="credentialRepository" />
-    </bean>-->
-
-
     <bean id="securityManager" class="org.apache.shiro.web.mgt.DefaultWebSecurityManager">
         <property name="realm" ref="myCustomRealm"/>  
     </bean>

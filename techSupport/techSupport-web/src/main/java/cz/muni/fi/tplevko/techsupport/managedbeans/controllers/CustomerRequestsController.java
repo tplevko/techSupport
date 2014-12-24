@@ -50,12 +50,24 @@ public class CustomerRequestsController implements Serializable {
         return customerRequestList;
     }
 
-    // TODO : this is insecure... it retrieves even the requestDto-s, that don't
-    // belong to the current customer... 
-    // it has to be repaired..
     public void editRequestBefore() {
 
+        String currentEmployee = SecurityUtils.getSubject().getPrincipal().toString();
+        CustomerDto customer = customerService.findCustomerByEmail(currentEmployee);
+
         selectedRequestDto = requestService.findRequestById(requestId);
+        if (selectedRequestDto.getOwner().equals(customer)) {
+
+        } else {
+
+            // ******************************
+            // ******************************
+            // TODO : return HTTP error 403, in some other way, than exception...
+            // ******************************
+            // ******************************
+            
+            throw new RuntimeException("403 : not accessible");
+        }
     }
 
     public Long getRequestId() {

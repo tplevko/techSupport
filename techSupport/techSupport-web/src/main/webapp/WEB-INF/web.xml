@@ -15,7 +15,6 @@
         <param-value>true</param-value>
     </context-param>
     
-    
     <!-- Add Support for Spring -->
     <listener>
         <listener-class>
@@ -78,67 +77,26 @@
         <dispatcher>ERROR</dispatcher>
     </filter-mapping>
             
-    <!--    <filter-mapping>
-        <filter-name>shiroFilter</filter-name>
-        <url-pattern>/*</url-pattern>
-        <dispatcher>REQUEST</dispatcher>
-        <dispatcher>FORWARD</dispatcher>
-        <dispatcher>INCLUDE</dispatcher>
-        <dispatcher>ERROR</dispatcher>
-    </filter-mapping>-->
-    <!-- ############# Custom servlets ################# -->
-    <servlet>
-        <servlet-name>emailVerificationServlet</servlet-name>
-        <servlet-class>cz.muni.fi.tplevko.techsupport.managedbeans.EmailValidationClientServlet</servlet-class>
-    </servlet>
-    <servlet>
-        <servlet-name>resetPasswordServlet</servlet-name>
-        <servlet-class>cz.muni.fi.tplevko.techsupport.managedbeans.ResetPasswordServlet</servlet-class>
-    </servlet>
-
-    <servlet-mapping>
-        <servlet-name>emailVerificationServlet</servlet-name>
-        <url-pattern>/emailValidate</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>resetPasswordServlet</servlet-name>
-        <url-pattern>/resetPassword</url-pattern>
-    </servlet-mapping>
-
-    <!-- ############# Custom servlets ################# -->
+    <!-- ############# Faces servlets ################# -->
     <servlet>
         <servlet-name>Faces Servlet</servlet-name>
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
-    <!--    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>/faces/*</url-pattern>
-    </servlet-mapping>-->
-    <!--    <servlet>
-        <servlet-name>ProcessConfirmUrl</servlet-name>
-        <servlet-class>cz.muni.fi.tplevko.secureappexample.managedbeans.servlet.ProcessConfirmUrl</servlet-class>
-    </servlet>-->
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
-        <!--<url-pattern>*.xhtml</url-pattern>-->
         <url-pattern>*.xhtml</url-pattern>
     </servlet-mapping>
-    <!--    <servlet-mapping>
-        <servlet-name>ProcessConfirmUrl</servlet-name>
-        <url-pattern>/ProcessConfirmUrl</url-pattern>
-    </servlet-mapping>-->
     <session-config>
         <session-timeout>
             30
         </session-timeout>
     </session-config>
     <welcome-file-list>
-        <!--        <welcome-file>index.xhtml</welcome-file>-->
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
 </web-app>
