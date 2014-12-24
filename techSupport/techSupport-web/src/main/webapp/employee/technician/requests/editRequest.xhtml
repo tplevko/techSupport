@@ -54,6 +54,7 @@
                     <h:selectOneMenu id="employees" value="#{editRequestController.selectedEmployee}">
 
                         <f:converter binding="#{employeeNameConverter}" />
+                        <f:selectItem itemLabel="---" itemValue="#{null}" />
                         <f:selectItems value="#{editRequestController.employeeList}" var="employee"
                                        itemLabel="#{employee.email}" />
                     </h:selectOneMenu>

@@ -94,8 +94,6 @@ public class EditRequestController implements Serializable {
         requestService.updateRequest(selectedRequest);
         // the changed state is written into LOG, so it can be reviewed afterwards.
         LOG.info("request update made by : " + currentEmployee);
-        LOG.info("request state changed to : " + selectedRequest.getAssignee().getEmail() + " " + 
-                selectedRequest.isExecuted() + " " + selectedRequest.getPriority());
         
         return FacesContext.getCurrentInstance().getViewRoot().getViewId() + "?faces-redirect=true&includeViewParams=true";
 
