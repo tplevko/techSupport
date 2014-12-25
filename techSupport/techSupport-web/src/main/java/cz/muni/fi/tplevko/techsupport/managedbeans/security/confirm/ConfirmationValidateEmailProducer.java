@@ -18,6 +18,12 @@ public class ConfirmationValidateEmailProducer {
     @Value("${service.port}")
     private String servicePort;     // Def value = 8080
 
+    @Value("${service.name}")
+    private String serviceName;     // Def value = /techSupport
+
+    @Value("${service.protocol}")
+    private String serviceProtocol;     // Def value = http://
+
     @Value("${email.user.registered}")
     private String emailMessage;
 
@@ -44,7 +50,7 @@ public class ConfirmationValidateEmailProducer {
 
         // TODO : change somehow...
 //        localhost:8080/techSupport/registration/finishRegistration.xhtml?id=ff8081814a1bad54014a1badc8900000
-        String serviceAddress = serviceUrl + ":" + servicePort + "/techSupport/registration/finishRegistration.xhtml?id=" + generatedChangeId;
+        String serviceAddress = serviceProtocol + serviceUrl + servicePort + serviceName + "/registration/finishRegistration.xhtml?id=" + generatedChangeId;
 
         String fullEmailMessage = emailMessage + serviceAddress;
 

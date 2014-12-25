@@ -79,10 +79,6 @@ public class MyCustomRealm extends AuthorizingRealm {
                 info.addRole("ROLE_TECHNICIAN");
             }
         }
-//
-//        info.addRole("ROLE_TECHNICIAN");
-//        info.addRole("ROLE_ADMIN");
-//        info.addRole("ROLE_USER");
 
         return info;
 

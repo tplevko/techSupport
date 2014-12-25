@@ -143,18 +143,24 @@
                         <rich:tab header="employee information">
 
                             <h:panelGrid columns="3" id="employeeInfo">
-                                <h:outputText value="first name" />
+                                <h:outputText value="#{bundle.firstName} : " />
                                 <h:outputText value="#{employeeViewer.selectedItem.firstName}" />
                                 <h:panelGroup />
-                                <h:outputText value="last name" />
+                                <h:outputText value="#{bundle.lastName} : " />
                                 <h:outputText value="#{employeeViewer.selectedItem.lastName}" />
                                 <h:panelGroup />
-                                <h:outputText value="registered" />
-                                <h:outputText value="#{employeeViewer.selectedItem.createdAt}" />
+                                <h:outputText value="#{bundle.dateRegistered} : " />
+                                <h:outputText value="#{employeeViewer.selectedItem.createdAt}">
+                                    <f:convertDateTime pattern="#{timeFormat.localePattern}" type="both" />
+                                </h:outputText>            
                                 <h:panelGroup />
-                                <h:outputText value="email" />
+                                <h:outputText value="#{bundle.email} : " />
                                 <h:outputText value="#{employeeViewer.selectedItem.email}" />
                                 <h:panelGroup />
+                                <h:outputText value="#{bundle.active} : " />
+                                <h:outputText value="#{employeeViewer.selectedItem.active}" />
+                                <h:panelGroup />
+
                             </h:panelGrid>
 
 
@@ -166,20 +172,38 @@
                                             id="table" 
                                             rows="6" rowClasses="odd-row, even-row"
                                             styleClass="stable">
-                               
+
                                 <rich:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.id}" />
                                     </f:facet>
                                     <h:outputText value="#{req.id}" />
                                 </rich:column>
-                                
+
                                 <rich:column>
                                     <f:facet name="header">
                                         <h:outputText value="#{bundle.created}" />
                                     </f:facet>
-                                    <h:outputText value="#{req.created}" />
+                                    <h:outputText value="#{req.created}">
+                                        <f:convertDateTime pattern="#{timeFormat.localePattern}" type="both" />
+                                    </h:outputText>            
+
                                 </rich:column>
+
+                                <rich:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.reqTitle}" />
+                                    </f:facet>
+                                    <h:outputText value="#{req.requestTitle}" />           
+                                </rich:column>
+                                
+                                <rich:column>
+                                    <f:facet name="header">
+                                        <h:outputText value="#{bundle.finished}" />
+                                    </f:facet>
+                                    <h:outputText value="#{req.executed}" />           
+                                </rich:column>
+
 
                             </rich:dataTable>
                         </rich:tab>

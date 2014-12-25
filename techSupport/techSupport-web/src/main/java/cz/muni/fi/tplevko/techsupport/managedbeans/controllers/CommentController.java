@@ -20,8 +20,10 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * TODO : comment on the code for christ sake!
+ * Comment controller is used for creating of new comments for requests
  *
+ * In the future, there will be also editing functionality, but not now.
+ * 
  * @author tplevko
  */
 @Component(value = "commentController")
@@ -81,7 +83,12 @@ public class CommentController implements Serializable {
     public void setRequestComment(RequestCommentDto requestComment) {
         this.requestComment = requestComment;
     }
-
+    
+    /**
+     * creates new comment for specified request (the request ID)
+     * 
+     * @return 
+     */
     public String newComment() {
 
         String currentUser = SecurityUtils.getSubject().getPrincipal().toString();
