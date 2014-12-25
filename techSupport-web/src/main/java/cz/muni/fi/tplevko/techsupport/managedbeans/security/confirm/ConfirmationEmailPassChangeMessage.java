@@ -17,6 +17,12 @@ public class ConfirmationEmailPassChangeMessage {
 
     @Value("${service.port}")
     private String servicePort;     // Def value = 8080
+    
+    @Value("${service.name}")
+    private String serviceName;     // Def value = /techSupport
+
+    @Value("${service.protocol}")
+    private String serviceProtocol;     // Def value = http://
 
     @Value("${email.reset.password}")
     private String emailMessage;
@@ -41,10 +47,8 @@ public class ConfirmationEmailPassChangeMessage {
     }
 
     private String generateUniqueSiteUrl(String generatedChangeId) {
-
         
-        // TODO : change somehow...
-        String serviceAddress = serviceUrl +":"+ servicePort +"/techSupport/registration/forgotPassReset.xhtml?id="+ generatedChangeId;
+        String serviceAddress = serviceProtocol + serviceUrl + servicePort + serviceName + "/registration/forgotPassReset.xhtml?id="+ generatedChangeId;
         
         String fullEmailMessage = emailMessage + serviceAddress;
         
