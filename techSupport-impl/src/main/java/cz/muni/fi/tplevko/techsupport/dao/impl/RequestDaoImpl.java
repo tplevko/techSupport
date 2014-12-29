@@ -121,7 +121,11 @@ public class RequestDaoImpl implements RequestDao {
         return requests;
     }
 
-    // TODO : revise.. 
+    /**
+     * validates the request
+     *
+     * @param request
+     */
     private void validateRequest(Request request) {
         if (request.getText() == null) {
             throw new IllegalArgumentException("Request text must be set, it's null");
@@ -129,6 +133,11 @@ public class RequestDaoImpl implements RequestDao {
         if (request.getText().isEmpty()) {
             throw new IllegalArgumentException("Request text must be set, it's empty");
         }
+        if (request.getRequestTitle() == null) {
+            throw new IllegalArgumentException("Request title must be set, it's null");
+        }
+        if (request.getRequestTitle().isEmpty()) {
+            throw new IllegalArgumentException("Request title must be set, it's empty");
+        }
     }
-
 }

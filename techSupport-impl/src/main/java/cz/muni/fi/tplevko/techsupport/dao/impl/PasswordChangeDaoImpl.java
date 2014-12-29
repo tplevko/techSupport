@@ -46,7 +46,6 @@ public class PasswordChangeDaoImpl implements PasswordChangeDao {
         }
 
         validatePasswordChange(passwordChange);
-
         em.remove(em.contains(passwordChange) ? passwordChange : em.merge(passwordChange));
     }
 
@@ -62,13 +61,6 @@ public class PasswordChangeDaoImpl implements PasswordChangeDao {
         return result;
     }
 
-    private void validatePasswordChange(PasswordChange passwordChange) {
-
-        if (passwordChange.getRequester() == null) {
-            throw new IllegalArgumentException("Requester must be set, it's null");
-        }
-    }
-
     @Override
     public void updatePasswordChange(PasswordChange passwordChange) {
 
@@ -82,8 +74,20 @@ public class PasswordChangeDaoImpl implements PasswordChangeDao {
             throw new IllegalArgumentException("Employee to be updated doesn't exist in DB");
         }
 
-//        validatePasswordChange(passwordChange);
+        validatePasswordChange(passwordChange);
         em.merge(passwordChange);
+    }
+
+    /**
+     * password change validation
+     *
+     * @param passwordChange
+     */
+    private void validatePasswordChange(PasswordChange passwordChange) {
+
+        if (passwordChange.getRequester() == null) {
+            throw new IllegalArgumentException("Requester must be set, it's null");
+        }
     }
 
 }

@@ -20,7 +20,6 @@ public interface RequestDao {
 
     public List<Request> getAllRequests();
     
-    
     /**
      * this method is used, for getting all the requests, that
      * are still active, that means, which have not the flag set, 

@@ -111,7 +111,11 @@ public class ProductDaoImpl implements ProductDao {
         return products;
     }
 
-    // TODO : revise.. 
+    /**
+     * validation of product
+     *
+     * @param product
+     */
     private void validateProduct(Product product) {
         if (product.getName() == null) {
             throw new IllegalArgumentException("Product name must be set, it's null");

@@ -117,7 +117,11 @@ public class CustomerDaoImpl implements CustomerDao {
         return customers;
     }
 
-    // TODO : revise.. 
+    /**
+     * customer validation method
+     * 
+     * @param customer 
+     */
     private void validateCustomer(Customer customer) {
         if (customer.getLastName() == null) {
             throw new IllegalArgumentException("Customer first name must be set, it's null");
@@ -139,6 +143,18 @@ public class CustomerDaoImpl implements CustomerDao {
         }
         if (customer.getEmail() == null) {
             throw new IllegalArgumentException("Customer email must be set, it's null");
+        }
+        if (customer.getPassword().isEmpty()) {
+            throw new IllegalArgumentException("Customer password must be set, it's null");
+        }
+        if (customer.getPassword()== null) {
+            throw new IllegalArgumentException("Customer password must be set, it's null");
+        }
+        if (customer.getSalt().isEmpty()) {
+            throw new IllegalArgumentException("Customer salt must be set, it's null");
+        }     
+        if (customer.getSalt()== null) {
+            throw new IllegalArgumentException("Customer salt must be set, it's null");
         }
     }
 }

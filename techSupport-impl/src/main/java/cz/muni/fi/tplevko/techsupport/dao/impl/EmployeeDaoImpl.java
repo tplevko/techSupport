@@ -123,6 +123,11 @@ public class EmployeeDaoImpl implements EmployeeDao {
         return employees;
     }
 
+    /**
+     * employee validation method
+     * 
+     * @param employee 
+     */
     private void validateEmployee(Employee employee) {
         if (employee.getLastName() == null) {
             throw new IllegalArgumentException("Employee last name must be set, it's null");

@@ -1,7 +1,6 @@
 package cz.muni.fi.tplevko.techsupport.dao.impl;
 
 import cz.muni.fi.tplevko.techsupport.dao.RequestCommentDao;
-import cz.muni.fi.tplevko.techsupport.entity.Account;
 import cz.muni.fi.tplevko.techsupport.entity.RequestComment;
 import java.util.ArrayList;
 import java.util.List;
@@ -83,15 +82,6 @@ public class RequestCommentDaoImpl implements RequestCommentDao {
     }
 
     @Override
-    public List<RequestComment> findRequestCommentByCommenter(Account owner) {
-        
-        //TODO
-        
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
-    }
-
-    @Override
     public List<RequestComment> getAllRequestComments() {
 
         List<RequestComment> products = new ArrayList<>();
@@ -100,11 +90,14 @@ public class RequestCommentDaoImpl implements RequestCommentDao {
         cq.select(cq.from(RequestComment.class));
         Query q = em.createQuery(cq);
         products = q.getResultList();
-        return products;    
+        return products;
     }
 
-
-    // TODO : revise.. 
+    /**
+     * validates request comments
+     *
+     * @param request
+     */
     private void validateRequestComment(RequestComment request) {
         if (request.getText() == null) {
             throw new IllegalArgumentException("RequestComment text must be set, it's null");

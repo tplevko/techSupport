@@ -115,7 +115,11 @@ public class AccountDaoImpl implements AccountDao {
         return accounts;
     }
 
-    // TODO : revise.. 
+    /**
+     * account validation method
+     *
+     * @param account
+     */
     private void validateAccount(Account account) {
         if (account.getLastName() == null) {
             throw new IllegalArgumentException("account first name must be set, it's null");
@@ -138,5 +142,18 @@ public class AccountDaoImpl implements AccountDao {
         if (account.getEmail() == null) {
             throw new IllegalArgumentException("account email must be set, it's null");
         }
+        if (account.getPassword() == null) {
+            throw new IllegalArgumentException("account password must be set, it's null");
+        }
+        if (account.getPassword().isEmpty()) {
+            throw new IllegalArgumentException("account password must be set, it's null");
+        }
+        if (account.getSalt().isEmpty()) {
+            throw new IllegalArgumentException("account salt must be set, it's null");
+        }
+        if (account.getSalt() == null) {
+            throw new IllegalArgumentException("account salt must be set, it's null");
+        }
+
     }
 }

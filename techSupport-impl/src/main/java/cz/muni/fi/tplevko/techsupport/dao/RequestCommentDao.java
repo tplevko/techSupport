@@ -1,6 +1,5 @@
 package cz.muni.fi.tplevko.techsupport.dao;
 
-import cz.muni.fi.tplevko.techsupport.entity.Account;
 import cz.muni.fi.tplevko.techsupport.entity.RequestComment;
 import java.util.List;
 
@@ -18,8 +17,6 @@ public interface RequestCommentDao {
     public void deleteRequestComment(RequestComment requestComment);
 
     public RequestComment findRequestCommentById(Long id);
-
-    public List<RequestComment> findRequestCommentByCommenter(Account owner);
 
     public List<RequestComment> getAllRequestComments();
 }
