@@ -1,6 +1,5 @@
 package cz.muni.fi.tplevko.techsupport.services;
 
-import cz.muni.fi.tplevko.techsupport.entity.Customer;
 import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
 import java.util.List;
 
@@ -21,6 +20,4 @@ public interface CustomerService {
     public CustomerDto findCustomerByEmail(String email);
 
     public List<CustomerDto> getAllCustomers();
-
-    public void activateCustomerAccount(CustomerDto customer);
 }

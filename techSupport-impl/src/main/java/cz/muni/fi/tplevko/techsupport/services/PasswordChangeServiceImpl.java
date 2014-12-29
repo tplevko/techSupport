@@ -35,7 +35,7 @@ public class PasswordChangeServiceImpl implements PasswordChangeService {
         }
 
         PasswordChange passwordChange = mapper.map(passwordChangeDto, PasswordChange.class);
-
+        log.info("password change request filed : customer email : " + passwordChange.getRequester().getEmail());
         String id = passwordChangeDao.createPasswordChange(passwordChange);
 
         return id;

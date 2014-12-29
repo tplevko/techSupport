@@ -42,7 +42,7 @@ public class RequestCommentServiceImpl implements RequestCommentService {
         }
 
         RequestComment reqestComm = mapper.map(requestComment, RequestComment.class);
-
+        log.info("new request comment created by : " + reqestComm.getCommenter().getEmail());
         requestCommentDao.createRequestComment(reqestComm);
     }
 
@@ -59,7 +59,6 @@ public class RequestCommentServiceImpl implements RequestCommentService {
         }
 
         RequestComment reqestComm = mapper.map(requestComment, RequestComment.class);
-
         requestCommentDao.updateRequestComment(reqestComm);
     }
 
@@ -75,7 +74,6 @@ public class RequestCommentServiceImpl implements RequestCommentService {
         }
 
         RequestComment reqestComm = mapper.map(requestComment, RequestComment.class);
-
         requestCommentDao.deleteRequestComment(reqestComm);
     }
 
@@ -89,31 +87,6 @@ public class RequestCommentServiceImpl implements RequestCommentService {
         RequestComment reqestComment = requestCommentDao.findRequestCommentById(id);
 
         return mapper.map(reqestComment, RequestCommentDto.class);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-
-    public RequestCommentDto findRequestCommentByOwner(String owner) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
-        // TODO ?? 
-//        if (owner == null) {
-//            throw new IllegalArgumentException("owner can't be nulll");
-//        }
-//            
-//        if (owner.isEmpty()) {
-//            throw new IllegalArgumentException("owner can't be empty");
-//        }
-//        
-//        ProductDto productDto = null;
-//        Product product = productDao.findProductByName(name);
-//
-//        if (product != null) {
-//            productDto = mapper.map(product, ProductDto.class);
-//        }
-//
-//        return productDto;
     }
 
     @Override

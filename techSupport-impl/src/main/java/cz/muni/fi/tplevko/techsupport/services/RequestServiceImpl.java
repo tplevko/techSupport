@@ -2,8 +2,6 @@ package cz.muni.fi.tplevko.techsupport.services;
 
 import cz.muni.fi.tplevko.techsupport.dao.RequestDao;
 import cz.muni.fi.tplevko.techsupport.entity.Request;
-import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
-import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestDto;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +42,8 @@ public class RequestServiceImpl implements RequestService {
         }
 
         Request request = mapper.map(requestDto, Request.class);
+        log.info("new request created : " + request.getRequestTitle());
+        log.info("new request created by : " + request.getOwner().getEmail());
 
         requestDao.createRequest(request);
     }
@@ -60,6 +60,7 @@ public class RequestServiceImpl implements RequestService {
         }
 
         Request request = mapper.map(requestDto, Request.class);
+
         requestDao.updateRequest(request);
     }
 
@@ -89,29 +90,6 @@ public class RequestServiceImpl implements RequestService {
         Request product = requestDao.findRequestById(id);
 
         return mapper.map(product, RequestDto.class);
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public RequestDto findRequestByOwner(CustomerDto owner) {
-
-        //TODO
-//      
-//        if (owner == null) {
-//            throw new IllegalArgumentException("name can't be nulll");
-//        }
-//        
-//
-//        Request request = requestDao.findRequestByCustomer(owner);
-//
-//        return mapper.map(request, ProductDto.class);
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
-
-    @Override
-    @Transactional(readOnly = true)
-    public RequestDto findRequestByAssignee(EmployeeDto assignee) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override

@@ -17,7 +17,5 @@ public interface RequestCommentService {
 
     public RequestCommentDto findRequestCommentById(Long id);
 
-    public RequestCommentDto findRequestCommentByOwner(String owner); // ??
-
     public List<RequestCommentDto> getAllRequestComments();
 }

@@ -29,7 +29,7 @@ public class EmailConfirmation {
         if (randString.contentEquals(stringToCompare)) {
 
             accountToVerify.setActive(true);
-            customerService.activateCustomerAccount(accountToVerify);
+            customerService.updateCustomer(accountToVerify);
 
             status = true;
         }

@@ -1,7 +1,6 @@
 package cz.muni.fi.tplevko.techsupport.services;
 
 import cz.muni.fi.tplevko.techsupport.dao.EmployeeDao;
-import cz.muni.fi.tplevko.techsupport.entity.Customer;
 import cz.muni.fi.tplevko.techsupport.entity.Employee;
 import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
 import java.util.ArrayList;
@@ -24,7 +23,6 @@ public class EmployeeServiceImpl implements EmployeeService {
     private static final Logger log = Logger.getLogger(EmployeeServiceImpl.class.getName());
 
     @Autowired
-    //@Qualifier(value = "customerDao")
     private EmployeeDao employeeDao;
 
     @Autowired
@@ -43,7 +41,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         Employee employee = mapper.map(employeeDto, Employee.class);
-
+        log.info("employee created : empoyee email : " + employee.getEmail());
         employeeDao.createEmployee(employee);
 
     }
@@ -60,12 +58,12 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
 
         Employee employee = mapper.map(employeeDto, Employee.class);
+        log.info("employee updated : empoyee email : " + employee.getEmail());
         employeeDao.updateEmployee(employee);
     }
 
     @Override
     @Transactional
-    //@PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteEmployee(EmployeeDto employeeDto) {
 
         if (employeeDto == null) {
@@ -75,7 +73,7 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (employeeDto.getId() == null) {
             throw new IllegalArgumentException("Employee has not set id");
         }
-
+        log.info("employee deleted : empoyee email : " + employeeDto.getEmail());
         Employee employee = mapper.map(employeeDto, Employee.class);
         employeeDao.deleteEmployee(employee);
     }
@@ -98,20 +96,19 @@ public class EmployeeServiceImpl implements EmployeeService {
         if (email == null) {
             throw new IllegalArgumentException("email can't be nulll");
         }
-        
+
         EmployeeDto employeeDto = null;
         Employee employee = employeeDao.findEmployeeByEmail(email);
 
-        if(employee != null) {
+        if (employee != null) {
             employeeDto = mapper.map(employee, EmployeeDto.class);
         }
-        
+
         return employeeDto;
     }
 
     @Override
     @Transactional(readOnly = true)
-    // @PreAuthorize("hasRole('ROLE_TECHNICIAN')")
     public List<EmployeeDto> getAllEmployees() {
 
         List<Employee> employees = employeeDao.getAllEmployees();
@@ -122,16 +119,4 @@ public class EmployeeServiceImpl implements EmployeeService {
         }
         return employeesReturn;
     }
-
-    @Override
-    @Transactional
-    //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void activateEmployeeAccount(EmployeeDto employeeDto) {
-        Employee employee = mapper.map(employeeDto, Employee.class);
-
-        employee.setActive(true);
-
-        employeeDao.updateEmployee(employee);
-    }
-
 }

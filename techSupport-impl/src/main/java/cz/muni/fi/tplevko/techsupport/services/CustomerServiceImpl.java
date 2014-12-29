@@ -41,7 +41,7 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         Customer customer = mapper.map(customerDto, Customer.class);
-
+        log.info("new customer created : customer email address : " + customerDto.getEmail());
         customerDao.createCustomer(customer);
     }
 
@@ -58,12 +58,12 @@ public class CustomerServiceImpl implements CustomerService {
         }
 
         Customer customer = mapper.map(customerDto, Customer.class);
+        log.info("customer updated : customer email address : " + customerDto.getEmail());
         customerDao.updateCustomer(customer);
     }
 
     @Override
     @Transactional
-//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public void deleteCustomer(CustomerDto customerDto) {
 
         if (customerDto == null) {
@@ -73,7 +73,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (customerDto.getId() == null) {
             throw new IllegalArgumentException("CustomerDto has not set id");
         }
-
+        log.info("customer deleted : customer email address : " + customerDto.getEmail());
         Customer customer = mapper.map(customerDto, Customer.class);
         customerDao.deleteCustomer(customer);
     }
@@ -86,7 +86,6 @@ public class CustomerServiceImpl implements CustomerService {
             throw new IllegalArgumentException("ID to retrieve can't be null");
         }
         Customer customer = customerDao.findCustomerById(id);
-
         return mapper.map(customer, CustomerDto.class);
 
     }
@@ -98,7 +97,7 @@ public class CustomerServiceImpl implements CustomerService {
         if (email == null) {
             throw new IllegalArgumentException("email can't be nulll");
         }
-        
+
         CustomerDto customerDto = null;
         Customer customer = customerDao.findCustomerByEmail(email);
 
@@ -110,7 +109,6 @@ public class CustomerServiceImpl implements CustomerService {
 
     @Override
     @Transactional(readOnly = true)
-    //    @PreAuthorize("hasRole('ROLE_TECHNICIAN')")
     public List<CustomerDto> getAllCustomers() {
 
         List<Customer> customers = customerDao.getAllCustomers();
@@ -120,16 +118,5 @@ public class CustomerServiceImpl implements CustomerService {
             customersReturn.add(mapper.map(c, CustomerDto.class));
         }
         return customersReturn;
-    }
-
-    @Override
-    @Transactional
-    //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-    public void activateCustomerAccount(CustomerDto customerDto) {
-        Customer customer = mapper.map(customerDto, Customer.class);
-
-        customer.setActive(true);
-
-        customerDao.updateCustomer(customer);
     }
 }

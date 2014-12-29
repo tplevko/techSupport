@@ -3,6 +3,7 @@ package cz.muni.fi.tplevko.techsupport.services;
 import cz.muni.fi.tplevko.techsupport.dao.AccountDao;
 import cz.muni.fi.tplevko.techsupport.entity.Account;
 import cz.muni.fi.tplevko.techsupport.entity.dto.AccountDto;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Logger;
 import org.dozer.DozerBeanMapper;
@@ -93,39 +94,15 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
+    @Transactional(readOnly = true)
     public List<AccountDto> getAllAccounts() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
 
-    @Override
-    public void activateCustomerAccount(AccountDto account) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-    }
+        List<Account> accounts = accountDao.getAllAccounts();
 
-//
-//    @Override
-//    @Transactional(readOnly = true)
-//    //    @PreAuthorize("hasRole('ROLE_TECHNICIAN')")
-//    public List<CustomerDto> getAllCustomers() {
-//
-//        List<Customer> customers = customerDao.getAllCustomers();
-//
-//        List<CustomerDto> customersReturn = new ArrayList<>();
-//        for (Customer c : customers) {
-//            customersReturn.add(mapper.map(c, CustomerDto.class));
-//        }
-//        return customersReturn;
-//    }
-//
-//    @Override
-//    @Transactional
-//    //    @PreAuthorize("hasRole('ROLE_ADMIN')")
-//    public void activateCustomerAccount(CustomerDto customerDto) {
-//        Customer customer = mapper.map(customerDto, Customer.class);
-//
-//        customer.setActive(true);
-//
-//        customerDao.updateCustomer(customer);
-//    }
-//}
+        List<AccountDto> accountsReturn = new ArrayList<>();
+        for (Account c : accounts) {
+            accountsReturn.add(mapper.map(c, AccountDto.class));
+        }
+        return accountsReturn;
+    }
 }

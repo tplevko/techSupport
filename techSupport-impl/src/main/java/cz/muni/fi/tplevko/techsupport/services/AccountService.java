@@ -21,6 +21,4 @@ public interface AccountService {
 
     public List<AccountDto> getAllAccounts();
 
-    public void activateCustomerAccount(AccountDto account);
-
 }

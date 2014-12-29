@@ -42,7 +42,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         Product product = mapper.map(productDto, Product.class);
-
+        log.info("new product inserted : " + product.getName());
         productDao.createProduct(product);
     }
 
@@ -59,6 +59,7 @@ public class ProductServiceImpl implements ProductService {
         }
 
         Product product = mapper.map(productDto, Product.class);
+        log.info("product updated : " + product.getName() + " " + product.getDefaultPriority());
         productDao.updateProduct(product);
     }
 
@@ -72,6 +73,8 @@ public class ProductServiceImpl implements ProductService {
         if (productDto.getId() == null) {
             throw new IllegalArgumentException("Product has not set id");
         }
+
+        log.info("product deleted : " + productDto.getName());
 
         Product product = mapper.map(productDto, Product.class);
         productDao.deleteProduct(product);

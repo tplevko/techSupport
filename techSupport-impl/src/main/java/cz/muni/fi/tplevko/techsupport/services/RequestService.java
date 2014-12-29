@@ -19,10 +19,6 @@ public interface RequestService {
 
     public RequestDto findRequestById(Long id);
 
-    public RequestDto findRequestByOwner(CustomerDto owner);
-
-    public RequestDto findRequestByAssignee(EmployeeDto assignee);
-
     public List<RequestDto> getAllRequests();
     
     /**

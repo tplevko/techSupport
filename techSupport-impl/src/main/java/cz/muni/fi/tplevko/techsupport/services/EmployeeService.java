@@ -20,6 +20,4 @@ public interface EmployeeService {
     public EmployeeDto findEmployeeByEmail(String email);
 
     public List<EmployeeDto> getAllEmployees();
-
-    public void activateEmployeeAccount(EmployeeDto employeeDto);
 }
