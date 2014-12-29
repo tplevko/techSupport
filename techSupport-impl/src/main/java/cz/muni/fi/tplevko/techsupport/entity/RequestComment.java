@@ -18,7 +18,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- *
+ * The comment can be written by customer, or the employee, regarding specific 
+ * request. It is used for communication between user and employees, to solve the
+ * issue.
+ * 
  * @author tplevko
  */
 @Entity

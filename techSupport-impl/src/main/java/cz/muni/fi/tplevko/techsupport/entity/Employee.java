@@ -11,7 +11,9 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
- *
+ * the employee is responsible for some issues, filed by customers into the system.
+ * He can have role Admin, or regular technician.
+ * 
  * @author tplevko
  */
 
@@ -51,7 +53,6 @@ public class Employee extends Account implements Serializable {
         this.requests = requests;
     }
 
-    // TODO : zisti ako spravit dobry hashcode a...
     @Override
     public int hashCode() {
         int hash = 5;

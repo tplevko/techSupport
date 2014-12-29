@@ -37,7 +37,6 @@ public class PasswordChange implements Serializable {
     @JoinColumn(name = "CUSTOMER_ID")
     private Customer requester;
 
-    // TODO : ukladat stare requesty, alebo ich mazat?
     private boolean executed = false;
 
     @Column(name = "createdAt", nullable = false)

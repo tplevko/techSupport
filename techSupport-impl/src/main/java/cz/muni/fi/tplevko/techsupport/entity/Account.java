@@ -2,8 +2,8 @@ package cz.muni.fi.tplevko.techsupport.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 import javax.persistence.Column;
-import javax.persistence.DiscriminatorColumn;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -17,7 +17,10 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- *
+ * entity, that represents the account in the system. It contains all the basic
+ * information, about the system user. It further diferentiates to customer and
+ * employee.
+ * 
  * @author tplevko
  */
 @Entity
@@ -135,29 +138,34 @@ public class Account implements Serializable {
         this.createdAt = createdAt;
     }
 
-// TODO : zisti ako spravit dobry hashcode...
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 3;
+        hash = 79 * hash + Objects.hashCode(this.id);
+        hash = 79 * hash + Objects.hashCode(this.email);
         return hash;
     }
 
-    // TODO : prepisat equals 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (object == null) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        if (!(object instanceof Customer)) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        Customer other = (Customer) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        final Account other = (Account) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
             return false;
         }
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Account{" + "firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + ", active=" + active + ", createdAt=" + createdAt + '}';
+    }
 }

@@ -19,7 +19,13 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 
 /**
- *
+ * request entity is the request, about a product, which can a customer write
+ * for the tech support. The techsupport then communicates using the comments
+ * with the customer. The priority can be changed, if it is required, and every
+ * request should be assigned to some technician, who will be responsible for it.
+ * 
+ * If the request is finished, the flag is set for it.
+ * 
  * @author tplevko
  */
 @Entity

@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.techsupport.entity;
 
 import java.io.Serializable;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -9,7 +10,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 
 /**
- *
+ * entity respresents product, which can the customers complain about.
+ * It has set the default priority, which will be assigned to the new 
+ * created request from customer.
+ * 
  * @author tplevko
  */
 @Entity
@@ -50,31 +54,39 @@ public class Product implements Serializable {
     public void setDefaultPriority(Long defaultPriority) {
         this.defaultPriority = defaultPriority;
     }
-    
-    
-// TODO : zisti ako spravit dobry hashcode...
+
     @Override
     public int hashCode() {
-        int hash = 0;
-        hash += (id != null ? id.hashCode() : 0);
+        int hash = 5;
+        hash = 41 * hash + Objects.hashCode(this.id);
+        hash = 41 * hash + Objects.hashCode(this.name);
+        hash = 41 * hash + Objects.hashCode(this.defaultPriority);
         return hash;
     }
 
-    // TODO : prepisat equals 
     @Override
-    public boolean equals(Object object) {
-        // TODO: Warning - this method won't work in the case the id fields are not set
-        if (object == null) {
+    public boolean equals(Object obj) {
+        if (obj == null) {
             return false;
         }
-        if (!(object instanceof Product)) {
+        if (getClass() != obj.getClass()) {
             return false;
         }
-        Product other = (Product) object;
-        if ((this.id == null && other.id != null) || (this.id != null && !this.id.equals(other.id))) {
+        final Product other = (Product) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.name, other.name)) {
+            return false;
+        }
+        if (!Objects.equals(this.defaultPriority, other.defaultPriority)) {
             return false;
         }
         return true;
     }
 
+    @Override
+    public String toString() {
+        return "Product{" + "id=" + id + ", name=" + name + ", defaultPriority=" + defaultPriority + '}';
+    }
 }

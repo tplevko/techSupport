@@ -11,7 +11,9 @@ import javax.persistence.PrimaryKeyJoinColumn;
 import javax.persistence.Table;
 
 /**
- *
+ * This entity represents the system user, with the customer role. He has can file
+ * requests for the helpdesk, and communicate with employees about his problems.
+ * 
  * @author tplevko
  */
 @Entity
