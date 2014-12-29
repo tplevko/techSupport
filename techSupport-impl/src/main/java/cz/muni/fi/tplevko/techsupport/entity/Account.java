@@ -56,7 +56,6 @@ public class Account implements Serializable {
     @Column(nullable = false, unique = true)
     protected String email;
 
-    // TODO : tu bude presna dlza retazca...
     @Column(length = 256, nullable = false)
     protected String password;
 

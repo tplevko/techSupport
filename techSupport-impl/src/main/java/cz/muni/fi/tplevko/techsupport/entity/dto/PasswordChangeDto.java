@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.techsupport.entity.dto;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -52,5 +53,31 @@ public class PasswordChangeDto {
 
     public void setFinished(Date finished) {
         this.finished = finished;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 17 * hash + Objects.hashCode(this.id);
+        hash = 17 * hash + Objects.hashCode(this.requester);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final PasswordChangeDto other = (PasswordChangeDto) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.requester, other.requester)) {
+            return false;
+        }
+        return true;
     }
 }

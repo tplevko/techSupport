@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.techsupport.entity.dto;
 
 import java.util.Date;
+import java.util.Objects;
 
 /**
  *
@@ -81,4 +82,36 @@ public class AccountDto {
         this.createdAt = createdAt;
     }
 
+    @Override
+    public int hashCode() {
+        int hash = 5;
+        hash = 37 * hash + Objects.hashCode(this.id);
+        hash = 37 * hash + Objects.hashCode(this.email);
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final AccountDto other = (AccountDto) obj;
+        if (!Objects.equals(this.id, other.id)) {
+            return false;
+        }
+        if (!Objects.equals(this.email, other.email)) {
+            return false;
+        }
+        return true;
+    }
+
+    @Override
+    public String toString() {
+        return "AccountDto{" + "id=" + id + ", firstName=" + firstName + ", lastName=" 
+                + lastName + ", email=" + email + ", password=" + password + ", salt=" +
+                salt + ", active=" + active + ", createdAt=" + createdAt + '}';
+    }
 }
