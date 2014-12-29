@@ -38,6 +38,12 @@
                             <f:validateLength minimum="0"/>
                             <f:validateRequired for="sub"/>
                         </h:inputText> 
+                        
+                        <h:outputText value="active"/>
+                        <h:selectBooleanCheckbox id="active" 
+                                                 value="#{customerController.customer.active}" />
+
+
                     </h:panelGrid>
 
                     <h:panelGrid columns="1">
