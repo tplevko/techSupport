@@ -1,7 +1,5 @@
 package cz.muni.fi.tplevko.techsupport.services;
 
-import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
-import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestDto;
 import java.util.List;
 

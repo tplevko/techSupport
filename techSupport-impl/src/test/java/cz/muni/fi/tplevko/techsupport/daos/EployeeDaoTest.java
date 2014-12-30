@@ -194,16 +194,6 @@ public class EployeeDaoTest extends AbstractTransactionalJUnit4SpringContextTest
         } catch (DataAccessException ex) {
             // OK
         }
-//
-//        Employee nonpersistentEmployee = createEmployee("jano8", "hlavaty8", "jano8@hlavaty.com",
-//                "aaa8", "aaa8", true, true);
-//        nonpersistentEmployee.setId(777L);
-//        try {
-//            employeeDao.deleteEmployee(nonpersistentEmployee);
-//            fail("employe not persistent, thus we can't errase him...");
-//        } catch (DataAccessException ex) {
-//            // OK
-//        }
 
         Employee employeeOk = createEmployee("jano9", "hlavaty9", "jano9@hlavaty.com",
                 "aaa", "aaa", true, true);
