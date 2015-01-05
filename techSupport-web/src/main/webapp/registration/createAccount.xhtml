@@ -68,9 +68,8 @@
                     </h:panelGrid>
 
                     <h:panelGrid>
-
                         <p:captcha label="Captcha" id="captcha" required="true" 
-                                   requiredMessage="Captcha #{bundle.validField}"/>
+                                   requiredMessage="Captcha #{bundle.validField}" theme="clean" secure="true" />
 
                         <h:message for="captcha" />
                     </h:panelGrid>
