@@ -7,7 +7,8 @@ import javax.faces.context.FacesContext;
 import org.apache.shiro.SecurityUtils;
 
 /**
- *
+ * Log out class, used for logging out of system users
+ * 
  * @author tplevko
  */
 @ManagedBean(name = "logout")
@@ -26,9 +27,4 @@ public class UserLogout {
         return "/security/login?faces-redirect=true";
     }
     
-//    public void logout(HttpServletResponse response) throws ServletException, IOException {
-//    request.getSession().invalidate();
-//    response.sendRedirect(request.getContextPath()); 
-//}
-
 }

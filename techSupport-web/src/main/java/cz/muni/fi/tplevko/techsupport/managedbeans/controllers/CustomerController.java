@@ -9,6 +9,8 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
+import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -32,9 +34,11 @@ public class CustomerController {
     private CustomerDto selectedItem;
 
     private String userEmail;
+    private Subject currentUser;
 
     @PostConstruct
     public void init() {
+        currentUser = SecurityUtils.getSubject();
 
         customer = new CustomerDto();
         customerList = new ArrayList<CustomerDto>();
@@ -64,7 +68,7 @@ public class CustomerController {
     }
 
     public String listCustomers() {
-
+        currentUser.checkRole("ROLE_ADMIN");
         customerList = customerService.getAllCustomers();
         return "/employee/admin/customer/customerList?faces-redirect=true";
     }
@@ -73,30 +77,23 @@ public class CustomerController {
         this.customerList = customerList;
     }
 
-    // TODO : editovanie asi nebude potrebne...
-    public String deleteCustomer() {
-
-//        customer.setName(productName);
-//
-//        customerService.updateProduct(customer);
-//
-//        return "/product/productList?faces-redirect=true";
-        return "/employee/admin/customer/customerList?faces-redirect=true";
-    }
-
-    public String editCustomerInfo() {
-
-        return null;
-    }
-
     public String editCustomerBefore() {
-
+        currentUser.checkRole("ROLE_ADMIN");
         Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Long customerId = Long.valueOf(parameterMap.get("customerId"));
         customer = customerService.findCustomerById(customerId);
 
         return "/employee/admin/customer/editCustomer?faces-redirect=true";
     }
+    
+    
+    public String editCustomerInfo() {
+
+        currentUser.checkRole("ROLE_ADMIN");
+        customerService.updateCustomer(customer);
+        return "/employee/admin/customer/customerList?faces-redirect=true";
+    }
+
 
     public CustomerDto getSelectedItem() {
         return selectedItem;
@@ -112,19 +109,7 @@ public class CustomerController {
 
     public void rowKeyListener(Object rowKey) {
 
-        // TODO : debug...
         Long id = Long.valueOf((String) rowKey);
-//
-//        if (selectedItem != null
-//                && selectedItem.getId() == id) {
-//
-//            deselect();
-//        } else {
-
-//        deselect();
         selectedItem = customerService.findCustomerById(id);
-//        }
-
     }
-
 }

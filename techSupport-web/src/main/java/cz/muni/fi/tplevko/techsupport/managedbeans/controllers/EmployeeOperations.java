@@ -12,6 +12,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.crypto.hash.Sha256Hash;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -28,10 +29,13 @@ import org.springframework.stereotype.Component;
 public class EmployeeOperations implements Serializable {
 
     private static final long serialVersionUID = 1L;
+    private Subject currentUser;
 
     @PostConstruct
     public void init() {
         employeeDto = new EmployeeDto();
+        currentUser = SecurityUtils.getSubject();
+
     }
 
     @Autowired
@@ -48,6 +52,7 @@ public class EmployeeOperations implements Serializable {
     }
 
     public void createEmployee() {
+        currentUser.checkRole("ROLE_ADMIN");
 
         String salt = ShaEncoder.generateSalt();
         String employeePassword = GenerateEmployeePassword.generatePasswd();
@@ -61,12 +66,11 @@ public class EmployeeOperations implements Serializable {
 
         String message = "please, send this password to the new employee : " + employeePassword;
 
-        // TODO : 
         FacesContext.getCurrentInstance().addMessage("emplPass", new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
-
     }
 
     public String editEmployeeBefore() {
+        currentUser.checkRole("ROLE_TECHNICIAN");
 
         Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Long employeeId = Long.valueOf(parameterMap.get("employeeId"));
@@ -90,12 +94,14 @@ public class EmployeeOperations implements Serializable {
     }
 
     public String editEmployee() {
+        currentUser.checkRole("ROLE_TECHNICIAN");
 
         employeeService.updateEmployee(employeeDto);
         return "/employee/admin/employee/employeeList?faces-redirect=true";
     }
 
     public String deleteEmployee() {
+        currentUser.checkRole("ROLE_ADMIN");
 
         Long id = employeeDto.getId();
         EmployeeDto employee = employeeService.findEmployeeById(id);
@@ -104,18 +110,18 @@ public class EmployeeOperations implements Serializable {
     }
 
     public void resetPassword() {
-        
+        currentUser.checkRole("ROLE_ADMIN");
+
         String salt = employeeDto.getSalt();
         String employeePassword = GenerateEmployeePassword.generatePasswd();
 
         Sha256Hash passwordHash = ShaEncoder.hash(employeePassword, salt);
-        
+
         employeeDto.setPassword(passwordHash.toHex());
         employeeService.updateEmployee(employeeDto);
 
         String message = "please, send this password to the employee : " + employeePassword;
 
-        // TODO : 
         FacesContext.getCurrentInstance().addMessage("emplPass", new FacesMessage(FacesMessage.SEVERITY_INFO, message, null));
     }
 }

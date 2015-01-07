@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -51,9 +52,12 @@ public class RequestController implements Serializable {
     private Long selectedItemId;
     // This requestId is used with employee updating some request, or commenting on it
     private Long requestId;
+    private Subject currentUser;
 
     @PostConstruct
     public void init() {
+
+        currentUser = SecurityUtils.getSubject();
 
         request = new RequestDto();
         selectedproduct = new ProductDto();
@@ -128,6 +132,7 @@ public class RequestController implements Serializable {
 
     public String newRequest() {
 
+        currentUser.isAuthenticated();
         String currentUser = SecurityUtils.getSubject().getPrincipal().toString();
 
         CustomerDto customer = customerService.findCustomerByEmail(currentUser);
@@ -137,7 +142,7 @@ public class RequestController implements Serializable {
         request.setPriority(selectedproduct.getDefaultPriority());
         requestService.createRequest(request);
         request = new RequestDto();
-        
+
         return "/thankYou?faces-redirect=true";
     }
 
@@ -151,33 +156,12 @@ public class RequestController implements Serializable {
         request = requestService.findRequestById(requestId);
     }
 
-//    public String editRequest() {
-//
-//        String currentEmployee = SecurityUtils.getSubject().getPrincipal().toString();
-//
-//        EmployeeDto employee = employeeService.findEmployeeByEmail(currentEmployee);
-//
-//        if (request.isExecuted() == true) {
-//
-//            request.setFinished(new Date());
-//            request.setAssignee(employee);
-//
-//        } else {
-//            request.setFinished(null);
-//            request.setAssignee(null);
-//        }
-//
-//        requestService.updateRequest(request);
-//
-//        return "/employee/technician/requests/requestList?faces-redirect=true";
-//    }
     public String deleteRequest() {
 
+        currentUser.isAuthenticated();
         RequestDto requestToDelete = requestService.findRequestById(selectedItemId);
         requestService.deleteRequest(requestToDelete);
 
-        // refresh request list
-        // TODO : this won't work for all the request lists...
         requestList.remove(requestToDelete);
 
         return FacesContext.getCurrentInstance().getViewRoot().getViewId() + "?faces-redirect=true&includeViewParams=true";
@@ -205,19 +189,11 @@ public class RequestController implements Serializable {
 
     public void rowKeyListener(Object rowKey) {
 
-        // TODO : debug...
-//        LOG.info("***** the row key value is : " + rowKey + " *****");
         Long id = Long.valueOf((String) rowKey);
-//
-//        if (selectedItem != null
-//                && selectedItem.getId() == id) {
-//
-//            deselect();
-//        } else {
 
         deselect();
         selectedItem = requestService.findRequestById(id);
-//        }
+
         LOG.info("***** the row key value is : " + selectedItem.getText() + " *****");
 
     }

@@ -16,9 +16,6 @@ import org.springframework.stereotype.Component;
  *
  * @author tplevko
  */
-//@ManagedBean
-//@RequestScoped
-//@FacesConverter(value = "productNameConverter")
 @Component(value = "productNameConverter")
 @Scope("request")
 public class ProductNameConverter implements Converter {

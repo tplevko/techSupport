@@ -10,6 +10,7 @@ import java.util.List;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -34,14 +35,17 @@ public class CustomerRequestsController implements Serializable {
 
     @Autowired
     private RequestService requestService;
+    private Subject currentUser;
 
     @PostConstruct
     public void init() {
+
+        currentUser = SecurityUtils.getSubject();
         customerRequestList = new ArrayList<RequestDto>();
     }
 
     public List<RequestDto> getCustomerRequestList() {
-
+        currentUser.isAuthenticated();
         String currentCustomer = SecurityUtils.getSubject().getPrincipal().toString();
         CustomerDto customer = customerService.findCustomerByEmail(currentCustomer);
 
@@ -52,6 +56,7 @@ public class CustomerRequestsController implements Serializable {
 
     public void editRequestBefore() {
 
+        currentUser.isAuthenticated();
         String currentEmployee = SecurityUtils.getSubject().getPrincipal().toString();
         CustomerDto customer = customerService.findCustomerByEmail(currentEmployee);
 
@@ -60,12 +65,6 @@ public class CustomerRequestsController implements Serializable {
 
         } else {
 
-            // ******************************
-            // ******************************
-            // TODO : return HTTP error 403, in some other way, than exception...
-            // ******************************
-            // ******************************
-            
             throw new RuntimeException("403 : not accessible");
         }
     }

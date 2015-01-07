@@ -11,6 +11,7 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -36,9 +37,12 @@ public class EditRequestController implements Serializable {
     private RequestDto selectedRequest;
     private List<EmployeeDto> employeeList;
     private EmployeeDto selectedEmployee;
+    private Subject currentUser;
 
-    public void initRequest() {
+    @PostConstruct
+    public void init() {
 
+        currentUser = SecurityUtils.getSubject();
         employeeList = employeeService.getAllEmployees();
         selectedRequest = requestService.findRequestById(requestId);
     }
@@ -76,7 +80,7 @@ public class EditRequestController implements Serializable {
     }
 
     public String editRequest() {
-
+        currentUser.isAuthenticated();
         String currentEmployee = SecurityUtils.getSubject().getPrincipal().toString();
 
         EmployeeDto employee = employeeService.findEmployeeByEmail(currentEmployee);
@@ -94,7 +98,7 @@ public class EditRequestController implements Serializable {
         requestService.updateRequest(selectedRequest);
         // the changed state is written into LOG, so it can be reviewed afterwards.
         LOG.info("request update made by : " + currentEmployee);
-        
+
         return FacesContext.getCurrentInstance().getViewRoot().getViewId() + "?faces-redirect=true&includeViewParams=true";
 
     }

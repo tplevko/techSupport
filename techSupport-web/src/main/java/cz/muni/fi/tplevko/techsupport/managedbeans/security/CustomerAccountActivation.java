@@ -81,13 +81,5 @@ public class CustomerAccountActivation {
             ec.redirect(ec.getRequestContextPath() + "/error.xhtml");
 
         }
-
-        // TODO : dalej este overit, ci existuje dane UUID
-        // TODO : ak nie, presmerovat niekam do riti...
-        // TODO : dalej, ak user nie je validny...
-//    try {
-//            
-//        } 
     }
-
 }

@@ -5,9 +5,11 @@ import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
 import cz.muni.fi.tplevko.techsupport.services.CustomerService;
 import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
 import cz.muni.fi.tplevko.techsupport.utils.ShaEncoder;
+import javax.annotation.PostConstruct;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -28,6 +30,12 @@ public class ChangeEmplPasswdController {
 
     private String oldPassword;
     private String newPassword;
+    private Subject currentUser;
+
+    @PostConstruct
+    public void init() {
+        currentUser = SecurityUtils.getSubject();
+    }
 
     public String getOldPassword() {
         return oldPassword;
@@ -46,6 +54,7 @@ public class ChangeEmplPasswdController {
     }
 
     public void changeEmployeePassword() {
+        currentUser.checkRole("ROLE_TECHNICIAN");
 
         String oldPasswordHash;
         String newPasswordHash;
@@ -70,7 +79,7 @@ public class ChangeEmplPasswdController {
     }
 
     public String changeCustomerPassword() {
-
+        
         String currentCustomer = SecurityUtils.getSubject().getPrincipal().toString();
 
         CustomerDto customer = customerService.findCustomerByEmail(currentCustomer);

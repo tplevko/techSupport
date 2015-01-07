@@ -15,6 +15,7 @@ import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
 import org.apache.shiro.SecurityUtils;
+import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -23,7 +24,7 @@ import org.springframework.stereotype.Component;
  * Comment controller is used for creating of new comments for requests
  *
  * In the future, there will be also editing functionality, but not now.
- * 
+ *
  * @author tplevko
  */
 @Component(value = "commentController")
@@ -47,10 +48,11 @@ public class CommentController implements Serializable {
     private RequestCommentDto requestComment;
 
     private List<RequestCommentDto> requestCommentsList;
+    private Subject currentUser;
 
     @PostConstruct
     public void init() {
-
+        currentUser = SecurityUtils.getSubject();
         requestComment = new RequestCommentDto();
         requestCommentsList = new ArrayList<>();
     }
@@ -83,14 +85,14 @@ public class CommentController implements Serializable {
     public void setRequestComment(RequestCommentDto requestComment) {
         this.requestComment = requestComment;
     }
-    
+
     /**
      * creates new comment for specified request (the request ID)
-     * 
-     * @return 
+     *
+     * @return
      */
     public String newComment() {
-
+        currentUser.isAuthenticated();
         String currentUser = SecurityUtils.getSubject().getPrincipal().toString();
 
         AccountDto commenter = accountService.findAccountByEmail(currentUser);
