@@ -43,6 +43,9 @@ public class EditRequestController implements Serializable {
     public void init() {
 
         currentUser = SecurityUtils.getSubject();
+    }
+
+    public void initRequest() {
         employeeList = employeeService.getAllEmployees();
         selectedRequest = requestService.findRequestById(requestId);
     }
