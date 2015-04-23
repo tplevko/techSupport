@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-  <modelVersion>4.0.0</modelVersion>
+    <modelVersion>4.0.0</modelVersion>
     
-  <parent>
-    <artifactId>techSupport</artifactId>
-    <groupId>cz.muni.fi.tplevko</groupId>
-    <version>1.0-SNAPSHOT</version>
-  </parent>
+    <parent>
+        <artifactId>techSupport</artifactId>
+        <groupId>cz.muni.fi.tplevko</groupId>
+        <version>1.0-SNAPSHOT</version>
+    </parent>
 
-  <artifactId>techSupport-web</artifactId>
+    <artifactId>techSupport-web</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
@@ -20,8 +20,8 @@
         <org.richfaces.bom.version>4.3.4.Final</org.richfaces.bom.version>
         <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
         <!--<tomcat.components.version>7.0.41</tomcat.components.version>-->
-
-    </properties> 
+        <picketlink.version>2.7.0.Final</picketlink.version>
+    </properties>
 
     <dependencyManagement>
         <dependencies>
@@ -36,30 +36,60 @@
     </dependencyManagement>
     
     <dependencies>
-<!--        <dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-catalina</artifactId>
-            <version>${tomcat.components.version}</version>
-	</dependency>
-	<dependency>
-            <groupId>org.apache.tomcat</groupId>
-            <artifactId>tomcat-util</artifactId>
-            <version>${tomcat.components.version}</version>
-	</dependency>
-	<dependency>
-            <groupId>org.apache.tomcat.embed</groupId>
-            <artifactId>tomcat-embed-core</artifactId>
-            <version>${tomcat.components.version}</version>
-	</dependency>-->
 
+        <!-- picketlink -->
+        <dependency>
+            <groupId>org.picketlink</groupId>
+            <artifactId>picketlink-api</artifactId>
+            <version>${picketlink.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.picketlink</groupId>
+            <artifactId>picketlink-idm-api</artifactId>
+            <version>${picketlink.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.picketlink</groupId>
+            <artifactId>picketlink-config</artifactId>
+            <version>${picketlink.version}</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-api</artifactId>
+            <version>2.1.19</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.sun.faces</groupId>
+            <artifactId>jsf-impl</artifactId>
+            <version>2.1.19</version>
+            <scope>provided</scope>
+        </dependency>
+
+<!--        <dependency>
+            <groupId>org.jboss.weld.servlet</groupId>
+            <artifactId>weld-servlet</artifactId>
+            <version>2.2.10.Final</version>
+            <scope>provided</scope>
+        </dependency>-->
+
+        
         <dependency>
             <groupId>org.richfaces.ui</groupId>
             <artifactId>richfaces-components-ui</artifactId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.richfaces.core</groupId>
             <artifactId>richfaces-core-impl</artifactId>
+            <scope>provided</scope>
         </dependency>
+        
+        
         
         <dependency>
             <groupId>cz.muni.fi.tplevko</groupId>
@@ -72,27 +102,17 @@
             <artifactId>jta</artifactId>
             <version>1.1</version>
         </dependency>
-        <dependency>
+<!--        <dependency>
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-jpamodelgen</artifactId>
             <version>1.1.1.Final</version>
             <scope>provided</scope>
-        </dependency>
+        </dependency>-->
         <dependency>
             <groupId>javax.mail</groupId>
             <artifactId>mail</artifactId>
             <version>1.4.7</version>
             <type>jar</type>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-api</artifactId>
-            <version>2.1.19</version>
-        </dependency>
-        <dependency>
-            <groupId>com.sun.faces</groupId>
-            <artifactId>jsf-impl</artifactId>
-            <version>2.1.19</version>
         </dependency>
         
         <!-- primefaces - so far only because of the recaptcha functionality... -->
@@ -102,40 +122,50 @@
             <version>4.0</version>
         </dependency>
  
-        <dependency>
+<!--        <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>jstl</artifactId>
             <version>1.2</version>
-        </dependency>
+        </dependency>-->
  
         <dependency>
             <groupId>javax.servlet</groupId>
             <artifactId>servlet-api</artifactId>
             <version>2.5</version>
-                <scope>provided</scope>
-
+            <scope>provided</scope>
         </dependency>
-         <!-- EL - -->
-        <dependency>
+        
+        <!-- EL - -->
+<!--        <dependency>
             <groupId>org.glassfish.web</groupId>
             <artifactId>el-impl</artifactId>
             <version>2.2</version>
-            <scope>provided</scope>
+            <scope>runtime</scope>
         </dependency>
-
+        
         <dependency>
+            <groupId>javax.el</groupId>
+            <artifactId>el-api</artifactId>
+            <version>2.2</version>
+            <scope>compile</scope>
+        </dependency>-->
+
+        <!--org.glassfish.web:el-impl:2.2-->
+
+        <!--        <dependency>
             <groupId>javax.servlet.jsp</groupId>
             <artifactId>jsp-api</artifactId>
             <version>2.2</version>
             <scope>provided</scope>
-        </dependency>
+        </dependency>-->
         
         <dependency>
             <groupId>javax.validation</groupId>
             <artifactId>validation-api</artifactId>
             <version>1.0.0.GA</version>
+            <scope>provided</scope>
         </dependency>
-                <dependency>
+        <dependency>
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjrt</artifactId>
             <version>1.7.4</version>
@@ -145,37 +175,6 @@
             <artifactId>aspectjweaver</artifactId>
             <version>1.7.4</version>
         </dependency>
-        
-<!--        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-core</artifactId>
-            <version>1.2.3</version>
-        </dependency>
-            
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-web</artifactId>
-            <version>1.2.3</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <version>1.2.3</version>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-all</artifactId>
-            <version>1.2.3</version>
-        </dependency>
-        -->
-        <!--        <dependency>
-            <groupId>org.apache.httpcomponents</groupId>
-            <artifactId>httpcore</artifactId>
-            <version>4.3</version>
-        </dependency>-->
-
     </dependencies>
 
     <build>
@@ -270,6 +269,164 @@
                     </execution>
                 </executions>
             </plugin>
+            
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>9.1.5.v20140505</version> 
+                <configuration>
+                    <jvmArgs>-Xmx -Xms -XX:PermSize=512m -XX:MaxPermSize=1024m -XX:+HeapDumpOnOutOfMemoryError</jvmArgs>
+                    <webAppConfig>
+                        <contextPath>/techSupport</contextPath>
+                        <overrideDescriptor>src/main/jetty/override-web.xml</overrideDescriptor>
+                    </webAppConfig>
+                    <scanIntervalSeconds>0</scanIntervalSeconds>
+                    <contextXml>src/main/jetty/jetty-context.xml</contextXml>
+                    <stopKey>stop</stopKey>
+                    <stopPort>8081</stopPort>
+                    <!--http://juplo.de/configure-https-for-jetty-maven-plugin-9-0-x/--> 
+                    <jettyXml>
+                        ${project.basedir}/src/main/jetty/jetty.xml,${project.basedir}/src/main/jetty/jetty-http.xml,${project.basedir}/src/main/jetty/jetty-ssl.xml,${project.basedir}/src/main/jetty/jetty-https.xml
+                    </jettyXml>
+
+                </configuration>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.jboss.weld.servlet</groupId>
+                        <artifactId>weld-servlet</artifactId>
+                        <version>2.1.2.Final</version>
+                    </dependency>
+                    
+                    <!-- JSF -->
+                    <dependency>
+                        <groupId>com.sun.faces</groupId>
+                        <artifactId>jsf-api</artifactId>
+                        <version>2.1.19</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>com.sun.faces</groupId>
+                        <artifactId>jsf-impl</artifactId>
+                        <version>2.1.19</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>javax.validation</groupId>
+                        <artifactId>validation-api</artifactId>
+                        <version>1.0.0.GA</version>
+                    </dependency>
+
+                    <!-- richfaces -->
+                    <dependency>
+                        <groupId>org.richfaces.ui</groupId>
+                        <artifactId>richfaces-components-ui</artifactId>
+                        <version>${org.richfaces.bom.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.richfaces.core</groupId>
+                        <artifactId>richfaces-core-impl</artifactId>
+                        <version>${org.richfaces.bom.version}</version>
+                    </dependency>
+                                        
+                    <!-- Eclipselink - is herre because of picketlink.. -->
+                    <dependency>
+                        <groupId>org.eclipse.persistence</groupId>
+                        <artifactId>eclipselink</artifactId>
+                        <version>2.5.2-M1</version>
+                    </dependency>
+
+                    <!--picket link -->
+                    <dependency>
+                        <groupId>org.picketlink</groupId>
+                        <artifactId>picketlink-impl</artifactId>
+                        <version>${picketlink.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.picketlink</groupId>
+                        <artifactId>picketlink-idm-impl</artifactId>
+                        <version>${picketlink.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.picketlink</groupId>
+                        <artifactId>picketlink-idm-simple-schema</artifactId>
+                        <version>${picketlink.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.picketlink</groupId>
+                        <artifactId>picketlink-config</artifactId>
+                        <version>${picketlink.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.picketlink</groupId>
+                        <artifactId>picketlink-federation</artifactId>
+                        <version>${picketlink.version}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.picketlink</groupId>
+                        <artifactId>picketlink-jetty-common</artifactId>
+                        <version>${picketlink.version}</version>
+                        <exclusions>
+                            <exclusion>
+                                <artifactId>jetty-servlet</artifactId>
+                                <groupId>org.eclipse.jetty</groupId>
+                            </exclusion>
+                            <exclusion>
+                                <artifactId>jetty-server</artifactId>
+                                <groupId>org.eclipse.jetty</groupId>
+                            </exclusion>
+                            <exclusion>
+                                <artifactId>jetty-security</artifactId>
+                                <groupId>org.eclipse.jetty</groupId>
+                            </exclusion>
+                            <exclusion>
+                                <artifactId>jetty-webapp</artifactId>
+                                <groupId>org.eclipse.jetty</groupId>
+                            </exclusion>
+                            <exclusion>
+                                <artifactId>jetty-jaas</artifactId>
+                                <groupId>org.eclipse.jetty</groupId>
+                            </exclusion>
+                            <exclusion>
+                                <artifactId>jetty-util</artifactId>
+                                <groupId>org.eclipse.jetty</groupId>
+                            </exclusion>
+                        </exclusions>
+                    </dependency>
+                </dependencies>
+            </plugin>
+
+            
+            <!--            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>keytool-maven-plugin</artifactId>
+                <configuration>
+                    <keystore>src/main/jetty/waadsaml.keystore</keystore>
+                    <dname>cn=localhost</dname>   put your CN here
+                    <keypass>waadsaml</keypass>
+                    <storepass>waadsaml</storepass>
+                    <alias>waadsaml</alias>
+                    <keyalg>RSA</keyalg>
+                </configuration>
+            </plugin>-->
+
+            
+            <!--            
+            <plugin>
+                <groupId>org.mortbay.jetty</groupId>
+                <artifactId>maven-jetty-plugin</artifactId>
+                <version>6.1.5</version>
+                <configuration>
+                    <contextPath>/techSupport</contextPath>
+                </configuration>
+            </plugin>-->
+
+            
+            
+            
+            
+            
+            
+            
+            
+            
         </plugins>
     </build>
 

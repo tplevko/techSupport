@@ -1,6 +1,17 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
-   
+<?xml version="1.0"?>
+<!--<web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" 
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">-->
+<web-app xmlns="http://java.sun.com/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	version="2.5">
+
+    
+    <display-name>Tech support</display-name>
+
+    <description>TechSupport base</description>
+
+
     <!-- richfaces settings -->
     <context-param>
         <param-name>org.richfaces.skin</param-name>
@@ -27,6 +38,12 @@
         </listener-class>
     </listener>
     
+    <!-- Session Listener, that checks user accounts -->
+    <listener>
+        <listener-class>.muni.fi.tplevko.techsupport.managedbeans.init.SessionStartListener</listener-class>
+    </listener>
+
+    
     <!-- configuration of recaptcha -->
     <context-param>
         <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
@@ -43,7 +60,7 @@
         <param-name>contextConfigLocation</param-name>
         <param-value>
             /WEB-INF/application-context.xml
-            /WEB-INF/security-context.xml
+            <!--/WEB-INF/security-context.xml-->
         </param-value>
     </context-param>
     <!-- ########################## -->
@@ -58,8 +75,8 @@
         <param-value>true</param-value>
     </context-param>
     
-    <!-- security filter -->
-    <filter>
+    <!--security filter--> 
+<!--    <filter>
         <filter-name>shiroFilter</filter-name>
         <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
         <init-param>
@@ -75,7 +92,7 @@
         <dispatcher>FORWARD</dispatcher>
         <dispatcher>INCLUDE</dispatcher>
         <dispatcher>ERROR</dispatcher>
-    </filter-mapping>
+    </filter-mapping>-->
             
     <!-- ############# Faces servlets ################# -->
     <servlet>
@@ -99,4 +116,63 @@
     <welcome-file-list>
         <welcome-file>index.xhtml</welcome-file>
     </welcome-file-list>
+    
+    
+    <context-param>
+        <param-name>com.sun.faces.expressionFactory</param-name>
+        <param-value>com.sun.el.ExpressionFactoryImpl</param-value>
+    </context-param>
+    <!--    <listener>
+        <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
+    </listener>-->
+
+    <!-- Define a security constraint that gives unlimted access to freezone -->
+
+
+    <!-- Define a Security Constraint on this Application -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Tech Support Application</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>user</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+
+    </security-constraint>
+
+    <!-- Define a security constraint that gives unlimted access to freezone -->
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>freezone</web-resource-name>
+            <url-pattern>/javax.faces.resource/*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>freezone</web-resource-name>
+            <url-pattern>/techSupport/javax.faces.resource*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>css</web-resource-name>
+            <url-pattern>/css/*</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+
+    <!-- Define the Login Configuration for this Application -->
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <realm-name>Jetty techSupport</realm-name>
+        <form-login-config>
+            <form-login-page>/jsp/login.jsp</form-login-page>
+            <form-error-page>/jsp/loginerror.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
+
+    <!-- Security roles referenced by this web application -->
+    <security-role>
+        <description>The role that is required to log in to the Manager Application</description>
+        <role-name>user</role-name>
+    </security-role>
 </web-app>

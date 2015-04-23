@@ -6,8 +6,11 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="./css/default.css"/>
-        <h:outputStylesheet name="./css/cssLayout.css"/>
+        <!--        <h:outputStylesheet name="css/default.css"/>
+                <h:outputStylesheet name="css/cssLayout.css"/>-->
+        <link href="#{resource['css/default.css']}" rel="stylesheet" type="text/css" />
+        <link href="#{resource['css/cssLayout.css']}" rel="stylesheet" type="text/css" />
+
         <title>Facelets Template</title>
     </h:head>
 
@@ -18,8 +21,9 @@
                 <div id="bodyContainer">
                     <div id="top">
                         <ui:insert name="top">
+                            <link href="#{resource['css/components.css']}" rel="stylesheet" type="text/css" />
 
-                            <h:outputStylesheet name="./css/components.css" />
+                            <!--                            <h:outputStylesheet name="./css/components.css" />-->
 
                             <h1 style="text-align: center;" >
                                 #{bundle.customerSection}
@@ -45,7 +49,7 @@
                                 </div>
 
                                 <div>
-                                    <h:link value="#{bundle.createRequest}" outcome="/request/createRequest" rendered="#{request.isUserInRole('ROLE_USER')}"  />
+                                    <h:link value="#{bundle.createRequest}" outcome="/request/createRequest" /> <!-- rendered="#{request.isUserInRole('ROLE_USER')}"  /-->
                                 </div>
 
                                 <div>        
@@ -68,6 +72,9 @@
                                 <div>        
                                     <h:link value="#{bundle.employeeSection}" outcome="/employee/index" rendered="#{request.isUserInRole('ROLE_TECHNICIAN')}"  />
                                 </div>  
+                                <div>
+                                    <a href="#{logout.logout()}">#{bundle.logout}</a>
+                                </div>
 
 
                                 <!-- ######################## remove ######################## --> 
