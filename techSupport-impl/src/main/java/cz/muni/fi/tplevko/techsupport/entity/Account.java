@@ -2,6 +2,7 @@ package cz.muni.fi.tplevko.techsupport.entity;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -10,6 +11,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Inheritance;
 import javax.persistence.InheritanceType;
+import javax.persistence.OneToMany;
 import javax.persistence.PrePersist;
 import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
@@ -20,7 +22,7 @@ import javax.persistence.TemporalType;
  * entity, that represents the account in the system. It contains all the basic
  * information, about the system user. It further diferentiates to customer and
  * employee.
- * 
+ *
  * @author tplevko
  */
 @Entity
@@ -42,7 +44,7 @@ public class Account implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO, generator = "my_seq_gen")
-    @SequenceGenerator(name = "my_seq_gen", sequenceName = "ENTITY_SEQ", 
+    @SequenceGenerator(name = "my_seq_gen", sequenceName = "ENTITY_SEQ",
             initialValue = 100, allocationSize = 1)
     @Column(name = "ID")
     protected Long id;
@@ -56,17 +58,23 @@ public class Account implements Serializable {
     @Column(nullable = false, unique = true)
     protected String email;
 
-    @Column(length = 256, nullable = false)
-    protected String password;
-
-    @Column(length = 64, nullable = false)
-    protected String salt;
-
+//    @Column(length = 256, nullable = false)
+//    protected String password;
+//    @Column(length = 64, nullable = false)
+//    protected String salt;
     protected boolean active;
 
     @Column(name = "createdAt", nullable = false)
     @Temporal(TemporalType.TIMESTAMP)
     private Date createdAt;
+
+    protected String phoneNumber;
+
+    @OneToMany(mappedBy = "owner")
+    private List<Request> requestsOwned;
+
+//    @OneToMany(mappedBy = "assignee")
+//    private List<Request> requestsAssigned;
 
     @PrePersist
     void createdAt() {
@@ -105,22 +113,6 @@ public class Account implements Serializable {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
     public boolean isActive() {
         return active;
     }
@@ -136,6 +128,22 @@ public class Account implements Serializable {
     public void setCreatedAt(Date createdAt) {
         this.createdAt = createdAt;
     }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public List<Request> getRequestsOwned() {
+        return requestsOwned;
+    }
+
+    public void setRequestsOwned(List<Request> requestsOwned) {
+        this.requestsOwned = requestsOwned;
+    }    
 
     @Override
     public int hashCode() {

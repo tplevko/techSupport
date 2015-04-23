@@ -49,11 +49,11 @@ public class Request implements Serializable {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "OWNER_ID")
-    private Customer owner;
+    private Account owner;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "ASSIGNEE_ID")
-    private Employee assignee;
+    private Account assignee;
     
     @OneToMany(mappedBy="request")
     private List<RequestComment> comments;
@@ -100,22 +100,22 @@ public class Request implements Serializable {
         this.executed = executed;
     }
 
-    public Customer getOwner() {
+    public Account getOwner() {
         return owner;
     }
 
-    public void setOwner(Customer owner) {
+    public void setOwner(Account owner) {
         this.owner = owner;
     }
 
-    public Employee getAssignee() {
+    public Account getAssignee() {
         return assignee;
     }
 
-    public void setAssignee(Employee assignee) {
+    public void setAssignee(Account assignee) {
         this.assignee = assignee;
     }
-
+    
     public Long getPriority() {
         return priority;
     }

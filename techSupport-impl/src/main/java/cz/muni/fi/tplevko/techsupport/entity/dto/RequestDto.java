@@ -13,8 +13,8 @@ public class RequestDto {
     private Long id;
     private String text;
     private boolean executed;
-    private CustomerDto owner;
-    private EmployeeDto assignee;
+    private AccountDto owner;
+    private AccountDto assignee;
     private ProductDto product;
     private Long priority;
     private Date created;
@@ -46,19 +46,19 @@ public class RequestDto {
         this.executed = executed;
     }
 
-    public CustomerDto getOwner() {
+    public AccountDto getOwner() {
         return owner;
     }
 
-    public void setOwner(CustomerDto owner) {
+    public void setOwner(AccountDto owner) {
         this.owner = owner;
     }
 
-    public EmployeeDto getAssignee() {
+    public AccountDto getAssignee() {
         return assignee;
     }
 
-    public void setAssignee(EmployeeDto assignee) {
+    public void setAssignee(AccountDto assignee) {
         this.assignee = assignee;
     }
 

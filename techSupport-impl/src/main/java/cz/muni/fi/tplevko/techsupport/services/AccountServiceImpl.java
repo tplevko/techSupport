@@ -19,7 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class AccountServiceImpl implements AccountService {
 
-    private static final Logger log = Logger.getLogger(CustomerServiceImpl.class.getName());
+    private static final Logger log = Logger.getLogger(AccountServiceImpl.class.getName());
 
     @Autowired
     private AccountDao accountDao;

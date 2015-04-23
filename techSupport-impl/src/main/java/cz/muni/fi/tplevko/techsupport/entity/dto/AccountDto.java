@@ -1,6 +1,7 @@
 package cz.muni.fi.tplevko.techsupport.entity.dto;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -13,11 +14,11 @@ public class AccountDto {
     protected String firstName;
     protected String lastName;
     protected String email;
-    protected String password;
-    protected String salt;
     protected boolean active;
     protected Date createdAt;
-
+    protected String phoneNumber;
+    private List<RequestDto> requestsOwned;
+    
     public Long getId() {
         return id;
     }
@@ -49,23 +50,7 @@ public class AccountDto {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
-    public String getSalt() {
-        return salt;
-    }
-
-    public void setSalt(String salt) {
-        this.salt = salt;
-    }
-
+    
     public boolean isActive() {
         return active;
     }
@@ -82,6 +67,22 @@ public class AccountDto {
         this.createdAt = createdAt;
     }
 
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public List<RequestDto> getRequestsOwned() {
+        return requestsOwned;
+    }
+
+    public void setRequestsOwned(List<RequestDto> requestsOwned) {
+        this.requestsOwned = requestsOwned;
+    }
+    
     @Override
     public int hashCode() {
         int hash = 5;
@@ -111,7 +112,7 @@ public class AccountDto {
     @Override
     public String toString() {
         return "AccountDto{" + "id=" + id + ", firstName=" + firstName + ", lastName=" 
-                + lastName + ", email=" + email + ", password=" + password + ", salt=" +
-                salt + ", active=" + active + ", createdAt=" + createdAt + '}';
+                + lastName + ", email=" + email + ", phone="+ phoneNumber +
+                ", active=" + active + ", createdAt=" + createdAt + '}';
     }
 }
