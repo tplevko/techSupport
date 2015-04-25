@@ -1,10 +1,8 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.controllers;
 
-import cz.muni.fi.tplevko.techsupport.entity.dto.CustomerDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.ProductDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestDto;
-import cz.muni.fi.tplevko.techsupport.services.CustomerService;
-import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
+import cz.muni.fi.tplevko.techsupport.services.AccountService;
 import cz.muni.fi.tplevko.techsupport.services.ProductService;
 import cz.muni.fi.tplevko.techsupport.services.RequestService;
 import java.io.Serializable;
@@ -14,8 +12,8 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
+//import org.apache.shiro.SecurityUtils;
+//import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -32,10 +30,7 @@ public class RequestController implements Serializable {
     private static final Logger LOG = Logger.getLogger(RequestController.class.getName());
 
     @Autowired
-    private CustomerService customerService;
-
-    @Autowired
-    private EmployeeService employeeService;
+    private AccountService accountService;
 
     @Autowired
     private RequestService requestService;
@@ -52,12 +47,12 @@ public class RequestController implements Serializable {
     private Long selectedItemId;
     // This requestId is used with employee updating some request, or commenting on it
     private Long requestId;
-    private Subject currentUser;
+//    private Subject currentUser;
 
     @PostConstruct
     public void init() {
-
-        currentUser = SecurityUtils.getSubject();
+//
+//        currentUser = SecurityUtils.getSubject();
 
         request = new RequestDto();
         selectedproduct = new ProductDto();
@@ -132,12 +127,12 @@ public class RequestController implements Serializable {
 
     public String newRequest() {
 
-        currentUser.isAuthenticated();
-        String currentUser = SecurityUtils.getSubject().getPrincipal().toString();
+//        currentUser.isAuthenticated();
+//        String currentUser = SecurityUtils.getSubject().getPrincipal().toString();
 
-        CustomerDto customer = customerService.findCustomerByEmail(currentUser);
+//        CustomerDto customer = customerService.findCustomerByEmail(currentUser);
 
-        request.setOwner(customer);
+//        request.setOwner(customer);
         request.setProduct(selectedproduct);
         request.setPriority(selectedproduct.getDefaultPriority());
         requestService.createRequest(request);
@@ -158,7 +153,7 @@ public class RequestController implements Serializable {
 
     public String deleteRequest() {
 
-        currentUser.isAuthenticated();
+//        currentUser.isAuthenticated();
         RequestDto requestToDelete = requestService.findRequestById(selectedItemId);
         requestService.deleteRequest(requestToDelete);
 

@@ -1,7 +1,7 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.converter;
 
-import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
-import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
+import cz.muni.fi.tplevko.techsupport.entity.dto.AccountDto;
+import cz.muni.fi.tplevko.techsupport.services.AccountService;
 import java.util.logging.Logger;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -11,19 +11,19 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
 
 /**
- * converter used with request editing, when the employee is assigned to
+ * converter used with request editing, when the account is assigned to
  * particullar problem.
  *
  * @author tplevko
  */
-@Component(value = "employeeNameConverter")
+@Component(value = "accountNameConverter")
 @Scope("request")
-public class EmployeeNameConverter implements Converter {
+public class AccountNameConverter implements Converter {
 
-    private static final Logger LOG = Logger.getLogger(EmployeeNameConverter.class.getName());
+    private static final Logger LOG = Logger.getLogger(AccountNameConverter.class.getName());
 
     @Autowired
-    private EmployeeService employeeService;
+    private AccountService accountService;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -32,8 +32,8 @@ public class EmployeeNameConverter implements Converter {
             return null;
         }
 
-        EmployeeDto employee = employeeService.findEmployeeByEmail(value);
-        return employee;
+        AccountDto account = accountService.findAccountByEmail(value);
+        return account;
     }
 
     @Override
@@ -42,9 +42,9 @@ public class EmployeeNameConverter implements Converter {
         if (value == null) {
             return null;
         }
-        
-        EmployeeDto employee = new EmployeeDto();
-        employee = (EmployeeDto) value;
-        return employee.getEmail();
+
+        AccountDto account = new AccountDto();
+        account = (AccountDto) value;
+        return account.getEmail();
     }
 }

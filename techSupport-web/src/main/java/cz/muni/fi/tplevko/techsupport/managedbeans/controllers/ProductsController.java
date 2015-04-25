@@ -11,8 +11,8 @@ import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
+//import org.apache.shiro.SecurityUtils;
+//import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -35,12 +35,12 @@ public class ProductsController implements Serializable {
     private ProductDto product;
     private List<ProductDto> productList;
     private Long prodId;
-    private Subject currentUser;
+//    private Subject currentUser;
 
     @PostConstruct
     public void init() {
 
-        currentUser = SecurityUtils.getSubject();
+//        currentUser = SecurityUtils.getSubject();
 
         product = new ProductDto();
         productList = new ArrayList<ProductDto>();
@@ -99,7 +99,7 @@ public class ProductsController implements Serializable {
     }
 
     public String editProductBefore() {
-        currentUser.checkRole("ROLE_ADMIN");
+//        currentUser.checkRole("ROLE_ADMIN");
 
         Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
         Long productId = Long.valueOf(parameterMap.get("productId"));

@@ -1,7 +1,7 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.converter;
 
-import cz.muni.fi.tplevko.techsupport.entity.dto.EmployeeDto;
-import cz.muni.fi.tplevko.techsupport.services.EmployeeService;
+import cz.muni.fi.tplevko.techsupport.entity.dto.AccountDto;
+import cz.muni.fi.tplevko.techsupport.services.AccountService;
 import java.util.logging.Logger;
 import javax.faces.component.UIComponent;
 import javax.faces.context.FacesContext;
@@ -13,13 +13,13 @@ import org.springframework.stereotype.Component;
  *
  * @author tplevko
  */
-@Component("employeeConverter")
-public class EmployeeConverter implements Converter {
+@Component("accuntConverter")
+public class AccountConverter implements Converter {
 
-    private static final Logger LOG = Logger.getLogger(EmployeeConverter.class.getName());
+    private static final Logger LOG = Logger.getLogger(AccountConverter.class.getName());
 
     @Autowired(required = true)
-    private EmployeeService employeeService;
+    private AccountService accountService;
 
     @Override
     public Object getAsObject(FacesContext context, UIComponent component, String value) {
@@ -32,9 +32,9 @@ public class EmployeeConverter implements Converter {
         
         LOG.info("***** converting the value : " + id + " *****");
                 
-        EmployeeDto empl = employeeService.findEmployeeById(id);
+        AccountDto account = accountService.findAccountById(id);
         
-        return empl;
+        return account;
     }
 
     String getStringKey(Long value) {
@@ -52,16 +52,16 @@ public class EmployeeConverter implements Converter {
             return null;
         }
         
-        if (value instanceof EmployeeDto) {
+        if (value instanceof AccountDto) {
 
-            EmployeeDto employee = (EmployeeDto) value;
+            AccountDto account = (AccountDto) value;
                  
-            LOG.info("***** employee : " + employee.getEmail() + " *****");
+            LOG.info("***** accountempl : " + account.getEmail() + " *****");
 
-            return getStringKey(employee.getId());
+            return getStringKey(account.getId());
 
         } else {
-            throw new IllegalArgumentException("object " + value + " is of type " + value.getClass().getName() + "; expected type: " + EmployeeDto.class.getName());
+            throw new IllegalArgumentException("object " + value + " is of type " + value.getClass().getName() + "; expected type: " + AccountDto.class.getName());
         }
     }
 

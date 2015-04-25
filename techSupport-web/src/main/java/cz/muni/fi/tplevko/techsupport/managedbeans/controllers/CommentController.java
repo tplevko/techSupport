@@ -14,8 +14,8 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-import org.apache.shiro.SecurityUtils;
-import org.apache.shiro.subject.Subject;
+//import org.apache.shiro.SecurityUtils;
+//import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -48,11 +48,11 @@ public class CommentController implements Serializable {
     private RequestCommentDto requestComment;
 
     private List<RequestCommentDto> requestCommentsList;
-    private Subject currentUser;
+//    private Subject currentUser;
 
     @PostConstruct
     public void init() {
-        currentUser = SecurityUtils.getSubject();
+//        currentUser = SecurityUtils.getSubject();
         requestComment = new RequestCommentDto();
         requestCommentsList = new ArrayList<>();
     }
@@ -92,18 +92,18 @@ public class CommentController implements Serializable {
      * @return
      */
     public String newComment() {
-        currentUser.isAuthenticated();
-        String currentUser = SecurityUtils.getSubject().getPrincipal().toString();
+//        currentUser.isAuthenticated();
+//        String currentUser = SecurityUtils.getSubject().getPrincipal().toString();
 
-        AccountDto commenter = accountService.findAccountByEmail(currentUser);
+//        AccountDto commenter = accountService.findAccountByEmail(currentUser);
 
         RequestDto request = requestService.findRequestById(requestId);
 
         LOG.info("**************************");
-        LOG.info("current user, creating comment : " + commenter.getEmail());
+//        LOG.info("current user, creating comment : " + commenter.getEmail());
         LOG.info("**************************");
 
-        requestComment.setCommenter(commenter);
+//        requestComment.setCommenter(commenter);
         requestComment.setRequest(request);
 
         HttpServletRequest origRequest = (HttpServletRequest) FacesContext.
