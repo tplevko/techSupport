@@ -90,3 +90,35 @@
 .matchDetailTable td {
     vertical-align: top;
 }
+
+/*
+Rich faces settings
+*/
+
+.rf-p-b{
+    font-size:16px;
+    padding:10px;
+}
+
+.rf-p{
+    font-size:16px;
+}
+
+.buttonclass {
+    font-size: 16px;
+}
+
+input[type="text"] {
+    font-size:16px;
+}
+
+body, input, button, select, option, textarea {
+    font-size: 16px;  /* whatever font */
+}
+body {
+    font-size: 16px; /* whatever base font size I want */
+}
+input, button, select, option, textarea {
+    font-size: 100%;
+}
+

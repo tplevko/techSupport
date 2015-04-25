@@ -49,7 +49,7 @@
                                            execute="@this" render="@none"
                                            onclick="event.stopPropagation();"
                                            oncomplete="#{rich:component('confirmPanel')}.show();" 
-                                           value="" styleClass="iconizedButton" >
+                                           value="" styleClass="iconizedButton"  style="font-size: 16px" >
                         </a4j:commandButton>
                     </h:panelGrid>
 
@@ -59,12 +59,12 @@
 
                     <h:panelGrid columns="3">
 
-                        <h:commandButton id="sub" value="#{bundle.submitButton}" type="submit" action="#{employeeOperations.editEmployee()}" />
+                        <h:commandButton id="sub" value="#{bundle.submitButton}" type="submit" action="#{employeeOperations.editEmployee()}"  style="font-size: 16px" />
 
-                        <h:commandButton id="cancel" value="#{bundle.cancelButton}" immediate="true" type="submit" action="#{employeeViewer.listEmployees()}" />
+                        <h:commandButton id="cancel" value="#{bundle.cancelButton}" immediate="true" type="submit" action="#{employeeViewer.listEmployees()}"   style="font-size: 16px"/>
 
                         <h:commandButton id="reset" value="#{bundle.resetPassword}" type="submit" 
-                                         action="#{employeeOperations.resetPassword()}" />
+                                         action="#{employeeOperations.resetPassword()}"  style="font-size: 16px"/>
 
                     </h:panelGrid>
 
@@ -75,10 +75,10 @@
                         <br/>
                         <div class="modalPanelActionButtons">
                             <a4j:commandButton value="#{bundle.deleteButton}" onclick="remove();
-                                    return false;" />
+                                    return false;"  style="font-size: 16px" />
                             <a4j:commandButton value="#{bundle.cancelButton}"
                                                onclick="${rich:component('confirmPanel')}.hide();
-                                                       return false;" style="margin-left: 5px;" />
+                                                       return false;" style="margin-left: 5px;"  style="font-size: 16px"/>
                         </div>
                     </rich:popupPanel>
 

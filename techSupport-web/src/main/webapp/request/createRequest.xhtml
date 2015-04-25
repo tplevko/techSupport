@@ -15,7 +15,7 @@
 
             <p>
 
-                Hello, #{request.remoteUser}, how are you today?
+                #{bundle.createRequest}
 
             </p>
 
@@ -59,9 +59,9 @@
 
                         <f:facet name="footer" >
                             <h:commandButton id="sub" value="create" type="submit"
-                                             action="#{requestController.newRequest()}" />
+                                             action="#{requestController.newRequest()}" style="font-size: 16px" />
                             <h:commandButton value="cancel" immediate="true" type="submit" 
-                                             action="#{requestController.requestController}" />
+                                             action="#{requestController.requestController}" style="font-size: 16px" />
                         </f:facet>
 
 

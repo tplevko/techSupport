@@ -40,40 +40,32 @@
                         </ui:insert>
                     </div>
 
-                    <div id="left">
+                    <div id="left" class="verticalLine">
                         <ui:insert name="left">
                             <table>
-
                                 <div>
-                                    <h:link value="#{bundle.profile}" outcome="/profile/myProfile"/>
+                                    <h:link class="menu" value="#{bundle.profile}" outcome="/profile/myProfile"/>
                                 </div>
 
                                 <div>
-                                    <h:link value="#{bundle.createRequest}" outcome="/request/createRequest" rendered="#{request.isUserInRole('user') or request.isUserInRole('admin') or request.isUserInRole('technician')}"  />
+                                    <h:link class="menu" value="#{bundle.createRequest}" outcome="/request/createRequest" rendered="#{request.isUserInRole('user') or request.isUserInRole('admin') or request.isUserInRole('technician')}"  />
                                 </div>
 
                                 <div>        
-                                    <h:link value="#{bundle.myRequests}" outcome="/request/userRequests" rendered="#{request.isUserInRole('user')}"  />
+                                    <h:link class="menu" value="#{bundle.myRequests}" outcome="/request/userRequests" />
                                 </div>
 
                                 <hr/>
                                 <div>        
-                                    <h:link value="#{bundle.login}" outcome="/security/login" rendered="#{not request.isUserInRole('user') and not request.isUserInRole('technician') }"  />
-                                </div>
-
-                                <div>        
-                                    <h:link value="#{bundle.personal}" outcome="/registration/editPersonalInfo" rendered="#{request.isUserInRole('technician') or request.isUserInRole('admin') or request.isUserInRole('user') }"  />
-                                </div>  
-                                <div>        
-                                    <h:link value="#{bundle.helpPage}" outcome="/helpPage" rendered="#{request.isUserInRole('user')}"  />
+                                    <h:link class="menu" value="#{bundle.helpPage}" outcome="/helpPage" rendered="#{request.isUserInRole('user')}"  />
                                 </div>  
 
                                 <!-- ######################## remove ######################## --> 
                                 <div>        
-                                    <h:link value="#{bundle.employeeSection}" outcome="/employee/index" rendered="#{request.isUserInRole('user')}"  />
+                                    <h:link class="menu" value="#{bundle.employeeSection}" outcome="/employee/index" />
                                 </div>  
                                 <div>
-                                    <a href="#{logout.logout()}">#{bundle.logout}</a>
+                                    <a class="menu" href="#{logout.logout()}">#{bundle.logout}</a>
                                 </div>
 
 
@@ -91,7 +83,15 @@
                 </div>
 
             </div>
+
         </div>
+
+
+        <div id="bottom" align="center">
+            <ui:insert name="bottom">#{bundle.mainFooter}</ui:insert>
+        </div>
+
+
     </h:body>
 
 </html>
