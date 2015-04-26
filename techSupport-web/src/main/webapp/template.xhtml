@@ -28,12 +28,10 @@
                             <h1 style="text-align: center;" >
                                 #{bundle.techSupport}
                             </h1>
-                            <div>
-                                <h:form>
-                                    <h:commandLink value="#{bundle.logout}" action="#{logout.logout}"/> 
-                                </h:form>
+                            <h:form>
+                                <h:commandLink class="loginLink" value="#{bundle.logout}" action="#{logout.logout}"/> 
+                            </h:form>
 
-                            </div>
 
 
                         </ui:insert>
@@ -56,12 +54,12 @@
 
                                 <hr/>
                                 <div>        
-                                    <h:link class="menu" value="#{bundle.helpPage}" outcome="/helpPage" rendered="#{request.isUserInRole('user')}"  />
+                                    <h:link class="menu" value="#{bundle.helpPage}" outcome="/helpPage"  />
                                 </div>  
 
                                 <!-- ######################## remove ######################## --> 
                                 <div>        
-                                    <h:link class="menu" value="#{bundle.employeeSection}" outcome="/employee/index" />
+                                    <h:link class="menu" value="#{bundle.employeeSection}" outcome="/employee/index" rendered="#{request.isUserInRole('technician') or request.isUserInRole('admin')}" />
                                 </div>
 
 

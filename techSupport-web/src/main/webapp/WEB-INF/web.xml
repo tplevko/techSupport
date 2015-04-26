@@ -115,6 +115,20 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
         </user-data-constraint>
     </security-constraint>
+    
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Tech Support Application</web-resource-name>
+            <url-pattern>/employee/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+                <role-name>technician</role-name>
+            <role-name>admin</role-name>
+        </auth-constraint>
+        <user-data-constraint>
+            <transport-guarantee>CONFIDENTIAL</transport-guarantee>
+        </user-data-constraint>
+    </security-constraint>
 
     <!-- Define a security constraint that gives unlimted access to freezone -->
     <security-constraint>

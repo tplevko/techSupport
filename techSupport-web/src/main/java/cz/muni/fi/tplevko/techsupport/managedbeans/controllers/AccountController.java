@@ -40,6 +40,7 @@ public class AccountController {
     public void setAccount(AccountDto account) {
         this.account = account;
     }
+
     @PostConstruct
     private void init() {
 
@@ -59,4 +60,12 @@ public class AccountController {
 
         return userProfile;
     }
+
+    public String editProfile() {
+
+        accountService.updateAccount(account);
+
+        return "/profile/myProfile?faces-redirect=true";
+    }
+
 }

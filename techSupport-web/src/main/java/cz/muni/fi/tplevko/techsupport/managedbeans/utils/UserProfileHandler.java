@@ -69,6 +69,22 @@ public class UserProfileHandler {
 
     }
 
+    public String getUserEmail() {
+        return userEmail;
+    }
+
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
+    }
+    
+    public AccountDto getUserProfile() {
+        return userProfile;
+    }
+
+    public void setUserProfile(AccountDto userProfile) {
+        this.userProfile = userProfile;
+    }
+
     private AccountDto userProfileGet() {
 
         AccountDto userProfile = accountService.findAccountByEmail(userEmail);
@@ -79,14 +95,6 @@ public class UserProfileHandler {
         }
 
         return userProfile;
-    }
-
-    public AccountDto getUserProfile() {
-        return userProfile;
-    }
-
-    public void setUserProfile(AccountDto userProfile) {
-        this.userProfile = userProfile;
     }
 
     private AccountDto createUserProfile() {
@@ -106,9 +114,8 @@ public class UserProfileHandler {
     public void showSessionInfo() {
 
         request.getUserPrincipal().getName();
-        
+
 //        HttpSession thisSession = request.getSession();
-        
         Map<String, List<Object>> sessionMap = (Map<String, List<Object>>) httpSession.getAttribute(GeneralConstants.SESSION_ATTRIBUTE_MAP);
 
         Set<String> keySet = new HashSet<>();

@@ -21,35 +21,36 @@
 
                 <h:form>
                     <h:panelGrid columns="2">
-                        <h:outputLabel value="name " />
-                        <h:inputText value="#{userProfileHandler.userProfile.firstName}" id="firstName">
-                            <f:validateLength minimum="0"/>
-                            <f:validateRequired for="sub"/>
-                        </h:inputText>
+                        <h:outputLabel value="#{bundle.email}" />
+                        <h:outputText value="#{accountController.account.email}"  />
 
-                        <h:outputLabel value="surname " />
-                        <h:inputText value="#{userProfileHandler.userProfile.lastName}" id="lastName">
-                            <f:validateLength minimum="0"/>
-                            <f:validateRequired for="sub"/>
-                        </h:inputText>
+                        <h:outputLabel value="#{bundle.firstName}" />
+                        <h:outputText value="#{accountController.account.firstName}"  />
 
-                        <h:outputLabel value="email " />
-                        <h:inputText value="#{userProfileHandler.userProfile.email}" id="email">
-                            <f:validateLength minimum="0"/>
-                            <f:validateRequired for="sub"/>
+                        <h:outputLabel value="#{bundle.lastName}" />
+                        <h:outputText value="#{accountController.account.lastName}"  />
+
+                        <h:outputLabel value="#{bundle.phoneNumber}" />
+                        <h:inputText value="#{accountController.account.phoneNumber}" id="phone" maxlength="14"
+                                     converterMessage="Please enter digits only."
+                                     validatorMessage="Please enter VALID phone number with no white spaces.">
+                            <f:validateRegex pattern="^[+]?[0-9]+$" />
+                            <f:validateLength minimum="9" maximum="14" />
                         </h:inputText> 
 
+                        <h:panelGrid columns="2">
+                            <h:commandButton id="sub" value="#{bundle.confirm}" type="submit" action="#{accountController.editProfile()}" style="font-size: 16px" />
+                            <h:commandButton value="#{bundle.cancelButton}" type="reset" style="font-size: 16px" />
+                        </h:panelGrid>
                     </h:panelGrid>
+
+                    <h:panelGrid>
+                        <h:messages  infoStyle="color:darkgreen" errorStyle="color:darkred" />
+                    </h:panelGrid>
+
 
                 </h:form>
             </rich:panel>
-
-
-            <p>
-                #{userProfileHandler.showSessionInfo()}
-            </p>
-
-
 
         </ui:define>
 

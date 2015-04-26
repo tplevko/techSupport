@@ -31,7 +31,7 @@
                             #{bundle.techSupport}
                         </h1>
                         <h:form>
-                            <h:commandLink value="#{bundle.logout}" action="#{logout.logout}"/> 
+                                <h:commandLink class="loginLink" value="#{bundle.logout}" action="#{logout.logout}"/> 
                         </h:form>
                     </ui:insert>
                 </div>
@@ -94,11 +94,11 @@
                                                             mode="server"/>
                                     </rich:panelMenuGroup>
 
-                                    <rich:panelMenuGroup label="#{bundle.menuPersonalGroup}">
-                                        <rich:panelMenuItem label="#{bundle.menuPersonalEdit}" 
-                                                            name="editPersonal"
+                                    <rich:panelMenuGroup label="#{bundle.userSection}">
+                                        <rich:panelMenuItem label="#{bundle.backToUserSection}" 
+                                                            name="backToUserSection"
                                                             actionListener="#{navigationMenuBean.saveSelectedItem}"
-                                                            action="#{employeeOperations.editPersonalInfoBefore()}"
+                                                            action="/index"
                                                             mode="server"/>
                                         <!--TODO ^^^^^^^^^^^^^^^^^-->
                                     </rich:panelMenuGroup>

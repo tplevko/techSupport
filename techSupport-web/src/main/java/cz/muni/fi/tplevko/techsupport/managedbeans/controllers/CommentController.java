@@ -3,6 +3,7 @@ package cz.muni.fi.tplevko.techsupport.managedbeans.controllers;
 import cz.muni.fi.tplevko.techsupport.entity.dto.AccountDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestCommentDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestDto;
+import cz.muni.fi.tplevko.techsupport.managedbeans.utils.UserProfileHandler;
 import cz.muni.fi.tplevko.techsupport.services.AccountService;
 import cz.muni.fi.tplevko.techsupport.services.RequestCommentService;
 import cz.muni.fi.tplevko.techsupport.services.RequestService;
@@ -14,8 +15,6 @@ import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import javax.servlet.http.HttpServletRequest;
-//import org.apache.shiro.SecurityUtils;
-//import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -43,7 +42,7 @@ public class CommentController implements Serializable {
     private RequestService requestService;
 
     @Autowired
-    private AccountService accountService;
+    private UserProfileHandler userProfileHandler;
 
     private RequestCommentDto requestComment;
 
@@ -93,17 +92,15 @@ public class CommentController implements Serializable {
      */
     public String newComment() {
 //        currentUser.isAuthenticated();
-//        String currentUser = SecurityUtils.getSubject().getPrincipal().toString();
 
-//        AccountDto commenter = accountService.findAccountByEmail(currentUser);
-
+        AccountDto commenter = userProfileHandler.getUserProfile();
         RequestDto request = requestService.findRequestById(requestId);
 
         LOG.info("**************************");
-//        LOG.info("current user, creating comment : " + commenter.getEmail());
+        LOG.info("current user, creating comment : " + commenter.getEmail());
         LOG.info("**************************");
 
-//        requestComment.setCommenter(commenter);
+        requestComment.setCommenter(commenter);
         requestComment.setRequest(request);
 
         HttpServletRequest origRequest = (HttpServletRequest) FacesContext.

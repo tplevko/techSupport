@@ -19,25 +19,26 @@
                     <h:outputText style="font-size: large;" value="#{bundle.profile}"  />
                 </f:facet>
 
+                <h:panelGrid columns="2">
+                    <h:outputLabel value="#{bundle.email}" />
+                    <h:outputText value="#{accountController.account.email}"  />
+
+                    <h:outputLabel value="#{bundle.firstName}" />
+                    <h:outputText value="#{accountController.account.firstName}"  />
+
+                    <h:outputLabel value="#{bundle.lastName}" />
+                    <h:outputText value="#{accountController.account.lastName}"  />
+
+                    <h:outputLabel value="#{bundle.phoneNumber}" />
+                    <h:outputText value="#{accountController.account.phoneNumber}" />
+
+                </h:panelGrid>
+
+
                 <h:form>
                     <h:panelGrid columns="2">
-                        <h:outputLabel value="email " />
-                        <h:outputText value="#{accountController.account.email}"  />
-
-                        <h:outputLabel value="first name " />
-                        <h:outputText value="#{accountController.account.firstName}"  />
-
-                        <h:outputLabel value="surname " />
-                        <h:outputText value="#{accountController.account.lastName}"  />
-
-                        <h:outputLabel value="phone number " />
-                        <h:inputText value="#{accountController.account.phoneNumber}" id="phone">
-                            <f:validateLength minimum="0"/>
-                            <f:validateRequired for="sub"/>
-                        </h:inputText> 
-
+                        <h:commandButton id="sub" value="#{bundle.edit}" type="submit" action="/profile/editProfile" style="font-size: 16px" />
                     </h:panelGrid>
-
                 </h:form>
             </rich:panel>
 

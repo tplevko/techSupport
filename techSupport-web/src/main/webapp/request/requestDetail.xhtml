@@ -9,9 +9,9 @@
                 xmlns:rich="http://richfaces.org/rich">
 
     <f:metadata>
-        <f:viewParam name="reqId" value="#{customerRequestsController.requestId}" />
+        <f:viewParam name="reqId" value="#{userRequestsController.requestId}" />
         <f:viewParam name="reqId" value="#{commentController.requestId}" />
-        <f:event type="preRenderView" listener="#{customerRequestsController.editRequestBefore()}"/>
+        <f:event type="preRenderView" listener="#{userRequestsController.editRequestBefore()}"/>
         <f:event type="preRenderView" listener="#{commentController.initRequestCommentList()}"/>
     </f:metadata>
 
@@ -23,20 +23,20 @@
             <h:panelGrid columns="2">
 
                 <h:outputLabel value="#{bundle.reqTitle}: " />
-                <h:outputText value="#{customerRequestsController.selectedRequestDto.requestTitle}" id="requestTitle">
+                <h:outputText value="#{userRequestsController.selectedRequestDto.requestTitle}" id="requestTitle">
                 </h:outputText>
 
                 <h:outputLabel value="#{bundle.createdBy}: " />       
-                <h:outputText value="#{customerRequestsController.selectedRequestDto.owner.firstName} #{customerRequestsController.selectedRequestDto.owner.lastName}" />                            
+                <h:outputText value="#{userRequestsController.selectedRequestDto.owner.firstName} #{userRequestsController.selectedRequestDto.owner.lastName}" />                            
 
                 <h:outputLabel value="#{bundle.createdByEmail}: " />       
-                <h:outputText value="#{customerRequestsController.selectedRequestDto.owner.email}" />                            
+                <h:outputText value="#{userRequestsController.selectedRequestDto.owner.email}" />                            
 
                 <h:outputLabel value="#{bundle.requestOwner}: " />        
-                <h:outputText value="#{customerRequestsController.selectedRequestDto.assignee.firstName} #{customerRequestsController.selectedRequestDto.assignee.lastName}" />                            
+                <h:outputText value="#{userRequestsController.selectedRequestDto.assignee.firstName} #{userRequestsController.selectedRequestDto.assignee.lastName}" />                            
 
                 <h:outputLabel value="#{bundle.requestOwnerContact}: " />         
-                <h:outputText value="#{customerRequestsController.selectedRequestDto.assignee.email}" />                            
+                <h:outputText value="#{userRequestsController.selectedRequestDto.assignee.email}" />                            
 
             </h:panelGrid>
 
@@ -46,7 +46,7 @@
                 <h:outputLabel value="#{bundle.reqText}: " />
             </h3>
             <rich:panel style="max-width: 650px; border-style:none" >
-                <h:outputText value="#{customerRequestsController.selectedRequestDto.text}" id="lastName" />
+                <h:outputText value="#{userRequestsController.selectedRequestDto.text}" id="lastName" />
             </rich:panel>
 
             <hr />
@@ -66,20 +66,26 @@
                                    
                     <rich:panel bodyClass="pbody" style="width: 682px; max-width: 682px; border-style: none">
 
-                        <rich:panel style="max-width: 650px; border-style:none" >
-
-                            <h:outputText value="#{bundle.createdBy} " />   
-
-                            <h:outputText value="#{comment.commenter.firstName} #{comment.commenter.lastName} " />   
-
-                            <h:outputText value="#{bundle.emailAddress} " />
-
-                            <h:outputText value="#{comment.commenter.email}" />
-
-                        </rich:panel>
 
                         <rich:panel style="max-width: 650px; border-style:none" >
                             <h:outputText value="#{comment.text}" id="text" />
+                        </rich:panel>
+                        
+                        <rich:panel style="max-width: 650px; border-style:none" >
+
+                            <div style="font-size: 12px;">
+                                <h:panelGrid columns="2">
+
+                                    <h:outputText value="#{bundle.createdBy} : " />   
+
+                                    <h:outputText value="#{comment.commenter.firstName} #{comment.commenter.lastName} " />   
+
+                                    <h:outputText value="#{bundle.emailAddress} " />
+
+                                    <a href="mailto:#{comment.commenter.email}">#{comment.commenter.email}</a>
+
+                                </h:panelGrid>
+                            </div>
                         </rich:panel>
 
                     </rich:panel>

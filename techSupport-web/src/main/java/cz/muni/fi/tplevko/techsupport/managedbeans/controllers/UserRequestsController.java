@@ -8,9 +8,11 @@ import cz.muni.fi.tplevko.techsupport.services.RequestService;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
+import org.picketlink.common.constants.GeneralConstants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -50,23 +52,20 @@ public class UserRequestsController implements Serializable {
 
     public List<RequestDto> getUserRequestList() {
 //        currentUser.isAuthenticated();
+
+//        userRequestList = requestService.getAllRequests();
+        String userEmail = profileHandler.getUserEmail();
+        currentUser = accountService.findAccountByEmail(userEmail);
         userRequestList = currentUser.getRequestsOwned();
 
-        LOG.info("**********");
-        LOG.info("**********");
-        LOG.info(currentUser.getEmail());
-        LOG.info("**********");
-        LOG.info("**********");
-        
-        
         LOG.info("********************************");
         LOG.info("********************************");
 
-        for (RequestDto req : userRequestList) { 
-        
+        for (RequestDto req : userRequestList) {
+
             LOG.info(req.getRequestTitle());
         }
-        
+
         LOG.info("********************************");
         LOG.info("********************************");
 

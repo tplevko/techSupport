@@ -51,12 +51,12 @@
                     <h:selectBooleanCheckbox value="#{editRequestController.selectedRequest.executed}" />
 
                     <h:outputLabel value="#{bundle.requestOwner}:" />
-                    <h:selectOneMenu id="employees" value="#{editRequestController.selectedEmployee}">
+                    <h:selectOneMenu id="employees" value="#{editRequestController.selectedAccount}">
 
-                        <f:converter binding="#{employeeNameConverter}" />
+                        <f:converter binding="#{accountNameConverter}" />
                         <f:selectItem itemLabel="---" itemValue="#{null}" />
-                        <f:selectItems value="#{editRequestController.employeeList}" var="employee"
-                                       itemLabel="#{employee.email}" />
+                        <f:selectItems value="#{editRequestController.accountList}" var="account"
+                                       itemLabel="#{account.email}" />
                     </h:selectOneMenu>
 
                 </h:panelGrid>
@@ -66,11 +66,11 @@
                     <h:message for="requestTitle" />
                     <h:message for="imputText" />
 
-                    <f:facet name="footer" >
+                    <h:panelGrid columns="2" >
                         <h:commandButton id="sub" value="edit" type="submit"
                                          action="#{editRequestController.editRequest()}" style="font-size: 16px" />
                         <h:commandButton value="#{bundle.cancelButton}" type="reset" style="font-size: 16px" />
-                    </f:facet>
+                    </h:panelGrid>
 
 
 
@@ -107,19 +107,24 @@
                     <rich:panel bodyClass="pbody" style="width: 682px; max-width: 682px; border-style: none">
 
                         <rich:panel style="max-width: 650px; border-style:none" >
-
-                            <h:outputText value="#{bundle.createdBy} " />   
-
-                            <h:outputText value="#{comment.commenter.firstName} #{comment.commenter.lastName} " />   
-
-                            <h:outputText value="#{bundle.emailAddress} " />
-
-                            <h:outputText value="#{comment.commenter.email}" />
-
+                            <h:outputText value="#{comment.text}" id="text" />
                         </rich:panel>
 
                         <rich:panel style="max-width: 650px; border-style:none" >
-                            <h:outputText value="#{comment.text}" id="text" />
+
+                            <div style="font-size: 12px;">
+                                <h:panelGrid columns="2">
+
+                                    <h:outputText value="#{bundle.createdBy} : " />   
+
+                                    <h:outputText value="#{comment.commenter.firstName} #{comment.commenter.lastName} " />   
+
+                                    <h:outputText value="#{bundle.emailAddress} " />
+
+                                    <a href="mailto:#{comment.commenter.email}">#{comment.commenter.email}</a>
+
+                                </h:panelGrid>
+                            </div>
                         </rich:panel>
 
                     </rich:panel>

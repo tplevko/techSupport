@@ -57,12 +57,12 @@
                         <h:message for="requestTitle" />
                         <h:message for="imputText" />
 
-                        <f:facet name="footer" >
-                            <h:commandButton id="sub" value="create" type="submit"
+                        <h:panelGrid columns="2">
+                            <h:commandButton id="sub" value="#{bundle.submit}" type="submit"
                                              action="#{requestController.newRequest()}" style="font-size: 16px" />
-                            <h:commandButton value="cancel" immediate="true" type="submit" 
-                                             action="#{requestController.requestController}" style="font-size: 16px" />
-                        </f:facet>
+                            <h:commandButton value="#{bundle.cancelButton}" type="reset" style="font-size: 16px" />
+
+                        </h:panelGrid>
 
 
 
