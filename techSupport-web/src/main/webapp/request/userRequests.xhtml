@@ -34,11 +34,11 @@
 
                 <rich:panel>
                     <f:facet name="header">
-                        <h:outputText style="font-size: large;" value="#{bundle.customerRequests}"  />
+                        <h:outputText style="font-size: large;" value="#{bundle.userRequests}"  />
                     </f:facet>
 
-                    <rich:extendedDataTable value="#{customerRequestsController.customerRequestList}" 
-                                            var="custRequest" id="table"
+                    <rich:extendedDataTable value="#{userRequestsController.userRequestList}" 
+                                            var="userRequest" id="table"
                                             rowClasses="odd-row, even-row"
                                             rows="20"
                                             sortMode="single"
@@ -48,32 +48,32 @@
                                             keepSaved="true"
                                             >
 
-                        <rich:column sortBy="#{custRequest.id}" width="75px">
+                        <rich:column sortBy="#{userRequest.id}" width="75px">
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.id}" />
                             </f:facet>
-                            <h:outputText value="#{custRequest.id}" />
+                            <h:outputText value="#{userRequest.id}" />
                         </rich:column>
 
-                        <rich:column sortBy="#{custRequest.requestTitle}" width="240px">
+                        <rich:column sortBy="#{userRequest.requestTitle}" width="240px">
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.reqTitle}" />
                             </f:facet>
-                            <h:outputText value="#{custRequest.requestTitle}" />
+                            <h:outputText value="#{userRequest.requestTitle}" />
                         </rich:column>
 
-                        <rich:column sortBy="#{custRequest.product.name}" width="120px">
+                        <rich:column sortBy="#{userRequest.product.name}" width="120px">
                             <f:facet name="header">
                                 <h:outputText class="" value="#{bundle.productName}"/>
                             </f:facet>
-                            <h:outputText value="#{custRequest.product.name}" />
+                            <h:outputText value="#{userRequest.product.name}" />
                         </rich:column>
 
-                        <rich:column sortBy="#{custRequest.created}">
+                        <rich:column sortBy="#{userRequest.created}">
                             <f:facet name="header">
                                 <h:outputText class="" value="#{bundle.dateCreated}" />
                             </f:facet>
-                            <h:outputText value="#{custRequest.created}">
+                            <h:outputText value="#{userRequest.created}">
                                 <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
                             </h:outputText>
                         </rich:column>
@@ -81,7 +81,7 @@
                         <rich:column width="60px">
 
                             <h:link value="#{bundle.detail}"  outcome="/request/requestDetail" >
-                                <f:param name="reqId" value="#{custRequest.id}" />
+                                <f:param name="reqId" value="#{userRequest.id}" />
                             </h:link>
 
                         </rich:column>

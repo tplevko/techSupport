@@ -23,19 +23,18 @@
                         <ui:insert name="top">
                             <link href="#{resource['css/components.css']}" rel="stylesheet" type="text/css" />
 
-                            <!--                            <h:outputStylesheet name="./css/components.css" />-->
+                            <h:outputStylesheet name="./css/components.css" />
 
                             <h1 style="text-align: center;" >
                                 #{bundle.techSupport}
                             </h1>
+                            <div>
+                                <h:form>
+                                    <h:commandLink value="#{bundle.logout}" action="#{logout.logout}"/> 
+                                </h:form>
 
-                            <h:form>
-                                <h:commandLink action="#{logout.logout()}" 
-                                               styleClass="loginLink"
-                                               rendered="#{request.isUserInRole('ROLE_USER')}" >
-                                    <h:outputFormat value="#{bundle.logout}" />
-                                </h:commandLink>
-                            </h:form>
+                            </div>
+
 
                         </ui:insert>
                     </div>
@@ -63,9 +62,6 @@
                                 <!-- ######################## remove ######################## --> 
                                 <div>        
                                     <h:link class="menu" value="#{bundle.employeeSection}" outcome="/employee/index" />
-                                </div>  
-                                <div>
-                                    <a class="menu" href="#{logout.logout()}">#{bundle.logout}</a>
                                 </div>
 
 

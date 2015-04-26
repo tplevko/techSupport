@@ -123,6 +123,14 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
             <url-pattern>/javax.faces.resource/*</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
+            <web-resource-name>images</web-resource-name>
+            <url-pattern>/icons/*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
+            <web-resource-name>images</web-resource-name>
+            <url-pattern>/techSupport/icons/*</url-pattern>
+        </web-resource-collection>
+        <web-resource-collection>
             <web-resource-name>styles and js</web-resource-name>
             <url-pattern>/techSupport/org.richfaces.resources/*</url-pattern>
         </web-resource-collection>       

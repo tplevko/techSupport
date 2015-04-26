@@ -9,35 +9,33 @@
 
     <h:head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-        <h:outputStylesheet name="css/default.css" />
-        <h:outputStylesheet name="css/cssLayout.css" />
+        <!--        <h:outputStylesheet name="css/default.css"/>
+                <h:outputStylesheet name="css/cssLayout.css"/>-->
+        <link href="#{resource['css/default.css']}" rel="stylesheet" type="text/css" />
+        <link href="#{resource['css/cssLayout.css']}" rel="stylesheet" type="text/css" />
+
         <title>#{bundle.techSupport}</title>
     </h:head>
 
     <h:body>
-
         <div class="page">
 
             <div id="bodyContainer">
                 <div id="top">
                     <ui:insert name="top">
+                        <link href="#{resource['css/components.css']}" rel="stylesheet" type="text/css" />
 
-                        <h:outputStylesheet name="css/components.css" />
+                        <!--                            <h:outputStylesheet name="./css/components.css" />-->
 
                         <h1 style="text-align: center;" >
-                            <title>#{bundle.techSupport}</title>
+                            #{bundle.techSupport}
                         </h1>
-
                         <h:form>
-                            <h:commandLink action="#{logout.logout()}" 
-                                           styleClass="loginLink"
-                                           rendered="#{request.isUserInRole('technician')}" >
-                                <h:outputFormat value="#{bundle.logout}" />
-                            </h:commandLink>
+                            <h:commandLink value="#{bundle.logout}" action="#{logout.logout}"/> 
                         </h:form>
-
                     </ui:insert>
                 </div>
+
 
 
                 <div>
@@ -53,25 +51,6 @@
                                                  topGroupCollapsedRightIcon="chevronDown"
                                                  itemLeftIcon="disc">
 
-
-                                    <rich:panelMenuGroup label="#{bundle.menuEmployeeGroup}" 
-                                                         rendered="#{request.isUserInRole('admin')}">
-                                        <rich:panelMenuItem label="#{bundle.menuEmployeeAdd}"
-                                                            rendered="#{request.isUserInRole('admin')}"
-                                                            name="addEmployee"
-                                                            actionListener="#{navigationMenuBean.saveSelectedItem}"
-                                                            action="#{employeeOperations.addEmployeeBefore()}"
-                                                            mode="server"/>
-
-                                        <rich:panelMenuItem label="#{bundle.menuEmployeeList}" 
-                                                            rendered="#{request.isUserInRole('admin')}"
-                                                            name="listEmployees"
-                                                            action="#{employeeViewer.listEmployees()}" 
-                                                            actionListener="#{navigationMenuBean.saveSelectedItem}"
-                                                            mode="server"/>
-                                    </rich:panelMenuGroup>
-
-
                                     <rich:panelMenuGroup label="#{bundle.menuUserGroup}" 
                                                          rendered="#{request.isUserInRole('admin')}">
 
@@ -79,7 +58,7 @@
                                                             rendered="#{request.isUserInRole('admin')}"
                                                             name="listUser"
                                                             actionListener="#{navigationMenuBean.saveSelectedItem}"
-                                                            action="#{customerController.listCustomers}" 
+                                                            action="#{userProfilesController.listAccounts}" 
                                                             mode="server" />
 
                                     </rich:panelMenuGroup>

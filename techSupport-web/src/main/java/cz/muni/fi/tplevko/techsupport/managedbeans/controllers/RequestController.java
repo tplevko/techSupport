@@ -1,7 +1,9 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.controllers;
 
+import cz.muni.fi.tplevko.techsupport.entity.dto.AccountDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.ProductDto;
 import cz.muni.fi.tplevko.techsupport.entity.dto.RequestDto;
+import cz.muni.fi.tplevko.techsupport.managedbeans.utils.UserProfileHandler;
 import cz.muni.fi.tplevko.techsupport.services.AccountService;
 import cz.muni.fi.tplevko.techsupport.services.ProductService;
 import cz.muni.fi.tplevko.techsupport.services.RequestService;
@@ -12,8 +14,6 @@ import java.util.List;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.faces.context.FacesContext;
-//import org.apache.shiro.SecurityUtils;
-//import org.apache.shiro.subject.Subject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Component;
@@ -38,6 +38,9 @@ public class RequestController implements Serializable {
     @Autowired
     private ProductService productService;
 
+    @Autowired
+    private UserProfileHandler userProfileHandler;
+
     private RequestDto request;
     private List<RequestDto> requestList;
     private List<ProductDto> productList;
@@ -47,12 +50,9 @@ public class RequestController implements Serializable {
     private Long selectedItemId;
     // This requestId is used with employee updating some request, or commenting on it
     private Long requestId;
-//    private Subject currentUser;
 
     @PostConstruct
     public void init() {
-//
-//        currentUser = SecurityUtils.getSubject();
 
         request = new RequestDto();
         selectedproduct = new ProductDto();
@@ -127,12 +127,9 @@ public class RequestController implements Serializable {
 
     public String newRequest() {
 
-//        currentUser.isAuthenticated();
-//        String currentUser = SecurityUtils.getSubject().getPrincipal().toString();
+        AccountDto currentUser = userProfileHandler.getUserProfile();
 
-//        CustomerDto customer = customerService.findCustomerByEmail(currentUser);
-
-//        request.setOwner(customer);
+        request.setOwner(currentUser);
         request.setProduct(selectedproduct);
         request.setPriority(selectedproduct.getDefaultPriority());
         requestService.createRequest(request);

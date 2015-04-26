@@ -32,11 +32,11 @@
 
                 <rich:panel>
                     <f:facet name="header">
-                        <h:outputText style="font-size: large;" value="#{bundle.customerList}"  />
+                        <h:outputText style="font-size: large;" value="#{bundle.accountList}"  />
                     </f:facet>
 
-                    <rich:extendedDataTable value="#{customerController.customerList}" 
-                                            var="customer" 
+                    <rich:extendedDataTable value="#{userProfilesController.accountList}" 
+                                            var="account" 
                                             id="table"
                                             rowClasses="odd-row, even-row"
                                             rows="20" 
@@ -44,36 +44,36 @@
                                             selectionMode="single" 
                                             onrowmouseover="jQuery(this).addClass('active-row');" 
                                             onrowmouseout="jQuery(this).removeClass('active-row');" 
-                                            onrowclick="processRowClick(#{customer.id});"
+                                            onrowclick="processRowClick(#{account.id});"
                                             keepSaved="true"
                                             >
 
-                        <rich:column  sortBy="#{customer.id}">
+                        <rich:column  sortBy="#{account.id}">
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.id}" />
                             </f:facet>
-                            <h:outputText value="#{customer.id}" />
+                            <h:outputText value="#{account.id}" />
                         </rich:column>
 
-                        <rich:column  sortBy="#{customer.email}">
+                        <rich:column  sortBy="#{account.email}">
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.email}" />
                             </f:facet>
-                            <h:outputText value="#{customer.email}" />
+                            <h:outputText value="#{account.email}" />
                         </rich:column>
 
-                        <rich:column  sortBy="#{customer.active}">
+                        <rich:column  sortBy="#{account.active}">
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.active}" />
                             </f:facet>
-                            <h:outputText value="#{customer.active}" />
+                            <h:outputText value="#{account.active}" />
                         </rich:column>
 
-                        <rich:column  sortBy="#{customer.createdAt}">
+                        <rich:column  sortBy="#{account.createdAt}">
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.createdAt}" />
                             </f:facet>
-                            <h:outputText value="#{customer.createdAt}">
+                            <h:outputText value="#{account.createdAt}">
                                 <f:convertDateTime pattern="#{timeFormat.localePattern}" type="both" />
                             </h:outputText>            
                         </rich:column>
@@ -88,8 +88,8 @@
                             <a4j:commandButton image="/resources/icons/Change-pencil-icon.png"
                                                value="Edit"
                                                styleClass="iconizedButton" 
-                                               action="#{customerController.editCustomerBefore()}" >
-                                <a4j:param value="#{customer.id}" name="customerId"/>                   
+                                               action="#{userProfilesController.editAccountBefore()}" >
+                                <a4j:param value="#{account.id}" name="accountId"/>                   
                             </a4j:commandButton>
 
                         </rich:column>
@@ -106,10 +106,10 @@
 
                 <a4j:jsFunction name="processRowClick" 
                                 execute="@form"
-                                render=":customerDetail"
-                                action="#{customerController.rowKeyListener(rowKey)}" 
+                                render=":accountDetail"
+                                action="#{userProfilesController.rowKeyListener(rowKey)}" 
 
-                                oncomplete="#{rich:component('customerDetail')}.show()"
+                                oncomplete="#{rich:component('accountDetail')}.show()"
                                 >
 
                     <a4j:param name="rowKey" assignTo="#{rowKey}" />
@@ -120,55 +120,33 @@
 
 
 
-            <rich:popupPanel header="#{bundle.customerDetail}"
-                             id="customerDetail"
+            <rich:popupPanel header="#{bundle.accountDetail}"
+                             id="accountDetail"
 
                              domElementAttachment="parent" width="400" height="400"
-                             onmaskclick="#{rich:component('customerDetail')}.hide()">
+                             onmaskclick="#{rich:component('accountDetail')}.hide()">
 
                 <h:form>
                     <rich:tabPanel id="tp">  
-                        <rich:tab header="#{bundle.customerInformation}">
+                        <rich:tab header="#{bundle.accountInformation}">
 
-                            <h:panelGrid columns="3" id="customerInfo">
+                            <h:panelGrid columns="3" id="accountInfo">
                                 <h:outputText value="first name" />
-                                <h:outputText value="#{customerController.selectedItem.firstName}" />
+                                <h:outputText value="#{userProfilesController.selectedItem.firstName}" />
                                 <h:panelGroup />
                                 <h:outputText value="last name" />
-                                <h:outputText value="#{customerController.selectedItem.lastName}" />
+                                <h:outputText value="#{userProfilesController.selectedItem.lastName}" />
                                 <h:panelGroup />
                                 <h:outputText value="registered" />
-                                <h:outputText value="#{customerController.selectedItem.createdAt}" />
+                                <h:outputText value="#{userProfilesController.selectedItem.createdAt}" />
                                 <h:panelGroup />
                                 <h:outputText value="email" />
-                                <h:outputText value="#{customerController.selectedItem.email}" />
+                                <h:outputText value="#{userProfilesController.selectedItem.email}" />
                                 <h:panelGroup />
                             </h:panelGrid>
 
 
                         </rich:tab>  
-                        <rich:tab header="#{bundle.customerRequests}">  
-
-                            <rich:dataTable value="#{customerController.selectedItem.requests}" 
-                                            var="req"
-                                            id="table" 
-                                            rows="6" rowClasses="odd-row, even-row"
-                                            styleClass="stable">
-                                <rich:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="ID" />
-                                    </f:facet>
-                                    <h:outputText value="#{req.id}" />
-                                </rich:column>
-                                <rich:column>
-                                    <f:facet name="header">
-                                        <h:outputText value="req date " />
-                                    </f:facet>
-                                    <h:outputText value="#{req.created}" />
-                                </rich:column>
-
-                            </rich:dataTable>
-                        </rich:tab>
                     </rich:tabPanel>  
 
 

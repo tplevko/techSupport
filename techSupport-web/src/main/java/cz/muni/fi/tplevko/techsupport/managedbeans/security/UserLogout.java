@@ -1,8 +1,9 @@
 package cz.muni.fi.tplevko.techsupport.managedbeans.security;
 
+import java.util.logging.Logger;
 import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
 import javax.faces.context.FacesContext;
+import org.springframework.context.annotation.Scope;
 
 /**
  * Log out class, used for logging out of system users
@@ -10,12 +11,20 @@ import javax.faces.context.FacesContext;
  * @author tplevko
  */
 @ManagedBean(name = "logout")
-@RequestScoped
+@Scope("request")
 public class UserLogout {
+
+    private static final Logger LOG = Logger.getLogger(UserLogout.class.getName());
 
     public String logout() {
         
-//        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
-        return "?GLO=true";
+        LOG.info("*********************");
+        LOG.info("logging out user");
+        LOG.info("*********************");
+
+        // We need to end the session after the user was logged out on IDP side
+        FacesContext.getCurrentInstance().getExternalContext().setSessionMaxInactiveInterval(2);
+        return "/index.xhtml?GLO=true&faces-redirect=true";
+
     }
 }

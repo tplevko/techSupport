@@ -40,76 +40,23 @@ public class AccountController {
     public void setAccount(AccountDto account) {
         this.account = account;
     }
-
-    private String firstName;
-    private String surname;
-    private String userEmail;
-
     @PostConstruct
     private void init() {
 
         account = userProfileHandler.getUserProfile();
-        
-        LOG.info("********************");
-        LOG.info("********************");
-        LOG.info("emailAddress : " + account.getEmail());
-        LOG.info("givenName : " + account.getFirstName());
-        LOG.info("surname : " + account.getLastName());
-        LOG.info("***************************");
-        LOG.info("***************************");
-
     }
-//
-//    public String editAccountBefore() {
-////        Map<String, String> parameterMap = (Map<String, String>) FacesContext.getCurrentInstance().getExternalContext().getRequestParameterMap();
-////        Long customerId = Long.valueOf(parameterMap.get("customerId"));
-////        customer = customerService.findCustomerById(customerId);
-//
-//        return "/profile/editProfile?faces-redirect=true";
-//    }
-//
-//    public String editAccountInfo() {
-////
-////        userProfileHandler.userProfileGet();
-//
-//        accountService.updateAccount(account);
-//        return "/profile/myProfile?faces-redirect=true";
-//    }
 
     public String getUserAccount() {
 
-//        userProfileHandler.getCurrentUser();
         account = userProfileGet();
-//
-//        userProfileHandler.userProfileGet();
 
         return "/profile/myProfile?faces-redirect=true";
     }
 
     public AccountDto userProfileGet() {
 
-        AccountDto userProfile = accountService.findAccountByEmail(userEmail);
-//
-//        if (userProfile == null) {
-//
-//            userProfile = createUserProfile();
-//        }
+        AccountDto userProfile = userProfileHandler.getUserProfile();
 
         return userProfile;
     }
-
-//    private AccountDto createUserProfile() {
-//
-//        AccountDto userProfile = new AccountDto();
-//
-//        userProfile.setActive(true);
-//        userProfile.setEmail(userEmail);
-//        userProfile.setFirstName(firstName);
-//        userProfile.setLastName(surname);
-//
-//        accountService.createAccount(userProfile);
-//
-//        return accountService.findAccountByEmail(userEmail);
-//    }
-
 }
