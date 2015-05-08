@@ -31,7 +31,7 @@
                             #{bundle.techSupport}
                         </h1>
                         <h:form>
-                                <h:commandLink class="loginLink" value="#{bundle.logout}" action="#{logout.logout}"/> 
+                            <h:commandLink class="loginLink" value="#{bundle.logout}" action="#{logout.logout}"/> 
                         </h:form>
                     </ui:insert>
                 </div>
@@ -123,11 +123,10 @@
         </div>
 
 
-        <!--        
-                <div id="bottom">
-                    <ui:insert name="bottom">[PA165 FI MUNI] #{bundle.mainFooter}</ui:insert>
-                </div>
-        -->
+
+        <div id="bottom" align="center">
+            <ui:insert name="bottom">#{bundle.mainFooter} : employee section</ui:insert>
+        </div>
 
     </h:body>
 

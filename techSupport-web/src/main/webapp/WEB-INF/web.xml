@@ -138,11 +138,11 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>images</web-resource-name>
-            <url-pattern>/icons/*</url-pattern>
+            <url-pattern>/resources/icons/*</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>images</web-resource-name>
-            <url-pattern>/techSupport/icons/*</url-pattern>
+            <url-pattern>/techSupport/resources/icons/*</url-pattern>
         </web-resource-collection>
         <web-resource-collection>
             <web-resource-name>styles and js</web-resource-name>
