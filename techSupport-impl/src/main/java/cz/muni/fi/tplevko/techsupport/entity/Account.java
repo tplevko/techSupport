@@ -17,6 +17,7 @@ import javax.persistence.SequenceGenerator;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import org.hibernate.annotations.ColumnTransformer;
 
 /**
  * entity, that represents the account in the system. It contains all the basic
@@ -49,14 +50,20 @@ public class Account implements Serializable {
     @Column(name = "ID")
     protected Long id;
 
-    @Column(length = 50, nullable = false)
-    protected String firstName;
+    @Column(length = 256, nullable = false, name = "firstName")
+    @ColumnTransformer(
+            read = "pgp_sym_decrypt(firstName::bytea, 'firstName', 'compress-algo=1, cipher-algo=aes256')",
+            write = "pgp_sym_encrypt(?, 'firstName', 'compress-algo=1, cipher-algo=aes256')")
+    private String firstName;
 
-    @Column(length = 50, nullable = false)
-    protected String lastName;
+    @Column(length = 256, nullable = false, name = "lastName")
+    @ColumnTransformer(
+            read = "pgp_sym_decrypt(lastName::bytea, 'lastName', 'compress-algo=1, cipher-algo=aes256')",
+            write = "pgp_sym_encrypt(?, 'lastName', 'compress-algo=1, cipher-algo=aes256')")
+    private String lastName;
 
     @Column(nullable = false, unique = true)
-    protected String email;
+    private String email;
 
 //    @Column(length = 256, nullable = false)
 //    protected String password;
@@ -75,7 +82,6 @@ public class Account implements Serializable {
 
 //    @OneToMany(mappedBy = "assignee")
 //    private List<Request> requestsAssigned;
-
     @PrePersist
     void createdAt() {
         this.createdAt = new Date();
@@ -143,7 +149,7 @@ public class Account implements Serializable {
 
     public void setRequestsOwned(List<Request> requestsOwned) {
         this.requestsOwned = requestsOwned;
-    }    
+    }
 
     @Override
     public int hashCode() {
