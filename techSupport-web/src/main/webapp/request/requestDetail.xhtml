@@ -38,6 +38,10 @@
                 <h:outputLabel value="#{bundle.requestAssigneeContact}: " />         
                 <h:outputText value="#{userRequestsController.selectedRequestDto.assignee.email}" />                            
 
+                <h:outputLabel value="#{bundle.finished}: " />
+                <h:outputLabel value="#{bundle.no}" rendered="#{empty (userRequestsController.selectedRequestDto.finished)}"/>  
+                <h:outputText value="#{userRequestsController.selectedRequestDto.finished}" rendered="#{not empty (userRequestsController.selectedRequestDto.finished)}"/>                            
+
             </h:panelGrid>
 
             <hr/>
