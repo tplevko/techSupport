@@ -27,10 +27,14 @@
         <property name="createDatabase" value="create" />
     </bean>-->    
 
-<!--    <jdbc:initialize-database data-source="dataSource">
+    <!--    <jdbc:initialize-database data-source="dataSource">
         <jdbc:script location="classpath:/sql/initPostgres.sql"/>
     </jdbc:initialize-database>-->
 
+    <!--    <jdbc:initialize-database data-source="dataSource">
+        <jdbc:script location="classpath:/sql/initDb.sql"/>
+    </jdbc:initialize-database>-->
+    
     <!-- bean mapper -->
     <bean id="dozerBeanMapper" class="org.dozer.DozerBeanMapper">
     </bean>
@@ -38,20 +42,20 @@
     <bean class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor"/>
     
     <!-- derby datasource -->
-    <!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <!--        <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver" />
         <property name="url" value="jdbc:derby://localhost:1527/test" />
         <property name="username" value="test" />
         <property name="password" value="test" />
-    </bean>
+    </bean>-->
     
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <!--    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="TestPU"/>
         <property name="dataSource" ref="dataSource"/>
     </bean>-->
     
     <!-- postgres datasource -->
-<!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="url" value="jdbc:postgresql://localhost:5432/test"/>
         <property name="username" value="postgres"/>
@@ -61,18 +65,18 @@
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="postgres"/>
         <property name="dataSource" ref="dataSource"/>
-    </bean>-->
+    </bean>
 
-    <!-- embedded derby datasource -->
-        <bean id="dataSource" class="org.apache.derby.jdbc.EmbeddedDataSource">
+    <!--embedded derby datasource--> 
+<!--    <bean id="dataSource" class="org.apache.derby.jdbc.EmbeddedDataSource">
         <property name="databaseName" value="ProductsDB"/>
         <property name="createDatabase" value="create" />
-    </bean>
+    </bean>-->
     
-        <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <!--    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="TestInMemoryPU"/>
         <property name="dataSource" ref="dataSource"/>
-    </bean>
+    </bean>-->
     
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>
