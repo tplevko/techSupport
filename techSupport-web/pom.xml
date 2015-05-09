@@ -17,7 +17,7 @@
     <properties>
         <endorsed.dir>${project.build.directory}/endorsed</endorsed.dir>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <org.richfaces.bom.version>4.3.4.Final</org.richfaces.bom.version>
+        <org.richfaces.bom.version>4.3.7.Final</org.richfaces.bom.version>
         <netbeans.hint.deploy.server>Tomcat</netbeans.hint.deploy.server>
         <!--<tomcat.components.version>7.0.41</tomcat.components.version>-->
         <picketlink.version>2.7.0.Final</picketlink.version>

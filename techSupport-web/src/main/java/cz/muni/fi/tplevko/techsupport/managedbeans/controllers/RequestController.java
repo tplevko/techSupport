@@ -145,7 +145,7 @@ public class RequestController implements Serializable {
 
     public void editRequestBefore() {
 
-        request = requestService.findRequestById(requestId);
+        selectedItem = requestService.findRequestById(requestId);
     }
 
     public String deleteRequest() {

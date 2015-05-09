@@ -92,7 +92,6 @@ public class EditRequestController implements Serializable {
 
         } else {
             selectedRequest.setFinished(null);
-            selectedRequest.setAssignee(null);
         }
 
         requestService.updateRequest(selectedRequest);

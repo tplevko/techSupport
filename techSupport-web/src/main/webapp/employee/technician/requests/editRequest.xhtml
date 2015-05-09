@@ -5,7 +5,8 @@
                 xmlns:f="http://java.sun.com/jsf/core"
                 xmlns:ui="http://java.sun.com/jsf/facelets" 
                 xmlns:p="http://primefaces.org/ui"
-                xmlns:rich="http://richfaces.org/rich">
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j">
 
     <f:metadata>
         <f:viewParam name="reqId" value="#{requestController.requestId}" />
@@ -41,17 +42,27 @@
                 <h:panelGrid columns="2">
 
                     <h:outputLabel value="#{bundle.requestPriority}: " />
-                    <h:inputText value="#{editRequestController.selectedRequest.priority}" 
-                                 id="requestPriority" style="width: 30px">
+
+                    <h:selectOneMenu id="priority" value="#{editRequestController.selectedRequest.priority}" >
+
+                        <f:selectItem itemLabel="Select One" itemValue="" />  
+                        <f:selectItem itemLabel="1" itemValue="1" />  
+                        <f:selectItem itemLabel="2" itemValue="2" />  
+                        <f:selectItem itemLabel="3" itemValue="3" />  
+                        <f:selectItem itemLabel="4" itemValue="4" />  
+                        <f:selectItem itemLabel="5" itemValue="5" />  
+
                         <f:validateLength minimum="0"/>
                         <f:validateRequired for="sub"/>
-                    </h:inputText>
+
+                        <f:convertNumber integerOnly="true" />
+                    </h:selectOneMenu>
 
                     <h:outputLabel value="#{bundle.finished}:" />
                     <h:selectBooleanCheckbox value="#{editRequestController.selectedRequest.executed}" />
 
-                    <h:outputLabel value="#{bundle.requestOwner}:" />
-                    <h:selectOneMenu id="employees" value="#{editRequestController.selectedAccount}">
+                    <h:outputLabel value="#{bundle.requestAssignee}:" />
+                    <h:selectOneMenu id="employees" value="#{editRequestController.selectedRequest.assignee}">
 
                         <f:converter binding="#{accountNameConverter}" />
                         <f:selectItem itemLabel="---" itemValue="#{null}" />
@@ -65,6 +76,7 @@
 
                     <h:message for="requestTitle" />
                     <h:message for="imputText" />
+                    <h:message for="priority" />
 
                     <h:panelGrid columns="2" >
                         <h:commandButton id="sub" value="edit" type="submit"
@@ -96,6 +108,7 @@
             </h3>
 
             <br/>
+
 
             <h:form>
 
@@ -129,13 +142,14 @@
 
                     </rich:panel>
 
-                    <!-- TODO : this footer is somehow not working. look into it -->
                     <f:facet name="footer">
-                        <rich:dataScroller for="commentListView" />
+                        <rich:dataScroller id="scroller" for="commentListView" renderIfSinglePage="false"  />
                     </f:facet>
+
                 </rich:dataGrid>
 
             </h:form>
+
 
             <h:form>
                 <rich:panel bodyClass="pbody">

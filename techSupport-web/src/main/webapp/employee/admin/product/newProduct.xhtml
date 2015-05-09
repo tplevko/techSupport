@@ -27,13 +27,29 @@
                         </h:inputText>
 
                         <h:outputLabel value="#{bundle.defaultPriority}" />
-                        <h:inputText value="#{productsController.product.defaultPriority}"
+
+
+                        <h:selectOneMenu id="defaultPriority" value="#{productsController.product.defaultPriority}" >
+
+                            <f:selectItem itemLabel="Select One" itemValue="" />  
+                            <f:selectItem itemLabel="1" itemValue="1" />  
+                            <f:selectItem itemLabel="2" itemValue="2" />  
+                            <f:selectItem itemLabel="3" itemValue="3" />  
+                            <f:selectItem itemLabel="4" itemValue="4" />  
+                            <f:selectItem itemLabel="5" itemValue="5" />  
+
+                            <f:convertNumber integerOnly="true" />
+                            <f:validateLength minimum="0" />
+                            <f:validateRequired for="sub" />
+
+                        </h:selectOneMenu>
+
+<!--                        <h:inputText value="#{productsController.product.defaultPriority}"
                                      required="true" id="defaultPriority"
                                      requiredMessage="#{bundle.defaultPriority} #{bundle.validField}"
                                      validatorMessage="#{bundle.defaultPriority} #{bundle.numberField}" >
                             <f:validateRequired for="sub"/>
-<!--                            <f:validateRegex pattern="[0-9]*" for="defaultPriority"/>-->
-                        </h:inputText>
+                        </h:inputText>-->
                     </h:panelGrid>
 
                     <h:panelGrid columns="1">

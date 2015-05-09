@@ -32,10 +32,10 @@
                 <h:outputLabel value="#{bundle.createdByEmail}: " />       
                 <h:outputText value="#{userRequestsController.selectedRequestDto.owner.email}" />                            
 
-                <h:outputLabel value="#{bundle.requestOwner}: " />        
+                <h:outputLabel value="#{bundle.requestAssignee}: " />        
                 <h:outputText value="#{userRequestsController.selectedRequestDto.assignee.firstName} #{userRequestsController.selectedRequestDto.assignee.lastName}" />                            
 
-                <h:outputLabel value="#{bundle.requestOwnerContact}: " />         
+                <h:outputLabel value="#{bundle.requestAssigneeContact}: " />         
                 <h:outputText value="#{userRequestsController.selectedRequestDto.assignee.email}" />                            
 
             </h:panelGrid>
@@ -91,8 +91,8 @@
                     </rich:panel>
 
                     <!-- TODO : this footer is somehow not working. look into it -->
-                    <f:facet name="footer">
-                        <rich:dataScroller for="commentListView" />
+                    <f:facet name="footer" >
+                        <rich:dataScroller for="commentListView" renderIfSinglePage="false"/>
                     </f:facet>
                 </rich:dataGrid>
 

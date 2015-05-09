@@ -28,7 +28,7 @@ import org.springframework.stereotype.Component;
  */
 @Component(value = "commentController")
 @ManagedBean
-@Scope("request")
+@Scope("session")
 public class CommentController implements Serializable {
 
     private static final Logger LOG = Logger.getLogger(CommentController.class.getName());
