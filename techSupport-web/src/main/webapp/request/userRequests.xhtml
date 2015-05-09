@@ -48,7 +48,7 @@
                                             keepSaved="true"
                                             >
 
-                        <rich:column sortBy="#{userRequest.id}" width="75px">
+                        <rich:column sortBy="#{userRequest.id}" width="50px">
                             <f:facet name="header">
                                 <h:outputText class="arrangeableHeader" value="#{bundle.id}" />
                             </f:facet>
@@ -69,7 +69,7 @@
                             <h:outputText value="#{userRequest.product.name}" />
                         </rich:column>
 
-                        <rich:column sortBy="#{userRequest.created}">
+                        <rich:column sortBy="#{userRequest.created}" width="88px">
                             <f:facet name="header">
                                 <h:outputText class="" value="#{bundle.dateCreated}" />
                             </f:facet>
@@ -77,6 +77,16 @@
                                 <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
                             </h:outputText>
                         </rich:column>
+                        
+                        <rich:column sortBy="#{userRequest.finished}" width="88px" >
+                            <f:facet name="header">
+                                <h:outputText class="" value="#{bundle.finished}" />
+                            </f:facet>
+                            <h:outputText value="#{userRequest.finished}">
+                                <f:convertDateTime type="date" pattern="dd-MM-yyyy"/>
+                            </h:outputText>
+                        </rich:column>
+
 
                         <rich:column width="60px">
 
