@@ -55,12 +55,20 @@
     </bean>-->
     
     <!-- postgres datasource -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+<!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="org.postgresql.Driver"/>
         <property name="url" value="jdbc:postgresql://localhost:5432/test"/>
         <property name="username" value="postgres"/>
         <property name="password" value="postgres"/>
+    </bean>-->
+    
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.postgresql.Driver"/>
+        <property name="url" value="jdbc:postgresql://${OPENSHIFT_POSTGRESQL_DB_HOST}:${OPENSHIFT_POSTGRESQL_DB_PORT}/${OPENSHIFT_APP_NAME}"/>
+        <property name="username" value="${OPENSHIFT_POSTGRESQL_DB_USERNAME}"/>
+        <property name="password" value="${OPENSHIFT_POSTGRESQL_DB_PASSWORD}"/>
     </bean>
+
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="postgres"/>
@@ -68,7 +76,7 @@
     </bean>
 
     <!--embedded derby datasource--> 
-<!--    <bean id="dataSource" class="org.apache.derby.jdbc.EmbeddedDataSource">
+    <!--    <bean id="dataSource" class="org.apache.derby.jdbc.EmbeddedDataSource">
         <property name="databaseName" value="ProductsDB"/>
         <property name="createDatabase" value="create" />
     </bean>-->

@@ -155,7 +155,7 @@
             <groupId>org.aspectj</groupId>
             <artifactId>aspectjweaver</artifactId>
             <version>1.7.4</version>
-        </dependency>
+        </dependency>        
     </dependencies>
 
     <build>
@@ -175,7 +175,7 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <port>8080</port>
+                    <port>8080</port>   
                     <path>/techSupport</path>
                     <systemProperties>
                         <JAVA_OPTS>-Xms512m -Xmx1024m -XX:MaxPermSize=512m</JAVA_OPTS>
@@ -256,19 +256,27 @@
                 <artifactId>jetty-maven-plugin</artifactId>
                 <version>9.1.5.v20140505</version> 
                 <configuration>
-                    <jvmArgs>-Xmx -Xms -XX:PermSize=512m -XX:MaxPermSize=1024m -XX:+HeapDumpOnOutOfMemoryError</jvmArgs>
+
+                    <httpConnector>
+                        <host>${OPENSHIFT_DIY_IP}</host>
+                        <port>8080</port>
+                    </httpConnector>
+
+                    <jvmArgs>-Xmx -Xms -XX:PermSize=512m -XX:MaxPermSize=1024m -Djetty.host=$OPENSHIFT_DIY_IP -Djetty.port=$OPENSHIFT_DIY_PORT -XX:+HeapDumpOnOutOfMemoryError</jvmArgs>
                     <webAppConfig>
-                        <contextPath>/techSupport</contextPath>
+                        <contextPath>/</contextPath>
                         <overrideDescriptor>src/main/jetty/override-web.xml</overrideDescriptor>
                     </webAppConfig>
                     <scanIntervalSeconds>0</scanIntervalSeconds>
                     <contextXml>src/main/jetty/jetty-context.xml</contextXml>
-                    <stopKey>stop</stopKey>
-                    <stopPort>8081</stopPort>
+                    <!--                    <stopKey>stop</stopKey>
+                    <stopPort>8081</stopPort>-->
                     <!--http://juplo.de/configure-https-for-jetty-maven-plugin-9-0-x/--> 
-                    <jettyXml>
-                        ${project.basedir}/src/main/jetty/jetty.xml,${project.basedir}/src/main/jetty/jetty-http.xml,${project.basedir}/src/main/jetty/jetty-ssl.xml,${project.basedir}/src/main/jetty/jetty-https.xml
-                    </jettyXml>
+                    <!--<jettyXml>-->
+                    <!--${project.basedir}/src/main/jetty/jetty.xml,-->
+                    ${project.basedir}/src/main/jetty/jetty-http.xml
+                    <!--                        ,${project.basedir}/src/main/jetty/jetty-ssl.xml,${project.basedir}/src/main/jetty/jetty-https.xml-->
+                    <!--</jettyXml>-->
 
                 </configuration>
                 <dependencies>
@@ -277,7 +285,7 @@
                         <artifactId>weld-servlet</artifactId>
                         <version>2.1.2.Final</version>
                     </dependency>
-                    
+
                     <!-- JSF -->
                     <dependency>
                         <groupId>com.sun.faces</groupId>
@@ -306,7 +314,7 @@
                         <artifactId>richfaces-core-impl</artifactId>
                         <version>${org.richfaces.bom.version}</version>
                     </dependency>
-                                        
+                                            
                     <!-- Eclipselink - is herre because of picketlink.. -->
                     <dependency>
                         <groupId>org.eclipse.persistence</groupId>
@@ -353,10 +361,10 @@
                                 <artifactId>jetty-server</artifactId>
                                 <groupId>org.eclipse.jetty</groupId>
                             </exclusion>
-                            <exclusion>
+                            <!--                            <exclusion>
                                 <artifactId>jetty-security</artifactId>
                                 <groupId>org.eclipse.jetty</groupId>
-                            </exclusion>
+                            </exclusion>-->
                             <exclusion>
                                 <artifactId>jetty-webapp</artifactId>
                                 <groupId>org.eclipse.jetty</groupId>
@@ -374,18 +382,18 @@
                 </dependencies>
             </plugin>
             
-            <plugin>
+            <!--            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>keytool-maven-plugin</artifactId>
                 <configuration>
                     <keystore>src/main/jetty/waadsaml.keystore</keystore>
-                    <dname>cn=localhost</dname>  <!-- put your CN here -->
+                    <dname>cn=localhost</dname>   put your CN here 
                     <keypass>waadsaml</keypass>
                     <storepass>waadsaml</storepass>
                     <alias>waadsaml</alias>
                     <keyalg>RSA</keyalg>
                 </configuration>
-            </plugin>
+            </plugin>-->      
             
         </plugins>
     </build>

@@ -10,8 +10,10 @@
        
         <!-- KeyCloak -->
         <IdentityURL>${idp.url::https://keycloak-plevko.rhcloud.com/auth/realms/saml-demo/protocol/saml}</IdentityURL>
-        <ServiceURL>${techSupport.url::https://localhost:8443/techSupport}</ServiceURL>
-        
+        <!--<ServiceURL>${techSupport.url::https://localhost:8443/techSupport}</ServiceURL>-->
+<!--        <ServiceURL>${techSupport.url::https://localhost:8080</ServiceURL>-->
+                <ServiceURL>${techSupport.url::https://jetty-tplevko.rhcloud.com}</ServiceURL>
+
         <Trust>
             <!-- local server needs to be included since AuthNRequest is also checked -->
             <Domains>localhost,sts.windows.net,login.microsoftonline.com,rhcloud.com</Domains>

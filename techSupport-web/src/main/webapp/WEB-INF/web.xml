@@ -111,9 +111,9 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
             <role-name>technician</role-name>
             <role-name>admin</role-name>
         </auth-constraint>
-        <user-data-constraint>
+<!--        <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
+        </user-data-constraint>-->
     </security-constraint>
     
     <security-constraint>
@@ -125,9 +125,9 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
                 <role-name>technician</role-name>
             <role-name>admin</role-name>
         </auth-constraint>
-        <user-data-constraint>
+<!--        <user-data-constraint>
             <transport-guarantee>CONFIDENTIAL</transport-guarantee>
-        </user-data-constraint>
+        </user-data-constraint>-->
     </security-constraint>
 
     <!-- Define a security constraint that gives unlimted access to freezone -->
