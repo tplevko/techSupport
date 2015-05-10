@@ -1,24 +1,16 @@
 ## techSupport
 =========
 
-Ukážková aplikácia k diplomovej práci: Bezpečnosť cloudu
+Ukážková aplikácia k diplomovej práci: Bezpečnosť cloudov7ch PaaS
 
 Ide o aplikáciu, ktorá reprezentuje systém technickej podpory, pre softvérové spoločnosti. Zostavenie aplikácie je možné pomocou Apache Maven.
-S menšími úpravami konfiguračných súborov, je možné nasadiť aplikáciu na viaceré PaaS platformy. Konfiguračné súbory sa nachádzajú v zložke:
+S menšími úpravami konfiguračných súborov pre picketlink, je možné nasadiť aplikáciu na viaceré PaaS platformy. Konfiguračné súbory sa nachádzajú v zložke:
 
-_techSupport/techSupport-web/src/main/resources/_
-
-Ide o konfiguračné súbory:
-
-_admin.properties_ a _config.properties_
-
-Heslo pre administrátorský účet by sa malo zmeniť a po nasadení na platformy, by administrátor mal pridať nejaké produkty pre podporu a zákazníci následne môžu pridávať svoje požiadavky do systému.
+_techSupport/techSupport-web/src/webapp/WEB-INF/picketlink.xml_
 
 Platformy, na ktoré je možné nasadiť aplikáciu :
 - item Windows Azure
 - item OpenShift
-- item Pivotal Web Services
-- item Heroku
 
 Postupy nasadenia na jednotlivé platformy :
 
@@ -26,67 +18,60 @@ Postupy nasadenia na jednotlivé platformy :
 
 Po registrácii na OpenShift online, máme k dispozícii v rámci účtu zadarmo, možnosť vytvorenia 3 gearov, na ktorých môžeme spúšťať naše aplikácie.
 
-Pre našu aplikáciu vytvoríme gear, s EWS (EWS je produktizovaný Tomcat kontajner, poskytovaný spoločnosťou Red Hat) a PostgreSQL. Aplikácia po nasadení dostupná na URL (túto poskytneme konfiguračnému súboru _config.properties_): 
+
+Budeme potrebovať nainštalovať IDP v podobe KeyCloak serveru, na strane poskytovateľa.
+Inštalácia KeyCloaky na OpenShift je popísaná na:
+
+http://docs.jboss.org/keycloak/docs/1.1.0.Final/userguide/html/openshift.html
+
+Po úspešnej inštalácií KeyCloaku a prvom prihlásení sa, pomocou mena/hesla :
+admin/admin, ktoré však bude po prvotnom prihlásení zmenené, vytvoríme v rámci
+KeyCloaku "realm" s názvom saml-demo.
+
+V sekcii "Users" vytvoríme užívateľa s rolou "admin", ktorý bude v našej
+aplikácii predstavovať administrátora. Ďalej môžeme vytvoriť užívateľov
+s rolami "technician" pre technikov, prípadne užívateľské účty s rolou "user".
+
+V rámci saml-demo realm vytvoríme v sekcii "Applications" novú aplikáciu
+s menom, ktoré bude mať naša aplikácia na OpenShifte po nasadení. Zvolíme
+z ponuky ako "client protocol" SAML a do sekcií
+
+"Redirect URL" : https://${app-name}.rhcloud.com/*
+"Default Redirect URL" : https://${app-name}.rhcloud.com
+"Admin URL" : https://${app-name}.rhcloud.com
+
+Pre nasadenie samotnej aplikácie na OpenShift, potrebujeme vytvoriť gear
+s "diy" a "postgresql-9.2" cartridge:
+
+rhc app create ${app-name} diy-0.1 postgresql-9.2 -l ${user-name}
+
+
+Na našom stroji s vytvorí zložka ${app-name}, ktorá obsahuje git repozitár našej aplikácie. OpenShift používa na nasadzovanie aplikácií Git, pomocou ktorého nahráme na platformu naše zdrojové kódy a OpenShift sa následne postará o ich zostavenie, pomocou Apache Maven. Git repozitáre pre jednotlivé geary poskytuje pri ich vytvorení.
+Pre komunikáciu s OpenShift budeme tiež potrebovať nástroj rhc, ktorý si musíme nainštalovať na vývojovom stroji.
+Následne prekopírujeme do zložky "${app-name}/.openshift/action_hooks/" dva skripty
+ktoré sa nachádzajú v git repozitári našej aplikácie.
+Ide o štartovací a vypínací skript :
+start
+stop
+
+Nakonfigurujeme pgcrypto extension na postgresql:
+psql ${dbname}
+create extension pgcrypto;
+
+
+ďalej prekopírujeme obsah git repozitára. Spravíme :
+
+git add -A
+git commit -m "${commit-message}"
+git push origin master
+
+V príkazovom riadku môžeme pozorovať výstup zostavenia pomocou maven na strane
+ OpenShiftu.
+ Po chvíli je aplikácia zostavená a spustená na strane poskytovateľa. V prípade
+ správnej konfigurácie je aplikácia dostupná na:
 
 https://${meno_gearu}-${meno_účtu}.rhcloud.com
 
-OpenShift používa na nasadzovanie aplikácií Git, pomocou ktorého nahráme na platformu naše zdrojové kódy a OpenShift sa následne postará o ich zostavenie, pomocou Apache Maven. Git repozitáre pre jednotlivé geary poskytuje pri ich vytvorení. 
-Pre komunikáciu s OpenShift budeme tiež potrebovať nástroj rhc, ktorý si musíme nainštalovať na vývojovom stroji. 
-
-V prípade, že vyvýjame na stroji s operačným systémom Linux, postup nasadenia aplikácie vyzerá nasledovne:
-
-1. item rhc app create ${meno_aplikácie} tomcat-7 postgresql-9.2
-2. item zmažeme ukážkovú aplikáciu vo vytvorenom git repozitári, pomocou rm -rf *
-3. item  odstránili sme ukážkovú aplikáciu, musíme zmeny zaznamenať, pomocou: _git add_ a _git commit_ príkazov
-4. item skopírujeme našu aplikáciu, z vetvy OpenShift : cp -rf ${cesta_ku_git_repozitáru}/techSupport/* ${OpenShift_git_repozitár} 
-6. item povolenie automatického spustenia - touch .openshift/markers/hot_deploy
-7. item commitneme zmeny : git add -A a následne commit 
-8. item git push origin master - pridanie zmien do repozitára na OpenShifte
-
-Na OpenShifte sa všetko následne zostaví pomocou Apache Maven zostavený .war súbor sa nasadí na poskytnutý Tomcat.
-V prípade, že sme nakonfigurovali aplikáciu, pred jej nasadením na OpenShift, mala by fungovať podľa očakávaní.      
-
-### Heroku
-
-Heroku rovnako ako OpenShift používa Git a vlastný nástroj pre príkazový riadok, pre manipuláciu s platformou. Pre nasadenie na je teda prvým krokom registrácia na Heroku a stiahnutie spomínaného nástroja.
-
-Čo sa týka konfigurácie samotnej aplikácie, je nutné pre štartovanie Tomcatu, použiť \uv{Tomcat runner}, čo je maven profil, štartujúci Tomcat, po zostavení aplikácie. Ten je už však pridaný v heroku vetve. PostgreSQL je poskytovaný ako jedna zo služieb, ktoré máme k dispozícii i v prípade použitia účtu zadarmo.
-
-Podobe ako v prípade OpenShiftu, pre heroku dyno, ktoré si vytvoríme v rámci nášho účtu, sa vytvorí git repozitár. Ten si naklonujeme na náš vývojový stroj a môžeme do tohoto repozitáru skopírovať našu nakonfigurovanú aplikáciu.
-
-K aplikácií môžeme v~prípade, že všetko prebehlo podľa očakávaní, pristupovať na adrese (túto poskytneme konfiguračnému súboru _config.properties_):
-
-https://${meno_aplikácie}.herokuapp.com}
-
-Detailný postup krokov pri nasadzovaní aplikácie na Heroku:
-1. item naklonujeme heroku git repozitár: heroku git:clone -a ${meno_aplikácie}
-2. item skopírujeme našu aplikáciu, z vetvy heroku : cp -rf ${cesta_ku_git_repozitáru}/techSupport/* ${heroku_git_repozitár} 
-3. item upravenie konfiguracii + git commit...
-4. item commitneme zmeny : git add -A a následne commit 
-5. item git push heroku
-
-Aplikácia sa rovnako zostaví pomocou Apache Maven, na strane Heroku a následne sa spustí, pomocou nami pridaného tomcat-runner-u v konfigurácii
-
-### Pivotal Web Services
-
-Musíme sa zaregistrovať rovnako aj u Pivotal Web Services, a využijeme tiež nástroj pre príkazový riadok, ktorým je v prípade Pivotal Web Services cf.
-Vytvoríme si pomocou webového rozhrania run.pivotal.io, aplikáciu a pridáme jej poskytovanú databázu ElephantSQL, ktorá je založené na PostgreSQL.
-
-Pivotal WS na rozdiel od vyššie uvedených PaaS neposkytuje vlastné Git repozitáre, využijeme teda tento, priložený repozitár.
-
-Pomocou nástroja _cf_ sa prihlásime k nášmu Pivotal WS účtu, a nasadíme našu aplikáciu v nasledujúcich krokoch:
-
-Po nasadení, bude naša aplikácia dostupná na adrese (pridáme do súboru _config.properties_):
-
-https://${meno_aplikácie}.cfapps.io
-
-1. item zmeníme vetvu na pivotal
-2. item nakonfigurujeme konfiguračné súbory
-3. item zostavíme lokálne aplikáciu, pomocou Apache Maven : maven clean install
-4. item prevedieme nasadenie aplikácie, pomocou príkazu: cf push ${meno_aplikácie} -p ${git_repozitár}/techSupport-web/target/techSupport-web-1.0-SNAPSHOT.war -b https://github.com/cloudfoundry/java-buildpack.git
-5. item aplikácia by po krátkej dobe mala byť dostupná na vyššie uvedenej adrese
-
-Pivotal Web Services zostavuje aplikáciu na strane používateľa, na server sa nasadzuje iba vygenerovaný .war súbor.
 
 ### Windows Azure
 
@@ -106,6 +91,3 @@ http://${meno_aplikácie}.cloudapp.net/techSupport-web/
 3. item zostavíme lokálne aplikáciu, pomocou Apache Maven : maven clean install
 4. item vytvoríme "Azure Deployment Projekt", vo vývojovom prostredí, nastavíme mu použitie nášho projektu, meno projektu, použitie Javy v prostredí na Windows Azure, Tomcat Server, ako server na nasadenie aplikácie.
 5. item Na otestovanie funkčnosti lokálne, môžeme využiť Windows Azure emulátor, na nasadenie na platformu Windows Azure, zvolíme možnosť publikácie na servery Windows Azure.
-
-
-
