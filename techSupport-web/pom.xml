@@ -130,15 +130,6 @@
             <version>2.2</version>
             <scope>compile</scope>
         </dependency>
-
-        <!--org.glassfish.web:el-impl:2.2-->
-
-        <!--        <dependency>
-            <groupId>javax.servlet.jsp</groupId>
-            <artifactId>jsp-api</artifactId>
-            <version>2.2</version>
-            <scope>provided</scope>
-        </dependency>-->
         
         <dependency>
             <groupId>javax.validation</groupId>
@@ -159,51 +150,8 @@
     </dependencies>
 
     <build>
-        <!--        <pluginManagement>
-            <plugins>
-                <plugin>
-                    <groupId>org.apache.tomcat.maven</groupId>
-                    <artifactId>tomcat7-maven-plugin</artifactId>
-                    <version>2.2</version>
-                </plugin>
-            </plugins>
-        </pluginManagement>-->
 
         <plugins>
-            <plugin>
-                <groupId>org.apache.tomcat.maven</groupId>
-                <artifactId>tomcat7-maven-plugin</artifactId>
-                <version>2.2</version>
-                <configuration>
-                    <port>8080</port>   
-                    <path>/techSupport</path>
-                    <systemProperties>
-                        <JAVA_OPTS>-Xms512m -Xmx1024m -XX:MaxPermSize=512m</JAVA_OPTS>
-                    </systemProperties>
-                </configuration>
-                <!--                <executions>
-                    <execution>
-                        <id>tomcat-run</id>
-                        <goals>
-                            <goal>exec-war-only</goal>
-                        </goals>
-                        <phase>package</phase>
-                        <configuration>
-                            <path>foo</path>
-                            <serverXml>src/main/tomcatconf/server.xml</serverXml>
-                            <attachArtifactClassifier>default value is exec-war but you can customize</attachArtifactClassifier>
-                            <attachArtifactClassifierType>default value is jar</attachArtifactClassifierType>
-                        </configuration>
-                    </execution>
-                </executions>-->
-
-
-                <!--                <configuration>
-                    <port>8080</port>
-                    <path>/techSupport</path>
-                </configuration>-->
-            </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -269,15 +217,6 @@
                     </webAppConfig>
                     <scanIntervalSeconds>0</scanIntervalSeconds>
                     <contextXml>src/main/jetty/jetty-context.xml</contextXml>
-                    <!--                    <stopKey>stop</stopKey>
-                    <stopPort>8081</stopPort>-->
-                    <!--http://juplo.de/configure-https-for-jetty-maven-plugin-9-0-x/--> 
-                    <!--<jettyXml>-->
-                    <!--${project.basedir}/src/main/jetty/jetty.xml,-->
-                    ${project.basedir}/src/main/jetty/jetty-http.xml
-                    <!--                        ,${project.basedir}/src/main/jetty/jetty-ssl.xml,${project.basedir}/src/main/jetty/jetty-https.xml-->
-                    <!--</jettyXml>-->
-
                 </configuration>
                 <dependencies>
                     <dependency>
@@ -361,10 +300,10 @@
                                 <artifactId>jetty-server</artifactId>
                                 <groupId>org.eclipse.jetty</groupId>
                             </exclusion>
-                            <!--                            <exclusion>
+                            <exclusion>
                                 <artifactId>jetty-security</artifactId>
                                 <groupId>org.eclipse.jetty</groupId>
-                            </exclusion>-->
+                            </exclusion>
                             <exclusion>
                                 <artifactId>jetty-webapp</artifactId>
                                 <groupId>org.eclipse.jetty</groupId>
@@ -380,21 +319,7 @@
                         </exclusions>
                     </dependency>
                 </dependencies>
-            </plugin>
-            
-            <!--            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>keytool-maven-plugin</artifactId>
-                <configuration>
-                    <keystore>src/main/jetty/waadsaml.keystore</keystore>
-                    <dname>cn=localhost</dname>   put your CN here 
-                    <keypass>waadsaml</keypass>
-                    <storepass>waadsaml</storepass>
-                    <alias>waadsaml</alias>
-                    <keyalg>RSA</keyalg>
-                </configuration>
-            </plugin>-->      
-            
+            </plugin>            
         </plugins>
     </build>
 

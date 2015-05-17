@@ -16,7 +16,8 @@ import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 
 /**
- *
+ * User handler bean, used for import and creation of new users
+ * 
  * @author tplevko
  */
 //@Component(value = "userProfileHandler")
@@ -49,11 +50,8 @@ public class UserProfileHandler {
         Set<String> keySet = sessionMap.keySet();
 
         userEmail = (String) sessionMap.get("emailAddress").get(0);
-        surname = (String) sessionMap.get("givenName").get(0);
+        surname = (String) sessionMap.get("surname").get(0);
         firstName = (String) sessionMap.get("givenName").get(0);
-//        userEmail = "aaa";
-//        surname = "aaa";
-//        firstName = "aaa@gmail.com";
 
         LOG.info("***************************");
         LOG.info("***************************");
@@ -76,7 +74,7 @@ public class UserProfileHandler {
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
-    
+
     public AccountDto getUserProfile() {
         return userProfile;
     }
