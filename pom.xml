@@ -59,18 +59,6 @@
             <type>jar</type>
         </dependency>
 
-        <!-- security -->
-        <!--        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-spring</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>-->
-        <dependency>
-            <groupId>org.apache.shiro</groupId>
-            <artifactId>shiro-all</artifactId>
-            <version>${shiro.version}</version>
-        </dependency>
-
         <!-- testing -->
         <dependency>
             <groupId>junit</groupId>
