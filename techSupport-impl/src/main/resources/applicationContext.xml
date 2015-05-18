@@ -71,9 +71,9 @@
 <!--    <bean id="dataSource" class="org.apache.derby.jdbc.EmbeddedDataSource">
         <property name="databaseName" value="ProductsDB"/>
         <property name="createDatabase" value="create" />
-    </bean>-->
+    </bean>
     
-    <!--    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+        <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="TestInMemoryPU"/>
         <property name="dataSource" ref="dataSource"/>
     </bean>-->
