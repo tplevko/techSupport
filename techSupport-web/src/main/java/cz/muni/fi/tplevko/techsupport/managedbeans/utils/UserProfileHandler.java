@@ -48,25 +48,21 @@ public class UserProfileHandler {
 
         Set<String> keySet = sessionMap.keySet();
 
-        userEmail = (String) sessionMap.get("emailAddress").get(0);
-        surname = (String) sessionMap.get("givenName").get(0);
-        firstName = (String) sessionMap.get("givenName").get(0);
-//        userEmail = "aaa";
-//        surname = "aaa";
-//        firstName = "aaa@gmail.com";
-
+        userEmail = (String) sessionMap.get("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/name").get(0);
+        surname = (String) sessionMap.get("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/surname").get(0);
+        firstName = (String) sessionMap.get("http://schemas.xmlsoap.org/ws/2005/05/identity/claims/givenname").get(0);
         LOG.info("***************************");
         LOG.info("***************************");
         LOG.info(keySet.toString());
         LOG.info("emailAddress : " + userEmail);
         LOG.info("givenName : " + firstName);
         LOG.info("surname : " + surname);
-        LOG.info("userid : " + (String) sessionMap.get("userid").get(0));
+        LOG.info("userid : " + (String) sessionMap.get("http://schemas.microsoft.com/identity/claims/tenantid").get(0));
         LOG.info("***************************");
         LOG.info("***************************");
+
         userProfile = new AccountDto();
         userProfile = userProfileGet();
-
     }
 
     public String getUserEmail() {
@@ -76,7 +72,7 @@ public class UserProfileHandler {
     public void setUserEmail(String userEmail) {
         this.userEmail = userEmail;
     }
-    
+
     public AccountDto getUserProfile() {
         return userProfile;
     }
@@ -92,6 +88,7 @@ public class UserProfileHandler {
         if (userProfile == null) {
 
             userProfile = createUserProfile();
+
         }
 
         return userProfile;

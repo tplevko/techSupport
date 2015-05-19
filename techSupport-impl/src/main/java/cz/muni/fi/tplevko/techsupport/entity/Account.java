@@ -52,15 +52,22 @@ public class Account implements Serializable {
 
     @Column(length = 256, nullable = false, name = "firstName")
     @ColumnTransformer(
-            read = "pgp_sym_decrypt(firstName::bytea, 'firstName', 'compress-algo=1, cipher-algo=aes256')",
-            write = "pgp_sym_encrypt(?, 'firstName', 'compress-algo=1, cipher-algo=aes256')")
+            read = "convert(varchar(60), DecryptByPassPhrase('firstName',firstName))",
+            write = "EncryptByPassPhrase('firstName',?)")
     private String firstName;
 
     @Column(length = 256, nullable = false, name = "lastName")
     @ColumnTransformer(
-            read = "pgp_sym_decrypt(lastName::bytea, 'lastName', 'compress-algo=1, cipher-algo=aes256')",
-            write = "pgp_sym_encrypt(?, 'lastName', 'compress-algo=1, cipher-algo=aes256')")
+            //            read = "DecryptByPassPhrase('lastName', lastName)",
+            read = "convert(varchar(60), DecryptByPassPhrase('lastName',lastName))",
+            write = "EncryptByPassPhrase('lastName',?)")
     private String lastName;
+//
+//    @Column(length = 256, nullable = false, name = "lastName")
+//    @ColumnTransformer(
+//            read = "pgp_sym_decrypt(lastName::bytea, 'lastName', 'compress-algo=1, cipher-algo=aes256')",
+//            write = "pgp_sym_encrypt(?, 'lastName', 'compress-algo=1, cipher-algo=aes256')")
+//    private String lastName;
 
     @Column(nullable = false, unique = true)
     private String email;
