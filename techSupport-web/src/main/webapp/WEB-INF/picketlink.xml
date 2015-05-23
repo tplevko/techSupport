@@ -8,7 +8,7 @@
     configuration for this SP must be set.
         -->
         <IdentityURL>${idp.url::https://keycloak-plevko.rhcloud.com/auth/realms/saml-demo/protocol/saml}</IdentityURL>
-        <ServiceURL>${techSupport.url::https://jetty-tplevko.rhcloud.com}</ServiceURL>
+        <ServiceURL>${techSupport.url::https://techsupport-tplevko.rhcloud.com}</ServiceURL>
 
         <Trust>
             <Domains>localhost,sts.windows.net,login.microsoftonline.com,rhcloud.com</Domains>
