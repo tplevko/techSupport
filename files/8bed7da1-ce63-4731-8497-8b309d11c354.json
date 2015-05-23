@@ -1,0 +1,90 @@
+{
+  "appId": "8bed7da1-ce63-4731-8497-8b309d11c354",
+  "appRoles": [
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Can do some admin stuff",
+      "displayName": "admin",
+      "id": "c400a00b-f67c-42c7-ba9a-f73d8c67e433",
+      "isEnabled": true,
+      "value": "admin"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Can do some user stuff",
+      "displayName": "user",
+      "id": "c400a00b-f67c-42b7-ba9a-f73d8c67e433",
+      "isEnabled": true,
+      "value": "user"
+    },
+    {
+      "allowedMemberTypes": [
+        "User"
+      ],
+      "description": "Can do technician work",
+      "displayName": "technician",
+      "id": "c400a00b-f67c-42b7-ba9a-f73d8c87a794",
+      "isEnabled": true,
+      "value": "technician"
+    }
+  ],
+  "availableToOtherTenants": false,
+  "displayName": "https://tplevkosupport.cloudapp.net/techSupport/",
+  "errorUrl": null,
+  "groupMembershipClaims": null,
+  "homepage": "https://tplevkosupport.cloudapp.net/techSupport/",
+  "identifierUris": [
+    "https://tplevkosupport.cloudapp.net/techSupport/"
+  ],
+  "keyCredentials": [],
+  "knownClientApplications": [],
+  "logoutUrl": null,
+  "oauth2AllowImplicitFlow": false,
+  "oauth2AllowUrlPathMatching": false,
+  "oauth2Permissions": [
+    {
+      "adminConsentDescription": "Allow the application to access https://tplevkosupport.cloudapp.net/techSupport/ on behalf of the signed-in user.",
+      "adminConsentDisplayName": "Access https://tplevkosupport.cloudapp.net/techSupport/",
+      "id": "cd01af8f-f503-49b6-9610-4b49daecd038",
+      "isEnabled": true,
+      "type": "User",
+      "userConsentDescription": "Allow the application to access https://tplevkosupport.cloudapp.net/techSupport/ on your behalf.",
+      "userConsentDisplayName": "Access https://tplevkosupport.cloudapp.net/techSupport/",
+      "value": "user_impersonation"
+    }
+  ],
+  "oauth2RequirePostResponse": false,
+  "passwordCredentials": [],
+  "publicClient": null,
+  "replyUrls": [
+    "https://tplevkosupport.cloudapp.net/techSupport/"
+  ],
+  "requiredResourceAccess": [
+    {
+      "resourceAppId": "00000002-0000-0000-c000-000000000000",
+      "resourceAccess": [
+        {
+          "id": "311a71cc-e848-46a1-bdf8-97ff7156d8e6",
+          "type": "Scope"
+        }
+      ]
+    }
+  ],
+  "samlMetadataUrl": null,
+  "extensionProperties": [],
+  "objectType": "Application",
+  "objectId": "b7ade1dd-f3db-4116-9c31-d9fc68cc205c",
+  "deletionTimestamp": null,
+  "createdOnBehalfOf": null,
+  "createdObjects": [],
+  "manager": null,
+  "directReports": [],
+  "members": [],
+  "memberOf": [],
+  "owners": [],
+  "ownedObjects": []
+}
