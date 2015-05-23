@@ -9,8 +9,8 @@ S menšími úpravami konfiguračných súborov pre picketlink, je možné nasad
 _techSupport/techSupport-web/src/webapp/WEB-INF/picketlink.xml_
 
 Platformy, na ktoré je možné nasadiť aplikáciu :
-- item Windows Azure
-- item OpenShift
+-  Windows Azure
+-  OpenShift
 
 Postupy nasadenia na jednotlivé platformy :
 
@@ -50,20 +50,20 @@ Na našom stroji s vytvorí zložka ${app-name}, ktorá obsahuje git repozitár 
 Pre komunikáciu s OpenShift budeme tiež potrebovať nástroj rhc, ktorý si musíme nainštalovať na vývojovom stroji.
 Následne prekopírujeme do zložky "${app-name}/.openshift/action_hooks/" dva skripty
 ktoré sa nachádzajú v git repozitári našej aplikácie.
-Ide o štartovací a vypínací skript :
-start
-stop
+*Ide o štartovací a vypínací skript :
+*start
+*stop
 
 Nakonfigurujeme pgcrypto extension na postgresql:
-psql ${dbname}
-create extension pgcrypto;
+* psql ${dbname}
+* create extension pgcrypto;
 
 
 ďalej prekopírujeme obsah git repozitára. Spravíme :
 
-git add -A
-git commit -m "${commit-message}"
-git push origin master
+* git add -A
+* git commit -m "${commit-message}"
+* git push origin master
 
 V príkazovom riadku môžeme pozorovať výstup zostavenia pomocou maven na strane
  OpenShiftu.
@@ -77,17 +77,24 @@ https://${meno_gearu}-${meno_účtu}.rhcloud.com
 
 Pre využitie Windows Azure ako PaaS platformy, s využitím Worker Roles, sme použili vývojové prostredie Eclipse, s nainštalovanými zásuvnými modulmi, pre prácu s Windows Azure.
 
-Pre nasadenie na Windows, sme použili vetvu master, s predkonfigurovanou databázou, ktorá bude nasadená iba v pamäti. Nejde teda o produkčnú databázu a v prípade záujmu o produkčné nasadenie, by mala byť aplikácia dodatočne upravená.
+Pre nasadenie na Windows, použijeme vetvu winazure.
 
-Microsoft rovnako v základnej inštalácii aplikácie, neposkytuje šifrovanie pomocou SSL, existuje však rovnako možnosť, ďalšej konfigurácie aplikácie, aby SSL používala.
+Vytvoríme v Azure portáli databázu, ktorú budeme v aplikácii používať. Údaje, pre komunikáciu s databázou budú musieť byť umiestnené do konfiguračného súboru techSupport-impl/src/main/resources/applicationContext.xml
+
+Samotnému nasadeniu na windows azure predchádza konfigurácia WAAD, na ktorom musíme vytvoriť novú aplikáciu s menom, ktoré bude naša aplikácia využívať. http://${meno_aplikácie}.cloudapp.net/techSupport/
+
+Budeme musieť upraviť manifest súbor pre aplikáciu, vzor tohoto manifestu sa nachádza spolu s aplikáciou vo vetve winazure.
+
+Následne upravíme v rámci aplikácie umiestnený súbor picketlink.xml, ktorému priradíme ako IDP endpoint nášho WAAD. Ako URL SP priradíme http://${meno_aplikácie}.cloudapp.net/techSupport/. Zostavíme lokálne aplikáciu, pomocou Apache Maven : maven clean install
+
+Vytvoríme rovnako niekoľko ukážkových užívateľov, roly im budú priradené na základe manifestu, ktorý sme upravili v predchádzajúcich krokoch. Tieto roly budú používané picketlinkom, na určenie oprávnení v aplikácii.
+
+Tomcat vo verzii 7.50 na ktorý budeme nasadzovať našu aplikáciu musí byť rovnako upravený. Musia mu byť pridané .jar súboru do lib súboru. Jar súbory sa rovnako nachádzajú v našom repozitári. Na otestovanie funkčnosti lokálne, môžeme využiť Windows Azure emulátor, na nasadenie na platformu Windows Azure, zvolíme možnosť publikácie na servery Windows Azure.
+
+V eclipse s nainštalovaným azure SDK vytvoríme nový Azure Deployment Projekt. Tomu priradíme buď javu, ktorú máme v našom vývojomvom prostredí, naša aplikácia je však otestovaná a funkčná s poskytovanou Zulu Open JDK 8. Zvolíme ďalej ako behové prostredie náš upravený tomcat a pridáme ďalej zostavený .war súbor našej aplikácie, ktorý premenujeme na techSupport.war (prípadne zvolíme nami preferované meno).
+
+Ďalej musíme nastaviť SSL offloading, pre zabezpečenie aplikácie pomocou SSL. Môžeme pre testovacie účely využiť self signed certifikáty, ktoré si vygenerujeme priamo v dialógu pre konfiguráciu SSL offloadingu.
 
 Po nasadení, bude aplikácia dostupná na :
 
-http://${meno_aplikácie}.cloudapp.net/techSupport-web/
-
-1. item zmeníme vetvu na master
-2. item projekt otvoríme pomocou prostredia eclipse s nainštalovanými zásuvnými modulmi
-2. item nastavíme konfiguračné súbory
-3. item zostavíme lokálne aplikáciu, pomocou Apache Maven : maven clean install
-4. item vytvoríme "Azure Deployment Projekt", vo vývojovom prostredí, nastavíme mu použitie nášho projektu, meno projektu, použitie Javy v prostredí na Windows Azure, Tomcat Server, ako server na nasadenie aplikácie.
-5. item Na otestovanie funkčnosti lokálne, môžeme využiť Windows Azure emulátor, na nasadenie na platformu Windows Azure, zvolíme možnosť publikácie na servery Windows Azure.
+http://${meno_aplikácie}.cloudapp.net/techSupport/
