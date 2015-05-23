@@ -53,21 +53,8 @@
         <property name="persistenceUnitName" value="TestPU"/>
         <property name="dataSource" ref="dataSource"/>
     </bean>-->
-    
-    <!-- postgres datasource -->
-<!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="org.postgresql.Driver"/>
-        <property name="url" value="jdbc:postgresql://localhost:5432/test"/>
-        <property name="username" value="postgres"/>
-        <property name="password" value="postgres"/>
-    </bean>
 
-    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="postgres"/>
-        <property name="dataSource" ref="dataSource"/>
-    </bean>
-    -->
-    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+    <!--    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.microsoft.sqlserver.jdbc.SQLServerDriver"/>
         <property name="url" value="jdbc:sqlserver://qdlwk7re43.database.windows.net:1433;database=techsupport"/>
         <property name="username" value="techsupport@qdlwk7re43"/>
@@ -77,18 +64,18 @@
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="mssql"/>
         <property name="dataSource" ref="dataSource"/>
-    </bean>
+    </bean>-->
 
     <!--embedded derby datasource--> 
-<!--    <bean id="dataSource" class="org.apache.derby.jdbc.EmbeddedDataSource">
+    <bean id="dataSource" class="org.apache.derby.jdbc.EmbeddedDataSource">
         <property name="databaseName" value="ProductsDB"/>
         <property name="createDatabase" value="create" />
     </bean>
     
-        <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+    <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="TestInMemoryPU"/>
         <property name="dataSource" ref="dataSource"/>
-    </bean>-->
+    </bean>
     
     <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="entityManagerFactory"/>

@@ -40,17 +40,6 @@ xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/
         </listener-class>
     </listener>
     
-    <!-- configuration of recaptcha -->
-    <context-param>
-        <param-name>primefaces.PUBLIC_CAPTCHA_KEY</param-name>
-        <param-value>6Lf7SvESAAAAAIeYamuaysXIrRXk0vpwKYOSfAXm</param-value>
-    </context-param>
-    <context-param>
-        <param-name>primefaces.PRIVATE_CAPTCHA_KEY</param-name>
-        <param-value>6Lf7SvESAAAAAH_fnypV8ZJVLSzzbV1zOPupv5Dx</param-value>
-    </context-param>
-    <!-- ########################## -->
-    
     <!-- spring configuration xml-s  -->
     <context-param>
         <param-name>contextConfigLocation</param-name>

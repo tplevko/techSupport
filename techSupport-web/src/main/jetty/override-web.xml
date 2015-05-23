@@ -6,7 +6,7 @@ to be compatible with run-jetty-run <listener> <listener-class>org.jboss.weld.en
 </listener-class> </listener> <listener> <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
     </listener> -->
 
-
+<!--
     <listener>
         <listener-class>org.jboss.weld.environment.servlet.BeanManagerResourceBindingListener</listener-class>
     </listener>
@@ -15,6 +15,6 @@ to be compatible with run-jetty-run <listener> <listener-class>org.jboss.weld.en
     </listener>
     <listener>
         <listener-class>com.sun.faces.config.ConfigureListener</listener-class>
-    </listener>
+    </listener>-->
 
 </web-app>

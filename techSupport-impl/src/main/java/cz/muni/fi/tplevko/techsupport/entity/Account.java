@@ -51,31 +51,21 @@ public class Account implements Serializable {
     protected Long id;
 
     @Column(length = 256, nullable = false, name = "firstName")
-    @ColumnTransformer(
-            read = "convert(varchar(60), DecryptByPassPhrase('firstName',firstName))",
-            write = "EncryptByPassPhrase('firstName',?)")
+//    @ColumnTransformer(
+//            read = "convert(varchar(60), DecryptByPassPhrase('firstName',firstName))",
+//            write = "EncryptByPassPhrase('firstName',?)")
     private String firstName;
 
     @Column(length = 256, nullable = false, name = "lastName")
-    @ColumnTransformer(
-            //            read = "DecryptByPassPhrase('lastName', lastName)",
-            read = "convert(varchar(60), DecryptByPassPhrase('lastName',lastName))",
-            write = "EncryptByPassPhrase('lastName',?)")
-    private String lastName;
-//
-//    @Column(length = 256, nullable = false, name = "lastName")
 //    @ColumnTransformer(
-//            read = "pgp_sym_decrypt(lastName::bytea, 'lastName', 'compress-algo=1, cipher-algo=aes256')",
-//            write = "pgp_sym_encrypt(?, 'lastName', 'compress-algo=1, cipher-algo=aes256')")
-//    private String lastName;
+//            //            read = "DecryptByPassPhrase('lastName', lastName)",
+//            read = "convert(varchar(60), DecryptByPassPhrase('lastName',lastName))",
+//            write = "EncryptByPassPhrase('lastName',?)")
+    private String lastName;
 
     @Column(nullable = false, unique = true)
     private String email;
 
-//    @Column(length = 256, nullable = false)
-//    protected String password;
-//    @Column(length = 64, nullable = false)
-//    protected String salt;
     protected boolean active;
 
     @Column(name = "createdAt", nullable = false)
@@ -87,8 +77,6 @@ public class Account implements Serializable {
     @OneToMany(mappedBy = "owner")
     private List<Request> requestsOwned;
 
-//    @OneToMany(mappedBy = "assignee")
-//    private List<Request> requestsAssigned;
     @PrePersist
     void createdAt() {
         this.createdAt = new Date();

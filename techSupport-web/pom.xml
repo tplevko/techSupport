@@ -18,7 +18,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <org.richfaces.bom.version>4.3.7.Final</org.richfaces.bom.version>
         <picketlink.version>2.7.0.Final</picketlink.version>        
-        <jetty.version>9.1.5.v20140505</jetty.version>
         <eclipselink.version>2.5.2-M1</eclipselink.version>
         <weld.version>2.2.2.Final</weld.version>
         <picketlink.version>2.7.0.Final</picketlink.version>
@@ -182,83 +181,6 @@
                     </execution>
                 </executions>
             </plugin>
-            
-            <plugin>
-                <groupId>org.eclipse.jetty</groupId>
-                <artifactId>jetty-maven-plugin</artifactId>
-                <version>9.1.5.v20140505</version> 
-                <configuration>
-                    <jvmArgs>-Xmx -Xms -XX:PermSize=512m -XX:MaxPermSize=1024m -XX:+HeapDumpOnOutOfMemoryError</jvmArgs>
-                    <webAppConfig>
-                        <contextPath>/techSupport</contextPath>
-                        <!-- <overrideDescriptor>src/main/jetty/override-web.xml</overrideDescriptor>-->
-                    </webAppConfig>
-                    <scanIntervalSeconds>0</scanIntervalSeconds>
-                </configuration>
-                <dependencies>
-                    <dependency>
-                        <groupId>org.jboss.weld.servlet</groupId>
-                        <artifactId>weld-servlet</artifactId>
-                        <version>2.1.2.Final</version>
-                    </dependency>
-                    
-                    <dependency>
-                        <groupId>org.eclipse.persistence</groupId>
-                        <artifactId>eclipselink</artifactId>
-                        <version>2.5.2-M1</version>
-                    </dependency>
-
-                    <dependency>
-                        <groupId>com.sun.faces</groupId>
-                        <artifactId>jsf-api</artifactId>
-                        <version>2.1.19</version>
-                    </dependency>
-
-                    <dependency>
-                        <groupId>org.picketlink</groupId>
-                        <artifactId>picketlink-impl</artifactId>
-                        <version>${picketlink.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.picketlink</groupId>
-                        <artifactId>picketlink-idm-impl</artifactId>
-                        <version>${picketlink.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.picketlink</groupId>
-                        <artifactId>picketlink-idm-simple-schema</artifactId>
-                        <version>${picketlink.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.picketlink</groupId>
-                        <artifactId>picketlink-config</artifactId>
-                        <version>${picketlink.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.picketlink</groupId>
-                        <artifactId>picketlink-federation</artifactId>
-                        <version>${picketlink.version}</version>
-                    </dependency>
-                    <dependency>
-                        <groupId>org.picketlink</groupId>
-                        <artifactId>picketlink-jetty-common</artifactId>
-                        <version>${picketlink.version}</version>
-                    </dependency>
-                </dependencies>
-            </plugin>
-            <!--            
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>keytool-maven-plugin</artifactId>
-                <configuration>
-                    <keystore>src/main/jetty/waadsaml.keystore</keystore>
-                    <dname>cn=localhost</dname>   put your CN here 
-                    <keypass>waadsaml</keypass>
-                    <storepass>waadsaml</storepass>
-                    <alias>waadsaml</alias>
-                    <keyalg>RSA</keyalg>
-                </configuration>
-            </plugin>-->
             
         </plugins>
     </build>
