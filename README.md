@@ -83,17 +83,19 @@ Vytvoríme v Azure portáli databázu, ktorú budeme v aplikácii používať. �
 
 Samotnému nasadeniu na windows azure predchádza konfigurácia WAAD, na ktorom musíme vytvoriť novú aplikáciu s menom, ktoré bude naša aplikácia využívať. http://${meno_aplikácie}.cloudapp.net/techSupport/
 
-Budeme musieť upraviť manifest súbor pre aplikáciu, vzor tohoto manifestu sa nachádza spolu s aplikáciou vo vetve winazure.
+Budeme musieť upraviť manifest súbor pre aplikáciu, vzor tohoto manifestu sa nachádza spolu s aplikáciou vo vetve winazure, v zložke /folder
 
 Následne upravíme v rámci aplikácie umiestnený súbor picketlink.xml, ktorému priradíme ako IDP endpoint nášho WAAD. Ako URL SP priradíme http://${meno_aplikácie}.cloudapp.net/techSupport/. Zostavíme lokálne aplikáciu, pomocou Apache Maven : maven clean install
 
 Vytvoríme rovnako niekoľko ukážkových užívateľov, roly im budú priradené na základe manifestu, ktorý sme upravili v predchádzajúcich krokoch. Tieto roly budú používané picketlinkom, na určenie oprávnení v aplikácii.
 
-Tomcat vo verzii 7.50 na ktorý budeme nasadzovať našu aplikáciu musí byť rovnako upravený. Musia mu byť pridané .jar súboru do lib súboru. Jar súbory sa rovnako nachádzajú v našom repozitári. Na otestovanie funkčnosti lokálne, môžeme využiť Windows Azure emulátor, na nasadenie na platformu Windows Azure, zvolíme možnosť publikácie na servery Windows Azure.
+Tomcat vo verzii 7.50 na ktorý budeme nasadzovať našu aplikáciu musí byť rovnako upravený. Musia mu byť pridané .jar súboru do lib zložky. Jar súbory sa rovnako nachádzajú v našom repozitári. Na otestovanie funkčnosti lokálne, môžeme využiť Windows Azure emulátor, na nasadenie na platformu Windows Azure, zvolíme možnosť publikácie na servery Windows Azure.
 
 V eclipse s nainštalovaným azure SDK vytvoríme nový Azure Deployment Projekt. Tomu priradíme buď javu, ktorú máme v našom vývojomvom prostredí, naša aplikácia je však otestovaná a funkčná s poskytovanou Zulu Open JDK 8. Zvolíme ďalej ako behové prostredie náš upravený tomcat a pridáme ďalej zostavený .war súbor našej aplikácie, ktorý premenujeme na techSupport.war (prípadne zvolíme nami preferované meno).
 
 Ďalej musíme nastaviť SSL offloading, pre zabezpečenie aplikácie pomocou SSL. Môžeme pre testovacie účely využiť self signed certifikáty, ktoré si vygenerujeme priamo v dialógu pre konfiguráciu SSL offloadingu.
+
+Azure deployment projektu vytvoríme worker role inštanciu na Windows Azure. Ďalej mu priradíme diskový priestor a môžeme náš projekt nasadiť na cloud windows Azure.
 
 Po nasadení, bude aplikácia dostupná na :
 
